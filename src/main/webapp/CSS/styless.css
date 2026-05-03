@@ -1,0 +1,326 @@
+
+html {
+    scroll-behavior: smooth;
+}
+body{
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color:rgb(245, 236, 226);
+    color: #000000;
+}
+body,div,header,nav,ul,h1,h2,p,img{
+    box-sizing: border-box;
+}
+
+/*Header Section*/
+.header{
+    min-height: 100vh;
+    box-sizing: border-box;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    display: flex;
+}
+
+h1{
+    margin: 0;
+    font-size: 3.6rem;
+    text-wrap: balance;
+}
+.header__overlay{
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(124, 124, 124, 0.541);
+    position: absolute;
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
+    max-width: 700px;
+}
+
+.header__item--container p{
+    text-wrap: pretty;
+}
+.header__img{
+    border-radius: 50%;
+    min-width: 200px;
+    max-width: 40%;
+    border: 6px solid #fff;
+    margin: 20px;
+
+}
+
+/*Navbar Section*/
+
+.nav{
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 6px 20px;
+    position: sticky;
+    top:0;
+    box-shadow: 0 0 25px #0006;
+
+}
+.nav__ul{
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+
+.nav__ul--container{
+    flex-grow: 4;
+}
+.nav__logo--container,.nav__ul--container{
+    flex-grow: 1;
+    text-align: center;
+}
+.nav__item{
+    list-style: none;
+}
+.nav__link{
+    color:  rgb(11, 122, 11);
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 10px;
+    border-radius: 0;
+    transition: background-color .24s, border-radius .2s,outline .2s, outline-offset .2s;
+    outline: 0;
+    outline-offset: 0 ;
+
+}
+
+.Link--login{
+    background-color: rgb(8, 155, 8);
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 24px;
+    margin-left: 900px;
+}
+.nav__link:hover{
+    background-color: rgba(43, 255, 0, 0.2);
+    border-radius: 20px;
+    outline: 2px solid rgba(0, 255, 0, 0.719);
+    outline-offset: -7px;
+}
+
+.Link--login:hover{
+
+    background-color: rgb(69, 204, 6);
+    outline: none;
+}
+.nav__logo{
+    width: 80px;
+}
+
+/*Main section */
+
+main{
+    padding: 20px;
+    margin: auto;
+    font-size: 18px;
+    text-align:center;
+    box-shadow: 0 0  15px  10px #0006;
+    background-color: rgb(244, 252, 246);
+}
+
+/*footer--section*/
+footer{
+    bottom: 0;
+    width: 100%;
+    background-color: #222;
+    box-sizing: border-box;
+    display: flex;
+    box-shadow: 0 0  15px 5px #0006;
+
+
+}
+
+.div__footer--container{
+
+    margin: auto;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    text-wrap: pretty;
+    font-size: 16px;
+}
+.div__footer--container p{
+    font-size: 20px;
+}
+
+/* =======================
+   MAIN - SECCIONES
+======================= */
+
+.main__section {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.main__content {
+    max-width: 700px;
+}
+
+/* TITULOS */
+.main__content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: rgb(11, 122, 11);
+}
+
+/* TEXTO */
+.main__content p {
+    font-size: 1.05rem;
+    color: #333;
+}
+
+
+.main__section--inicio {
+    background-color: rgb(244, 252, 246);
+}
+
+.main__section--quienes-somos {
+    background-color: #ffffff;
+}
+
+.main__section--proyectos {
+    background-color: rgb(230, 245, 235);
+}
+
+.main__section--contacto {
+    background-color: rgb(244, 252, 246);
+}
+
+#quienes-somos{
+    scroll-margin-top: 80px;
+}
+#inicio{
+    scroll-margin-top: 80px;
+}
+.contenedor_presentacion {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch; /* clave para que tengan misma altura */
+    flex-wrap: nowrap;
+
+
+}
+
+/* RECTÁNGULO IMAGEN */
+.img_presentacion {
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+
+    width: 50%;
+    height: 400px; /* altura vertical */
+    border-radius: 10px;
+}
+
+/* RECTÁNGULO TEXTO */
+.text_presentacion {
+    width: 50%;
+    height: 400px; /* misma altura */
+
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center; /* centra el texto verticalmente */
+    justify-content: center;
+    text-align: center;
+
+    box-shadow: 0 0 10px #0002;
+
+}
+/* =======================
+   FORMULARIO
+======================= */
+.main__section--contacto{
+
+    background-color:#ccc
+}
+.contact-form {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.contact-form label {
+    text-align: left;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+/* EFECTO AL HACER CLICK */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border: 2px solid rgb(8, 155, 8);
+}
+
+/* BOTÓN (acorde a tu navbar) */
+.contact-form button {
+    padding: 12px;
+    border: none;
+    background-color: rgb(8, 155, 8);
+    color: white;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: rgb(69, 204, 6);
+}
+
+#contacto {
+    scroll-margin-top: 80px;
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width: 768px) {
+
+    .main__content h2 {
+        font-size: 1.8rem;
+    }
+
+    .main__content p {
+        font-size: 1rem;
+    }
+
+    /* IMPORTANTE: arregla tu login en mobile */
+    .Link--login {
+        margin-left: 0;
+    }
+}
