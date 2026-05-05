@@ -1,0 +1,8 @@
+package model;
+
+public enum TipoReporte {
+    DESARROLLO_PRODUCTIVO,
+    NIVEL_ACTIVIDAD_INDUSTRIAL,
+    PROYECTOS_EN_EJECUCION,
+    GENERAL
+}

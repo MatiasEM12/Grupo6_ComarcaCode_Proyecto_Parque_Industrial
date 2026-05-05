@@ -49,4 +49,8 @@ public class Usuario {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return gmail.matches(regex);
     }
+
+    public String getUserName() {
+        return userName;
+    }
 }

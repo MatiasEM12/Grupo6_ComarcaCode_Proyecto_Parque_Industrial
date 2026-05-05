@@ -1,15 +1,15 @@
 package model;
 
-public class ReprecentanteEmpresa {
+public class RepresentanteEmpresa {
     //no seria mejor DNI fuera de tipo int?
     private String dni;
-    /*yo pondria una variable de tipo Empresa enves de nombre de empresa, y que de hai recupere el nombre
+    /*yo pondria una variable de tipo Empresa en vez de nombre de empresa, y que de hai recupere el nombre
     Private Empresa empresa;
      */
-    private String nombreEmpresa;
-    private Usuario usuario;
+    private final String nombreEmpresa;
+    private final Usuario usuario;
 
-    public ReprecentanteEmpresa(String dni, String nombreEmpresa, Usuario usuario){
+    public RepresentanteEmpresa(String dni, String nombreEmpresa, Usuario usuario){
         validarDni(dni);
         validarNombreEmpresa(nombreEmpresa);
         validarUsuario(usuario);
