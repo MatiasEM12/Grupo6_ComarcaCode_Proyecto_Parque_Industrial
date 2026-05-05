@@ -5,6 +5,7 @@ public class Empresa extends Usuario{
     private String cuit;
     private String contacto;
     private String contactoRepresentante;
+    private Lote lote;
     private Boolean radicada;
 
     public Empresa(String username, String contraseña, String gmail,
@@ -15,7 +16,9 @@ public class Empresa extends Usuario{
         this.contacto = contacto;
         this.contactoRepresentante = contactoRepresentante;
     }
-
+    public void asignarLote(Lote lote){
+        this.lote=lote;
+    }
     public void guardarEmpresa(EmpresaCargar empresa){
         empresa.guardar(this);
     }

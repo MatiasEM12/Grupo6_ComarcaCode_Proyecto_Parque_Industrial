@@ -36,4 +36,6 @@ public class Documento {
     public boolean esValido() {
         return tipo != null && tamanio > 0 && url != null && !url.isBlank();
     }
+
+
 }

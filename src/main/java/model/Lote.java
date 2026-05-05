@@ -14,7 +14,7 @@ public class Lote {
         this.infraestructura = infraestructura;
     }
 
-    public void asignarEmpresa(Empresa empresa){
+    public Lote asignarEmpresa(Empresa empresa){
         empresa.asignarLote(this);
     }
 }

@@ -41,7 +41,17 @@ public class Reporte {
             throw new RuntimeException("El tipo de reporte es obligatorio");
         }
     }
+    public boolean tieneDocumentacionValida() {
+        return !documentos.isEmpty()
+                && documentos.stream().allMatch(Documento::esValido);
+    }
+    public void adjuntarDocumento(Documento documento) {
+        if (documento == null) {
+            throw new RuntimeException("El documento no puede ser nulo");
+        }
 
+        documentos.add(documento);
+    }
     public String generarReporte() {
         return """
                 REPORTE DEL PARQUE INDUSTRIAL
