@@ -48,4 +48,16 @@ public class AdministradorDelParque extends Usuario{
 
         observaciones.add(observacion);
     }
+
+    public String dni(){
+        return dni;
+    }
+
+    public String nombre(){
+        return nombre;
+    }
+
+    public String usuario(){
+        return getUserName();
+    }
 }

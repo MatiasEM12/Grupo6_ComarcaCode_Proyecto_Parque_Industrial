@@ -18,6 +18,18 @@ public class RepresentanteEmpresa {
         this.usuario = usuario;
     }
 
+    public String dni(){
+        return dni;
+    }
+
+    public String nombreEmpresa(){
+        return nombreEmpresa;
+    }
+
+    public Usuario usuario(){
+        return usuario;
+    }
+
     public void validarDni(String dni) {
         if (dni == null || dni.trim().isEmpty()) {
             throw new IllegalArgumentException("El DNI no puede ser nulo o vacío");
