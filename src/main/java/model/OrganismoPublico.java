@@ -69,6 +69,6 @@ public class OrganismoPublico extends Usuario{
     }
 
     public EvaluacionTecnica registrarEvaluacion() {
-
+        return null;
     }
 }

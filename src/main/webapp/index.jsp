@@ -28,7 +28,7 @@
                 <li class="nav__item"><a href="#inicio" class="nav__link">Inicio</a></li>
                 <li class="nav__item"><a href="#quienes-somos" class="nav__link">Quienes Somos</a></li>
                 <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
-                <li class="nav__item"><a href="" class="nav__link Link--login">Log In</a></li>
+                <li class="nav__item"><a href="mainRepresentante.jsp" class="nav__link Link--login">Log In</a></li>
             </ul>
         </div>
         <div class="nav__logo--container">
