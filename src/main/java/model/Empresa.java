@@ -33,6 +33,28 @@ public class Empresa extends Usuario{
         return radicada=esRadicada;
     }
 
+    public String cuit(){
+        return cuit;
+    }
 
+    public String contacto(){
+        return contacto;
+    }
+
+    public String razonSocial(){
+        return razonSocial;
+    }
+
+    public String contactoRepresentante(){
+        return contactoRepresentante;
+    }
+
+    public Lote lote(){
+        return lote;
+    }
+
+    public Boolean esRadicada(){
+        return radicada;
+    }
 
 }

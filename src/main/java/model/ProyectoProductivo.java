@@ -8,15 +8,17 @@ public class ProyectoProductivo {
     private int empleabilidad;
     private String materiaPrima;
     private boolean enEjecucion;
+    private Empresa empresa;
     public ProyectoProductivo(String nombre, String descripcion,
                               double superficie, String necesidades,
-                              int empleabilidad, String materiaPrima) {
+                              int empleabilidad, String materiaPrima, Empresa empresa) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.superficie = superficie;
         this.necesidades = necesidades;
         this.empleabilidad = empleabilidad;
         this.materiaPrima = materiaPrima;
+        this.empresa = empresa;
     }
     public void actualizarEstado(){
 
@@ -26,5 +28,36 @@ public class ProyectoProductivo {
             return false;
         }
         return true;
+    }
+
+    public String nombre(){
+        return nombre;
+    }
+
+    public String descripcion(){
+        return descripcion;
+    }
+
+    public double superficie(){
+        return superficie;
+    }
+
+    public String necesidades(){
+        return necesidades;
+    }
+
+    public int empleabilidad(){
+        return empleabilidad;
+    }
+
+    public String materiaPrima(){
+        return materiaPrima;
+    }
+
+    public boolean enEjecucion(){
+        return enEjecucion;
+    }
+    public Empresa empresa(){
+        return empresa;
     }
 }
