@@ -68,7 +68,7 @@ public class Reporte {
                 tipo,
                 descripcion,
                 fecha,
-                usuario.getUserName(),
+                usuario.UserName(),
                 documentos.size()
         );
     }

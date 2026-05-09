@@ -1,0 +1,172 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(245, 236, 226);
+}
+
+body,div,header,nav,ul,h1,h2,p,img,section,form{
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.header{
+    min-height: 300px;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    position: relative;
+}
+
+.header__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(124,124,124,0.5);
+    backdrop-filter: blur(3px);
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
+    max-width: 700px;
+}
+
+h1{
+    margin: 0;
+    font-size: 3.4rem;
+}
+
+/* NAVBAR */
+
+.nav{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 20px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 25px #0006;
+}
+
+.nav__ul{
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+.nav__link{
+    color: rgb(11,122,11);
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: .2s;
+}
+
+.nav__link:hover{
+    background-color: rgba(43,255,0,0.2);
+    border-radius: 20px;
+}
+
+.nav__logo{
+    width: 80px;
+}
+
+/* MAIN */
+
+main{
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(244, 252, 246);
+}
+
+.perfil__container{
+
+    width: 450px;
+
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 0 20px #0003;
+
+    text-align: center;
+}
+
+.perfil__container h2{
+    color: rgb(11,122,11);
+    margin-bottom: 30px;
+}
+
+.perfil__form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.perfil__form label{
+    text-align: left;
+    font-weight: bold;
+}
+
+.perfil__form select{
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ccc;
+
+    font-size: 1rem;
+}
+
+.perfil__form button{
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 20px;
+
+    background-color: rgb(8,155,8);
+
+    color: white;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.perfil__form button:hover{
+    background-color: rgb(69,204,6);
+}
+
+/* FOOTER */
+
+footer{
+    background-color: #222;
+    display: flex;
+    color: white;
+}
+
+.div__footer--container{
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}

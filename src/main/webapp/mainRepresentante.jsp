@@ -1,13 +1,45 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="model.Usuario" %>
+
+
+<%
+    Usuario usuario =(Usuario) session.getAttribute("usuarioLogueado");
+
+    // SI NO HAY SESIÓN
+    if(usuario == null){
+
+        response.sendRedirect(request.getContextPath()+ "/perfiles"
+        );
+
+        return;
+    }
+
+    // SI NO ES REPRESENTANTE
+    if(!usuario.rol().equals("representante")){
+
+        response.sendRedirect( request.getContextPath()+ "/perfiles"
+        );
+
+        return;
+    }
+%>
+
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>ParqueIndustrialViedma</title>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
 </head>
 
 <body>
