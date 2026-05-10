@@ -23,7 +23,7 @@ public class RolDAOJDBC implements RolDAO {
                             + "VALUES (?, ?)");
 
             statement.setInt(1, rol.codigo());
-            statement.setString(2, rol.nombreRol());
+            statement.setString(2, rol.nombre());
             int cantidad = statement.executeUpdate();
             if (cantidad > 0) {
                 // System.out.println("Modificando " + cantidad + " registros");
@@ -46,7 +46,7 @@ public class RolDAOJDBC implements RolDAO {
             Connection conn = ConnectionManager.getConnection();
             PreparedStatement statement = conn
                     .prepareStatement("UPDATE roles SET nombre = ? WHERE codigo = ?");
-            statement.setString(1, rol.nombreRol());
+            statement.setString(1, rol.nombre());
             statement.setInt(2, rol.codigo());
             int cantidad = statement.executeUpdate();
             if (cantidad > 0) {
