@@ -15,6 +15,7 @@ public class SolicitudRadicacion {
     private final Usuario representante;
 
     private final String objeto;
+    private final String nombreProyecto;
     private final String descripcionServicio;
     private final String emplazamiento;
     private final String personal;
@@ -43,6 +44,7 @@ public class SolicitudRadicacion {
     public SolicitudRadicacion(
             Usuario representante,
             String objeto,
+            String nombreProyecto,
             String descripcionServicio,
             String emplazamiento,
             String personal,
@@ -83,6 +85,7 @@ public class SolicitudRadicacion {
 
         this.representante = representante;
         this.objeto = objeto;
+        this.nombreProyecto=nombreProyecto;
         this.descripcionServicio = descripcionServicio;
         this.emplazamiento = emplazamiento;
         this.personal = personal;
@@ -139,6 +142,9 @@ public class SolicitudRadicacion {
         return id;
     }
 
+    public String nombreProyecto(){
+        return nombreProyecto;
+    }
     public String numeroTramite() {
         return numeroTramite;
     }
