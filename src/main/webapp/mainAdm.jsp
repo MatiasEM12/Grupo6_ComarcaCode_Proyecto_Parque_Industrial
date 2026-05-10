@@ -1,23 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
 
-
 <%
-    Usuario usuario =(Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario =
+            (Usuario) session.getAttribute(
+                    "usuarioLogueado"
+            );
 
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(request.getContextPath()+ "/perfiles"
+        response.sendRedirect(
+                request.getContextPath()
+                + "/perfiles"
         );
 
         return;
     }
 
-    // SI NO ES REPRESENTANTE
-    if(!usuario.rol().equals("representante")){
+    // SI NO ES ADMINISTRADOR
+    if(!usuario.rol().equals("administrador")){
 
-        response.sendRedirect( request.getContextPath()+ "/perfiles"
+        response.sendRedirect(
+                request.getContextPath()
+                + "/perfiles"
         );
 
         return;
@@ -35,7 +41,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>ParqueIndustrialViedma</title>
+    <title>Main Administrador</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
@@ -56,10 +62,7 @@
         </h1>
 
         <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Ex doloremque, fuga sit porro alias praesentium iste tenetur
-            nesciunt facilis suscipit tempora fugit distinctio exercitationem
-            perferendis at vitae provident molestias modi.
+            Panel de administración del sistema.
         </p>
 
     </div>
@@ -73,21 +76,36 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/perfil" class="nav__link">
-                    Perfil
+
+                <a href="#"
+                   class="nav__link">
+
+                    Usuarios
+
                 </a>
+
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp" class="nav__link">
-                    Mis Proyectos
+
+                <a href="#"
+                   class="nav__link">
+
+                    Solicitudes
+
                 </a>
+
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
-                    Enviar Solicitud
+
+                <a href="#"
+                   class="nav__link">
+
+                    Proyectos
+
                 </a>
+
             </li>
 
         </ul>
@@ -104,7 +122,9 @@
 
         <a href="${pageContext.request.contextPath}/logout"
            class="nav__link Link--Cerrar">
+
             Cerrar Sesión
+
         </a>
 
     </div>
@@ -115,22 +135,30 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/representanteProyectos.jsp"
+        <a href="${pageContext.request.contextPath}/usuarios.jsp"
            class="card">
 
             <div class="card__content">
-                <h2>Mis Proyectos</h2>
+                <h2>Usuarios</h2>
+                <p>Consultar usuarios.</p>
             </div>
 
         </a>
 
         <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
            class="card">
-
             <div class="card__content">
-                <h2>Enviar Solicitud de Radicación</h2>
+                <h2>Solicitudes</h2>
+                <p>Consultar solicitudes de radicacion</p>
             </div>
+        </a>
 
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+           class="card">
+            <div class="card__content">
+                <h2>Proyectos</h2>
+                <p>onsultar información sobre los proyectos productivos del parque.</p>
+            </div>
         </a>
 
     </div>
@@ -143,14 +171,12 @@
 
         <p>Parque Industrial</p>
 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo qui laborum, hic corporis odit porro, adipisci
-        minus harum aut maiores odio. Totam, autem. Obcaecati,
-        molestias ullam voluptas harum vel corporis.
+        Sistema de gestión del Parque Industrial de Viedma.
 
     </div>
 
 </footer>
 
 </body>
+
 </html>

@@ -160,55 +160,106 @@ footer{
 .div__footer--container {
     font-size: 20px;
 }
-.form__container{
+
+
+.main__container{
     max-width: 900px;
     margin: 40px auto;
-    padding: 25px;
-    background: #dbd8d8;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    justify-content: center;
 }
 
-.form__group{
-    margin-bottom: 20px;
-    text-align: left;
+
+.card{
+    background-color: #d9cfe3;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 2px solid #a88bbd;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form__group p{
+/* Contenido interno */
+.card__content h2{
+    color: #000;
+    font-size: 1.3rem;
+}
+
+/* Hover efecto */
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background-color: #cbb6db;
+}
+main {
+    padding: 50px;
+}
+
+.form__container {
+    background-color: white;
+    max-width: 650px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.form__container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1d3557;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form label {
     font-weight: bold;
-    margin-bottom: 8px;
+    color: #1d3557;
 }
 
-.form__group label{
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form__group input,
-.form__group textarea,
-.form__group select{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 5px;
-}
-
-.form__group textarea{
-    min-height: 100px;
-}
-
-.btn{
+.form input,
+.form select,
+.form textarea {
     width: 100%;
     padding: 12px;
-    background: rgb(8, 155, 8);
-    color: white;
-    border: none;
+
+    border: 1px solid #bbb;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
+
+    font-size: 15px;
 }
 
-.btn:hover{
-    background: rgb(6, 130, 6);
+.form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn__form {
+    margin-top: 10px;
+    padding: 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #1d3557;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn__form:hover {
+    background-color: #457b9d;
 }

@@ -1,0 +1,169 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+.header{
+    position: relative;
+    background-image: url("../img/fondoParque.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-align: center;
+}
+
+.header__overlay{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 1;
+    width: 80%;
+}
+
+.header__item--container h1{
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.header__item--container p{
+    font-size: 18px;
+}
+
+/* NAV */
+
+.nav{
+    background-color: #1d3557;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 40px;
+}
+
+.nav__ul{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav__link{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav__link:hover{
+    color: #a8dadc;
+}
+
+.nav__right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav__logo{
+    width: 55px;
+}
+
+.Link--Cerrar{
+    background-color: #e63946;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+/* MAIN */
+
+main{
+    padding: 50px;
+}
+
+.proyectos__container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* CARD */
+
+.proyecto__card{
+    background-color: white;
+    width: 350px;
+    border-radius: 15px;
+    padding: 25px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    transition: 0.3s;
+}
+
+.proyecto__card:hover{
+    transform: translateY(-5px);
+}
+
+.proyecto__card h2{
+    color: #1d3557;
+}
+
+.proyecto__info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* BOTÓN */
+
+.btn__detalle{
+    margin-top: 10px;
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #1d3557;
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.btn__detalle:hover{
+    background-color: #457b9d;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top: 50px;
+    background-color: #1d3557;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}

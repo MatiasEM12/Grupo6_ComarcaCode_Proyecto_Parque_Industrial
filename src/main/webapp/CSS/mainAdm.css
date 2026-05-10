@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #222;
+}
+
+/* HEADER */
+
+.header {
+    position: relative;
+    height: 300px;
+    background-image:
+            linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+            url("../img/parqueIndustrial.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.header__item--container {
+    max-width: 800px;
+    padding: 20px;
+}
+
+.header h1 {
+    font-size: 46px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.header p {
+    font-size: 18px;
+}
+
+/* NAV */
+
+.nav {
+    background-color: #18344a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 35px;
+}
+
+.nav__ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav__link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: background-color .2s;
+}
+
+.nav__link:hover {
+    background-color: #28506f;
+}
+
+.nav__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav__logo {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.Link--Cerrar {
+    background-color: #b02a37;
+}
+
+.Link--Cerrar:hover {
+    background-color: #8f1f2b;
+}
+
+/* MAIN */
+
+main {
+    min-height: 300px;
+    padding: 50px 20px;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #18344a;
+    color: white;
+    text-align: center;
+    padding: 25px 15px;
+}
+
+.div__footer--container p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav__ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav__right {
+        flex-direction: column;
+    }
+}

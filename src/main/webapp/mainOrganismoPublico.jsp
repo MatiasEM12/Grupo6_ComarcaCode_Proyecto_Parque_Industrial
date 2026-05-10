@@ -15,7 +15,7 @@
     }
 
     // SI NO ES REPRESENTANTE
-    if(!usuario.rol().equals("representante")){
+    if(!usuario.rol().equals("organismo_publico")){
 
         response.sendRedirect( request.getContextPath()+ "/perfiles"
         );
@@ -79,14 +79,14 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp" class="nav__link">
-                    Mis Proyectos
+                <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp" class="nav__link">
+                    Evaluaciones Técnicas
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
-                    Enviar Solicitud
+                <a href="${pageContext.request.contextPath}/reporte.jsp" class="nav__link">
+                    Reportes
                 </a>
             </li>
 
@@ -115,22 +115,30 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/representanteProyectos.jsp"
+        <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp"
            class="card">
 
             <div class="card__content">
-                <h2>Mis Proyectos</h2>
+                <h2>Evaluaciones Tecnicas</h2>
+                <p>Generar reporte sobre el proyecto productivo del parque.</p>
             </div>
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
            class="card">
-
             <div class="card__content">
-                <h2>Enviar Solicitud de Radicación</h2>
+                <h2>Proyectos en ejecución</h2>
+                <p>Consultar información sobre los proyectos productivos del parque.</p>
             </div>
+        </a>
 
+        <a href="${pageContext.request.contextPath}/reporte.jsp"
+           class="card">
+            <div class="card__content">
+                <h2>Reportes</h2>
+                <p>Consultar reportes sobre actividad industrial y desarrollo productivo.</p>
+            </div>
         </a>
 
     </div>
