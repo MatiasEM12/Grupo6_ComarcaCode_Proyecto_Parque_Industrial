@@ -16,7 +16,7 @@ public class ReprecentanteEmpresaDAOJDBC implements ReprecentanteEmpresaDAO{
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, representanteEmpresa.dni());
             st.setString(2, representanteEmpresa.nombreEmpresa());
-            st.setString(3, representanteEmpresa.usuario().getUserName());
+            st.setString(3, representanteEmpresa.usuario().UserName());
             int fila = st.executeUpdate();
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");

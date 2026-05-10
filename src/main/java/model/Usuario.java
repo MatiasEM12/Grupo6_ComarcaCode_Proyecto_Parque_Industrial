@@ -50,7 +50,7 @@ public class Usuario {
         return gmail.matches(regex);
     }
 
-    public String getUserName() {
+    public String UserName() {
         return userName;
     }
 

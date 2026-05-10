@@ -16,5 +16,6 @@ public class Lote {
 
     public Lote asignarEmpresa(Empresa empresa){
         empresa.asignarLote(this);
+        return null;
     }
 }

@@ -58,6 +58,6 @@ public class AdministradorDelParque extends Usuario{
     }
 
     public String usuario(){
-        return getUserName();
+        return UserName();
     }
 }

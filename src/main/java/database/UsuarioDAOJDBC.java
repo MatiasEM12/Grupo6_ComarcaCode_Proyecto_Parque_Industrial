@@ -16,7 +16,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
         final String SQL = "INSERT INTO Usuario(userName, contrasena, rol, gmail) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
-            st.setString(1, usuario.getUserName());
+            st.setString(1, usuario.UserName());
             st.setString(2, usuario.contrasena());
             st.setString(3, usuario.rol());
             st.setString(4, usuario.gmail());

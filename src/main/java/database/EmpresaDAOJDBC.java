@@ -23,7 +23,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
             st.setString(5, empresa.contactoRepresentante());
             st.setBoolean(6, empresa.esRadicada());
             //abria que ponerle al usuario dni o que se estienda enves de usuario a reprecentanteEmpresa
-            st.setString(7, empresa.getUserName());
+            st.setString(7, empresa.UserName());
             int fila = st.executeUpdate();
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");
