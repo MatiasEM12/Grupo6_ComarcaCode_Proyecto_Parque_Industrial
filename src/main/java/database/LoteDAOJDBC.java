@@ -16,7 +16,7 @@ public class LoteDAOJDBC implements LoteDAO{
                 "id_proyecto, dni_admin) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
-            Ubicacion ubicacion = lote.ubicacion();
+          /*  Ubicacion ubicacion = lote.ubicacion();
             //en la base de datos dise que id va se incremental entonces tendriamo que sacar id de lote.
             //porque sino no van a coicidir o enves de que sea incremental por la base de datos que lo se por la misma clase
             st.setString(1, "Latitud: " + ubicacion.latitud + ", Longitud: " +
@@ -30,6 +30,8 @@ public class LoteDAOJDBC implements LoteDAO{
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");
             }
+
+           */
         }catch(SQLException e){
             throw new RuntimeException("Error al registrar usuario", e);
         }
