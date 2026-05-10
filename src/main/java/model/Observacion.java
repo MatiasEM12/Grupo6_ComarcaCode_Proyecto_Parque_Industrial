@@ -15,4 +15,10 @@ public class Observacion {
         this.descripcion = descripcion;
         this.fecha = LocalDate.now();
     }
+
+    public void actualizarDocumentacionSolicitud() {
+    }
+
+    public void agregarRespuesta() {
+    }
 }

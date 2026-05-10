@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reporte {
-    private final int id;
+    private int id = 0;
     private final TipoReporte tipo;
     private final String descripcion;
     private final LocalDate fecha;
@@ -13,6 +13,7 @@ public class Reporte {
     private final List<Documento> documentos;
 
     public Reporte(TipoReporte tipo, String descripcion, Usuario generadoPor) {
+        this.id = id;
         validarTipo(tipo);
         validarDescripcion(descripcion);
         validarUsuario(generadoPor);
@@ -67,7 +68,7 @@ public class Reporte {
                 tipo,
                 descripcion,
                 fecha,
-                usuario.getUserName(),
+                usuario.UserName(),
                 documentos.size()
         );
     }

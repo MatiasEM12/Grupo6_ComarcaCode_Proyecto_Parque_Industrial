@@ -16,25 +16,5 @@ public class Lote {
 
     public Lote asignarEmpresa(Empresa empresa){
         empresa.asignarLote(this);
-        return this;
-    }
-
-    public int id(){
-        return id;
-    }
-
-    public Ubicacion ubicacion(){
-        return ubicacion;
-    }
-
-    public double superficie(){
-        return superficie;
-    }
-
-    public String estado(){
-        return estado;
-    }
-    public String infraestructura(){
-        return infraestructura;
     }
 }
