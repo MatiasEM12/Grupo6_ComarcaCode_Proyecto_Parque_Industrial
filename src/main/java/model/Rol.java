@@ -2,9 +2,9 @@ package model;
 
 public class Rol {
     private String nombre;
-    private int codigo;
+    private Integer codigo;
 
-    public Rol(String nombre, int codigo){
+    public Rol(String nombre, Integer codigo){
         validarNombreRol(nombre);
         validarCodigoRol(codigo);
         this.nombre = nombre;
@@ -17,7 +17,7 @@ public class Rol {
         }
     }
 
-    private void validarCodigoRol(int codigo){
+    private void validarCodigoRol(Integer codigo){
         if (codigo<0){
             throw new RuntimeException("Codigo de rol invalido");
         }
@@ -25,5 +25,9 @@ public class Rol {
 
     public String nombreRol(){
         return nombre;
+    }
+
+    public Integer codigo(){
+        return codigo;
     }
 }
