@@ -1,16 +1,18 @@
 package model;
 
-public class EvaluacionTecnica extends Reporte{
-    public EvaluacionTecnica(TipoReporte tipo, String descripcion, Usuario generadoPor) {
-        super(tipo, descripcion, generadoPor);
-    }
-    public void agregarEvaluacion(){
+public class EvaluacionTecnica extends Reporte {
 
-    }
-    public void modificarEvaluacion(){
+    private String resultado;
+    private String observaciones;
 
-    }
-    public void eliminarEvaluacion(){
+    public EvaluacionTecnica(String descripcion,
+                             Usuario generadoPor,
+                             String resultado,
+                             String observaciones) {
 
+        super(TipoReporte.EVALUACION_TECNICA, descripcion, generadoPor);
+
+        this.resultado = resultado;
+        this.observaciones = observaciones;
     }
 }

@@ -21,6 +21,35 @@ public class ProyectoProductivo {
     public void actualizarEstado(){
 
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public double getSuperficie() {
+        return superficie;
+    }
+
+    public String getNecesidades() {
+        return necesidades;
+    }
+
+    public int getEmpleabilidad() {
+        return empleabilidad;
+    }
+
+    public String getMateriaPrima() {
+        return materiaPrima;
+    }
+
+    public boolean isEnEjecucion() {
+        return enEjecucion;
+    }
+
     public boolean estaEnEjecucion(){
         if (!enEjecucion){
             return false;

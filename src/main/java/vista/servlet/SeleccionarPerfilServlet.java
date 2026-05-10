@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 @WebServlet("/seleccionarPerfil")
 public class SeleccionarPerfilServlet extends HttpServlet {
 
@@ -37,20 +40,19 @@ public class SeleccionarPerfilServlet extends HttpServlet {
                     usuario
             );
 
-            if(usuario.rol().equals("representante")){
+            String pagina = paginaSegunRol(usuario.rol());
 
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/mainRepresentante.jsp"
-                );
-
-            } else {
-
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/mainAdm.jsp"
-                );
-            }
+            response.sendRedirect(request.getContextPath() + pagina);
         }
 
+    private String paginaSegunRol(String rol) {
+        Map<String, String> paginasPorRol = new HashMap<>();
+
+        paginasPorRol.put("representante", "/mainRepresentante.jsp");
+        paginasPorRol.put("organismo_publico", "/mainOrganismoPublico.jsp");
+        paginasPorRol.put("administrador", "/mainAdm.jsp");
+
+        return paginasPorRol.getOrDefault(rol, "/login.jsp");
+    }
 }
+

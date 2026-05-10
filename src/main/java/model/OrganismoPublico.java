@@ -7,6 +7,7 @@ public class OrganismoPublico extends Usuario{
     private String nombre;
     private TipoOrganismo tipoOrganismo;
     private SistemaParque sistema;
+
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
                             String nombre, TipoOrganismo tipoOrganismo,SistemaParque sistema) {
@@ -15,7 +16,25 @@ public class OrganismoPublico extends Usuario{
         this.tipoOrganismo = tipoOrganismo;
         this.sistema=sistema;
     }
-
+    public String consultarProyectoProductivo(ProyectoProductivo proyecto) {
+        return """
+                INFORMACIÓN DEL PROYECTO PRODUCTIVO
+                -----------------------------------
+                Nombre: %s
+                Descripción: %s
+                Superficie: %s
+                Necesidades: %s
+                Empleabilidad: %s
+                Materia prima: %s
+                """.formatted(
+                proyecto.getNombre(),
+                proyecto.getDescripcion(),
+                proyecto.getSuperficie(),
+                proyecto.getNecesidades(),
+                proyecto.getEmpleabilidad(),
+                proyecto.getMateriaPrima()
+        );
+    }
     public Reporte consultarInformacion(TipoReporte tipoReporte) {
 
         switch (tipoReporte) {

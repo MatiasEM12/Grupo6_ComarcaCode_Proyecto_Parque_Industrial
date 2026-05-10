@@ -11,8 +11,12 @@ public class Sistema {
 
     public Sistema() {
         this.usuarios = List.of(
-                new Usuario("juan", "1234",new Rol("administrador",111),"pepe@gmail.com"),
-                new Usuario("maria", "5678",new Rol("representante",222 ),"representante@gmail.com")
+                new Usuario("juan", "1234",
+                        new Rol("administrador",111),"pepe@gmail.com"),
+                new Usuario("maria", "5678",
+                        new Rol("representante",222 ),"representante@gmail.com"),
+                new Usuario("pedro", "7890",
+                        new Rol("organismo_publico",333 ),"pedro@gmail.com")
         );
     }
 
