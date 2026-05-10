@@ -90,6 +90,15 @@
               method="post"
               enctype="multipart/form-data">
 
+            <div class="form__group">
+
+                <label>Nombre del Proyecto*</label>
+
+                <input type="text"
+                       name="nombreProyecto"
+                       placeholder="Ingrese el nombre del proyecto">
+
+            </div>
             <!-- Proyecto -->
 
             <div class="form__group">

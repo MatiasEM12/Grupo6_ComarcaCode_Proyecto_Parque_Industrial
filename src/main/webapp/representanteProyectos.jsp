@@ -1,15 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.SolicitudRadicacion" %>
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>ParqueIndustrialViedma</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+
 </head>
 
 <body>
@@ -43,29 +50,47 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
+
                 <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
                    class="nav__link">
+
                     Inicio
+
                 </a>
+
             </li>
 
             <li class="nav__item">
-                <a href="" class="nav__link">
+
+                <a href=""
+                   class="nav__link">
+
                     Perfil
+
                 </a>
+
             </li>
 
             <li class="nav__item">
-                <a href="" class="nav__link">
+
+                <a href="${pageContext.request.contextPath}/misProyectos"
+                   class="nav__link">
+
                     Mis Proyectos
+
                 </a>
+
             </li>
 
             <li class="nav__item">
+
                 <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
                    class="nav__link">
+
                     Enviar Solicitud
+
                 </a>
+
             </li>
 
         </ul>
@@ -80,7 +105,9 @@
 
         <a href=""
            class="nav__link Link--Cerrar">
+
             Cerrar Sesión
+
         </a>
 
     </div>
@@ -91,68 +118,91 @@
 
     <div class="projects__container">
 
-        <!-- PROYECTO 1 -->
+        <%
+            List<SolicitudRadicacion> solicitudes =
+                    (List<SolicitudRadicacion>)
+                            request.getAttribute("solicitudes");
 
-        <a href="${pageContext.request.contextPath}/representanteProyecto.jsp"
+            if (solicitudes != null && !solicitudes.isEmpty()) {
+
+                for (SolicitudRadicacion solicitud : solicitudes) {
+
+                    String claseEstado = "";
+
+                    if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("PENDIENTE")) {
+
+                        claseEstado = "estado__pendiente";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("APROBADA")) {
+
+                        claseEstado = "estado__aprobado";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("OBSERVADA")) {
+
+                        claseEstado = "estado__revision";
+                    }
+        %>
+
+        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= solicitud.id() %>"
            class="project__card">
 
             <div class="project__content">
 
-                <h2>Proyecto Metalúrgico</h2>
+                <h2>
+
+                    <%= solicitud.nombreProyecto() %>
+
+                </h2>
 
                 <p>
-                    Producción y fabricación de estructuras metálicas.
+
+                    <%= solicitud.descripcionServicio() %>
+
                 </p>
 
-                <span class="project__state estado__pendiente">
-                    Pendiente
+                <span class="project__state <%= claseEstado %>">
+
+                    <%= solicitud.estadoSolicitud() %>
+
                 </span>
 
             </div>
 
         </a>
 
-        <!-- PROYECTO 2 -->
+        <%
+                }
 
-        <a href="${pageContext.request.contextPath}/proyecto2.jsp"
-           class="project__card">
+            } else {
+        %>
 
-            <div class="project__content">
+        <div class="sin__proyectos">
 
-                <h2>Proyecto Alimenticio</h2>
+            <h2>
 
-                <p>
-                    Elaboración y distribución de productos regionales.
-                </p>
+                No hay proyectos cargados
 
-                <span class="project__state estado__aprobado">
-                    Aprobado
-                </span>
+            </h2>
 
-            </div>
+            <p>
 
-        </a>
+                Todavía no enviaste ninguna solicitud de radicación.
 
-        <!-- PROYECTO 3 -->
+            </p>
 
-        <a href="${pageContext.request.contextPath}/proyecto3.jsp"
-           class="project__card">
+        </div>
 
-            <div class="project__content">
-
-                <h2>Proyecto Logístico</h2>
-
-                <p>
-                    Centro de distribución y almacenamiento.
-                </p>
-
-                <span class="project__state estado__revision">
-                    En revisión
-                </span>
-
-            </div>
-
-        </a>
+        <%
+            }
+        %>
 
     </div>
 

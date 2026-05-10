@@ -37,6 +37,10 @@ public class SubirSolicitudServlet extends HttpServlet {
         Sistema sistema =
                 (Sistema) getServletContext().getAttribute("sistema");
 
+        // NUEVO CAMPO
+        String nombreProyecto =
+                request.getParameter("nombreProyecto");
+
         String objeto = request.getParameter("objeto");
         String descripcionServicio = request.getParameter("descripcionServicio");
         String emplazamiento = request.getParameter("emplazamiento");
@@ -73,6 +77,7 @@ public class SubirSolicitudServlet extends HttpServlet {
                 new SolicitudRadicacion(
                         usuario,
                         objeto,
+                        nombreProyecto,
                         descripcionServicio,
                         emplazamiento,
                         personal,
@@ -102,7 +107,7 @@ public class SubirSolicitudServlet extends HttpServlet {
 
         response.sendRedirect(
                 request.getContextPath()
-                        + "/representanteProyectos.jsp"
+                        + "/misProyectos"
         );
     }
 }
