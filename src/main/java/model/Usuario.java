@@ -53,4 +53,16 @@ public class Usuario {
     public String getUserName() {
         return userName;
     }
+
+    public String contrasena() {
+        return contrasena;
+    }
+
+    public String rol(){
+        return rol.nombre();
+    }
+
+    public String gmail(){
+        return gmail;
+    }
 }

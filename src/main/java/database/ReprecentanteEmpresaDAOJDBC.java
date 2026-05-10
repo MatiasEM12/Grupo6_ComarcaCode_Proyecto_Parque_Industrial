@@ -1,5 +1,6 @@
 package database;
 
+import main.ConnectionManager;
 import model.RepresentanteEmpresa;
 
 import java.sql.Connection;

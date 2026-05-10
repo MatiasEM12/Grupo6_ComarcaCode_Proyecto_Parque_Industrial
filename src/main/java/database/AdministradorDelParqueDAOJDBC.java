@@ -1,5 +1,6 @@
 package database;
 
+import main.ConnectionManager;
 import model.AdministradorDelParque;
 
 import java.sql.Connection;

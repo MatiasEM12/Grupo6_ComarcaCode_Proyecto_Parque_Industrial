@@ -1,5 +1,6 @@
 package database;
 
+import main.ConnectionManager;
 import model.Rol;
 import model.Usuario;
 
@@ -17,7 +18,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, usuario.getUserName());
             st.setString(2, usuario.contrasena());
-            st.setString(3, usuario.rol().nombreRol());
+            st.setString(3, usuario.rol());
             st.setString(4, usuario.gmail());
             int fila = st.executeUpdate();
             if (fila<=0){
