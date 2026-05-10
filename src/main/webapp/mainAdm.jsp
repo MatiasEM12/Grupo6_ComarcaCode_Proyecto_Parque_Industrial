@@ -133,6 +133,36 @@
 
 <main>
 
+    <div class="main__container">
+
+        <a href="${pageContext.request.contextPath}/usuarios.jsp"
+           class="card">
+
+            <div class="card__content">
+                <h2>Usuarios</h2>
+                <p>Consultar usuarios.</p>
+            </div>
+
+        </a>
+
+        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
+           class="card">
+            <div class="card__content">
+                <h2>Solicitudes</h2>
+                <p>Consultar solicitudes de radicacion</p>
+            </div>
+        </a>
+
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+           class="card">
+            <div class="card__content">
+                <h2>Proyectos</h2>
+                <p>onsultar información sobre los proyectos productivos del parque.</p>
+            </div>
+        </a>
+
+    </div>
+
 </main>
 
 <footer>
