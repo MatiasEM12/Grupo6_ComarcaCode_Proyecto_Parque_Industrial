@@ -6,149 +6,164 @@
 
 body{
     font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
-    color: #222;
+    background-color: #f4f4f4;
+    min-height: 100vh;
 }
 
 /* HEADER */
 
 .header{
     position: relative;
-    height: 300px;
-    background-image:
-            linear-gradient(rgba(0,0,0,.6),
-            rgba(0,0,0,.6)),
-            url("../img/parqueIndustrial.jpg");
-
+    background-image: url("../img/fondoParque.jpg");
     background-size: cover;
     background-position: center;
+    height: 300px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    text-align: center;
     color: white;
+    text-align: center;
 }
 
-.header__container{
+.header__overlay{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 1;
     width: 80%;
-    max-width: 900px;
 }
 
-.header h1{
-    font-size: 48px;
-    margin-bottom: 15px;
+.header__item--container h1{
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
-.header p{
+.header__item--container p{
     font-size: 18px;
-    line-height: 1.5;
 }
 
-/* MAIN */
+/* NAV */
 
-.main{
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 50px 0;
-}
+.nav{
+    background-color: #1d3557;
 
-/* CARDS */
-
-.cards-container{
-    display: grid;
-    grid-template-columns:
-            repeat(auto-fit, minmax(320px,1fr));
-
-    gap: 30px;
-}
-
-.card{
-    background-color: white;
-
-    border-radius: 15px;
-
-    padding: 25px;
-
-    box-shadow:
-            0 5px 15px rgba(0,0,0,.1);
-
-    transition: transform .2s;
-}
-
-.card:hover{
-    transform: translateY(-5px);
-}
-
-.card__header{
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 20px;
+    padding: 15px 40px;
 }
 
-.card__header h2{
-    font-size: 22px;
-    color: #18344a;
+.nav__ul{
+    display: flex;
+    gap: 20px;
+    list-style: none;
 }
 
-/* ESTADOS */
-
-.estado{
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 14px;
+.nav__link{
+    text-decoration: none;
+    color: white;
     font-weight: bold;
+    transition: 0.3s;
 }
 
-.estado--activo{
-    background-color: #d4edda;
-    color: #155724;
+.nav__link:hover{
+    color: #a8dadc;
 }
 
-.estado--revision{
-    background-color: #fff3cd;
-    color: #856404;
+.nav__right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-/* BODY */
-
-.card__body p{
-    margin-bottom: 15px;
-    line-height: 1.5;
+.nav__logo{
+    width: 55px;
 }
 
-.info{
-    margin-top: 20px;
+.Link--Cerrar{
+    background-color: #e63946;
+    padding: 10px 15px;
+    border-radius: 8px;
 }
 
-.info p{
-    margin-bottom: 10px;
+/* MAIN */
+
+main{
+    padding: 50px;
+}
+
+.proyectos__container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* CARD */
+
+.proyecto__card{
+    background-color: white;
+    width: 350px;
+    border-radius: 15px;
+    padding: 25px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    transition: 0.3s;
+}
+
+.proyecto__card:hover{
+    transform: translateY(-5px);
+}
+
+.proyecto__card h2{
+    color: #1d3557;
+}
+
+.proyecto__info{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /* BOTÓN */
 
-.volver-container{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
+.btn__detalle{
+    margin-top: 10px;
+    padding: 12px;
 
-.btn-volver{
-    background-color: #18344a;
+    border: none;
+    border-radius: 8px;
+
+    background-color: #1d3557;
     color: white;
-    text-decoration: none;
 
-    padding: 14px 30px;
+    cursor: pointer;
 
-    border-radius: 10px;
-
-    transition: background .2s;
+    transition: 0.3s;
 }
 
-.btn-volver:hover{
-    background-color: #28506f;
+.btn__detalle:hover{
+    background-color: #457b9d;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top: 50px;
+    background-color: #1d3557;
+    color: white;
+    padding: 25px;
+    text-align: center;
 }

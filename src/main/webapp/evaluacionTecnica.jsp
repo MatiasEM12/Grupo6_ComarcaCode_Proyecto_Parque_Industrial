@@ -19,22 +19,84 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Evaluación Técnica</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/reporte.css">
+          href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
 </head>
 
 <body>
 
 <header class="header">
-    <h1>Evaluación Técnica</h1>
-    <p>Registrar evaluaciones técnicas sobre proyectos, documentación o funcionamiento del parque.</p>
+
+    <div class="header__overlay"></div>
+
+    <div class="header__item--container">
+
+        <h1>EVALUACIÓN TÉCNICA</h1>
+
+        <p>
+            Registrar evaluaciones técnicas sobre proyectos,
+            documentación o funcionamiento del Parque Industrial.
+        </p>
+
+    </div>
+
 </header>
 
-<main class="main">
+<nav class="nav">
 
-    <section class="form-container">
+    <div class="nav__ul--container">
+
+        <ul class="nav__ul">
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/mainOrganismoPublico.jsp"
+                   class="nav__link">
+                    Inicio
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+                   class="nav__link">
+                    Proyectos en Ejecución
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/reporte.jsp"
+                   class="nav__link">
+                    Reportes
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="nav__right">
+
+        <img src="${pageContext.request.contextPath}/img/logo.png"
+             alt="Logo"
+             class="nav__logo">
+
+        <a href="${pageContext.request.contextPath}/logout"
+           class="nav__link Link--Cerrar">
+            Cerrar Sesión
+        </a>
+
+    </div>
+
+</nav>
+
+<main>
+
+    <section class="form__container">
 
         <h2>Nueva Evaluación Técnica</h2>
 
@@ -43,11 +105,13 @@
               class="form">
 
             <label>Descripción</label>
+
             <textarea name="descripcion"
                       placeholder="Describa la evaluación técnica..."
                       required></textarea>
 
             <label>Resultado</label>
+
             <select name="resultado" required>
                 <option value="">Seleccione una opción</option>
                 <option value="APROBADA">Aprobada</option>
@@ -56,23 +120,32 @@
             </select>
 
             <label>Observaciones</label>
+
             <textarea name="observaciones"
                       placeholder="Ingrese observaciones si corresponde..."></textarea>
 
-            <button type="submit" class="btn">
+            <button type="submit"
+                    class="btn__form">
                 Guardar Evaluación
             </button>
 
         </form>
 
-        <a href="${pageContext.request.contextPath}/mainOrganismoPublico.jsp"
-           class="volver">
-            Volver al menú
-        </a>
-
     </section>
 
 </main>
+
+<footer>
+
+    <div class="div__footer--container">
+
+        <p>Parque Industrial</p>
+
+        Sistema de gestión del Parque Industrial de Viedma.
+
+    </div>
+
+</footer>
 
 </body>
 </html>

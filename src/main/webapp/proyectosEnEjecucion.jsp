@@ -42,7 +42,7 @@
     <title>Proyectos en Ejecución</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/proyectosEnEjecucion.css">
+              href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
 
 </head>
 
