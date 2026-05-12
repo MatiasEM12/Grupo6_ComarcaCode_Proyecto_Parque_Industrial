@@ -1,7 +1,8 @@
 package vista.servlet;
 
 import main.Sistema;
-import model.SolicitudRadicacion;
+import model.DTO.SolicitudRadicacionDTO;
+
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -73,8 +74,8 @@ public class SubirSolicitudServlet extends HttpServlet {
             nombreArchivoPDF = archivoPDF.getSubmittedFileName();
         }
 
-        SolicitudRadicacion solicitud =
-                new SolicitudRadicacion(
+        SolicitudRadicacionDTO solicitud =
+                new SolicitudRadicacionDTO(
                         usuario,
                         objeto,
                         nombreProyecto,

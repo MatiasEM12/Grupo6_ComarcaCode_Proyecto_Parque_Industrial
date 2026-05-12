@@ -18,9 +18,12 @@ public class PerfilesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+        Sistema sistema =
+                (Sistema) getServletContext()
+                        .getAttribute("sistema");
 
         List<Usuario> usuarios =
-                Sistema.obtenerUsuarios();
+                sistema.obtenerUsuarios();
 
         request.setAttribute(
                 "usuarios",

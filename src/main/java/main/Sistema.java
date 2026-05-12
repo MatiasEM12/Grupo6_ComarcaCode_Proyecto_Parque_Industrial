@@ -7,7 +7,7 @@ import model.SolicitudRadicacion;
 import java.util.ArrayList;
 
 
-public class Sistema {
+public class Sistema  implements model.SistemaParqueIndustrial {
 
     private static List<Usuario> usuarios;
     private static List<SolicitudRadicacion> solicitudes;
@@ -27,7 +27,8 @@ public class Sistema {
         solicitudes = new ArrayList<>();
     }
 
-    public static List<Usuario> obtenerUsuarios() {
+
+    public  List<Usuario> obtenerUsuarios() {
         return usuarios;
     }
 
@@ -44,6 +45,11 @@ public class Sistema {
         }
 
         solicitudes.add(solicitud);
+    }
+
+    @Override
+    public List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario) {
+        return List.of();
     }
 
     public List<SolicitudRadicacion> obtenerSolicitudes() {
