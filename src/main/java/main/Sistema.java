@@ -1,5 +1,6 @@
 package main;
 
+import model.ProyectoProductivo;
 import model.Rol;
 import model.Usuario;
 import java.util.List;
@@ -11,7 +12,7 @@ public class Sistema {
 
     private static List<Usuario> usuarios;
     private static List<SolicitudRadicacion> solicitudes;
-
+    private static List<ProyectoProductivo> proyectos;
     public Sistema() {
         usuarios = List.of(
                 new Usuario("juan", "1234",
@@ -25,6 +26,7 @@ public class Sistema {
         );
 
         solicitudes = new ArrayList<>();
+        proyectos = new ArrayList<>();
     }
 
     public static List<Usuario> obtenerUsuarios() {
@@ -48,5 +50,17 @@ public class Sistema {
 
     public List<SolicitudRadicacion> obtenerSolicitudes() {
         return solicitudes;
+    }
+
+    public void agregarProyectoProductivo(ProyectoProductivo proyecto) {
+        if (proyecto == null) {
+            throw new RuntimeException("El proyecto productivo no puede ser nulo");
+        }
+
+        proyectos.add(proyecto);
+    }
+
+    public List<ProyectoProductivo> obtenerProyectosProductivos() {
+        return proyectos;
     }
 }

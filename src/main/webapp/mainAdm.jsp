@@ -7,23 +7,21 @@
                     "usuarioLogueado"
             );
 
-    // SI NO HAY SESIÓN
     if(usuario == null){
 
         response.sendRedirect(
                 request.getContextPath()
-                + "/perfiles"
+                        + "/perfiles"
         );
 
         return;
     }
 
-    // SI NO ES ADMINISTRADOR
     if(!usuario.rol().equals("administrador")){
 
         response.sendRedirect(
                 request.getContextPath()
-                + "/perfiles"
+                        + "/perfiles"
         );
 
         return;
@@ -76,36 +74,24 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-
-                <a href="#"
+                <a href="${pageContext.request.contextPath}/usuarios.jsp"
                    class="nav__link">
-
                     Usuarios
-
                 </a>
-
             </li>
 
             <li class="nav__item">
-
-                <a href="#"
+                <a href="${pageContext.request.contextPath}/solicitudesAdmin.jsp"
                    class="nav__link">
-
                     Solicitudes
-
                 </a>
-
             </li>
 
             <li class="nav__item">
-
-                <a href="#"
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
                    class="nav__link">
-
                     Proyectos
-
                 </a>
-
             </li>
 
         </ul>
@@ -115,9 +101,9 @@
     <div class="nav__right">
 
         <img
-            src="${pageContext.request.contextPath}/img/logo.png"
-            alt="Logo"
-            class="nav__logo"
+                src="${pageContext.request.contextPath}/img/logo.png"
+                alt="Logo"
+                class="nav__logo"
         >
 
         <a href="${pageContext.request.contextPath}/logout"
@@ -140,25 +126,29 @@
 
             <div class="card__content">
                 <h2>Usuarios</h2>
-                <p>Consultar usuarios.</p>
+                <p>Consultar usuarios registrados en el sistema.</p>
             </div>
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
+        <a href="${pageContext.request.contextPath}/solicitudesAdmin.jsp"
            class="card">
+
             <div class="card__content">
                 <h2>Solicitudes</h2>
-                <p>Consultar solicitudes de radicacion</p>
+                <p>Revisar, aprobar u observar solicitudes de radicación.</p>
             </div>
+
         </a>
 
-        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
+
             <div class="card__content">
                 <h2>Proyectos</h2>
-                <p>onsultar información sobre los proyectos productivos del parque.</p>
+                <p>Consultar información sobre los proyectos productivos del parque.</p>
             </div>
+
         </a>
 
     </div>

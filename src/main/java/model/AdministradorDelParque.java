@@ -21,9 +21,12 @@ public class AdministradorDelParque extends Usuario{
         }
     }
 
-    public void cambiarEstadoSolicitud(Observacion observacion){
-        observacion.agregarRespuesta();
-        observacion.actualizarDocumentacionSolicitud();
+    public void observarSolicitud(SolicitudRadicacion solicitud, String descripcion) {
+        Observacion observacion = new Observacion(descripcion);
+        solicitud.agregarObservacion(observacion);
+    }
+    public void aprobarSolicitud(SolicitudRadicacion solicitud) {
+        solicitud.aprobar();
     }
 
     public Reporte generarReporte(TipoReporte tipo, String descripcion) {
