@@ -1,4 +1,4 @@
-package database;
+package database.JDBCs;
 
 import main.ConnectionManager;
 import model.AdministradorDelParque;
@@ -6,6 +6,8 @@ import model.AdministradorDelParque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import database.DAOs.AdministradorDelParqueDAO;
 
 public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
     @Override

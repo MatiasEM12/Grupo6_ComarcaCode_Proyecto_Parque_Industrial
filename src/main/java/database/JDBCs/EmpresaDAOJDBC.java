@@ -1,4 +1,4 @@
-package database;
+package database.JDBCs;
 
 import main.ConnectionManager;
 import model.Empresa;
@@ -6,6 +6,8 @@ import model.Empresa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import database.DAOs.EmpresaDAO;
 
 public class EmpresaDAOJDBC implements EmpresaDAO{
 

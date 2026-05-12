@@ -1,6 +1,12 @@
-package persistencia;
+package database.persistencia;
 
 import database.*;
+import database.DAOs.AdministradorDelParqueDAO;
+import database.DAOs.EmpresaDAO;
+import database.DAOs.LoteDAO;
+import database.JDBCs.AdministradorDelParqueDAOJDBC;
+import database.JDBCs.EmpresaDAOJDBC;
+import database.JDBCs.LoteDAOJDBC;
 import model.Rol;
 import model.Usuario;
 

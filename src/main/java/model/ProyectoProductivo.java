@@ -1,6 +1,7 @@
 package model;
 
 public class ProyectoProductivo {
+    private int idProyecto;
     private String nombre;
     private String descripcion;
     private double superficie;
@@ -88,5 +89,9 @@ public class ProyectoProductivo {
     }
     public Empresa empresa(){
         return empresa;
+    }
+
+    public int idProyecto() {
+        return idProyecto;
     }
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Empresa extends Usuario{
+public class Empresa extends Usuario {
     private String razonSocial;
     private String cuit;
     private String contacto;

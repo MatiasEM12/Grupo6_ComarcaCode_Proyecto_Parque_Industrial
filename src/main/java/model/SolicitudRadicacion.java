@@ -8,41 +8,43 @@ public class SolicitudRadicacion {
 
     private final int id;
     private final String numeroTramite;
-    private EstadoSolicitud estadoSolicitud;
+    private EstadoSolicitud estadoSolicitud; // 
     private final LocalDate fechaCreacion;
     private LocalDate fechaActualizacion;
 
-    private final Usuario representante;
+    private final RepresentanteEmpresa representante;
+    private ProyectoProductivo proyectoProductivo;
+    private Empresa empresa;
 
-    private final String objeto;
-    private final String nombreProyecto;
-    private final String descripcionServicio;
-    private final String emplazamiento;
-    private final String personal;
-    private final String tiempoRadicacion;
-    private final String m2;
-    private final String areaTrabajo;
-    private final String areaDeposito;
-    private final String estacionamiento;
-    private final String planos;
-    private final String personalOcupar;
-    private final String materiasPrimas;
-    private final String destinoProduccion;
-    private final String tension;
-    private final String potencia;
-    private final String agua;
-    private final String gas;
-    private final String residuos;
-    private final String tratamiento;
-    private final String balanza;
-    private final String comedor;
-    private final String coworking;
+    private  String objeto;
+    private final String nombreProyecto; // 
+    private final String descripcionServicio; // 
+    private String emplazamiento;
+    private String personal;
+    private String tiempoRadicacion;
+    private String m2;
+    private String areaTrabajo;
+    private String areaDeposito;
+    private String estacionamiento;
+    private String planos;
+    private String empleabilidad;
+    private String materiasPrimas;
+    private String destinoProduccion;
+    private String tension;
+    private String potencia;
+    private String agua;
+    private String gas;
+    private String residuos;
+    private String tratamiento;
+    private String balanza;
+    private String comedor;
+    private String coworking;
 
-    private final String descripcionArchivo;
-    private final String nombreArchivoPDF;
+    private String descripcionArchivo;
+    private String nombreArchivoPDF;
 
     public SolicitudRadicacion(
-            Usuario representante,
+            RepresentanteEmpresa representante,
             String objeto,
             String nombreProyecto,
             String descripcionServicio,
@@ -54,7 +56,7 @@ public class SolicitudRadicacion {
             String areaDeposito,
             String estacionamiento,
             String planos,
-            String personalOcupar,
+            String empleabilidad,
             String materiasPrimas,
             String destinoProduccion,
             String tension,
@@ -75,7 +77,7 @@ public class SolicitudRadicacion {
         validarObligatorio(areaTrabajo, "El área de trabajo es obligatoria");
         validarObligatorio(areaDeposito, "El área de depósito es obligatoria");
         validarObligatorio(planos, "Debe indicar si tiene planos");
-        validarObligatorio(personalOcupar, "Debe indicar el personal a ocupar");
+        validarObligatorio(empleabilidad, "Debe indicar el nivel de empleabilidad");
 
         this.id = contador++;
         this.numeroTramite = "SOL-" + id;
@@ -95,7 +97,7 @@ public class SolicitudRadicacion {
         this.areaDeposito = areaDeposito;
         this.estacionamiento = estacionamiento;
         this.planos = planos;
-        this.personalOcupar = personalOcupar;
+        this.empleabilidad = empleabilidad;
         this.materiasPrimas = materiasPrimas;
         this.destinoProduccion = destinoProduccion;
         this.tension = tension;
@@ -111,9 +113,27 @@ public class SolicitudRadicacion {
         this.nombreArchivoPDF = nombreArchivoPDF;
     }
 
-    private void validarUsuario(Usuario representante) {
+    //Constructor sobrecargado para usar en la base de datos
+    public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
+         LocalDate fechaActualizacion, String nombreProyecto, String descripcionServicio,
+        ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
+            validarUsuario(representante);
+
+            this.id = id;
+            this.numeroTramite = numeroTramite;
+            this.estadoSolicitud = transformador(estadoSolicitud);
+            this.fechaCreacion = fechaCreacion;
+            this.fechaActualizacion = fechaActualizacion;
+            this.representante = representante;
+            this.nombreProyecto = nombreProyecto;
+            this.descripcionServicio = descripcionServicio;
+            this.proyectoProductivo = proyecto;
+            this.empresa = empresa;
+         }
+
+    private void validarUsuario(RepresentanteEmpresa representante) {
         if (representante == null) {
-            throw new RuntimeException("Debe existir un usuario logueado");
+            throw new RuntimeException("Debe existir un representante logueado");
         }
     }
 
@@ -161,7 +181,7 @@ public class SolicitudRadicacion {
         return fechaActualizacion;
     }
 
-    public Usuario representante() {
+    public RepresentanteEmpresa representante() {
         return representante;
     }
 
@@ -171,5 +191,27 @@ public class SolicitudRadicacion {
 
     public String nombreArchivoPDF() {
         return nombreArchivoPDF;
+    }
+
+    public ProyectoProductivo proyecto() {
+        return proyectoProductivo;
+    }
+
+    public Empresa empresa() {
+        return empresa;
+    }
+
+    public EstadoSolicitud transformador(String estado) {
+
+        switch (estado) {
+            case "APROBADA":
+                return EstadoSolicitud.APROBADA;
+            case "RECHAZADA":
+                return EstadoSolicitud.RECHAZADA;
+            case "OBSERVADA":
+                return EstadoSolicitud.OBSERVADA;
+            default:
+                throw new RuntimeException("Estado de solicitud no válido");
+        }
     }
 }

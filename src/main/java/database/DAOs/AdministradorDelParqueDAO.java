@@ -1,4 +1,4 @@
-package database;
+package database.DAOs;
 
 import model.AdministradorDelParque;
 

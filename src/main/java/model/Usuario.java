@@ -58,11 +58,13 @@ public class Usuario {
         return contrasena;
     }
 
-    public String rol(){
-        return rol.nombre();
+    public Rol rol(){
+        return rol;
     }
 
     public String gmail(){
         return gmail;
     }
+
+    public boolean autenticar()
 }
