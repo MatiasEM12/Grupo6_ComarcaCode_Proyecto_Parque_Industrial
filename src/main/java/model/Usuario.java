@@ -53,6 +53,9 @@ public class Usuario {
     public String UserName() {
         return userName;
     }
+    public String gmail() {
+        return gmail;
+    }
 
     public String rol(){
         return rol.nombre();

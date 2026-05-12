@@ -22,7 +22,7 @@ public class Rol {
             throw new RuntimeException("Codigo de rol invalido");
         }
     }
-
+    public String codigo() {return this.codigo;}
     public String nombre(){
         return this.nombre;
     }

@@ -2,6 +2,7 @@ package vista.servlet;
 
 import main.Sistema;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class ProyectosEnEjecucionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
 
         Sistema sistema =
                 (Sistema) getServletContext()

@@ -52,3 +52,4 @@ public class AdministradorDelParque extends Usuario{
         observaciones.add(observacion);
     }
 }
+
