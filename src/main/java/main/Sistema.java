@@ -24,7 +24,10 @@ public class Sistema {
                         new Rol("representante",222), "representante@gmail.com"),
 
                 new Usuario("pedro", "7890",
-                        new Rol("organismo_publico",333), "pedro@gmail.com")
+                        new Rol("organismo_publico",333), "pedro@gmail.com"),
+
+                new Usuario("jose", "56782",
+                        new Rol("representante",2222), "representante2@gmail.com")
         );
 
         solicitudes = new ArrayList<>();
@@ -35,7 +38,7 @@ public class Sistema {
     private void cargarSolicitudesPrueba() {
 
         Usuario representante =
-                obtenerUsuarioPorUsername("maria");
+                obtenerUsuarioPorUsername("jose");
 
         solicitudes.add(
                 new SolicitudRadicacion(

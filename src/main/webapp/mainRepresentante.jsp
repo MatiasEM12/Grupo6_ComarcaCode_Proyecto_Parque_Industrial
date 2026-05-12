@@ -83,6 +83,11 @@
                     Mis Proyectos
                 </a>
             </li>
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/representanteSolicitudes.jsp" class="nav__link">
+                    Mis Solicitudes
+                </a>
+            </li>
 
             <li class="nav__item">
                 <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
@@ -132,7 +137,14 @@
             </div>
 
         </a>
+        <a href="${pageContext.request.contextPath}/representanteSolicitudes.jsp"
+           class="card">
 
+            <div class="card__content">
+                <h2>Mis Solicitudes </h2>
+            </div>
+
+        </a>
     </div>
 
 </main>

@@ -44,11 +44,6 @@ public class SolicitudRadicacion {
     private final List<Documento> documentos;
     private final List<Observacion> observaciones;
 
-    public SolicitudRadicacion(String numeroTramite) {
-        this(null, null, numeroTramite, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null);
-    }
 
     public SolicitudRadicacion(Usuario representante,
                                String objeto,
