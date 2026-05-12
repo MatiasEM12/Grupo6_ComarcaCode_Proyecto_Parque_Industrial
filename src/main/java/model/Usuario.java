@@ -2,6 +2,9 @@ package model;
 
 import persistencia.PersistenceApi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Usuario {
     private String userName;
     private String contrasena;
@@ -53,6 +56,10 @@ public abstract class Usuario {
     }
 
     public abstract void registrarUsuario(PersistenceApi persistenceApi);
+
+    public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
+        return new ArrayList<>();
+    }
 
     public String UserName() {
         return userName;

@@ -55,6 +55,14 @@ public class PersistenceApi implements IApi{
         return reprecentanteEmpresaDAO;
     }
 
+    /*public SolicitudRadicacionDAO solicitudRadicacionDAO(){
+        return solicitudRadicacionDAO;
+    }
+
+     */
+
+
+
     public UsuarioDAO usuarioDAO(){
         return usuarioDAO;
     }
@@ -65,6 +73,10 @@ public class PersistenceApi implements IApi{
         return OrganismoPublicoDAO;
     }
      */
+
+    public List<SolicitudRadicacion> solicitudesDeRadicacionsUsuario(Usuario representanteEmpresa){
+        return representanteEmpresa.solicidesDeRadicacion(this);
+    }
 
 
 

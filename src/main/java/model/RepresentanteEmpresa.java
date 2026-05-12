@@ -2,6 +2,9 @@ package model;
 
 import persistencia.PersistenceApi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RepresentanteEmpresa extends Usuario{
     //no seria mejor DNI fuera de tipo int?
     private String dni;
@@ -40,6 +43,15 @@ public class RepresentanteEmpresa extends Usuario{
         if (nombreEmpresa == null || nombreEmpresa.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre de la empresa no puede ser vacío");
         }
+    }
+
+    public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
+        /*esto seria asi:
+        return persistenceApi.solicitudRadicacionDAO().filter(this.userName());
+        yo tengo pensado la base de datos de solicitudRadicacion con referencia a nombre de usuuario
+        ya que los nombres de los usuarios son unicos
+         */
+        return new ArrayList<>();
     }
 
     @Override
