@@ -5,7 +5,7 @@ import persistencia.PersistenceApi;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Usuario {
+public class Usuario {
     private String userName;
     private String contrasena;
     private Rol rol;
@@ -55,7 +55,7 @@ public abstract class Usuario {
         return gmail.matches(regex);
     }
 
-    public abstract void registrarUsuario(PersistenceApi persistenceApi);
+    public void registrarUsuario(PersistenceApi persistenceApi);
 
     public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
         return new ArrayList<>();
@@ -69,8 +69,8 @@ public abstract class Usuario {
         return contrasena;
     }
 
-    public String rol(){
-        return rol.nombre();
+    public Rol rol(){
+        return rol;
     }
 
     public String gmail(){

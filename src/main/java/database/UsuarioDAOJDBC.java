@@ -4,10 +4,7 @@ import main.ConnectionManager;
 import model.Rol;
 import model.Usuario;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UsuarioDAOJDBC implements UsuarioDAO{
 
@@ -18,7 +15,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, usuario.UserName());
             st.setString(2, usuario.contrasena());
-            st.setString(3, usuario.rol());
+            st.setInt(3, usuario.rol().codigo());
             st.setString(4, usuario.gmail());
             int fila = st.executeUpdate();
             if (fila<=0){
@@ -26,6 +23,33 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
             }
         }catch(SQLException e){
             throw new RuntimeException("Error al registrar usuario", e);
+        }
+    }
+
+    public Usuario recuperarUsuario(String userName){
+        final String SQL = "SELECT userName, contrasena, rol, gmail FROM Usuario WHERE userName = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, userName);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                RolDAOJDBC rolDAOJDBC = new RolDAOJDBC();
+                Rol rol = rolDAOJDBC.find(rs.getInt("rol"));
+                return new Usuario(
+                        rs.getString("userName"),
+                        rs.getString("contrasena"),
+                       rol,
+                        rs.getString("gmail")
+                );
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al recuperar usuario" + e);
         }
     }
 }

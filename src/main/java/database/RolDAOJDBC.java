@@ -121,7 +121,6 @@ public class RolDAOJDBC implements RolDAO {
 
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    boolean activo = rs.getInt("activo") == 1;
                     rol = new Rol(
                             rs.getString("nombre"),
                             rs.getInt("codigo"));
