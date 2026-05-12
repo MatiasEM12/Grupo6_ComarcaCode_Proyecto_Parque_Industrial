@@ -1,5 +1,7 @@
 package model;
 
+import persistencia.PersistenceApi;
+
 import java.util.List;
 
 public class AdministradorDelParque extends Usuario{
@@ -59,5 +61,10 @@ public class AdministradorDelParque extends Usuario{
 
     public String usuario(){
         return UserName();
+    }
+
+    @Override
+    public void registrarUsuario(PersistenceApi persistenceApi) {
+        persistenceApi.administradorDelParqueDAO().registrarAdministrador(this);
     }
 }

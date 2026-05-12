@@ -1,6 +1,8 @@
 package model;
 
 
+import persistencia.PersistenceApi;
+
 import java.util.List;
 
 public class OrganismoPublico extends Usuario{
@@ -10,8 +12,8 @@ public class OrganismoPublico extends Usuario{
 
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
-                            String nombre, TipoOrganismo tipoOrganismo,SistemaParque sistema) {
-        super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
+                            String nombre, Rol rol, TipoOrganismo tipoOrganismo,SistemaParque sistema) {
+        super(username, contraseña, rol, gmail);
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
         this.sistema=sistema;
@@ -89,5 +91,11 @@ public class OrganismoPublico extends Usuario{
 
     public EvaluacionTecnica registrarEvaluacion() {
         return null;
+    }
+
+    @Override
+    public void registrarUsuario(PersistenceApi persistenceApi) {
+        //seria algo asi para registrar el organismo publico
+        //persistenceApi.organismoPublicoDAO().registrarOrgnismopublicDAO(this);
     }
 }

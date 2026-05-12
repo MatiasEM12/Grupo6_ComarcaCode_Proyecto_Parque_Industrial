@@ -1,6 +1,8 @@
 package model;
 
-public class Usuario {
+import persistencia.PersistenceApi;
+
+public abstract class Usuario {
     private String userName;
     private String contrasena;
     private Rol rol;
@@ -49,6 +51,8 @@ public class Usuario {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return gmail.matches(regex);
     }
+
+    public abstract void registrarUsuario(PersistenceApi persistenceApi);
 
     public String UserName() {
         return userName;
