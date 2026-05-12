@@ -1,6 +1,8 @@
-package database;
+package database.JDBCs;
 
-import main.ConnectionManager;
+import database.ConnectionManager;
+import database.DAOs.ReprecentanteEmpresaDAO;
+
 import model.RepresentanteEmpresa;
 import model.Rol;
 import model.Usuario;

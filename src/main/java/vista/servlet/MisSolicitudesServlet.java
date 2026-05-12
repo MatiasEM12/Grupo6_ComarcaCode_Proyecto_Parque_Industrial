@@ -9,10 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet("/misProyectos")
-public class MisProyectosServlet extends HttpServlet {
+@WebServlet("/misSolicitudes")
+public class MisSolicitudesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -46,15 +45,7 @@ public class MisProyectosServlet extends HttpServlet {
          * Obtiene solamente las solicitudes
          * del representante logueado
          */
-        List<SolicitudRadicacion> solicitudesUsuario =
-                sistema.obtenerSolicitudes()
-                        .stream()
-                        .filter(solicitud ->
-                                solicitud.representante()
-                                        .equals(usuario)
-                        )
-                        .collect(Collectors.toList());
-
+        List<SolicitudRadicacion> solicitudesUsuario =sistema.obtenerSolicitudesDe(usuario);
         /*
          * Envia las solicitudes al JSP
          */
@@ -67,7 +58,7 @@ public class MisProyectosServlet extends HttpServlet {
          * Redirecciona al JSP
          */
         request.getRequestDispatcher(
-                "/representanteProyectos.jsp"
+                "/representanteSolicitudes.jsp"
         ).forward(request, response);
     }
 }

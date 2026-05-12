@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.SolicitudRadicacion" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -15,7 +16,7 @@
     <title>ParqueIndustrialViedma</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+          href="${pageContext.request.contextPath}/CSS/representanteSolicitudes.css">
 
 </head>
 
@@ -73,10 +74,10 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/misProyectos"
+                <a href="${pageContext.request.contextPath}/misSolicitudes"
                    class="nav__link">
 
-                    Mis Proyectos
+                    Mis Solicitudes
 
                 </a>
 
@@ -158,7 +159,7 @@
 
                 <h2>
 
-                    <%= solicitud.nombreProyecto() %>
+                    <%= solicitud.nombreProyecto()  %>
 
                 </h2>
 
@@ -167,6 +168,14 @@
                     <%= solicitud.descripcionServicio() %>
 
                 </p>
+                <p class="project__date">
+
+                      Última actualización:
+                              <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+
+                </p>
+
+
 
                 <span class="project__state <%= claseEstado %>">
 

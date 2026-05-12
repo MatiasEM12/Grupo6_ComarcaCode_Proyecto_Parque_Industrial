@@ -1,6 +1,7 @@
 package database.JDBCs;
 
-import main.ConnectionManager;
+
+import database.ConnectionManager;
 import model.Empresa;
 
 import java.sql.Connection;

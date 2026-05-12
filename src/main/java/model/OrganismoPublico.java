@@ -1,21 +1,23 @@
 package model;
 
 
+import main.Sistema;
+
 import java.util.List;
 
 public class OrganismoPublico extends Usuario{
     private String nombre;
     private TipoOrganismo tipoOrganismo;
-    private SistemaParque sistema;
+    private Sistema sistema;
 
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
-                            String nombre, TipoOrganismo tipoOrganismo,SistemaParque sistema) {
+                            String nombre, TipoOrganismo tipoOrganismo, Sistema sistema) {
         super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
         this.sistema=sistema;
-    }
+    }/*
     public String consultarProyectoProductivo(ProyectoProductivo proyecto) {
         return """
                 INFORMACIÓN DEL PROYECTO PRODUCTIVO
@@ -89,5 +91,5 @@ public class OrganismoPublico extends Usuario{
 
     public EvaluacionTecnica registrarEvaluacion() {
         return null;
-    }
+    }*/
 }

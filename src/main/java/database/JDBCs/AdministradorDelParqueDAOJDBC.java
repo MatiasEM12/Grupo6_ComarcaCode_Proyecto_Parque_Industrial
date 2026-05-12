@@ -1,6 +1,6 @@
 package database.JDBCs;
 
-import main.ConnectionManager;
+import database.ConnectionManager;
 import model.AdministradorDelParque;
 
 import java.sql.Connection;

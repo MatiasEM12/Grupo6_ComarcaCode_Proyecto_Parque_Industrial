@@ -1,120 +1,60 @@
 package model;
 
+import database.DAOs.SolicitudRadicacionDAO;
+import database.JDBCs.SolicitudRadicacionDAOJDBC;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolicitudRadicacion {
 
-    private static int contador = 1;
 
-    private final int id;
-    private final String numeroTramite;
+
+    private int id;
+    private String numeroTramite;
     private EstadoSolicitud estadoSolicitud; // 
-    private final LocalDate fechaCreacion;
+    private LocalDate fechaCreacion;
     private LocalDate fechaActualizacion;
 
-    private final RepresentanteEmpresa representante;
+    private RepresentanteEmpresa representante;
     private ProyectoProductivo proyectoProductivo;
-    private Empresa empresa;
+    private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
+    private List<Documento> archivosAdjuntos;
+    public SolicitudRadicacion(RepresentanteEmpresa representante, ProyectoProductivo proyecto) {
 
-    private  String objeto;
-    private final String nombreProyecto; // 
-    private final String descripcionServicio; // 
-    private String emplazamiento;
-    private String personal;
-    private String tiempoRadicacion;
-    private String m2;
-    private String areaTrabajo;
-    private String areaDeposito;
-    private String estacionamiento;
-    private String planos;
-    private String empleabilidad;
-    private String materiasPrimas;
-    private String destinoProduccion;
-    private String tension;
-    private String potencia;
-    private String agua;
-    private String gas;
-    private String residuos;
-    private String tratamiento;
-    private String balanza;
-    private String comedor;
-    private String coworking;
-
-    private String descripcionArchivo;
-    private String nombreArchivoPDF;
-
-    public SolicitudRadicacion(
-            RepresentanteEmpresa representante,
-            String objeto,
-            String nombreProyecto,
-            String descripcionServicio,
-            String emplazamiento,
-            String personal,
-            String tiempoRadicacion,
-            String m2,
-            String areaTrabajo,
-            String areaDeposito,
-            String estacionamiento,
-            String planos,
-            String empleabilidad,
-            String materiasPrimas,
-            String destinoProduccion,
-            String tension,
-            String potencia,
-            String agua,
-            String gas,
-            String residuos,
-            String tratamiento,
-            String balanza,
-            String comedor,
-            String coworking,
-            String descripcionArchivo,
-            String nombreArchivoPDF
-    ) {
-        validarUsuario(representante);
-        validarObligatorio(descripcionServicio, "La descripción del servicio es obligatoria");
-        validarObligatorio(m2, "La necesidad de m2 es obligatoria");
-        validarObligatorio(areaTrabajo, "El área de trabajo es obligatoria");
-        validarObligatorio(areaDeposito, "El área de depósito es obligatoria");
-        validarObligatorio(planos, "Debe indicar si tiene planos");
-        validarObligatorio(empleabilidad, "Debe indicar el nivel de empleabilidad");
-
-        this.id = contador++;
-        this.numeroTramite = "SOL-" + id;
+        if(proyecto == null){
+            throw new RuntimeException("El proyecto es obligatorio");
+        }
         this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
         this.fechaCreacion = LocalDate.now();
         this.fechaActualizacion = LocalDate.now();
-
         this.representante = representante;
-        this.objeto = objeto;
-        this.nombreProyecto=nombreProyecto;
-        this.descripcionServicio = descripcionServicio;
-        this.emplazamiento = emplazamiento;
-        this.personal = personal;
-        this.tiempoRadicacion = tiempoRadicacion;
-        this.m2 = m2;
-        this.areaTrabajo = areaTrabajo;
-        this.areaDeposito = areaDeposito;
-        this.estacionamiento = estacionamiento;
-        this.planos = planos;
-        this.empleabilidad = empleabilidad;
-        this.materiasPrimas = materiasPrimas;
-        this.destinoProduccion = destinoProduccion;
-        this.tension = tension;
-        this.potencia = potencia;
-        this.agua = agua;
-        this.gas = gas;
-        this.residuos = residuos;
-        this.tratamiento = tratamiento;
-        this.balanza = balanza;
-        this.comedor = comedor;
-        this.coworking = coworking;
-        this.descripcionArchivo = descripcionArchivo;
-        this.nombreArchivoPDF = nombreArchivoPDF;
+        this.proyectoProductivo = proyecto;
+        this.archivosAdjuntos=new ArrayList<>();
+       // solicitudRadicacionDAO.create(this);
+
+    }
+
+    public SolicitudRadicacion(int id, String numeroTramite,RepresentanteEmpresa representante, ProyectoProductivo proyecto,LocalDate fechaCreacion,LocalDate fechaActualizacion
+                               ,String estado) {
+
+        if(proyecto == null){
+            throw new RuntimeException("El proyecto es obligatorio");
+        }
+        this.id=id;
+        this.numeroTramite=numeroTramite;
+        this.estadoSolicitud = this.transformador(estado);
+        this.fechaCreacion = fechaCreacion;
+        this.fechaActualizacion = fechaActualizacion();
+        this.representante = representante;
+        this.proyectoProductivo = proyecto;
+        this.archivosAdjuntos=new ArrayList<>();
+
     }
 
     //Constructor sobrecargado para usar en la base de datos
-    public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
+    /*public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
          LocalDate fechaActualizacion, String nombreProyecto, String descripcionServicio,
         ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
             validarUsuario(representante);
@@ -129,7 +69,7 @@ public class SolicitudRadicacion {
             this.descripcionServicio = descripcionServicio;
             this.proyectoProductivo = proyecto;
             this.empresa = empresa;
-         }
+         }*/
 
     private void validarUsuario(RepresentanteEmpresa representante) {
         if (representante == null) {
@@ -163,7 +103,13 @@ public class SolicitudRadicacion {
     }
 
     public String nombreProyecto(){
-        return nombreProyecto;
+        return proyectoProductivo.nombre();
+    }
+    public String descripcionServicio(){
+        return proyectoProductivo.descripcionServicio();
+    }
+    public ProyectoProductivo proyectoProductivo() {
+        return proyectoProductivo;
     }
     public String numeroTramite() {
         return numeroTramite;
@@ -185,21 +131,14 @@ public class SolicitudRadicacion {
         return representante;
     }
 
-    public String descripcionServicio() {
-        return descripcionServicio;
-    }
 
-    public String nombreArchivoPDF() {
-        return nombreArchivoPDF;
-    }
+
 
     public ProyectoProductivo proyecto() {
         return proyectoProductivo;
     }
 
-    public Empresa empresa() {
-        return empresa;
-    }
+
 
     public EstadoSolicitud transformador(String estado) {
 

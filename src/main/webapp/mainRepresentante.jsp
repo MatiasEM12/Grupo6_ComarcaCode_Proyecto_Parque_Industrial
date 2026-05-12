@@ -15,7 +15,7 @@
     }
 
     // SI NO ES REPRESENTANTE
-    if(!usuario.rol().equals("representante")){
+    if(!usuario.nombreRol().equals("representante")){
 
         response.sendRedirect( request.getContextPath()+ "/perfiles"
         );
@@ -79,8 +79,8 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">
-                    Mis Proyectos
+                <a href="${pageContext.request.contextPath}/misSolicitudes" class="nav__link">
+                    Mis Solicitudes
                 </a>
             </li>
 
@@ -115,11 +115,11 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/misProyectos"
+        <a href="${pageContext.request.contextPath}/representanteSolicitudes.jsp"
            class="card">
 
             <div class="card__content">
-                <h2>Mis Proyectos</h2>
+                <h2>Mis Solicitudes</h2>
             </div>
 
         </a>

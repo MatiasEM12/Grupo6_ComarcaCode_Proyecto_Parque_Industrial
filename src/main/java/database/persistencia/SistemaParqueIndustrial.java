@@ -1,6 +1,8 @@
-package model;
+package database.persistencia;
 
 import model.DTO.SolicitudRadicacionDTO;
+import model.SolicitudRadicacion;
+import model.Usuario;
 
 import java.util.List;
 

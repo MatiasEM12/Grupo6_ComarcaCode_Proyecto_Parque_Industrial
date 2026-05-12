@@ -1,5 +1,7 @@
 package model;
 
+import javax.swing.*;
+
 public class Usuario {
     private String userName;
     private String contrasena;
@@ -66,5 +68,11 @@ public class Usuario {
         return gmail;
     }
 
-    public boolean autenticar()
+    public boolean autenticar(){
+        return true;
+    }
+    public String nombreRol(){
+        return rol.nombre();
+    }
+
 }

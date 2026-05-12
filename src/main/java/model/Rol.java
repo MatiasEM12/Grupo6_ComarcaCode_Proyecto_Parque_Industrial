@@ -23,19 +23,26 @@ public class Rol {
         }
     }
     public String nombre(){
+        return this.nombre;
+    }
+    @Override
+    public String toString() {
         return nombre;
     }
-
     public Integer codigo(){
         return codigo;
     }
 
     public static Rol fromCodigo(int rol) {
+
         return switch (rol) {
-            case 1 -> new Rol("Administrador del Parque", 1);
-            case 2 -> new Rol("Representante de Empresa", 2);
-            case 3 -> new Rol("Funcionario Municipal", 3);
-            default -> throw new RuntimeException("Código de rol inválido: " + rol);
+
+            case 1 -> new Rol("administrador", 1);
+            case 2 -> new Rol("representante", 2);
+            case 3 -> new Rol("organismo_publico", 3);
+
+            default ->
+                    throw new RuntimeException("Código de rol inválido: " + rol);
         };
     }
 }
