@@ -1,5 +1,7 @@
 package model;
 
+import database.ReprecentanteEmpresaDAO;
+import database.ReprecentanteEmpresaDAOJDBC;
 import persistencia.PersistenceApi;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class RepresentanteEmpresa extends Usuario{
     Private Empresa empresa;
      */
     private final String nombreEmpresa;
+    private ReprecentanteEmpresaDAO reprecentanteEmpresaDAO = new ReprecentanteEmpresaDAOJDBC();
+
     public RepresentanteEmpresa(String userName, String contrasena,
                                 Rol rol, String gmail, String dni,
                                 String nombreEmpresa){
@@ -54,8 +58,7 @@ public class RepresentanteEmpresa extends Usuario{
         return new ArrayList<>();
     }
 
-    @Override
-    public void registrarUsuario(PersistenceApi persistenceApi) {
-        persistenceApi.reprecentanteEmpresaDAO().registrarReprecentante(this);
+    public void registrarUsuario() {
+        reprecentanteEmpresaDAO.registrarReprecentante(this);
     }
 }

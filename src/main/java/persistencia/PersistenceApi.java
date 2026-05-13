@@ -27,7 +27,7 @@ public class PersistenceApi implements IApi{
 
     public void regisTrarUsuario(Usuario usuario){
         this.usuarioDAO.registrar(usuario);
-        usuario.registrarUsuario(this);
+        usuario.registrarUsuario();
     }
 
     public void inicialisarUsuarios(){

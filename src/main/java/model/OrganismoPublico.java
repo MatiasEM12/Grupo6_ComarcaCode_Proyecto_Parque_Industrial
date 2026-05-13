@@ -93,8 +93,8 @@ public class OrganismoPublico extends Usuario{
         return null;
     }
 
-    @Override
-    public void registrarUsuario(PersistenceApi persistenceApi) {
+
+    public void registrarUsuario() {
         //seria algo asi para registrar el organismo publico
         //persistenceApi.organismoPublicoDAO().registrarOrgnismopublicDAO(this);
     }

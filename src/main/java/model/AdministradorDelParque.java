@@ -1,5 +1,7 @@
 package model;
 
+import database.AdministradorDelParqueDAO;
+import database.AdministradorDelParqueDAOJDBC;
 import persistencia.PersistenceApi;
 
 import java.util.List;
@@ -10,6 +12,8 @@ public class AdministradorDelParque extends Usuario{
     private List<Lote> loteList;
     private List<Reporte> reportes;
     private List<Observacion> observaciones;
+    private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
+
     public AdministradorDelParque(String userName, String contrasena,
                                   Rol rol, String gmail, String dni, String nombre) {
         super(userName, contrasena, rol, gmail);
@@ -63,8 +67,8 @@ public class AdministradorDelParque extends Usuario{
         return UserName();
     }
 
-    @Override
-    public void registrarUsuario(PersistenceApi persistenceApi) {
-        persistenceApi.administradorDelParqueDAO().registrarAdministrador(this);
+
+    public void registrarUsuario() {
+        administradorDelParqueDAO.registrarAdministrador(this);
     }
 }

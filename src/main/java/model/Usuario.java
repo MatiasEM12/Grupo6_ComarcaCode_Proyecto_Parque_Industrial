@@ -55,7 +55,8 @@ public class Usuario {
         return gmail.matches(regex);
     }
 
-    public void registrarUsuario(PersistenceApi persistenceApi);
+    public void registrarUsuario(){
+    }
 
     public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
         return new ArrayList<>();
