@@ -79,7 +79,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp" class="nav__link">
+                <a href="${pageContext.request.contextPath}/evaluacionTecnica" class="nav__link">
                     Evaluaciones Técnicas
                 </a>
             </li>
@@ -115,7 +115,7 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp"
+        <a href="${pageContext.request.contextPath}/evaluacionTecnica"
            class="card">
 
             <div class="card__content">
@@ -125,7 +125,7 @@
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
                 <h2>Proyectos en ejecución</h2>

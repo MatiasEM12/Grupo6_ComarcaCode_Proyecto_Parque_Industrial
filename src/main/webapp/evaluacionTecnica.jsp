@@ -1,7 +1,11 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.ProyectoProductivo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
 
+
 <%
+
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if (usuario == null) {
@@ -13,6 +17,8 @@
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
+    List<ProyectoProductivo> proyectos =
+                (List<ProyectoProductivo>) request.getAttribute("proyectos");
 %>
 
 <!DOCTYPE html>
@@ -62,7 +68,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
                    class="nav__link">
                     Proyectos en Ejecución
                 </a>
@@ -103,6 +109,32 @@
         <form action="${pageContext.request.contextPath}/guardarEvaluacionTecnica"
               method="post"
               class="form">
+            <label>Proyectos en ejecucion</label>
+
+            <select name="proyectoSeleccionado" required>
+
+                <option value="">
+                    Seleccione una opción
+                </option>
+
+                <%
+                    if(proyectos != null){
+
+                        for(ProyectoProductivo proyecto : proyectos){
+                %>
+
+                    <option value="<%= proyecto.getNombre() %>">
+
+                        <%= proyecto.getNombre() %>
+
+                    </option>
+
+                <%
+                        }
+                    }
+                %>
+
+            </select>
 
             <label>Descripción</label>
 
