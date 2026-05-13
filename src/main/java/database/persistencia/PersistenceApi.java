@@ -7,6 +7,14 @@ import database.DAOs.LoteDAO;
 import database.JDBCs.AdministradorDelParqueDAOJDBC;
 import database.JDBCs.EmpresaDAOJDBC;
 import database.JDBCs.LoteDAOJDBC;
+import database.ProyectoProductivoDAO;
+import database.ProyectoProductivoDAOJDBC;
+import database.ReprecentanteEmpresaDAO;
+import database.ReprecentanteEmpresaDAOJDBC;
+import database.RolDAO;
+import database.RolDAOJDBC;
+import database.UsuarioDAO;
+import database.UsuarioDAOJDBC;
 import model.Rol;
 import model.Usuario;
 
