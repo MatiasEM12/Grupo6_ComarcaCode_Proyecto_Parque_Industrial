@@ -1,6 +1,10 @@
 package model;
 
 import javax.swing.*;
+import persistencia.PersistenceApi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Usuario {
     private String userName;
@@ -50,6 +54,13 @@ public class Usuario {
     private boolean checkGmail(String gmail) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return gmail.matches(regex);
+    }
+
+    public void registrarUsuario(){
+    }
+
+    public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
+        return new ArrayList<>();
     }
 
     public String UserName() {

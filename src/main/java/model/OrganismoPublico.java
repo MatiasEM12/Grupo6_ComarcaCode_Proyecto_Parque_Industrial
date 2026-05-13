@@ -2,6 +2,7 @@ package model;
 
 
 import main.Sistema;
+import persistencia.PersistenceApi;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class OrganismoPublico extends Usuario{
     public OrganismoPublico(String username, String contraseña, String gmail,
                             String nombre, TipoOrganismo tipoOrganismo, Sistema sistema) {
         super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
+
+        //modificar rol de administrador y de reprecentante de parque para que se cree en el el super
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
         this.sistema=sistema;
@@ -92,4 +95,11 @@ public class OrganismoPublico extends Usuario{
     public EvaluacionTecnica registrarEvaluacion() {
         return null;
     }*/
+/*
+    public void registrarUsuario() {
+        //seria algo asi para registrar el organismo publico
+        //persistenceApi.organismoPublicoDAO().registrarOrgnismopublicDAO(this);
+    }
+
+ */
 }

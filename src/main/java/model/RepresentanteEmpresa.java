@@ -1,21 +1,29 @@
 package model;
 
-public class RepresentanteEmpresa {
+import database.ReprecentanteEmpresaDAO;
+import database.ReprecentanteEmpresaDAOJDBC;
+import persistencia.PersistenceApi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RepresentanteEmpresa extends Usuario{
     //no seria mejor DNI fuera de tipo int?
     private String dni;
     /*yo pondria una variable de tipo Empresa en vez de nombre de empresa, y que de hai recupere el nombre
     Private Empresa empresa;
      */
     private final String nombreEmpresa;
-    private final Usuario usuario;
+    private ReprecentanteEmpresaDAO reprecentanteEmpresaDAO = new ReprecentanteEmpresaDAOJDBC();
 
-    public RepresentanteEmpresa(String dni, String nombreEmpresa, Usuario usuario){
+    public RepresentanteEmpresa(String userName, String contrasena,
+                                Rol rol, String gmail, String dni,
+                                String nombreEmpresa){
+        super(userName, contrasena, rol, gmail);
         validarDni(dni);
         validarNombreEmpresa(nombreEmpresa);
-        validarUsuario(usuario);
         this.dni = dni;
         this.nombreEmpresa = nombreEmpresa;
-        this.usuario = usuario;
     }
 
     public String dni(){
@@ -24,10 +32,6 @@ public class RepresentanteEmpresa {
 
     public String nombreEmpresa(){
         return nombreEmpresa;
-    }
-
-    public Usuario usuario(){
-        return usuario;
     }
 
     public void validarDni(String dni) {
@@ -45,9 +49,16 @@ public class RepresentanteEmpresa {
         }
     }
 
-    public void validarUsuario(Usuario usuario){
-        if (usuario == null) {
-            throw new IllegalArgumentException("El usuario no puede ser nulo");
-        }
+    public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
+        /*esto seria asi:
+        return persistenceApi.solicitudRadicacionDAO().filter(this.userName());
+        yo tengo pensado la base de datos de solicitudRadicacion con referencia a nombre de usuuario
+        ya que los nombres de los usuarios son unicos
+         */
+        return new ArrayList<>();
+    }
+
+    public void registrarUsuario() {
+        reprecentanteEmpresaDAO.registrarReprecentante(this);
     }
 }
