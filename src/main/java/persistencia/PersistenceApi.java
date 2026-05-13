@@ -47,32 +47,11 @@ public class PersistenceApi implements IApi{
         this.regisTrarUsuario(usuario3);
     }
 
-    public AdministradorDelParqueDAO administradorDelParqueDAO(){
-        return administradorDelParqueDAO;
-    }
-
-    public ReprecentanteEmpresaDAO reprecentanteEmpresaDAO(){
-        return reprecentanteEmpresaDAO;
-    }
-
-    /*public SolicitudRadicacionDAO solicitudRadicacionDAO(){
-        return solicitudRadicacionDAO;
-    }
-
-     */
-
-
 
     public UsuarioDAO usuarioDAO(){
         return usuarioDAO;
     }
 
-
-    /*para cuando se cree el organismo publico dao
-    public OrganismoPublicoDAO organismoPublicoDAO(){
-        return OrganismoPublicoDAO;
-    }
-     */
 
     public List<SolicitudRadicacion> solicitudesDeRadicacionsUsuario(Usuario representanteEmpresa){
         return representanteEmpresa.solicidesDeRadicacion(this);
