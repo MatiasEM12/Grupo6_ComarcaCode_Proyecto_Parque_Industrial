@@ -1,0 +1,87 @@
+package vista.servlet;
+
+import main.Sistema;
+import model.SolicitudRadicacion;
+import model.Usuario;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@WebServlet("/misProyectos")
+public class MisSolicitudesServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+        try{
+            HttpSession session = request.getSession(false);
+
+            if (session == null) {
+                response.sendRedirect(
+                        request.getContextPath() + "/perfiles"
+                );
+                return;
+            }
+
+            Usuario usuario =
+                    (Usuario) session.getAttribute("usuarioLogueado");
+
+            if (usuario == null) {
+                response.sendRedirect(
+                        request.getContextPath() + "/perfiles"
+                );
+                return;
+            }
+
+            Sistema sistema =
+                    (Sistema) getServletContext()
+                            .getAttribute("sistema");
+
+            /*
+             * Obtiene solamente las solicitudes
+             * del representante logueado
+             */
+            List<SolicitudRadicacion> solicitudesUsuario =
+                    sistema.obtenerSolicitudes()
+                            .stream()
+                            .filter(solicitud ->
+                                    solicitud.representante()
+                                            .equals(usuario)
+                            )
+                            .collect(Collectors.toList());
+
+            /*
+             * Envia las solicitudes al JSP
+             */
+            request.setAttribute(
+                    "solicitudes",
+                    solicitudesUsuario
+            );
+
+            /*
+             * Redirecciona al JSP
+             */
+            request.getRequestDispatcher(
+                    "/representanteSolicitudes.jsp"
+            ).forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            request.setAttribute(
+                    "error",
+                    e.getClass().getSimpleName()
+                            + ": "
+                            + e.getMessage()
+            );
+
+            request.getRequestDispatcher(
+                    "/representanteSolicitudes.jsp"
+            ).forward(request, response);
+        }
+    }
+}
