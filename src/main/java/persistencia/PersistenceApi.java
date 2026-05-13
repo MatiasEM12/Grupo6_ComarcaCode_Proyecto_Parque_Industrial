@@ -1,9 +1,9 @@
 package persistencia;
 
-import database.*;
+import database.JDBCs.*;
+import database.DAOs.*;
 import model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersistenceApi implements IApi{
@@ -42,19 +42,14 @@ public class PersistenceApi implements IApi{
                 "pedro@gmail.com", "Pedro", new Rol("organismo_publico",333),
                 TipoOrganismo.MUNICIPAL, new SistemaParque());
 
-        this.regisTrarUsuario(usuario1);
-        this.regisTrarUsuario(usuario2);
-        this.regisTrarUsuario(usuario3);
-    }
-
-
-    public UsuarioDAO usuarioDAO(){
-        return usuarioDAO;
+        regisTrarUsuario(usuario1);
+        regisTrarUsuario(usuario2);
+        regisTrarUsuario(usuario3);
     }
 
 
     public List<SolicitudRadicacion> solicitudesDeRadicacionsUsuario(Usuario representanteEmpresa){
-        return representanteEmpresa.solicidesDeRadicacion(this);
+        return representanteEmpresa.solicidesDeRadicacion();
     }
 
 

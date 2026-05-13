@@ -6,10 +6,7 @@ import database.DAOs.UsuarioDAO;
 import model.Rol;
 import model.Usuario;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,5 +121,43 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
             throw new RuntimeException("Error al obtener usuarios", e);
         }
         return usuarios;
+    }
+
+    public Usuario recuperarUsuario(String userName){
+        final String SQL = """
+        SELECT 
+            u.userName,
+            u.contrasena,
+            u.gmail,
+            r.codigo,
+            r.nombre
+        FROM Usuario u
+        JOIN roles r ON u.rol = r.codigo
+        WHERE u.userName = ?
+        """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, userName);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                Rol rol = new Rol(rs.getString("nombre"),
+                        rs.getInt("codigo"));
+
+                return new Usuario(
+                        rs.getString("userName"),
+                        rs.getString("contrasena"),
+                        rol,
+                        rs.getString("gmail")
+                );
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al recuperar usuario" + e);
+        }
     }
 }

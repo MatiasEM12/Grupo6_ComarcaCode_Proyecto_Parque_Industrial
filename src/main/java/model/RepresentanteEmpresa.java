@@ -1,7 +1,7 @@
 package model;
 
-import database.ReprecentanteEmpresaDAO;
-import database.ReprecentanteEmpresaDAOJDBC;
+import database.DAOs.ReprecentanteEmpresaDAO;
+import database.JDBCs.ReprecentanteEmpresaDAOJDBC;
 import persistencia.PersistenceApi;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class RepresentanteEmpresa extends Usuario{
         }
     }
 
-    public List<SolicitudRadicacion> solicidesDeRadicacion(PersistenceApi persistenceApi){
+    public List<SolicitudRadicacion> solicidesDeRadicacion(){
         /*esto seria asi:
         return persistenceApi.solicitudRadicacionDAO().filter(this.userName());
         yo tengo pensado la base de datos de solicitudRadicacion con referencia a nombre de usuuario
