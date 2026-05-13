@@ -27,7 +27,17 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
     }
 
     public Usuario recuperarUsuario(String userName){
-        final String SQL = "SELECT userName, contrasena, rol, gmail FROM Usuario WHERE userName = ?";
+        final String SQL = """
+        SELECT 
+            u.userName,
+            u.contrasena,
+            u.gmail,
+            r.codigo,
+            r.nombre
+        FROM Usuario u
+        JOIN roles r ON u.rol = r.codigo
+        WHERE u.userName = ?
+        """;
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
@@ -37,8 +47,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO{
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                RolDAOJDBC rolDAOJDBC = new RolDAOJDBC();
-                Rol rol = rolDAOJDBC.find(rs.getInt("rol"));
+                Rol rol = new Rol(rs.getString("nombre"),
+                        rs.getInt("codigo"));
+
                 return new Usuario(
                         rs.getString("userName"),
                         rs.getString("contrasena"),
