@@ -1,6 +1,7 @@
-package database;
+package database.JDBCs;
 
-import main.ConnectionManager;
+
+import database.ConnectionManager;
 import model.RepresentanteEmpresa;
 import model.Rol;
 import model.Usuario;
@@ -9,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ReprecentanteEmpresaDAOJDBC implements ReprecentanteEmpresaDAO {
+public class ReprecentanteEmpresaDAOJDBC implements database.ReprecentanteEmpresaDAO {
     @Override
     // tendriamos que combiar de la tabla del reprecentante el nombre por nombre de empresa para que quede claro
     public void registrarReprecentante(RepresentanteEmpresa representanteEmpresa) {

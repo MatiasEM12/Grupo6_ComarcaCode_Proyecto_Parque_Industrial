@@ -1,6 +1,8 @@
-package database;
+package database.JDBCs;
 
-import main.ConnectionManager;
+import database.ConnectionManager;
+import database.UsuarioDAO;
+
 import model.Rol;
 import model.Usuario;
 
@@ -11,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAOJDBC implements UsuarioDAO{
+public class UsuarioDAOJDBC implements UsuarioDAO {
 
     @Override
     public void registrar(Usuario usuario) {

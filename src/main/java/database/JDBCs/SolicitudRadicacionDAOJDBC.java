@@ -1,5 +1,6 @@
-package database;
+package database.JDBCs;
 
+import database.ConnectionManager;
 import model.Empresa;
 import model.ProyectoProductivo;
 import model.RepresentanteEmpresa;
@@ -12,7 +13,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
+public class SolicitudRadicacionDAOJDBC implements database.SolicitudRadicacionDAO {
 
 
     @Override
@@ -22,7 +23,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
             "fechaActualizacion, nombreProyecto, descripcionServicio, cuitEmpresa, idProyecto, dniRepresentante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
-            java.sql.PreparedStatement st = conn.prepareStatement(SQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+             java.sql.PreparedStatement st = conn.prepareStatement(SQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
             st.setInt(1, solicitudRadicacion.id());
             st.setString(2, solicitudRadicacion.numeroTramite());
