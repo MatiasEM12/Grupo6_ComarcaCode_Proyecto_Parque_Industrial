@@ -10,9 +10,9 @@ public class Empresa {
     private String contactoRepresentante;
     private Boolean radicada;
     private Lote lote;
-    private ArrayList<SolicitudRadicacion> solicitudes;
-    private ArrayList<ProyectoProductivo> proyectos;
-    private ArrayList<RepresentanteEmpresa> representantes;
+    private ArrayList<SolicitudRadicacion> solicitudes=new ArrayList<>();;
+    private ArrayList<ProyectoProductivo> proyectos=new ArrayList<>();;
+    private ArrayList<RepresentanteEmpresa> representantes= new ArrayList<>();
 
     public Empresa(String cuit, String razonSocial, String contacto, String contactoRepresentante, Boolean radicada, Lote lote,RepresentanteEmpresa representante) {
 
@@ -36,8 +36,7 @@ public class Empresa {
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 
         if (representante == null) {
-            throw new RuntimeException("El representante no puede ser nulo"
-            );
+           // throw new RuntimeException("El representante no puede ser nulo");
         }
 
         if (representantes == null) {
@@ -116,5 +115,9 @@ public class Empresa {
 
     public Lote lote() {
         return lote;
+    }
+
+    public RepresentanteEmpresa representante() {
+        return representante();
     }
 }
