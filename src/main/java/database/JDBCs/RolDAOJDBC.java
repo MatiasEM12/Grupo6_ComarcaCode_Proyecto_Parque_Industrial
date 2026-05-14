@@ -1,7 +1,7 @@
 package database.JDBCs;
 
 import database.ConnectionManager;
-import database.RolDAO;
+import database.DAOs.RolDAO;
 import model.Rol;
 
 import java.sql.Connection;

@@ -13,7 +13,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolicitudRadicacionDAOJDBC implements database.SolicitudRadicacionDAO {
+import database.DAOs.SolicitudRadicacionDAO;
+
+public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
 
     @Override
@@ -23,7 +25,7 @@ public class SolicitudRadicacionDAOJDBC implements database.SolicitudRadicacionD
             "fechaActualizacion, nombreProyecto, descripcionServicio, cuitEmpresa, idProyecto, dniRepresentante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
-             java.sql.PreparedStatement st = conn.prepareStatement(SQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+            java.sql.PreparedStatement st = conn.prepareStatement(SQL, java.sql.Statement.RETURN_GENERATED_KEYS)) {
 
             st.setInt(1, solicitudRadicacion.id());
             st.setString(2, solicitudRadicacion.numeroTramite());

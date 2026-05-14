@@ -5,13 +5,13 @@ import database.DAOs.AdministradorDelParqueDAO;
 import database.DAOs.EmpresaDAO;
 import database.DAOs.LoteDAO;
 import database.JDBCs.*;
-import database.ProyectoProductivoDAO;
+import database.DAOs.ProyectoProductivoDAO;
 
-import database.ReprecentanteEmpresaDAO;
+import database.DAOs.ReprecentanteEmpresaDAO;
 
-import database.RolDAO;
+import database.DAOs.RolDAO;
 
-import database.UsuarioDAO;
+import database.DAOs.UsuarioDAO;
 
 import model.Rol;
 import model.Usuario;

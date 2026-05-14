@@ -1,6 +1,5 @@
 package database.JDBCs;
 
-
 import database.ConnectionManager;
 import model.ProyectoProductivo;
 
@@ -8,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ProyectoProductivoDAOJDBC implements database.ProyectoProductivoDAO {
+import database.DAOs.ProyectoProductivoDAO;
+
+public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO{
 
     @Override
     public void registrarProyectoProductivo(ProyectoProductivo proyectoProductivo) {

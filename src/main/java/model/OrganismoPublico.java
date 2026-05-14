@@ -1,19 +1,20 @@
 package model;
 
-
 import main.Sistema;
 
 import java.util.List;
 
-public class OrganismoPublico extends Usuario{
+public class OrganismoPublico extends Usuario {
+    private int SAF;
     private String nombre;
     private TipoOrganismo tipoOrganismo;
     private Sistema sistema;
 
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
-                            String nombre, TipoOrganismo tipoOrganismo,Sistema sistema) {
+                            int SAF, String nombre, TipoOrganismo tipoOrganismo,Sistema sistema) {
         super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
+        this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
         this.sistema=sistema;

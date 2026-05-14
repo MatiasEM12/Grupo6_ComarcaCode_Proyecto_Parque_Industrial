@@ -1,0 +1,119 @@
+public class GeneradorBD {
+    public String url = "jdbc:mysql://localhost:3306/";
+    public String username = "root";
+    public String password = "root";
+
+    public sql = "CREATE DATABASE IF NOT EXISTS parque_industrial;"
+
+    public tables = """
+            CREATE TABLE IF NOT EXISTS usuarios (
+                userName VARCHAR(100) PRIMARY KEY,
+                contrasena VARCHAR(100),
+                rol VARCHAR(100),
+                gmail VARCHAR(100)
+            );
+
+            CREATE TABLE IF NOT EXISTS representantesEmpresa (
+                dni VARCHAR(11) PRIMARY KEY,
+                nombre_Empresa VARCHAR(100),
+                userName VARCHAR(100),
+                userName VARCHAR(100),
+                FOREIGN KEY (userName) REFERENCES usuarios(userName)
+            );
+            
+            CREATE TABLE IF NOT EXISTS administradorParque (
+                DNI VARCHAR(11) PRIMARY KEY,
+                nombre VARCHAR(100),
+                userName VARCHAR(100),
+                userName VARCHAR(100),
+                FOREIGN KEY (userName) REFERENCES usuarios(userName)
+            );
+
+            CREATE TABLE IF NOT EXISTS organismosPublicos (
+                saf int PRIMARY KEY,
+                nombre VARCHAR(100),
+                tipo_Organismo VARCHAR(100),
+                id_Sistema INT,
+                FOREIGN KEY (idSistema) REFERENCES sistemasParque(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS empresas (
+                cuit VARCHAR(50) PRIMARY KEY,
+                razon_Social VARCHAR(100),
+                contacto VARCHAR(100),
+                contacto_Representante VARCHAR(100),
+                radicada boolean,
+                idLote INT,
+                FOREIGN KEY (idLote) REFERENCES lotes(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS proyectosProductivos (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                nombre VARCHAR(100),
+                descripcion VARCHAR(MAX),
+                superficie DOUBLE,
+                necesidades VARCHAR(MAX),
+                materia_Prima VARCHAR(100),
+                enEjecucion BOOLEAN,
+                cuit_empresa VARCHAR(50),
+                FOREIGN KEY (cuit_empresa) REFERENCES empresas(cuit)
+            );
+
+            CREATE TABLE IF NOT EXISTS lotes (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                ubicacion VARCHAR(100),
+                superficie DOUBLE,
+                estado VARCHAR(100),
+                infraestructura VARCHAR(100)
+            );
+
+            CREATE TABLE IF NOT EXISTS solicitudesRadicacion (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                numero_tramite VARCHAR(100),
+                estado_solicitud VARCHAR(100),
+                fecha_Creacion DATE,
+                fecha_Actualizacion DATE,
+                objeto VARCHAR(MAX),
+                nombre_proyecto VARCHAR(100),
+                descripcion_Servicio VARCHAR(MAX),
+                emplazamiento VARCHAR(100),
+                personal VARCHAR(100),
+                tiempo_radicacion VARCHAR(100),
+                m2 VARCHAR(100),
+                area_Trabajo VARCHAR(100),
+                area_Deposito VARCHAR(100),
+                estacionamiento VARCHAR(100),
+                planos VARCHAR(100),
+                empleabilidad VARCHAR(100),
+                materias_Primas VARCHAR(100),
+                destino_Produccion VARCHAR(100),
+                tension VARCHAR(100),
+                potencia VARCHAR(100),
+                agua VARCHAR(100),
+                gas VARCHAR(100),
+                residuos VARCHAR(100),
+                tratamiento VARCHAR(100),
+                balanza VARCHAR(100),
+                comedor VARCHAR(100),
+                coworking VARCHAR(100),
+                descripcion_Archivo VARCHAR(MAX),
+                nombre_Archivo_PDF VARCHAR(100),
+
+                dni_representante VARCHAR(11),
+                id_proyecto INT,
+                cuit_empresa VARCHAR(50),
+                FOREIGN KEY (dni_representante) REFERENCES representantesEmpresa(dni),
+                FOREIGN KEY (id_proyecto) REFERENCES proyectosProductivos(id),
+                FOREIGN KEY (cuit_empresa) REFERENCES empresas(cuit)
+            );
+
+            
+            """;
+
+    try (Connection conn = DriverManager.getConnection(url, username, password);
+         Statement stmt = conn.createStatement()) {
+        stmt.executeUpdate(sql);
+
+    } catch (SQLException e) {
+        System.out.println("Error al crear la base de datos: " + e.getMessage());
+}

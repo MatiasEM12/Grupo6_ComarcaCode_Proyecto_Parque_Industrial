@@ -1,7 +1,7 @@
 package database.JDBCs;
 
 import database.ConnectionManager;
-import database.UsuarioDAO;
+import database.DAOs.UsuarioDAO;
 
 import model.Rol;
 import model.Usuario;
@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UsuarioDAOJDBC implements UsuarioDAO {
 
