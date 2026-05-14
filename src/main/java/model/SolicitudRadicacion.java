@@ -71,13 +71,48 @@ public class SolicitudRadicacion {
             String descripcionArchivo,
             String nombreArchivoPDF
     ) {
-        validarUsuario(representante);
+        validarObligatorio(objeto, "El objeto es obligatorio");
+        validarObligatorio(nombreProyecto, "El nombre del proyecto es obligatorio");
         validarObligatorio(descripcionServicio, "La descripción del servicio es obligatoria");
+        validarObligatorio(emplazamiento, "El emplazamiento es obligatorio");
+        validarObligatorio(personal, "Debe indicar el personal");
+        validarObligatorio(tiempoRadicacion, "Debe indicar el tiempo de radicación");
+
         validarObligatorio(m2, "La necesidad de m2 es obligatoria");
         validarObligatorio(areaTrabajo, "El área de trabajo es obligatoria");
         validarObligatorio(areaDeposito, "El área de depósito es obligatoria");
+
         validarObligatorio(planos, "Debe indicar si tiene planos");
         validarObligatorio(empleabilidad, "Debe indicar el nivel de empleabilidad");
+
+        validarObligatorio(materiasPrimas, "Debe indicar las materias primas");
+        validarObligatorio(destinoProduccion, "Debe indicar el destino de la producción");
+
+        validarObligatorio(tension, "Debe indicar la tensión requerida");
+        validarObligatorio(potencia, "Debe indicar la potencia requerida");
+
+        validarObligatorio(agua, "Debe indicar el consumo de agua");
+        validarObligatorio(gas, "Debe indicar el consumo de gas");
+
+        validarObligatorio(residuos, "Debe indicar los residuos generados");
+        validarObligatorio(tratamiento, "Debe indicar el tratamiento de residuos");
+
+
+// VALIDACIONES NUMÉRICAS
+        validarNumeroPositivo(m2, "Los m2 deben ser un número positivo");
+        validarNumeroPositivo(areaTrabajo, "El área de trabajo debe ser un número positivo");
+        validarNumeroPositivo(areaDeposito, "El área de depósito debe ser un número positivo");
+
+
+// LONGITUDES
+        validarLongitud(nombreProyecto, 100,
+                "El nombre del proyecto no puede superar los 100 caracteres");
+
+        validarLongitud(descripcionServicio, 1000,
+                "La descripción del servicio no puede superar los 1000 caracteres");
+
+        validarLongitud(objeto, 255,
+                "El objeto no puede superar los 255 caracteres");
 
         this.id = contador++;
         this.numeroTramite = "SOL-" + id;
@@ -119,6 +154,8 @@ public class SolicitudRadicacion {
         ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
             validarUsuario(representante);
 
+            validarUsuario(representante);
+            validarId(id);
             this.id = id;
             this.numeroTramite = numeroTramite;
             this.estadoSolicitud = transformador(estadoSolicitud);
@@ -131,17 +168,7 @@ public class SolicitudRadicacion {
             this.empresa = empresa;
          }
 
-    private void validarUsuario(RepresentanteEmpresa representante) {
-        if (representante == null) {
-            throw new RuntimeException("Debe existir un representante logueado");
-        }
-    }
 
-    private void validarObligatorio(String valor, String mensaje) {
-        if (valor == null || valor.isBlank()) {
-            throw new RuntimeException(mensaje);
-        }
-    }
 
     public void aprobar() {
         this.estadoSolicitud = EstadoSolicitud.APROBADA;
@@ -210,8 +237,46 @@ public class SolicitudRadicacion {
                 return EstadoSolicitud.RECHAZADA;
             case "OBSERVADA":
                 return EstadoSolicitud.OBSERVADA;
+            case "PENDIENTE":
+                return EstadoSolicitud.PENDIENTE;
             default:
                 throw new RuntimeException("Estado de solicitud no válido");
+        }
+    }
+
+    private void validarUsuario(RepresentanteEmpresa representante) {
+        if (representante == null) {
+            throw new RuntimeException("Debe existir un representante logueado");
+        }
+    }
+
+    private void validarObligatorio(String valor, String mensaje) {
+        if (valor == null || valor.isBlank()) {
+            throw new RuntimeException(mensaje);
+        }
+    }
+
+    private void validarLongitud(String valor, int maximo, String mensaje) {
+        if (valor != null && valor.length() > maximo) {
+            throw new RuntimeException(mensaje);
+        }
+    }
+    private void validarId(int id) {
+        if (id <= 0) {
+            throw new RuntimeException("ID debe ser un número positivo");
+        }
+    }
+
+    private void validarNumeroPositivo(String valor, String mensaje) {
+        try {
+            double numero = Double.parseDouble(valor);
+
+            if (numero <= 0) {
+                throw new RuntimeException(mensaje);
+            }
+
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(mensaje);
         }
     }
 }
