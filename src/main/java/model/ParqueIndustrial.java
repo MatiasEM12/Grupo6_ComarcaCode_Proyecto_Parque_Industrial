@@ -1,9 +1,11 @@
 package model;
 
+import database.JDBCs.ReprecentanteEmpresaDAOJDBC;
+import database.JDBCs.UsuarioDAOJDBC;
 import database.ReprecentanteEmpresaDAO;
-import database.ReprecentanteEmpresaDAOJDBC;
+
 import database.UsuarioDAO;
-import database.UsuarioDAOJDBC;
+
 import model.DTO.SolicitudRadicacionDTO;
 
 import java.util.ArrayList;

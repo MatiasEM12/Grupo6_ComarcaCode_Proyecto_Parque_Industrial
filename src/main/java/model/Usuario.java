@@ -66,5 +66,7 @@ public class Usuario {
         return gmail;
     }
 
-    public boolean autenticar()
+    public boolean autenticar(){
+        return true;
+    }
 }
