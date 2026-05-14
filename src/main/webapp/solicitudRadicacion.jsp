@@ -54,7 +54,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp" class="nav__link">Mis Proyectos</a>
+                <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">Mis Proyectos</a>
             </li>
 
             <li class="nav__item">
