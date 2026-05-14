@@ -69,4 +69,9 @@ public class Usuario {
     public boolean autenticar(){
         return true;
     }
+
+    public String nombreRol() {
+
+        return rol.toString();
+    }
 }

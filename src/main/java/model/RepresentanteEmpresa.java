@@ -9,6 +9,7 @@ public class RepresentanteEmpresa {
     private final String nombreEmpresa;
     private final Usuario usuario;
 
+    private boolean  puedeIngresarSolicitud=true;
     public RepresentanteEmpresa(String dni, String nombreEmpresa, Usuario usuario){
         validarDni(dni);
         validarNombreEmpresa(nombreEmpresa);
@@ -48,6 +49,18 @@ public class RepresentanteEmpresa {
     public void validarUsuario(Usuario usuario){
         if (usuario == null) {
             throw new IllegalArgumentException("El usuario no puede ser nulo");
+        }
+    }
+    public void SipuedeIngresarSolicitud(){
+        this.puedeIngresarSolicitud=true;
+    }
+
+    public void NopuedeIngresarSolicitud(){
+        this.puedeIngresarSolicitud=false;
+    }
+    public void puedeIngresarSolititud(){
+        if(!puedeIngresarSolicitud){
+            throw new RuntimeException("El representante de la empresa no puede ingresar una solicitud");
         }
     }
 }

@@ -19,7 +19,7 @@
     }
 
     // SI NO ES ADMINISTRADOR
-    if(!usuario.rol().equals("administrador")){
+    if(!usuario.nombreRol().equals("administrador")){
 
         response.sendRedirect(
                 request.getContextPath()

@@ -40,7 +40,7 @@ public class SeleccionarPerfilServlet extends HttpServlet {
                     usuario
             );
 
-            String pagina = paginaSegunRol(usuario.rol());
+            String pagina = paginaSegunRol(usuario.nombreRol());
 
             response.sendRedirect(request.getContextPath() + pagina);
         }

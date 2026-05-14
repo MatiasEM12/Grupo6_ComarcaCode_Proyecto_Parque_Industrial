@@ -71,8 +71,10 @@ public class SolicitudRadicacion {
             String descripcionArchivo,
             String nombreArchivoPDF
     ) {
-        validarObligatorio(objeto, "El objeto es obligatorio");
+
         validarObligatorio(nombreProyecto, "El nombre del proyecto es obligatorio");
+        validarObligatorio(objeto, "El objeto es obligatorio");
+
         validarObligatorio(descripcionServicio, "La descripción del servicio es obligatoria");
         validarObligatorio(emplazamiento, "El emplazamiento es obligatorio");
         validarObligatorio(personal, "Debe indicar el personal");
@@ -146,14 +148,14 @@ public class SolicitudRadicacion {
         this.coworking = coworking;
         this.descripcionArchivo = descripcionArchivo;
         this.nombreArchivoPDF = nombreArchivoPDF;
+
+        this.representante.NopuedeIngresarSolicitud();
     }
 
     //Constructor sobrecargado para usar en la base de datos
     public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
          LocalDate fechaActualizacion, String nombreProyecto, String descripcionServicio,
         ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
-            validarUsuario(representante);
-
             validarUsuario(representante);
             validarId(id);
             this.id = id;

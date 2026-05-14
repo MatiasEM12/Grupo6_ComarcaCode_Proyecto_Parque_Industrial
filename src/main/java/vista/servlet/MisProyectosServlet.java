@@ -19,6 +19,7 @@ public class MisProyectosServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
 
         if (session == null) {
@@ -47,13 +48,7 @@ public class MisProyectosServlet extends HttpServlet {
          * del representante logueado
          */
         List<SolicitudRadicacion> solicitudesUsuario =
-                sistema.obtenerSolicitudes()
-                        .stream()
-                        .filter(solicitud ->
-                                solicitud.representante()
-                                        .equals(usuario)
-                        )
-                        .collect(Collectors.toList());
+                sistema.obtenerSolicitudesDe(usuario);
 
         /*
          * Envia las solicitudes al JSP
