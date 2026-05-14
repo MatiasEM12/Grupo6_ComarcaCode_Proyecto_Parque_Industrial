@@ -260,3 +260,9 @@ main{
 .estado__revision{
     background-color: #b9dcff;
 }
+
+.project__date{
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
