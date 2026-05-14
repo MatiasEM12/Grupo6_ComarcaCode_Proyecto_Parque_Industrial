@@ -16,6 +16,7 @@ public class Sistema  implements SistemaParqueIndustrial {
     private static List<Usuario> usuarios;
     private static List<SolicitudRadicacion> solicitudes;
     private static List<RepresentanteEmpresa> representantes;
+    private static List<Empresa> empresas;
 
     public Sistema() {
         usuarios = List.of(
@@ -28,14 +29,27 @@ public class Sistema  implements SistemaParqueIndustrial {
                 new Usuario("pedro", "7890",
                         new Rol("organismo_publico",333), "pedro@gmail.com")
         );
+        var empresa = new Empresa(
+                "11111111",
+                "nike",
+                "contacto",
+                "representante@gmail.com",
+                false,
+                null,
+                null
+        );
         var representante = new RepresentanteEmpresa(
                 "11111111",
-                "maria",
+                "nike",
                 usuarios.get(1)
         );
+
+        empresa.agregarRepresentante(representante);
         solicitudes = new ArrayList<>();
         representantes=new ArrayList<>();
+        empresas=new ArrayList<>();
         representantes.add(representante);
+        empresas.add(empresa);
     }
 
 
