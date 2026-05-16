@@ -15,7 +15,7 @@
     }
 
     // SI NO ES REPRESENTANTE
-    if(!usuario.rol().equals("representante")){
+    if(!usuario.nombreRol().equals("representante")){
 
         response.sendRedirect( request.getContextPath()+ "/perfiles"
         );

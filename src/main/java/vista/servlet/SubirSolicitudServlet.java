@@ -19,6 +19,8 @@ public class SubirSolicitudServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession(false);
 
@@ -104,11 +106,25 @@ public class SubirSolicitudServlet extends HttpServlet {
                         nombreArchivoPDF
                 );
 
-        sistema.agregarSolicitud(solicitud);
+        try {
 
-        response.sendRedirect(
-                request.getContextPath()
-                        + "/misProyectos"
-        );
+            sistema.agregarSolicitud(solicitud);
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/misProyectos"
+            );
+
+        }  catch (RuntimeException e) {
+
+            request.setAttribute(
+                    "error",
+                    e.getMessage()
+            );
+
+            request.getRequestDispatcher(
+                    "/solicitudRadicacion.jsp"
+            ).forward(request, response);
+        }
     }
 }

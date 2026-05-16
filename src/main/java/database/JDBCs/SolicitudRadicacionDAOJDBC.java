@@ -122,11 +122,9 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 Usuario usuario = new Usuario(rs.getString("userName"), rs.getString("contrasena"),
                  rol, rs.getString("gmail"));
 
-                Empresa empresa = new Empresa(rs.getString("userName"), rs.getString("contrasena"), 
-                    rs.getString("gmail"),  rs.getString("nombreEmpresa"),
-                     rs.getString("cuit"), rs.getString("contacto"),
-                      rs.getString("contactoRepresentante"));
-
+                Empresa empresa = new Empresa(rs.getString("cuit"), rs.getString("razon_Social"), rs.getString("contacto"),
+                        rs.getString("contacto_Representante"), rs.getBoolean("radicada"),
+                        null,null);
                 ProyectoProductivo proyecto = new ProyectoProductivo(rs.getString("nombreProyecto"),
                      rs.getString("descripcionProyecto"), rs.getDouble("superficie"),
                       rs.getString("necesidades"), rs.getInt("empleabilidad"),
@@ -170,11 +168,9 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 Usuario usuario = new Usuario(rs.getString("userName"), rs.getString("contrasena"),
                  rol, rs.getString("gmail"));
 
-                Empresa empresa = new Empresa(rs.getString("userName"), rs.getString("contrasena"), 
-                    rs.getString("gmail"),  rs.getString("nombreEmpresa"),
-                     rs.getString("cuit"), rs.getString("contacto"),
-                      rs.getString("contactoRepresentante"));
-
+                Empresa empresa = new Empresa(rs.getString("cuit"), rs.getString("razon_Social"), rs.getString("contacto"),
+                        rs.getString("contacto_Representante"), rs.getBoolean("radicada"),
+                        null,null);
                 ProyectoProductivo proyecto = new ProyectoProductivo(rs.getString("nombreProyecto"),
                      rs.getString("descripcionProyecto"), rs.getDouble("superficie"),
                       rs.getString("necesidades"), rs.getInt("empleabilidad"),

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.SolicitudRadicacion" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -167,6 +168,12 @@
                     <%= solicitud.descripcionServicio() %>
 
                 </p>
+
+                    <p class="project__date">
+
+                       Última actualización: <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+
+                    </p>
 
                 <span class="project__state <%= claseEstado %>">
 

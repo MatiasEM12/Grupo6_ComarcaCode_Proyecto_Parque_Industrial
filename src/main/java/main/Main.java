@@ -10,11 +10,20 @@ public class Main implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        Sistema sistema = new Sistema();
+        try {
 
-        sce.getServletContext().setAttribute(
-                "sistema",
-                sistema
-        );
+            Sistema sistema = new Sistema();
+
+            sce.getServletContext().setAttribute(
+                    "sistema",
+                    sistema
+            );
+
+            System.out.println("Sistema iniciado correctamente");
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 }
