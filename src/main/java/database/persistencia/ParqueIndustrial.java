@@ -4,9 +4,7 @@ package database.persistencia;
 
 import database.DAOs.*;
 import database.JDBCs.*;
-import database.ReprecentanteEmpresaDAO;
-import database.SolicitudRadicacionDAO;
-import database.UsuarioDAO;
+
 import model.DTO.*;
 import model.ProyectoProductivo;
 import model.RepresentanteEmpresa;
