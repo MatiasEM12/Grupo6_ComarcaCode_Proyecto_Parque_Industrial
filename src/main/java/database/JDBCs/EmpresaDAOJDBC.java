@@ -2,6 +2,7 @@ package database.JDBCs;
 
 
 import database.ConnectionManager;
+import model.DTO.EmpresaDTO;
 import model.Empresa;
 
 import java.sql.Connection;
@@ -34,5 +35,10 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
         }catch(SQLException e){
             throw new RuntimeException("Error al registrar usuario", e);
         }
+    }
+
+    @Override
+    public void actualizar(EmpresaDTO empresa) {
+
     }
 }

@@ -4,6 +4,7 @@ import database.DAOs.ReprecentanteEmpresaDAO;
 import database.DAOs.SolicitudRadicacionDAO;
 import database.JDBCs.ReprecentanteEmpresaDAOJDBC;
 import database.JDBCs.SolicitudRadicacionDAOJDBC;
+import model.DTO.EmpresaDTO;
 
 public class RepresentanteEmpresa {
 
@@ -50,7 +51,20 @@ public class RepresentanteEmpresa {
         solicitudRadicacion.cargate();
     }
 
+    public void actualizarEmpresa(EmpresaDTO empresa){
+        validarEmpresaDTO(empresa);
+        this.empresa.actualizar(empresa);
+    }
 
+
+// - tengo un poblema, el proyecto actual deberia de ser atributo del representante?
+// -  o empresa tiene como atributo el proyecto en desarrollo? this.empresa.proyectoEnDesarrollo()
+
+    //entonces seria this.proyecto.cargarAvance(avance)
+    public void cargarAvance(AvanceDeProyecto avance){
+        validarAvance(avance);
+        avance.cargate();
+    }
 
     public void validarDni(String dni) {
         if (dni == null || dni.trim().isEmpty()) {
@@ -82,5 +96,20 @@ public class RepresentanteEmpresa {
             throw new IllegalArgumentException("La solicitud no puede ser nula");
         }
     }
+
+
+    private void validarAvance(AvanceDeProyecto avance) {
+        if(avance == null){
+            throw new IllegalArgumentException("El avance no puede ser nulo");
+        }
+    }
+    private void validarEmpresaDTO(EmpresaDTO empresa) {
+        if(empresa == null){
+            throw new IllegalArgumentException("La empresa no puede ser nula");
+        }
+    }
+
+
+
 
 }

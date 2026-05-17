@@ -1,5 +1,9 @@
 package model;
 
+import database.DAOs.EmpresaDAO;
+import database.JDBCs.EmpresaDAOJDBC;
+import model.DTO.EmpresaDTO;
+
 import java.util.ArrayList;
 
 public class Empresa {
@@ -13,6 +17,8 @@ public class Empresa {
     private ArrayList<SolicitudRadicacion> solicitudes=new ArrayList<>();;
     private ArrayList<ProyectoProductivo> proyectos=new ArrayList<>();;
     private ArrayList<RepresentanteEmpresa> representantes= new ArrayList<>();
+
+    private EmpresaDAO empresaDAO= new EmpresaDAOJDBC();
 
     public Empresa(String cuit, String razonSocial, String contacto, String contactoRepresentante, Boolean radicada, Lote lote,RepresentanteEmpresa representante) {
 
@@ -36,7 +42,7 @@ public class Empresa {
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 
         if (representante == null) {
-           // throw new RuntimeException("El representante no puede ser nulo");
+           throw new RuntimeException("El representante no puede ser nulo");
         }
 
         if (representantes == null) {
@@ -118,10 +124,15 @@ public class Empresa {
     }
 
     public RepresentanteEmpresa representante() {
-        return representante();
+        return null;
     }
 
     public String nombre() {
         return this.nombre();
+    }
+
+    public void actualizar(EmpresaDTO empresa) {
+
+        empresaDAO.actualizar(empresa);
     }
 }

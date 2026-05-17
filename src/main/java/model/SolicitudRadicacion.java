@@ -289,4 +289,6 @@ public class SolicitudRadicacion {
     public void cargate() {
         solicitudRadicacionDAO.create(this);
     }
+
+
 }
