@@ -126,4 +126,9 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
         }
         return usuarios;
     }
+
+    @Override
+    public Boolean existe(String userName) {
+        return null;
+    }
 }

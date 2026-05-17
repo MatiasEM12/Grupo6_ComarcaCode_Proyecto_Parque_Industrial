@@ -14,4 +14,6 @@ public interface UsuarioDAO {
     Usuario find(String userName);
 
     List<Usuario> findAll();
+
+    Boolean existe(String userName);
 }
