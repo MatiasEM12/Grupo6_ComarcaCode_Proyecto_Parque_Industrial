@@ -130,7 +130,8 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                       rs.getString("necesidades"), rs.getInt("empleabilidad"),
                        rs.getString("materiaPrima"), empresa);
 
-                RepresentanteEmpresa representante = new RepresentanteEmpresa(rs.getString("DNI"), rs.getString("nombreEmpresa"), usuario);
+                //buscar la empresa  empresa= eempresaDao.find(rs.getString("nombreEmpresa"))
+                RepresentanteEmpresa representante = new RepresentanteEmpresa(rs.getString("DNI"), empresa, usuario);
 
                 return new SolicitudRadicacion(
                         // ... (inicialización de propiedades)
@@ -176,7 +177,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                       rs.getString("necesidades"), rs.getInt("empleabilidad"),
                        rs.getString("materiaPrima"), empresa);
 
-                RepresentanteEmpresa representante = new RepresentanteEmpresa(rs.getString("DNI"), rs.getString("nombreEmpresa"), usuario);
+                RepresentanteEmpresa representante = new RepresentanteEmpresa(rs.getString("DNI"), empresa, usuario);
 
                 // Crear un objeto SolicitudRadicacion con los datos de cada fila y agregarlo a la lista
                 SolicitudRadicacion solicitud = new SolicitudRadicacion(

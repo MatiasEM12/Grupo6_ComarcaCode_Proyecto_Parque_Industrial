@@ -12,4 +12,5 @@ public interface ReprecentanteEmpresaDAO {
     RepresentanteEmpresa find(String dni);
 
 
+    boolean existe(String dni);
 }

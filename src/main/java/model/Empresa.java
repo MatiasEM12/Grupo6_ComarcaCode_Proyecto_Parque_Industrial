@@ -120,4 +120,8 @@ public class Empresa {
     public RepresentanteEmpresa representante() {
         return representante();
     }
+
+    public String nombre() {
+        return this.nombre();
+    }
 }

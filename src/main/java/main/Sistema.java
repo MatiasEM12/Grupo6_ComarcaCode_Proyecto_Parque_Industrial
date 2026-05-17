@@ -40,7 +40,7 @@ public class Sistema  implements SistemaParqueIndustrial {
         );
         var representante = new RepresentanteEmpresa(
                 "11111111",
-                "nike",
+                empresa,
                 usuarios.get(1)
         );
 

@@ -1,9 +1,13 @@
 package model;
 
+import database.DAOs.SolicitudRadicacionDAO;
+import database.JDBCs.SolicitudRadicacionDAOJDBC;
+
 import java.time.LocalDate;
 
 public class SolicitudRadicacion {
 
+    private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
     private static int contador = 1;
 
     private final int id;
@@ -280,5 +284,9 @@ public class SolicitudRadicacion {
         } catch (NumberFormatException e) {
             throw new RuntimeException(mensaje);
         }
+    }
+
+    public void cargate() {
+        solicitudRadicacionDAO.create(this);
     }
 }

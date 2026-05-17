@@ -86,7 +86,10 @@ public class ReprecentanteEmpresaDAOJDBC implements ReprecentanteEmpresaDAO {
                     Rol rol = new Rol(rs.getString("nombre"), rs.getInt("codigo"));
                     Usuario usuario = new Usuario(rs.getString("userName"), rs.getString("contrasena"), rol, rs.getString("gmail"));
                     String nombreEmpresa = rs.getString("nombre");
-                    return new RepresentanteEmpresa(dni, nombreEmpresa, usuario);
+
+                    //buscar empresa
+                   // return new RepresentanteEmpresa(dni,empresa, usuario);
+                    return null;
                 } else {
                     throw new RuntimeException("Representante de empresa no encontrado con DNI: " + dni);
                 }
@@ -94,5 +97,10 @@ public class ReprecentanteEmpresaDAOJDBC implements ReprecentanteEmpresaDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error al buscar representante de empresa", e);
         }
-    } 
+    }
+
+    @Override
+    public boolean existe(String dni) {
+        return false;
+    }
 }
