@@ -18,4 +18,6 @@ public interface RolDAO {
     List<Rol> findAll();
 
     int obtenerCantidadRoles();
+
+    Boolean existe(String nombre);
 }

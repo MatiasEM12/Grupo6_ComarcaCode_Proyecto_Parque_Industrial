@@ -21,11 +21,10 @@ public class RolDAOJDBC implements RolDAO {
 
             Connection conn = ConnectionManager.getConnection();
             PreparedStatement statement = conn
-                    .prepareStatement("INSERT INTO roles(codigo, nombre) "
+                    .prepareStatement("INSERT INTO roles( nombre) "
                             + "VALUES (?, ?)");
 
-            statement.setInt(1, rol.codigo());
-            statement.setString(2, rol.nombre());
+            statement.setString(1, rol.nombre());
             int cantidad = statement.executeUpdate();
             if (cantidad > 0) {
                 // System.out.println("Modificando " + cantidad + " registros");
@@ -177,5 +176,10 @@ public class RolDAOJDBC implements RolDAO {
             ConnectionManager.disconnect();
         }
         return 0;
+    }
+
+    @Override
+    public Boolean existe(String nombre) {
+        return null;
     }
 }

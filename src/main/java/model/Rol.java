@@ -1,9 +1,18 @@
 package model;
 
+import database.DAOs.RolDAO;
+import database.JDBCs.RolDAOJDBC;
+
 public class Rol {
     private String nombre;
     private Integer codigo;
+    private RolDAO rolDAO=new RolDAOJDBC();
+    public Rol(String nombre){
+        validarNombreRol(nombre);
+        this.nombre = nombre;
 
+        rolDAO.create(this);
+    }
     public Rol(String nombre, Integer codigo){
         validarNombreRol(nombre);
         validarCodigoRol(codigo);
@@ -12,18 +21,28 @@ public class Rol {
     }
 
     private void validarNombreRol(String nombre){
-        if(nombre == null || nombre.trim().isEmpty()){
-            throw new RuntimeException("Nombre del rol es invalido");
-        }
+        if(nombre == null )throw new RuntimeException("El nombre del rol no puede ser null");
+        if(nombre.trim().isEmpty())throw new RuntimeException("El nombre del rol no puede ser vacio");
+        if(nombre.length()<3)throw new RuntimeException("El nombre del rol debe tener al menos 3 caracteres");
+        if(nombre.length()>20)throw new RuntimeException("El nombre del rol no puede tener mas de 20 caracteres");
+        //if(existe(nombre))throw new RuntimeException("El nombre del rol ya existe");
+
+    }
+
+    private boolean existe(String nombre) {
+        return this.rolDAO.existe(nombre);
     }
 
     private void validarCodigoRol(Integer codigo){
+        if(codigo == null)throw new RuntimeException("El codigo del rol no puede ser null");
         if (codigo<0){
             throw new RuntimeException("Codigo de rol invalido");
         }
     }
+
+
     public String nombre(){
-        return toString();
+        return nombre;
     }
 
     @Override

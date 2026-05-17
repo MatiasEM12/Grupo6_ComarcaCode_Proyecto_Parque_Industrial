@@ -29,7 +29,7 @@ public class Usuario {
         if(userName.trim().isEmpty())throw new RuntimeException("El nombre de usuario no puede ser vacio");
         if(userName.length()<3)throw new RuntimeException("El nombre de usuario debe tener al menos 3 caracteres");
         if(userName.length()>20)throw new RuntimeException("El nombre de usuario no puede tener mas de 20 caracteres");
-        if(existe(userName))throw new RuntimeException("El nombre de usuario ya existe");
+       // if(existe(userName))throw new RuntimeException("El nombre de usuario ya existe");
     }
 
     private void validarContracena(String contrasena){
