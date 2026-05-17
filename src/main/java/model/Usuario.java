@@ -23,6 +23,7 @@ public class Usuario {
         autenticar(this);
     }
 
+
     private void validarName(String userName){
         if(userName == null)throw new RuntimeException("El nombre de usuario no puede ser null");
         if(userName.trim().isEmpty())throw new RuntimeException("El nombre de usuario no puede ser vacio");
@@ -76,7 +77,7 @@ public class Usuario {
         if(!existe(usuario.userName)){
             this.usuarioDAO.registrar(this);
         }else{
-            throw new RuntimeException("El usuario ya existe");
+            //throw new RuntimeException("El usuario ya existe");
         }
     }
 
