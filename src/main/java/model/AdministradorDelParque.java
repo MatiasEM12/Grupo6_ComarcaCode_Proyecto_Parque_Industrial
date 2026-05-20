@@ -16,14 +16,12 @@ public class AdministradorDelParque extends Usuario{
     }
 
     public void asignarLotes(Empresa empresa){
-        for(Lote lote : loteList) {
-            loteList.add(lote.asignarEmpresa(empresa));
-        }
+
     }
 
     public void cambiarEstadoSolicitud(Observacion observacion){
-        observacion.agregarRespuesta();
-        observacion.actualizarDocumentacionSolicitud();
+       /* observacion.agregarRespuesta();
+        observacion.actualizarDocumentacionSolicitud();*/  //???
     }
 
     public Reporte generarReporte(TipoReporte tipo, String descripcion) {
