@@ -1,7 +1,9 @@
 package vista.servlet;
 
-import main.Sistema;
-import model.SolicitudRadicacion;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
+import model.DTO.SolicitudRadicacionDTO;
+
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -18,6 +20,8 @@ public class SubirSolicitudServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession(false);
 
@@ -33,9 +37,12 @@ public class SubirSolicitudServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-
-        Sistema sistema =
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
+        /*Sistema sistema =
                 (Sistema) getServletContext().getAttribute("sistema");
+
+         */
 
         // NUEVO CAMPO
         String nombreProyecto =
@@ -73,8 +80,8 @@ public class SubirSolicitudServlet extends HttpServlet {
             nombreArchivoPDF = archivoPDF.getSubmittedFileName();
         }
 
-        SolicitudRadicacion solicitud =
-                new SolicitudRadicacion(
+        SolicitudRadicacionDTO solicitud =
+                new SolicitudRadicacionDTO(
                         usuario,
                         objeto,
                         nombreProyecto,
@@ -103,11 +110,25 @@ public class SubirSolicitudServlet extends HttpServlet {
                         nombreArchivoPDF
                 );
 
-        sistema.agregarSolicitud(solicitud);
+        try {
 
-        response.sendRedirect(
-                request.getContextPath()
-                        + "/misProyectos"
-        );
+            sistema.agregarSolicitud(solicitud);
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/misProyectos"
+            );
+
+        }  catch (RuntimeException e) {
+
+            request.setAttribute(
+                    "error",
+                    e.getMessage()
+            );
+
+            request.getRequestDispatcher(
+                    "/solicitudRadicacion.jsp"
+            ).forward(request, response);
+        }
     }
 }

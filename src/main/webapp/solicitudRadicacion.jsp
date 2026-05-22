@@ -54,7 +54,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp" class="nav__link">Mis Proyectos</a>
+                <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">Mis Proyectos</a>
             </li>
 
             <li class="nav__item">
@@ -198,12 +198,12 @@
 
                 <select name="m2">
 
-                    <option>1200 aprox</option>
-                    <option>1800 aprox</option>
-                    <option>2500 aprox</option>
-                    <option>3300 aprox</option>
-                    <option>5000 aprox</option>
-                    <option>6000 aprox</option>
+                   <option value="1200">1200 aprox</option>
+                   <option value="1800">1800 aprox</option>
+                   <option value="2500">2500 aprox</option>
+                   <option value="3300">3300 aprox</option>
+                   <option value="5000">5000 aprox</option>
+                   <option value="6000">6000 aprox</option>
 
                 </select>
 
@@ -415,6 +415,18 @@
     </div>
 
 </footer>
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>

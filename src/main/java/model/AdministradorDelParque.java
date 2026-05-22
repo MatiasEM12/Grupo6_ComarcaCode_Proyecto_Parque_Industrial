@@ -16,17 +16,12 @@ public class AdministradorDelParque extends Usuario{
     }
 
     public void asignarLotes(Empresa empresa){
-        for(Lote lote : loteList) {
-            loteList.add(lote.asignarEmpresa(empresa));
-        }
+
     }
 
-    public void observarSolicitud(SolicitudRadicacion solicitud, String descripcion) {
-        Observacion observacion = new Observacion(descripcion);
-        solicitud.agregarObservacion(observacion);
-    }
-    public void aprobarSolicitud(SolicitudRadicacion solicitud) {
-        solicitud.aprobar();
+    public void cambiarEstadoSolicitud(Observacion observacion){
+       /* observacion.agregarRespuesta();
+        observacion.actualizarDocumentacionSolicitud();*/  //???
     }
 
     public Reporte generarReporte(TipoReporte tipo, String descripcion) {
@@ -51,5 +46,16 @@ public class AdministradorDelParque extends Usuario{
 
         observaciones.add(observacion);
     }
-}
 
+    public String dni(){
+        return dni;
+    }
+
+    public String nombre(){
+        return nombre;
+    }
+
+    public String usuario(){
+        return UserName();
+    }
+}
