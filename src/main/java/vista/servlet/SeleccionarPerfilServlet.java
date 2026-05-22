@@ -1,9 +1,9 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +19,14 @@ public class SeleccionarPerfilServlet extends HttpServlet {
         @Override
         protected void doPost(HttpServletRequest request,
                               HttpServletResponse response)
-                throws ServletException, IOException {
-
-            Sistema sistema =
+                throws  IOException {
+            SistemaParqueIndustrial sistema =
+                    new ParqueIndustrial();
+          /*  Sistema sistema =
                     (Sistema) getServletContext()
                             .getAttribute("sistema");
+
+           */
 
             String usuarioUsername =request.getParameter("username");
 

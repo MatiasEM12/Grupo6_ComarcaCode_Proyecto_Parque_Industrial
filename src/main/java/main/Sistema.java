@@ -1,5 +1,7 @@
 package main;
 
+import database.DAOs.UsuarioDAO;
+import database.JDBCs.UsuarioDAOJDBC;
 import database.persistencia.SistemaParqueIndustrial;
 import model.*;
 
@@ -8,27 +10,28 @@ import model.DTO.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import static java.util.Locale.filter;
 
 
-public class Sistema  implements SistemaParqueIndustrial {
+public class Sistema implements SistemaParqueIndustrial {
 
     private static List<Usuario> usuarios;
     private static List<SolicitudRadicacion> solicitudes;
     private static List<RepresentanteEmpresa> representantes;
     private static List<Empresa> empresas;
-
-    public Sistema() {
+    private UsuarioDAO usuarioDAO = new UsuarioDAOJDBC();
+    /*public Sistema() {
         usuarios = List.of(
-                new Usuario("juan", "1234",
+                new Usuario("juan", "123456",
                         new Rol("administrador",111), "pepe@gmail.com"),
 
-                new Usuario("maria", "5678",
+                new Usuario("maria", "5678910",
                         new Rol("representante",222), "representante@gmail.com"),
 
-                new Usuario("pedro", "7890",
+                new Usuario("pedro", "789012",
                         new Rol("organismo_publico",333), "pedro@gmail.com")
         );
+
+
         var empresa = new Empresa(
                 "11111111",
                 "nike",
@@ -52,17 +55,24 @@ public class Sistema  implements SistemaParqueIndustrial {
         empresas.add(empresa);
     }
 
+     */
 
-    public  List<Usuario> obtenerUsuarios() {
-        return usuarios;
+
+    @Override
+    public List<Usuario> obtenerUsuarios() {
+        return usuarioDAO.findAll();
     }
-
+    @Override
     public Usuario obtenerUsuarioPorUsername(String username) {
-        return usuarios.stream()
+        return usuarioDAO.find(username);
+    }
+    /*public Usuario obtenerUsuarioPorUsername(String username) {
+        return Sistema.usuarios.stream()
                 .filter(usuario -> usuario.UserName().equals(username))
                 .findFirst()
                 .orElse(null);
     }
+     */
 
     @Override
     public void agregarSolicitud(SolicitudRadicacionDTO dto) {

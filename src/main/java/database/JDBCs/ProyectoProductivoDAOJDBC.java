@@ -13,9 +13,9 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO{
 
     @Override
     public void registrarProyectoProductivo(ProyectoProductivo proyectoProductivo) {
-        final String SQL = "INSERT INTO AdministradorParque( nombre, descripcion, superficie," +
+        final String SQL = "INSERT INTO ProyectoProductivo( nombre, descripcion, superficie," +
                 " necesidades, empleabilidad, materiaPrima, estado, cuit_empresa) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, proyectoProductivo.nombre());

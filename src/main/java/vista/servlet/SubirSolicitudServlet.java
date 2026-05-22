@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.DTO.SolicitudRadicacionDTO;
 
 import model.Usuario;
@@ -36,9 +37,12 @@ public class SubirSolicitudServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-
-        Sistema sistema =
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
+        /*Sistema sistema =
                 (Sistema) getServletContext().getAttribute("sistema");
+
+         */
 
         // NUEVO CAMPO
         String nombreProyecto =

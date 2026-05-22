@@ -5,29 +5,55 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-    private static String DRIVER = "com.mysql.jdbc.Driver";
-    private static String URL_DB = "jdbc:mysql://localhost:3306/";
 
-    protected static String DB = "parque_industrial_2026";
+    private static String URL_DB =
+            "jdbc:mysql://localhost:3306/parque_industrial_2026?useSSL=false&serverTimezone=UTC";
+
     protected static String user = "root";
     protected static String pass = "";
+
     protected static Connection conn = null;
 
     public static void connect() {
+
         try {
-            conn = DriverManager.getConnection(URL_DB + DB, user, pass);
-        } catch (SQLException sqlEx) {
-            System.out.println("No se ha podido conectar a " + URL_DB + DB + ". " + sqlEx.getMessage()+". codigo error CM100");
-            System.out.println("Error al cargar el driver. codigo error CM101");
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection(
+                    URL_DB,
+                    user,
+                    pass
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error de conexión: "
+                            + e.getMessage()
+            );
         }
     }
 
+    public static Connection getConnection()
+            throws SQLException {
+
+        return DriverManager.getConnection(
+                URL_DB,
+                user,
+                pass
+        );
+    }
 
     public static void disconnect() {
+
         if (conn != null) {
+
             try {
+
                 conn.close();
                 conn = null;
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -37,9 +63,5 @@ public class ConnectionManager {
     public static void reconnect() {
         disconnect();
         connect();
-    }
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL_DB + DB, user, pass);
     }
 }

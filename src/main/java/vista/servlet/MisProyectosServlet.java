@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
@@ -9,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @WebServlet("/misProyectos")
 public class MisProyectosServlet extends HttpServlet {
@@ -39,10 +39,13 @@ public class MisProyectosServlet extends HttpServlet {
             );
             return;
         }
-
-        Sistema sistema =
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
+        /*Sistema sistema =
                 (Sistema) getServletContext()
                         .getAttribute("sistema");
+
+         */
 
         /*
          * Obtiene solamente las solicitudes

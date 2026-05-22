@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -18,20 +19,14 @@ public class PerfilesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
 
-        List<Usuario> usuarios =
-                sistema.obtenerUsuarios();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        request.setAttribute(
-                "usuarios",
-                usuarios
-        );
+        List<Usuario> usuarios = sistema.obtenerUsuarios();
 
-        request.getRequestDispatcher(
-                "/perfiles.jsp"
-        ).forward(request, response);
+        request.setAttribute("usuarios", usuarios);
+
+        request.getRequestDispatcher("/perfiles.jsp")
+                .forward(request, response);
     }
 }

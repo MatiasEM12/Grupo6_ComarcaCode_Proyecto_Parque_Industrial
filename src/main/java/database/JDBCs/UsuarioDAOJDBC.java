@@ -18,7 +18,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 
     @Override
     public void registrar(Usuario usuario) {
-        final String SQL = "INSERT INTO Usuario(userName, contrasena, rol, gmail) VALUES (?, ?, ?, ?)";
+        final String SQL = "INSERT INTO usuarios(userName, contrasena, rol, gmail) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
@@ -41,7 +41,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public void update(Usuario usuario) {
         // Implementación del método para actualizar un usuario en la base de datos
-        final String SQL = "UPDATE Usuario SET contrasena = ?, rol = ?, gmail = ? WHERE userName = ?";
+        final String SQL = "UPDATE usuarios SET contrasena = ?, rol = ?, gmail = ? WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -63,7 +63,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public void remove(String userName) {
         // Implementación del método para eliminar un usuario por su userName en la base de datos
-        final String SQL = "DELETE FROM Usuario WHERE userName = ?";
+        final String SQL = "DELETE FROM usuarios WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -82,7 +82,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public Usuario find(String userName) {
         // Implementación del método para buscar un usuario por su userName en la base de datos
-        final String SQL = "SELECT * FROM Usuario WHERE userName = ?";
+        final String SQL = "SELECT * FROM usuarios WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -107,7 +107,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public List<Usuario> findAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        final String SQL = "SELECT * FROM Usuario";
+        final String SQL = "SELECT * FROM usuarios";
         
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL);
