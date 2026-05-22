@@ -2,6 +2,7 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
+import model.SolicitudRadicacion;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -11,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/solicitudesAdmin")
-public class SolicitudesAdminServlet extends HttpServlet {
+public class SolicitudesAdminServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -38,9 +40,17 @@ public class SolicitudesAdminServlet extends HttpServlet {
         SistemaParqueIndustrial sistema =
                 new ParqueIndustrial();
 
+        List<SolicitudRadicacion> solicitudes =
+                sistema.obtenerSolicitudes();
+
         request.setAttribute(
                 "solicitudes",
-                sistema.obtenerSolicitudes()
+                solicitudes
+        );
+
+        request.setAttribute(
+                "lotes",
+                sistema.obtenerLotesDisponibles()
         );
 
         request.getRequestDispatcher(

@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.SolicitudRadicacion" %>
 <%@ page import="model.EstadoSolicitud" %>
+<%@ page import="model.DTO.LoteDTO" %>
 
 <%
     Usuario usuario =
@@ -13,13 +14,16 @@
         return;
     }
 
-    if(!usuario.rol().equals("administrador")){
+    if(!usuario.nombreRol().equals("administrador")){
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
     List<SolicitudRadicacion> solicitudes =
             (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
+
+    List<LoteDTO> lotesDisponibles =
+            (List<LoteDTO>) request.getAttribute("lotesDisponibles");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -118,18 +122,24 @@
 
             <div class="solicitud__body">
                 <p><strong>N° trámite:</strong> <%= solicitud.numeroTramite() %></p>
-                <p><strong>Representante:</strong>
-                    <%= solicitud.representante() != null ? solicitud.representante().UserName() : "Sin representante" %>
-                </p>
-                <p><strong>Fecha de creación:</strong> <%= solicitud.fechaCreacion() %></p>
-                <p><strong>Última actualización:</strong> <%= solicitud.fechaActualizacion() %></p>
-                <p><strong>Descripción:</strong> <%= solicitud.descripcionServicio() %></p>
-                <p><strong>Superficie solicitada:</strong> <%= solicitud.m2() %></p>
-                <p><strong>Personal a ocupar:</strong> <%= solicitud.personalOcupar() %></p>
-                <p><strong>Materia prima:</strong> <%= solicitud.materiasPrimas() %></p>
-                <p><strong>Archivo adjunto:</strong>
-                    <%= solicitud.nombreArchivoPDF().isBlank() ? "Sin archivo" : solicitud.nombreArchivoPDF() %>
-                </p>
+                 <p><strong>Representante:</strong>
+                     <%= solicitud.representante() != null ?
+                     solicitud.representante().dni()
+                     : "Sin representante" %>
+                 </p>
+
+                 <p><strong>Superficie solicitada:</strong>
+                     <%= solicitud.proyecto().superficie() %>
+                 </p>
+
+                 <p><strong>Personal a ocupar:</strong>
+                     <%= solicitud.proyecto().empleabilidad() %>
+                 </p>
+
+                 <p><strong>Materia prima:</strong>
+                     <%= solicitud.proyecto().materiaPrima() %>
+                 </p>
+
             </div>
 
             <div class="acciones__container">
@@ -139,16 +149,45 @@
                            name="idSolicitud"
                            value="<%= solicitud.id() %>">
 
+                    <select name="idLote" required
+                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA ? "disabled" : "" %>>
+                        <option value="">Seleccionar lote</option>
+                        <%
+                            if(lotesDisponibles != null){
+                                for(LoteDTO lote : lotesDisponibles){
+                        %>
+                            <option value="<%= lote.id() %>">
+                                Lote <%= lote.id() %> - <%= lote.ubicacion() %> - <%= lote.superficie() %> m²
+                            </option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
+
                     <button type="submit"
                             class="btn__aprobar"
                             <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA ? "disabled" : "" %>>
-                        Aprobar
+                        Confirmar y asignar lote
+                    </button>
+                </form>
+
+                <form action="${pageContext.request.contextPath}/rechazarSolicitud"
+                      method="post">
+                    <input type="hidden"
+                           name="idSolicitud"
+                           value="<%= solicitud.id() %>">
+
+                    <button type="submit"
+                            class="btn__rechazar"
+                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA ? "disabled" : "" %>>
+                        Rechazar
                     </button>
                 </form>
 
                 <button class="btn__observar"
                         onclick="mostrarFormulario('obs<%= solicitud.id() %>')">
-                    Observar
+                    Observar documentación
                 </button>
             </div>
 

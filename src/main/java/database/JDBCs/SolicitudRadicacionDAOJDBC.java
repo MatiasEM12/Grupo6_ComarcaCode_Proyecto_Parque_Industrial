@@ -8,7 +8,6 @@ import model.Rol;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
-import java.lang.Thread.State;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;

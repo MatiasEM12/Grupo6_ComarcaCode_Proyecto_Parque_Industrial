@@ -10,9 +10,28 @@ public class ProyectoProductivo {
     private String materiaPrima;
     private boolean enEjecucion;
     private Empresa empresa;
-    public ProyectoProductivo(String nombre, String descripcion,
+    public ProyectoProductivo(int idProyecto, String nombre, String descripcion,
                               double superficie, String necesidades,
-                              int empleabilidad, String materiaPrima, Empresa empresa) {
+                              int empleabilidad, String materiaPrima,
+                              boolean enEjecucion, Empresa empresa) {
+        this.idProyecto = idProyecto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.superficie = superficie;
+        this.necesidades = necesidades;
+        this.empleabilidad = empleabilidad;
+        this.materiaPrima = materiaPrima;
+        this.enEjecucion = enEjecucion;
+        this.empresa = empresa;
+    }
+    public ProyectoProductivo(String nombre,
+                              String descripcion,
+                              double superficie,
+                              String necesidades,
+                              int empleabilidad,
+                              String materiaPrima,
+                              Empresa empresa) {
+
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.superficie = superficie;
@@ -20,6 +39,7 @@ public class ProyectoProductivo {
         this.empleabilidad = empleabilidad;
         this.materiaPrima = materiaPrima;
         this.empresa = empresa;
+        this.enEjecucion = false;
     }
     public void actualizarEstado(){
 

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/aprobarSolicitud")
-public class AprobarSolicitudServlet extends HttpServlet {
+@WebServlet("/rechazarSolicitud")
+public class RechazarSolicitudServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -25,13 +25,10 @@ public class AprobarSolicitudServlet extends HttpServlet {
             return;
         }
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        int idLote = Integer.parseInt(request.getParameter("idLote"));
-
-        sistema.aprobarSolicitud(idSolicitud, idLote);
+        sistema.rechazarSolicitud(idSolicitud);
 
         response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }
@@ -43,8 +40,7 @@ public class AprobarSolicitudServlet extends HttpServlet {
             return false;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         return usuario != null && usuario.nombreRol().equals("administrador");
     }

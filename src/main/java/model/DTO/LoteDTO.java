@@ -1,4 +1,10 @@
 package model.DTO;
 
-public class LoteDTO {
+public record LoteDTO(
+        Integer id,
+        String ubicacion,
+        Double superficie,
+        String estado,
+        String infraestructura
+) {
 }

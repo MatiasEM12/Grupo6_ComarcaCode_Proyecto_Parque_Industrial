@@ -145,7 +145,7 @@
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
+        <a href="${pageContext.request.contextPath}/solicitudesAdmin">
            class="card">
             <div class="card__content">
                 <h2>Solicitudes</h2>

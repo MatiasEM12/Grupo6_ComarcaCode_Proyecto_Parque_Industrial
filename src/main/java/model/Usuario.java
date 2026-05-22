@@ -71,9 +71,7 @@ public class Usuario {
         return rol;
     }
 
-    public String gmail(){
-        return gmail;
-    }
+
 
     public void autenticar(Usuario usuario){
         if(!existe(usuario.userName)){

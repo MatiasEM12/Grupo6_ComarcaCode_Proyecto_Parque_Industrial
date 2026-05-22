@@ -3,11 +3,9 @@ package database.JDBCs;
 
 import database.ConnectionManager;
 import model.Lote;
-import model.Ubicacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 import database.DAOs.LoteDAO;
 

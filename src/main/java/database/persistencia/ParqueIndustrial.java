@@ -1,27 +1,30 @@
 package database.persistencia;
 
-import database.DAOs.ReprecentanteEmpresaDAO;
-import database.DAOs.SolicitudRadicacionDAO;
-import database.DAOs.UsuarioDAO;
-import database.JDBCs.ReprecentanteEmpresaDAOJDBC;
-import database.JDBCs.SolicitudRadicacionDAOJDBC;
-import database.JDBCs.UsuarioDAOJDBC;
-import model.EstadoSolicitud;
-import model.ProyectoProductivo;
-import model.RepresentanteEmpresa;
-import model.SolicitudRadicacion;
-import model.Usuario;
-import model.DTO.SolicitudRadicacionDTO;
 
+
+import database.DAOs.*;
+import database.JDBCs.*;
+
+import model.*;
+import model.DTO.*;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import database.ConnectionManager;
+
+
 
 public class ParqueIndustrial implements SistemaParqueIndustrial {
 
-    private final UsuarioDAO usuarioDAO = new UsuarioDAOJDBC();
-    private final ReprecentanteEmpresaDAO representanteDAO = new ReprecentanteEmpresaDAOJDBC();
-    private final SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
-
+    private UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
+    private ReprecentanteEmpresaDAO representanteDAO= new ReprecentanteEmpresaDAOJDBC();
+    private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
+    private ProyectoProductivoDAO proyectoProductivoDAO =
+            new ProyectoProductivoDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -29,102 +32,273 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     @Override
     public Usuario obtenerUsuarioPorUsername(String username) {
-        return usuarioDAO.find(username);
+        ArrayList<Usuario> usuarios = new ArrayList<>(obtenerUsuarios());
+        return usuarios.stream()
+                .filter(u -> u.UserName().equals(username))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
-    public void agregarSolicitud(SolicitudRadicacionDTO dto) {
-        if (dto == null) {
-            throw new RuntimeException("La solicitud no puede ser null");
-        }
-
-        // Por ahora este flujo necesita que el DAO de representante pueda recuperar
-        // al representante desde el usuario logueado. En tu DAO actual todavía está
-        // incompleto, por eso conviene terminar ese DAO antes de persistir solicitudes.
-        RepresentanteEmpresa representante = representanteDAO.find(dto.usuario().UserName());
-
-        SolicitudRadicacion solicitud = new SolicitudRadicacion(
-                representante,
-                dto.objeto(),
-                dto.nombreProyecto(),
-                dto.descripcionServicio(),
-                dto.emplazamiento(),
-                dto.personal(),
-                dto.tiempoRadicacion(),
-                dto.m2(),
-                dto.areaTrabajo(),
-                dto.areaDeposito(),
-                dto.estacionamiento(),
-                dto.planos(),
-                dto.empleabilidad(),
-                dto.materiasPrimas(),
-                dto.destinoProduccion(),
-                dto.tension(),
-                dto.potencia(),
-                dto.agua(),
-                dto.gas(),
-                dto.residuos(),
-                dto.tratamiento(),
-                dto.balanza(),
-                dto.comedor(),
-                dto.coworking(),
-                dto.descripcionArchivo(),
-                dto.nombreArchivoPDF()
-        );
-
-        representante.cargarSolicitud(solicitud);
+    public void agregarSolicitud(SolicitudRadicacionDTO solicitud) {
+        RepresentanteEmpresa representante= representanteDAO.find(solicitud.usuario().UserName());
+/*
+        //proyecto y solicitud se cargan en la base de datos al crear el objeto, por lo que no es necesario hacer un insert adicional
+        ProyectoProductivo proyectoProductivo = this.toProyecto( solicitud.proyecto());
+        SolicitudRadicacion solicitudRadicacion=new SolicitudRadicacion(representante,proyectoProductivo);*/
     }
+
 
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario) {
-        if (usuario == null) {
-            throw new RuntimeException("Debe existir un usuario logueado");
-        }
+        List<SolicitudRadicacion> solicitudes = new ArrayList<>(obtenerSolicitudes());
+        RepresentanteEmpresa representanteEmpresa= representanteDAO.find(usuario.UserName());
 
-        return obtenerSolicitudes()
-                .stream()
-                .filter(s -> s.representante() != null)
-                .filter(s -> s.representante().usuario() != null)
-                .filter(s -> s.representante().usuario().UserName().equals(usuario.UserName()))
-                .toList();
+        return solicitudes.stream().filter(s -> s.representante().dni().equals(representanteEmpresa.dni())).toList();
     }
 
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudes() {
-        return solicitudRadicacionDAO.findAll();
+        return this.solicitudRadicacionDAO.findAll();
     }
 
     @Override
-    public void aprobarSolicitud(int idSolicitud) {
-        SolicitudRadicacion solicitud = solicitudRadicacionDAO.find(idSolicitud);
+    public List<LoteDTO> obtenerLotesDisponibles() {
+        List<LoteDTO> lotes = new ArrayList<>();
 
-        if (solicitud == null) {
-            throw new RuntimeException("No existe la solicitud con id: " + idSolicitud);
+        final String SQL = "SELECT id, ubicacion, superficie, estado, infraestructura " +
+                "FROM lotes WHERE LOWER(estado) = 'disponible' ORDER BY id";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                lotes.add(new LoteDTO(
+                        rs.getInt("id"),
+                        rs.getString("ubicacion"),
+                        rs.getDouble("superficie"),
+                        rs.getString("estado"),
+                        rs.getString("infraestructura")
+                ));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener lotes disponibles", e);
         }
 
-        solicitud.aprobar();
-        solicitudRadicacionDAO.update(solicitud);
+        return lotes;
+    }
+
+    @Override
+    public void aprobarSolicitud(int idSolicitud, int idLote) {
+        final String ACTUALIZAR_SOLICITUD = "UPDATE SolicitudRadicacion " +
+                "SET estadoSolicitud = 'APROBADA', fechaActualizacion = CURRENT_DATE, idLote = ? " +
+                "WHERE id = ?";
+
+        final String ACTUALIZAR_LOTE = "UPDATE lotes SET estado = 'ASIGNADO' WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stSolicitud = conn.prepareStatement(ACTUALIZAR_SOLICITUD);
+                 PreparedStatement stLote = conn.prepareStatement(ACTUALIZAR_LOTE)) {
+
+                stSolicitud.setInt(1, idLote);
+                stSolicitud.setInt(2, idSolicitud);
+                int filasSolicitud = stSolicitud.executeUpdate();
+
+                stLote.setInt(1, idLote);
+                int filasLote = stLote.executeUpdate();
+
+                if (filasSolicitud <= 0 || filasLote <= 0) {
+                    conn.rollback();
+                    throw new RuntimeException("No se pudo aprobar la solicitud o asignar el lote");
+                }
+
+                conn.commit();
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al aprobar la solicitud", e);
+        }
+    }
+
+    @Override
+    public void rechazarSolicitud(int idSolicitud) {
+        final String SQL = "UPDATE SolicitudRadicacion " +
+                "SET estadoSolicitud = 'RECHAZADA', fechaActualizacion = CURRENT_DATE " +
+                "WHERE id = ?";
+
+        actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");
     }
 
     @Override
     public void observarSolicitud(int idSolicitud, String descripcion) {
-        SolicitudRadicacion solicitud = solicitudRadicacionDAO.find(idSolicitud);
-
-        if (solicitud == null) {
-            throw new RuntimeException("No existe la solicitud con id: " + idSolicitud);
+        if (descripcion == null || descripcion.isBlank()) {
+            throw new RuntimeException("La observación no puede estar vacía");
         }
 
-        solicitud.observar();
-        solicitudRadicacionDAO.update(solicitud);
+        final String SQL = "UPDATE SolicitudRadicacion " +
+                "SET estadoSolicitud = 'OBSERVADA', fechaActualizacion = CURRENT_DATE, observacion = ? " +
+                "WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, descripcion);
+            st.setInt(2, idSolicitud);
+
+            if (st.executeUpdate() <= 0) {
+                throw new RuntimeException("No se encontró la solicitud a observar");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al observar la solicitud", e);
+        }
     }
 
+    private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+
+            st.setInt(1, idSolicitud);
+
+            if (st.executeUpdate() <= 0) {
+                throw new RuntimeException("No se encontró la solicitud");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(mensajeError, e);
+        }
+    }
+    @Override
+    public ProyectoProductivo obtenerProyectoProductivo(int idProyecto) {
+        return proyectoProductivoDAO.find(idProyecto);
+    }
     @Override
     public List<ProyectoProductivo> obtenerProyectosProductivos() {
-        return obtenerSolicitudes()
-                .stream()
-                .filter(s -> s.estadoSolicitud() == EstadoSolicitud.APROBADA)
-                .map(SolicitudRadicacion::proyecto)
-                .filter(Objects::nonNull)
-                .toList();
+        return proyectoProductivoDAO.findAll();
     }
+    public LoteDTO obtenerLotes(){
+       /*
+       ArrayList   lotes= lotesDao.findAll
+
+       ArrayList lotesDTO= stream.filtrer....toLote(lote)
+       */
+
+        return null;//lotesDTO
+    }
+
+    public LoteDTO obtenerLote(int id){
+        /*
+       Lote lote= lotesDao.find(id)
+
+       return toLote(lote)
+       */
+
+        return null;//toLote(lote)
+
+    }
+
+
+    public void asignarLote(Usuario user, LoteDTO lote, ProyectoDTO proyecto){
+
+        /*
+        RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
+
+        Lote lote= loteDao.find(loteDTO.id());
+        ProyectoProductivo proyecto= proyectoDao.find(proyectoDTO.id());
+
+        representante.asignarLote(lote, proyecto)
+
+        * */
+    }
+
+    public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){
+        /*
+        admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
+        solicitud = SolicitudRadicacionDAO.find(solicitudDTO.id()/numeroTramite)
+
+        admin.modificarEstadoSolicitud( soliciud,estado)  //acá dentro filtra si es aprobada llama a solicidud.aprobar si es otro es solicitud.Algo
+
+        * */
+    }
+
+    public void admActualizarDatosPersonales( Usuario user , AdministradorDelParqueDTO adm){
+        /*
+         *  admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
+         *  admin.ActualizarDatos(adm)
+         *
+         * */
+    }
+
+    public void representanteActualizarDatosPersonales( Usuario user , RepresentanteEmpresaDTO representante){
+        /*
+         *  representante = RepresentanteEmpresaDAO.obtenerUsuarioPorUsername(user.UserName())
+         *  representante.ActualizarDatos(representante)
+         *
+         * */
+    }
+
+    public void actualizarDatosDeUsuario(Usuario user, UsuarioDTO usuarioDTO){
+        /*
+         *  usuario = UsuarioDAO.obtenerUsuarioPorUsername(user.UserName())
+         *  usuario.ActualizarDatos(usuarioDTO)
+         *
+         * de modificar el username, tambien se debe actualizar la tabla del (adm/representante)
+         *
+         * */
+    }
+
+    public void cargarAvanceProyecto( Usuario user, AvanceDeProyectoDTO avance,ProyectoDTO proyecto){
+        /*
+         * RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
+         *
+         * representante.cargarAvance(toAvance(avance), toProyecto(proyecto))
+         *                             pasar avanseDTO a avanceProyecto
+         * */
+        //en estas cosas de dto no se si convertirlo a clase en el caso de Proyecto
+        //o hacer proyectoDTO.id  y que representante dentro suyo lo recupere con un proyectoDAO.find(id)
+    }
+
+
+
+
+    /*
+    private loteDTO toLote(Lote lote){
+       return // transformar lote en loteDTO
+    }
+
+    * */
+/*
+    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
+        RepresentanteEmpresa representante  = new RepresentanteEmpresa("11111111","nike",dto.usuario());
+        representantes.add(representante);
+        return new ProyectoProductivo(dto.nombre(), dto.objeto(), dto.descripcionServicio(), dto.emplazamiento(), dto.tipoPersonal(),
+                dto.tiempoRadicacion(), dto.metrosCuadrados(), dto.areaTrabajo(), dto.areaDeposito(),
+                dto.estacionamiento(), dto.tienePlanos(), dto.personalOcupar(), dto.materiasPrimas(),
+                dto.destinoProduccion(), dto.tension(), dto.potencia(), dto.agua(), dto.necesitaGas(), dto.residuos(),
+                dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
+                representante
+        );
+    }*/
+/*
+    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
+        RepresentanteEmpresa representante =
+                representanteDAO.find(dto.usuario().UserName());
+
+        return new ProyectoProductivo(dto.nombre(), dto.objeto(), dto.descripcionServicio(), dto.emplazamiento(), dto.tipoPersonal(),
+                dto.tiempoRadicacion(), dto.metrosCuadrados(), dto.areaTrabajo(), dto.areaDeposito(),
+                dto.estacionamiento(), dto.tienePlanos(), dto.personalOcupar(), dto.materiasPrimas(),
+                dto.destinoProduccion(), dto.tension(), dto.potencia(), dto.agua(), dto.necesitaGas(), dto.residuos(),
+                dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
+                representante
+        );
+    }*/
 }
