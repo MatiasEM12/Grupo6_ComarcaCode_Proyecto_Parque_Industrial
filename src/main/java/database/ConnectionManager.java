@@ -6,62 +6,23 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    private static String URL_DB =
+    private static final String URL_DB =
             "jdbc:mysql://localhost:3306/parque_industrial_2026?useSSL=false&serverTimezone=UTC";
 
-    protected static String user = "root";
-    protected static String pass = "";
+    private static final String USER = "root";
+    private static final String PASS = "";
 
-    protected static Connection conn = null;
-
-    public static void connect() {
-
+    public static Connection getConnection() {
         try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection(
-                    URL_DB,
-                    user,
-                    pass
-            );
+            return DriverManager.getConnection(URL_DB, USER, PASS);
 
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("No se encontró el driver MySQL", e);
 
-            System.out.println(
-                    "Error de conexión: "
-                            + e.getMessage()
-            );
+        } catch (SQLException e) {
+            throw new RuntimeException("No se pudo conectar a la base de datos", e);
         }
-    }
-
-    public static Connection getConnection()
-            throws SQLException {
-
-        return DriverManager.getConnection(
-                URL_DB,
-                user,
-                pass
-        );
-    }
-
-    public static void disconnect() {
-
-        if (conn != null) {
-
-            try {
-
-                conn.close();
-                conn = null;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void reconnect() {
-        disconnect();
-        connect();
     }
 }

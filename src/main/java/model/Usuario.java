@@ -20,7 +20,6 @@ public class Usuario {
         this.rol = rol;
         this.gmail = gmail;
 
-        autenticar(this);
     }
 
 

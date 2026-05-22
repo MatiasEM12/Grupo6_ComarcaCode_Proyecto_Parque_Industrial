@@ -30,7 +30,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO{
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");
             }
-        }catch(SQLException e){
+        }catch (Exception e){
             throw new RuntimeException("Error al registrar usuario", e);
         }
     }

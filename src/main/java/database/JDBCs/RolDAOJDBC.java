@@ -17,27 +17,22 @@ public class RolDAOJDBC implements RolDAO {
 
     @Override
     public void create(Rol rol) {
-        try {
+        final String SQL = "INSERT INTO roles(nombre) VALUES (?)";
 
-            Connection conn = ConnectionManager.getConnection();
-            PreparedStatement statement = conn
-                    .prepareStatement("INSERT INTO roles( nombre) "
-                            + "VALUES (?, ?)");
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            statement.setString(1, rol.nombre());
-            int cantidad = statement.executeUpdate();
-            if (cantidad > 0) {
-                // System.out.println("Modificando " + cantidad + " registros");
-            } else {
-                throw new RuntimeException("Error al actualizar");
+            st.setString(1, rol.nombre());
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("Error al registrar rol");
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error al procesar consulta" + e.getMessage());
-        } finally {
-            ConnectionManager.disconnect();
+            throw new RuntimeException("Error al registrar rol", e);
         }
-
     }
 
     @Override
@@ -56,10 +51,8 @@ public class RolDAOJDBC implements RolDAO {
                 throw new RuntimeException("Error al actualizar");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al procesar consulta" + e.getMessage());
-        } finally {
-            ConnectionManager.disconnect();
         }
     }
 
@@ -79,10 +72,8 @@ public class RolDAOJDBC implements RolDAO {
                 throw new RuntimeException("No se encontró el rol con ese código.");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al Eliminar rol" + e.getMessage());
-        } finally {
-            ConnectionManager.disconnect();
         }
     }
 
@@ -103,10 +94,8 @@ public class RolDAOJDBC implements RolDAO {
                 throw new RuntimeException("No se encontró el rol con ese código.");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al Eliminar rol" + e.getMessage());
-        } finally {
-            ConnectionManager.disconnect();
         }
     }
 
@@ -128,7 +117,7 @@ public class RolDAOJDBC implements RolDAO {
                             rs.getInt("codigo"));
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e){
             throw new RuntimeException("Error al procesar consulta: " + e.getMessage());
         }
 
@@ -170,10 +159,8 @@ public class RolDAOJDBC implements RolDAO {
             if (rs.next()) {
                 return rs.getInt(1);  // devuelve el COUNT(*)
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            ConnectionManager.disconnect();
         }
         return 0;
     }

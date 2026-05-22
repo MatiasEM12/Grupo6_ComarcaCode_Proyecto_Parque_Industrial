@@ -72,7 +72,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 throw new RuntimeException("Error al actualizar la solicitud de radicación");
             }
 
-        } catch (java.sql.SQLException e) {
+        } catch (Exception e){
             throw new RuntimeException("Error al actualizar la solicitud de radicación", e);
         }
     }
@@ -91,7 +91,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 throw new RuntimeException("Error al eliminar la solicitud de radicación");
             }
 
-        } catch (java.sql.SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al eliminar la solicitud de radicación", e);
         }
     }
@@ -148,7 +148,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 );
             }
 
-        } catch (java.sql.SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al encontrar la solicitud de radicación", e);
         }
         return null;
@@ -196,7 +196,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 solicitudes.add(solicitud);
             }
 
-        } catch (java.sql.SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener las solicitudes de radicación", e);
         }
 

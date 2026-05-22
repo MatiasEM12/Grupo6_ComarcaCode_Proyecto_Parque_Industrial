@@ -35,7 +35,7 @@ public class LoteDAOJDBC implements LoteDAO{
             }
 
            */
-        }catch(SQLException e){
+        }catch (Exception e){
             throw new RuntimeException("Error al registrar usuario", e);
         }
     }

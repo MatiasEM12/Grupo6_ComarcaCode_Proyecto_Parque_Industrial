@@ -18,7 +18,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
 
     @Override
     public void registrar(Usuario usuario) {
-        final String SQL = "INSERT INTO usuarios(userName, contrasena, rol, gmail) VALUES (?, ?, ?, ?)";
+        final String SQL = "INSERT INTO usuario(userName, contrasena, rol, gmail) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
@@ -33,7 +33,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                 throw new RuntimeException("Error al registrar usuario");
             }
 
-        }catch(SQLException e){
+        }catch (Exception e){
             throw new RuntimeException("Error al registrar usuario", e);
         }
     }
@@ -41,7 +41,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public void update(Usuario usuario) {
         // Implementación del método para actualizar un usuario en la base de datos
-        final String SQL = "UPDATE usuarios SET contrasena = ?, rol = ?, gmail = ? WHERE userName = ?";
+        final String SQL = "UPDATE usuario SET contrasena = ?, rol = ?, gmail = ? WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -63,7 +63,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public void remove(String userName) {
         // Implementación del método para eliminar un usuario por su userName en la base de datos
-        final String SQL = "DELETE FROM usuarios WHERE userName = ?";
+        final String SQL = "DELETE FROM usuario WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -74,7 +74,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                 throw new RuntimeException("Error al eliminar usuario");
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al eliminar usuario", e);
         }
     }
@@ -82,7 +82,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public Usuario find(String userName) {
         // Implementación del método para buscar un usuario por su userName en la base de datos
-        final String SQL = "SELECT * FROM usuarios WHERE userName = ?";
+        final String SQL = "SELECT * FROM usuario WHERE userName = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -99,7 +99,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                 }
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Error al buscar usuario", e);
         }
     }
@@ -107,7 +107,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public List<Usuario> findAll() {
         List<Usuario> usuarios = new ArrayList<>();
-        final String SQL = "SELECT * FROM usuarios";
+        final String SQL = "SELECT * FROM usuario";
         
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL);
