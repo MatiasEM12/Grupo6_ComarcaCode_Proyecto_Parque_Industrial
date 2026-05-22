@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -29,14 +30,13 @@ public class SolicitudesAdminServlet extends HttpServlet {
         Usuario usuario =
                 (Usuario) session.getAttribute("usuarioLogueado");
 
-        if (usuario == null || !usuario.rol().equals("administrador")) {
+        if (usuario == null || !usuario.nombreRol().equals("administrador")) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
-        Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
 
         request.setAttribute(
                 "solicitudes",

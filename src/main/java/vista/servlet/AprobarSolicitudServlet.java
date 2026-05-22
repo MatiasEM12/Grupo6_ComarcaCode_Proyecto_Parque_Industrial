@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -24,9 +25,8 @@ public class AprobarSolicitudServlet extends HttpServlet {
             return;
         }
 
-        Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
 
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         sistema.aprobarSolicitud(idSolicitud);
@@ -44,6 +44,6 @@ public class AprobarSolicitudServlet extends HttpServlet {
         Usuario usuario =
                 (Usuario) session.getAttribute("usuarioLogueado");
 
-        return usuario != null && usuario.rol().equals("administrador");
+        return usuario != null && usuario.nombreRol().equals("administrador");
     }
 }

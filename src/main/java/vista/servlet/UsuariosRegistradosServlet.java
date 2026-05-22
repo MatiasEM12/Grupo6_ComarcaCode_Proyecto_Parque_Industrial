@@ -1,7 +1,8 @@
 package vista.servlet;
 
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -28,13 +29,14 @@ public class UsuariosRegistradosServlet extends HttpServlet {
             return;
         }
 
-        if (!usuarioLogueado.rol().equals("administrador")) {
+        if (!usuarioLogueado.nombreRol().equals("administrador")) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
         List<Usuario> usuarios =
-                Sistema.obtenerUsuarios();
+                sistema.obtenerUsuarios();
 
         request.setAttribute("usuarios", usuarios);
 

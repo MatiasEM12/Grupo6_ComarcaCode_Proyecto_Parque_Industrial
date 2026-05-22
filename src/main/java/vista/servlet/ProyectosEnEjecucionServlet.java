@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,8 @@ public class ProyectosEnEjecucionServlet extends HttpServlet {
                          HttpServletResponse response)
             throws IOException, ServletException {
 
-        Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
 
         request.setAttribute(
                 "proyectos",

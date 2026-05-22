@@ -1,6 +1,7 @@
 package vista.servlet;
 
-import main.Sistema;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
@@ -9,9 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet("/misProyectos")
+@WebServlet("/misSolicitudes")
 public class MisSolicitudesServlet extends HttpServlet {
 
     @Override
@@ -38,22 +38,15 @@ public class MisSolicitudesServlet extends HttpServlet {
                 return;
             }
 
-            Sistema sistema =
-                    (Sistema) getServletContext()
-                            .getAttribute("sistema");
+            SistemaParqueIndustrial sistema =
+                    new ParqueIndustrial();
 
             /*
              * Obtiene solamente las solicitudes
              * del representante logueado
              */
             List<SolicitudRadicacion> solicitudesUsuario =
-                    sistema.obtenerSolicitudes()
-                            .stream()
-                            .filter(solicitud ->
-                                    solicitud.representante()
-                                            .equals(usuario)
-                            )
-                            .collect(Collectors.toList());
+                    sistema.obtenerSolicitudesDe(usuario);
 
             /*
              * Envia las solicitudes al JSP
