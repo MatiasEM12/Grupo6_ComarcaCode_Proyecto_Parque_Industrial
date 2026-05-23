@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
-<%@ page import="java.util.List" %>
 <%@ page import="model.SolicitudRadicacion" %>
 <%@ page import="model.EstadoSolicitud" %>
-<%@ page import="model.DTO.LoteDTO" %>
+<%@ page import="model.Lote" %>
+<%@ page import="java.util.List" %>
 
 <%
     Usuario usuario =
@@ -22,14 +22,14 @@
     List<SolicitudRadicacion> solicitudes =
             (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
 
-    List<LoteDTO> lotesDisponibles =
-            (List<LoteDTO>) request.getAttribute("lotesDisponibles");
+    List<Lote> lotes =
+            (List<Lote>) request.getAttribute("lotes");
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitudes de Radicación</title>
 
     <link rel="stylesheet"
@@ -58,7 +58,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/usuarios.jsp"
+                <a href="${pageContext.request.contextPath}/usuariosRegistrados"
                    class="nav__link">
                     Usuarios
                 </a>
@@ -100,6 +100,7 @@
         <%
             } else {
                 for(SolicitudRadicacion solicitud : solicitudes){
+
                     String claseEstado = "estado--pendiente";
 
                     if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA){
@@ -115,76 +116,129 @@
 
             <div class="solicitud__header">
                 <h2><%= solicitud.nombreProyecto() %></h2>
+
                 <span class="estado <%= claseEstado %>">
-                    <%= solicitud.estadoSolicitud() %>
+                    <%= solicitud.estadoSolicitud().name() %>
                 </span>
             </div>
 
             <div class="solicitud__body">
-                <p><strong>N° trámite:</strong> <%= solicitud.numeroTramite() %></p>
-                 <p><strong>Representante:</strong>
-                     <%= solicitud.representante() != null ?
-                     solicitud.representante().dni()
-                     : "Sin representante" %>
-                 </p>
 
-                 <p><strong>Superficie solicitada:</strong>
-                     <%= solicitud.m2() %>
-                 </p>
+                <p>
+                    <strong>N° trámite:</strong>
+                    <%= solicitud.numeroTramite() %>
+                </p>
 
-                 <p><strong>Personal a ocupar:</strong>
-                     <%= solicitud.personal() %>
-                 </p>
+                <p>
+                    <strong>Representante:</strong>
+                    <%= solicitud.representante() != null
+                            ? solicitud.representante().dni()
+                            : "Sin representante" %>
+                </p>
 
-                 <p><strong>Empleabilidad:</strong>
-                     <%= solicitud.empleabilidad() %>
-                 </p>
+                <p>
+                    <strong>Fecha de creación:</strong>
+                    <%= solicitud.fechaCreacion() %>
+                </p>
 
-                 <p><strong>Materia prima:</strong>
-                     <%= solicitud.materiasPrimas() %>
-                 </p>
+                <p>
+                    <strong>Última actualización:</strong>
+                    <%= solicitud.fechaActualizacion() %>
+                </p>
+
+                <p>
+                    <strong>Descripción:</strong>
+                    <%= solicitud.descripcionServicio() %>
+                </p>
+
+                <p>
+                    <strong>Superficie solicitada:</strong>
+                    <%= solicitud.m2() %> m²
+                </p>
+
+                <p>
+                    <strong>Personal a ocupar:</strong>
+                    <%= solicitud.personal() %>
+                </p>
+
+                <p>
+                    <strong>Empleabilidad:</strong>
+                    <%= solicitud.empleabilidad() %>
+                </p>
+
+                <p>
+                    <strong>Materia prima:</strong>
+                    <%= solicitud.materiasPrimas() %>
+                </p>
+
+                <p>
+                    <strong>Archivo adjunto:</strong>
+                    <%= solicitud.nombreArchivoPDF() == null
+                            || solicitud.nombreArchivoPDF().isBlank()
+                            ? "Sin archivo"
+                            : solicitud.nombreArchivoPDF() %>
+                </p>
 
             </div>
 
             <div class="acciones__container">
+
                 <form action="${pageContext.request.contextPath}/aprobarSolicitud"
                       method="post">
+
                     <input type="hidden"
                            name="idSolicitud"
                            value="<%= solicitud.id() %>">
 
-                    <select name="idLote" required
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA ? "disabled" : "" %>>
+                    <select name="idLote"
+                            required
+                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
+                                    ? "disabled"
+                                    : "" %>>
+
                         <option value="">Seleccionar lote</option>
+
                         <%
-                            if(lotesDisponibles != null){
-                                for(LoteDTO lote : lotesDisponibles){
+                            if(lotes != null){
+                                for(Lote lote : lotes){
                         %>
-                            <option value="<%= lote.id() %>">
-                                Lote <%= lote.id() %> - <%= lote.ubicacion() %> - <%= lote.superficie() %> m²
-                            </option>
+
+                        <option value="<%= lote.id() %>">
+                            Lote <%= lote.id() %>
+                            -
+                            <%= lote.superficie() %> m²
+                            -
+                            <%= lote.infraestructura() %>
+                        </option>
+
                         <%
                                 }
                             }
                         %>
+
                     </select>
 
                     <button type="submit"
                             class="btn__aprobar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA ? "disabled" : "" %>>
+                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
+                                    ? "disabled"
+                                    : "" %>>
                         Confirmar y asignar lote
                     </button>
                 </form>
 
                 <form action="${pageContext.request.contextPath}/rechazarSolicitud"
                       method="post">
+
                     <input type="hidden"
                            name="idSolicitud"
                            value="<%= solicitud.id() %>">
 
                     <button type="submit"
                             class="btn__rechazar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA ? "disabled" : "" %>>
+                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA
+                                    ? "disabled"
+                                    : "" %>>
                         Rechazar
                     </button>
                 </form>
@@ -193,13 +247,16 @@
                         onclick="mostrarFormulario('obs<%= solicitud.id() %>')">
                     Observar documentación
                 </button>
+
             </div>
 
             <div id="obs<%= solicitud.id() %>"
-                 class="observacion__form">
+                 class="observacion__form"
+                 style="display:none;">
 
                 <form action="${pageContext.request.contextPath}/observarSolicitud"
                       method="post">
+
                     <input type="hidden"
                            name="idSolicitud"
                            value="<%= solicitud.id() %>">
@@ -210,9 +267,10 @@
 
                     <button type="submit"
                             class="btn__enviar">
-                        Enviar Observación
+                        Enviar observación
                     </button>
                 </form>
+
             </div>
 
         </article>
@@ -234,7 +292,7 @@
 
 <script>
     function mostrarFormulario(id){
-        let form = document.getElementById(id);
+        const form = document.getElementById(id);
 
         if(form.style.display === "block"){
             form.style.display = "none";
