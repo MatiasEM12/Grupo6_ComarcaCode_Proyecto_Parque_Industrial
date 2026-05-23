@@ -12,8 +12,8 @@
         return;
     }
 
-    if(!usuario.rol().equals("organismo_publico")
-            && !usuario.rol().equals("administrador")){
+    if(!usuario.nombreRol().equals("organismo_publico")
+            && !usuario.nombreRol().equals("administrador")){
 
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;

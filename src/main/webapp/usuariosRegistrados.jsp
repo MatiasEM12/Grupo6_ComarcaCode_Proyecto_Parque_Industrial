@@ -23,7 +23,7 @@
 
     // VALIDAR ADMINISTRADOR
 
-    if(!usuarioLogueado.rol().equals("administrador")){
+    if(!usuarioLogueado.nombreRol().equals("administrador")){
 
         response.sendRedirect(
                 request.getContextPath()

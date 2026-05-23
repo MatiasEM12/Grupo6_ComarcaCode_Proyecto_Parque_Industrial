@@ -135,7 +135,7 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/usuarios.jsp"
+        <a href="${pageContext.request.contextPath}/usuariosRegistrados"
            class="card">
 
             <div class="card__content">
@@ -145,7 +145,7 @@
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudesAdmin">
+        <a href="${pageContext.request.contextPath}/solicitudesAdmin"
            class="card">
             <div class="card__content">
                 <h2>Solicitudes</h2>
@@ -153,11 +153,11 @@
             </div>
         </a>
 
-        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
                 <h2>Proyectos</h2>
-                <p>onsultar información sobre los proyectos productivos del parque.</p>
+                <p>Consultar información sobre los proyectos productivos del parque.</p>
             </div>
         </a>
 
