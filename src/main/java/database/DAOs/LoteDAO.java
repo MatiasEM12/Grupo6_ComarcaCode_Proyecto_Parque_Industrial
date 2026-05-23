@@ -11,7 +11,11 @@ public interface LoteDAO {
 
     List<Lote> findAll();
 
+    Lote findLoteProyecto(int idProyecto);
+
     List<Lote> findDisponibles();
+
+    void RegistrarProyectoLote(int id, int idProyecto);
 
     void actualizarEstado(int id, String estado);
 }

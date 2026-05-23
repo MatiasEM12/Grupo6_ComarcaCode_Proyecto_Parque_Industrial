@@ -109,6 +109,25 @@ public class LoteDAOJDBC implements LoteDAO {
         }
     }
 
+    public Lote findLoteProyecto(int idProyecto){
+        final String SQL = "SELECT * FROM lotes WHERE id_proyecto = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setInt(1, idProyecto);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return mapearLote(rs);
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener lotes disponibles", e);
+        }
+    }
+
     @Override
     public void actualizarEstado(int id, String estado) {
 
@@ -147,5 +166,29 @@ public class LoteDAOJDBC implements LoteDAO {
                 rs.getString("estado"),
                 rs.getString("infraestructura")
         );
+    }
+
+    @Override
+    public void RegistrarProyectoLote(int id, int idProyecto) {
+
+        final String SQL =
+                "UPDATE lotes SET estado = ?, id_proyecto = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, "OCUPADO");
+            st.setInt(2, idProyecto);
+            st.setInt(3, id);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró el lote");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar lote", e);
+        }
     }
 }
