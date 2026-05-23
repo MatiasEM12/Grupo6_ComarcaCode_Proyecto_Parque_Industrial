@@ -110,6 +110,7 @@ public class RepresentanteEmpresa {
     }
 
 
-
-
+    public Empresa Empresa() {
+        return empresa;
+    }
 }

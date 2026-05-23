@@ -284,4 +284,8 @@ public class ProyectoProductivo {
     public RepresentanteEmpresa representanteEmpresa() {
         return representanteEmpresa;
     }
+
+    public Empresa empresa() {
+        return representanteEmpresa.Empresa();
+    }
 }
