@@ -63,7 +63,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
             st.setString(2, proyectoProductivo.objeto());
 
-            st.setString(3, proyectoProductivo.descripcionServicio());
+            st.setString(3, proyectoProductivo.descripcion());
 
             st.setString(4, proyectoProductivo.emplazamiento());
 
@@ -107,10 +107,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
             st.setBoolean(24, proyectoProductivo.enEjecucion());
 
-            st.setString(25,
-                    proyectoProductivo
-                            .representanteEmpresa()
-                            .dni()
+            st.setString(25, proyectoProductivo.representanteEmpresa().dni()
             );
 
             int filas = st.executeUpdate();

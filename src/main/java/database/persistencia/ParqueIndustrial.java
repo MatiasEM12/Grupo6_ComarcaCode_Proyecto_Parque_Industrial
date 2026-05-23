@@ -13,6 +13,7 @@ import java.util.List;
 
 
 
+
 public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     private UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
@@ -33,13 +34,16 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 .orElse(null);
     }
 
+
+
     @Override
     public void agregarSolicitud(SolicitudRadicacionDTO solicitud) {
-        RepresentanteEmpresa representante= representanteDAO.find(solicitud.usuario().UserName());
-/*
-        //proyecto y solicitud se cargan en la base de datos al crear el objeto, por lo que no es necesario hacer un insert adicional
-        ProyectoProductivo proyectoProductivo = this.toProyecto( solicitud.proyecto());
-        SolicitudRadicacion solicitudRadicacion=new SolicitudRadicacion(representante,proyectoProductivo);*/
+        if (solicitud == null) {
+            throw new RuntimeException("La solicitud no puede ser nula");
+        }
+        ProyectoProductivo proyectoProductivo = toProyecto(solicitud.proyecto());
+        SolicitudRadicacion solicitudRadicacion= new SolicitudRadicacion(proyectoProductivo.representanteEmpresa(),proyectoProductivo);
+
     }
 
 
@@ -160,8 +164,8 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 representante
         );
     }*/
-/*
-    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
+
+    private ProyectoProductivo toProyecto (ProyectoDTO dto){
         RepresentanteEmpresa representante =
                 representanteDAO.find(dto.usuario().UserName());
 
@@ -172,5 +176,5 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
                 representante
         );
-    }*/
+    }
 }

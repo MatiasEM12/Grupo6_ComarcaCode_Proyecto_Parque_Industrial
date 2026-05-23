@@ -277,11 +277,11 @@ public class ProyectoProductivo {
             return necesitaCoworking;
         }
 
+        public boolean enEjecucion(){
+            return enEjecucion;
+        }
 
-
-
-
-
-
-
+    public RepresentanteEmpresa representanteEmpresa() {
+        return representanteEmpresa;
+    }
 }

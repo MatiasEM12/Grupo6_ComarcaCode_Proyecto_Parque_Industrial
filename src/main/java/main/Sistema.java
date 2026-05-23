@@ -75,50 +75,16 @@ public class Sistema implements SistemaParqueIndustrial {
      */
 
     @Override
-    public void agregarSolicitud(SolicitudRadicacionDTO dto) {
-
-        if (dto == null) {
+    public void agregarSolicitud(SolicitudRadicacionDTO solicitud) {
+        if (solicitud == null) {
             throw new RuntimeException("La solicitud no puede ser nula");
         }
-
-        RepresentanteEmpresa representante =
-                obtenerRepresentantePorUsuario(dto.usuario());
-
-        representante.puedeIngresarSolititud();
-
-        SolicitudRadicacion solicitud =
-                new SolicitudRadicacion(
-                        representante,
-                        dto.objeto(),
-                        dto.nombreProyecto(),
-                        dto.descripcionServicio(),
-                        dto.emplazamiento(),
-                        dto.personal(),
-                        dto.tiempoRadicacion(),
-                        dto.m2(),
-                        dto.areaTrabajo(),
-                        dto.areaDeposito(),
-                        dto.estacionamiento(),
-                        dto.planos(),
-                        dto.empleabilidad(),
-                        dto.materiasPrimas(),
-                        dto.destinoProduccion(),
-                        dto.tension(),
-                        dto.potencia(),
-                        dto.agua(),
-                        dto.gas(),
-                        dto.residuos(),
-                        dto.tratamiento(),
-                        dto.balanza(),
-                        dto.comedor(),
-                        dto.coworking(),
-                        dto.descripcionArchivo(),
-                        dto.nombreArchivoPDF()
-                );
-
-        solicitudes.add(solicitud);
-
+        ProyectoProductivo proyectoProductivo = toProyecto(solicitud.proyecto());
+        SolicitudRadicacion solicitudRadicacion= new SolicitudRadicacion(proyectoProductivo.representanteEmpresa(),proyectoProductivo);
+        solicitudes.add(solicitudRadicacion);
     }
+
+
 
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudesDe(
@@ -241,10 +207,13 @@ public class Sistema implements SistemaParqueIndustrial {
     }
 
     * */
-/*
-    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
-        RepresentanteEmpresa representante  = new RepresentanteEmpresa("11111111","nike",dto.usuario());
-        representantes.add(representante);
+
+    private ProyectoProductivo toProyecto (ProyectoDTO dto){
+
+            RepresentanteEmpresa representante = this.obtenerRepresentantePorUsuario(dto.usuario());
+            if (representante == null) {
+                throw new RuntimeException("El representante no existe");
+            }
         return new ProyectoProductivo(dto.nombre(), dto.objeto(), dto.descripcionServicio(), dto.emplazamiento(), dto.tipoPersonal(),
                 dto.tiempoRadicacion(), dto.metrosCuadrados(), dto.areaTrabajo(), dto.areaDeposito(),
                 dto.estacionamiento(), dto.tienePlanos(), dto.personalOcupar(), dto.materiasPrimas(),
@@ -252,5 +221,5 @@ public class Sistema implements SistemaParqueIndustrial {
                 dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
                 representante
         );
-    }*/
+    }
 }
