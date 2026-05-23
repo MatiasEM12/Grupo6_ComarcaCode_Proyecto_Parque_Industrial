@@ -2,6 +2,7 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
+import model.Lote;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
@@ -47,11 +48,9 @@ public class SolicitudesAdminServlet extends HttpServlet{
                 "solicitudes",
                 solicitudes
         );
+        List<Lote> lotes = sistema.obtenerLotesDisponibles();
 
-        request.setAttribute(
-                "lotes",
-                sistema.obtenerLotesDisponibles()
-        );
+        request.setAttribute("lotes", lotes);
 
         request.getRequestDispatcher(
                 "/solicitudesAdmin.jsp"
