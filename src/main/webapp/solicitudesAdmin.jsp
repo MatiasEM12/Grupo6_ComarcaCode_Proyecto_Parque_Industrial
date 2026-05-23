@@ -129,15 +129,19 @@
                  </p>
 
                  <p><strong>Superficie solicitada:</strong>
-                     <%= solicitud.proyecto().superficie() %>
+                     <%= solicitud.m2() %>
                  </p>
 
                  <p><strong>Personal a ocupar:</strong>
-                     <%= solicitud.proyecto().empleabilidad() %>
+                     <%= solicitud.personal() %>
+                 </p>
+
+                 <p><strong>Empleabilidad:</strong>
+                     <%= solicitud.empleabilidad() %>
                  </p>
 
                  <p><strong>Materia prima:</strong>
-                     <%= solicitud.proyecto().materiaPrima() %>
+                     <%= solicitud.materiasPrimas() %>
                  </p>
 
             </div>

@@ -33,6 +33,8 @@ public class MisProyectosServlet extends HttpServlet {
         Usuario usuario =
                 (Usuario) session.getAttribute("usuarioLogueado");
 
+
+
         if (usuario == null) {
             response.sendRedirect(
                     request.getContextPath() + "/perfiles"
@@ -51,16 +53,17 @@ public class MisProyectosServlet extends HttpServlet {
          * Obtiene solamente las solicitudes
          * del representante logueado
          */
-        List<SolicitudRadicacion> solicitudesUsuario =
-                sistema.obtenerSolicitudesDe(usuario);
+
+        List<SolicitudRadicacion> solicitudes =
+                sistema.obtenerSolicitudesDe(usuario.UserName())
+                        .stream()
+                        .filter(s -> s.estadoSolicitud().name().equals("APROBADA"))
+                        .toList();
 
         /*
          * Envia las solicitudes al JSP
          */
-        request.setAttribute(
-                "solicitudes",
-                solicitudesUsuario
-        );
+        request.setAttribute("solicitudes", solicitudes);
 
         /*
          * Redirecciona al JSP

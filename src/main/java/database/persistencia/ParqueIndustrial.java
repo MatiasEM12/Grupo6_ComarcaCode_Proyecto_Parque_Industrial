@@ -21,7 +21,7 @@ import database.ConnectionManager;
 public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     private UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
-    private ReprecentanteEmpresaDAO representanteDAO= new ReprecentanteEmpresaDAOJDBC();
+    private RepresentanteEmpresaDAO representanteDAO= new RepresentanteEmpresaDAOJDBC();
     private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
     private ProyectoProductivoDAO proyectoProductivoDAO =
             new ProyectoProductivoDAOJDBC();
@@ -56,6 +56,23 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         return solicitudes.stream().filter(s -> s.representante().dni().equals(representanteEmpresa.dni())).toList();
     }
+    @Override
+    public List<SolicitudRadicacion> obtenerSolicitudesDe(String userName) {
+
+        RepresentanteEmpresa representanteEmpresa =
+                representanteDAO.findByUserName(userName);
+
+        if (representanteEmpresa == null) {
+            return List.of();
+        }
+
+        return obtenerSolicitudes()
+                .stream()
+                .filter(s -> s.representante() != null)
+                .filter(s -> s.representante().dni()
+                        .equals(representanteEmpresa.dni()))
+                .toList();
+    }
 
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudes() {
@@ -63,31 +80,43 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     @Override
-    public List<LoteDTO> obtenerLotesDisponibles() {
-        List<LoteDTO> lotes = new ArrayList<>();
+    public List<Lote> obtenerLotesDisponibles() {
 
-        final String SQL = "SELECT id, ubicacion, superficie, estado, infraestructura " +
-                "FROM lotes WHERE LOWER(estado) = 'disponible' ORDER BY id";
+        List<Lote> lotes = new ArrayList<>();
+
+        final String SQL =
+                "SELECT id, latitud, longitud, altitud, superficie, estado, infraestructura " +
+                        "FROM lotes " +
+                        "WHERE estado = 'DISPONIBLE'";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL);
              ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
-                lotes.add(new LoteDTO(
+
+                Ubicacion ubicacion = new Ubicacion(
+                        rs.getLong("latitud"),
+                        rs.getLong("longitud"),
+                        rs.getLong("altitud")
+                );
+
+                Lote lote = new Lote(
                         rs.getInt("id"),
-                        rs.getString("ubicacion"),
+                        ubicacion,
                         rs.getDouble("superficie"),
                         rs.getString("estado"),
                         rs.getString("infraestructura")
-                ));
+                );
+
+                lotes.add(lote);
             }
 
-        } catch (SQLException e) {
+            return lotes;
+
+        } catch (Exception e) {
             throw new RuntimeException("Error al obtener lotes disponibles", e);
         }
-
-        return lotes;
     }
 
     @Override
@@ -207,7 +236,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
 
-    public void asignarLote(Usuario user, LoteDTO lote, ProyectoDTO proyecto){
+    public void asignarLote(Usuario user, LoteDTO lote, ProyectoProductivoDTO proyecto){
 
         /*
         RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
@@ -256,7 +285,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
          * */
     }
 
-    public void cargarAvanceProyecto( Usuario user, AvanceDeProyectoDTO avance,ProyectoDTO proyecto){
+    public void cargarAvanceProyecto( Usuario user, AvanceDeProyectoDTO avance,ProyectoProductivoDTO proyecto){
         /*
          * RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
          *

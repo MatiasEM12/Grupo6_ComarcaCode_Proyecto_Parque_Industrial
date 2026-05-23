@@ -1,9 +1,7 @@
 package model;
 
-import database.DAOs.ReprecentanteEmpresaDAO;
-import database.DAOs.SolicitudRadicacionDAO;
-import database.JDBCs.ReprecentanteEmpresaDAOJDBC;
-import database.JDBCs.SolicitudRadicacionDAOJDBC;
+import database.DAOs.RepresentanteEmpresaDAO;
+import database.JDBCs.RepresentanteEmpresaDAOJDBC;
 import model.DTO.EmpresaDTO;
 
 public class RepresentanteEmpresa {
@@ -12,9 +10,8 @@ public class RepresentanteEmpresa {
     private Empresa empresa;
     private Usuario usuario;
     private boolean  puedeIngresarSolicitud=true;
-    private ReprecentanteEmpresaDAO reprecentanteEmpresaDAO = new ReprecentanteEmpresaDAOJDBC();
+    private RepresentanteEmpresaDAO representanteEmpresaDAO = new RepresentanteEmpresaDAOJDBC();
     public RepresentanteEmpresa(String dni, Empresa empresa, Usuario usuario){
-        validarDni(dni);
         validarEmpresa(empresa);
         validarUsuario(usuario);
         this.dni = dni;
@@ -70,10 +67,10 @@ public class RepresentanteEmpresa {
         if (dni == null || dni.trim().isEmpty()) {
             throw new IllegalArgumentException("El DNI no puede ser nulo o vacío");
         }
+
         if (!dni.matches("\\d{7,8}")) {
             throw new IllegalArgumentException("El DNI debe tener entre 7 y 8 números");
         }
-        if(reprecentanteEmpresaDAO.existe(dni))throw new RuntimeException("El DNI ya existe");
     }
 
     public void validarEmpresa(Empresa empresa) {

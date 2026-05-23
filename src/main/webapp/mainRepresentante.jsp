@@ -84,7 +84,7 @@
                 </a>
             </li>
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteSolicitudes.jsp" class="nav__link">
+                <a href="${pageContext.request.contextPath}/misSolicitudes" class="nav__link">
                     Mis Solicitudes
                 </a>
             </li>
@@ -137,7 +137,7 @@
             </div>
 
         </a>
-        <a href="${pageContext.request.contextPath}/representanteSolicitudes.jsp"
+        <a href="${pageContext.request.contextPath}/misSolicitudes"
            class="card">
 
             <div class="card__content">

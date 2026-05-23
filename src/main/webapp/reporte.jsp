@@ -9,7 +9,7 @@
         return;
     }
 
-    if (!usuario.rol().equals("organismo_publico")) {
+    if (!usuario.nombreRol().equals("organismo_publico")) {
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }

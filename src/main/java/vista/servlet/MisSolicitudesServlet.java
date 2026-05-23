@@ -18,63 +18,34 @@ public class MisSolicitudesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
-        try{
-            HttpSession session = request.getSession(false);
 
-            if (session == null) {
-                response.sendRedirect(
-                        request.getContextPath() + "/perfiles"
-                );
-                return;
-            }
+        HttpSession session = request.getSession(false);
 
-            Usuario usuario =
-                    (Usuario) session.getAttribute("usuarioLogueado");
-
-            if (usuario == null) {
-                response.sendRedirect(
-                        request.getContextPath() + "/perfiles"
-                );
-                return;
-            }
-
-            SistemaParqueIndustrial sistema =
-                    new ParqueIndustrial();
-
-            /*
-             * Obtiene solamente las solicitudes
-             * del representante logueado
-             */
-            List<SolicitudRadicacion> solicitudesUsuario =
-                    sistema.obtenerSolicitudesDe(usuario);
-
-            /*
-             * Envia las solicitudes al JSP
-             */
-            request.setAttribute(
-                    "solicitudes",
-                    solicitudesUsuario
-            );
-
-            /*
-             * Redirecciona al JSP
-             */
-            request.getRequestDispatcher(
-                    "/representanteSolicitudes.jsp"
-            ).forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            request.setAttribute(
-                    "error",
-                    e.getClass().getSimpleName()
-                            + ": "
-                            + e.getMessage()
-            );
-
-            request.getRequestDispatcher(
-                    "/representanteSolicitudes.jsp"
-            ).forward(request, response);
+        if (session == null) {
+            response.sendRedirect(request.getContextPath() + "/perfiles");
+            return;
         }
+
+        Usuario usuario =
+                (Usuario) session.getAttribute("usuarioLogueado");
+
+        if (usuario == null) {
+            response.sendRedirect(request.getContextPath() + "/perfiles");
+            return;
+        }
+
+        SistemaParqueIndustrial sistema =
+                new ParqueIndustrial();
+
+        List<SolicitudRadicacion> solicitudes =
+                sistema.obtenerSolicitudesDe(usuario.UserName())
+                        .stream()
+                        .filter(s -> !s.estadoSolicitud().name().equals("APROBADA"))
+                        .toList();
+
+        request.setAttribute("solicitudes", solicitudes);
+
+        request.getRequestDispatcher("/misSolicitudes.jsp")
+                .forward(request, response);
     }
 }

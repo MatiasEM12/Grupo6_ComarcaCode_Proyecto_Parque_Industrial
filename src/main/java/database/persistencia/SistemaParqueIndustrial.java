@@ -2,6 +2,7 @@ package database.persistencia;
 
 import model.DTO.LoteDTO;
 import model.DTO.SolicitudRadicacionDTO;
+import model.Lote;
 import model.ProyectoProductivo;
 import model.SolicitudRadicacion;
 import model.Usuario;
@@ -16,11 +17,11 @@ public interface SistemaParqueIndustrial {
     List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario);
     List<SolicitudRadicacion> obtenerSolicitudes();
 
-    List<LoteDTO> obtenerLotesDisponibles();
+    List<Lote> obtenerLotesDisponibles();
     void aprobarSolicitud(int idSolicitud, int idLote);
     void rechazarSolicitud(int idSolicitud);
     void observarSolicitud(int idSolicitud, String descripcion);
-
+    List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);
     ProyectoProductivo obtenerProyectoProductivo(int idProyecto);
     public List<ProyectoProductivo> obtenerProyectosProductivos();
 }

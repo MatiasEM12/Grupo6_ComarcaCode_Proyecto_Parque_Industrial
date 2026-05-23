@@ -285,7 +285,28 @@ public class SolicitudRadicacion {
             throw new RuntimeException(mensaje);
         }
     }
-
+    public String objeto() { return objeto; }
+    public String emplazamiento() { return emplazamiento; }
+    public String personal() { return personal; }
+    public String tiempoRadicacion() { return tiempoRadicacion; }
+    public String m2() { return m2; }
+    public String areaTrabajo() { return areaTrabajo; }
+    public String areaDeposito() { return areaDeposito; }
+    public String estacionamiento() { return estacionamiento; }
+    public String planos() { return planos; }
+    public String empleabilidad() { return empleabilidad; }
+    public String materiasPrimas() { return materiasPrimas; }
+    public String destinoProduccion() { return destinoProduccion; }
+    public String tension() { return tension; }
+    public String potencia() { return potencia; }
+    public String agua() { return agua; }
+    public String gas() { return gas; }
+    public String residuos() { return residuos; }
+    public String tratamiento() { return tratamiento; }
+    public String balanza() { return balanza; }
+    public String comedor() { return comedor; }
+    public String coworking() { return coworking; }
+    public String descripcionArchivo() { return descripcionArchivo; }
     public void cargate() {
         solicitudRadicacionDAO.create(this);
     }

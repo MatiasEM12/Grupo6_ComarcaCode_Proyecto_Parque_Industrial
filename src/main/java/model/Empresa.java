@@ -38,7 +38,22 @@ public class Empresa {
         this.radicada = radicada;
         this.lote = lote;
     }
+    public Empresa(String cuit, String razonSocial,
+                   String contacto, String contactoRepresentante,
+                   Boolean radicada, Lote lote) {
 
+        validarObligatorio(cuit, "El CUIT es obligatorio");
+        validarObligatorio(razonSocial, "La razón social es obligatoria");
+        validarObligatorio(contacto, "El contacto es obligatorio");
+        validarObligatorio(contactoRepresentante, "El contacto del representante es obligatorio");
+
+        this.cuit = cuit;
+        this.razonSocial = razonSocial;
+        this.contacto = contacto;
+        this.contactoRepresentante = contactoRepresentante;
+        this.radicada = radicada;
+        this.lote = lote;
+    }
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 
         if (representante == null) {

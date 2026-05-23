@@ -1,4 +1,9 @@
 package model.DTO;
 
-public class RepresentanteEmpresaDTO {
+public record RepresentanteEmpresaDTO(
+        String dni,
+        EmpresaDTO empresa,
+        UsuarioDTO usuario,
+        Boolean puedeIngresarSolicitud
+) {
 }
