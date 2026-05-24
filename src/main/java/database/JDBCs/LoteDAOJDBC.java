@@ -167,7 +167,33 @@ public class LoteDAOJDBC implements LoteDAO {
                 rs.getString("infraestructura")
         );
     }
+    @Override
+    public void update(Lote lote) {
 
+        final String SQL =
+                "UPDATE lotes SET latitud = ?, longitud = ?, altitud = ?, " +
+                        "superficie = ?, estado = ?, infraestructura = ? " +
+                        "WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setLong(1, lote.ubicacion().latitud());
+            st.setLong(2, lote.ubicacion().longitud());
+            st.setLong(3, lote.ubicacion().altitud());
+            st.setDouble(4, lote.superficie());
+            st.setString(5, lote.estado());
+            st.setString(6, lote.infraestructura());
+            st.setInt(7, lote.id());
+
+            if (st.executeUpdate() <= 0) {
+                throw new RuntimeException("No se encontró el lote");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar lote", e);
+        }
+    }
     @Override
     public void RegistrarProyectoLote(int id, int idProyecto) {
 

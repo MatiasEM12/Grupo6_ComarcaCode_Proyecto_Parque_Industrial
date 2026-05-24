@@ -23,9 +23,11 @@ public interface SistemaParqueIndustrial {
     void observarSolicitud(int idSolicitud, String descripcion);
     List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);
     ProyectoProductivo obtenerProyectoProductivo(int idProyecto);
-    public List<ProyectoProductivo> obtenerProyectosProductivos();
+    List<ProyectoProductivo> obtenerProyectosProductivos();
 
     List<Lote> ObtenerLotes();
+    Lote obtenerLote(int id);
 
+    void actualizarLote(Lote lote);
     void agregarLote(Lote lote);
 }

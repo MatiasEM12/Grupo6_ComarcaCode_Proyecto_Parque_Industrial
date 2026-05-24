@@ -16,6 +16,6 @@ public interface LoteDAO {
     List<Lote> findDisponibles();
 
     void RegistrarProyectoLote(int id, int idProyecto);
-
+    void update(Lote lote);
     void actualizarEstado(int id, String estado);
 }

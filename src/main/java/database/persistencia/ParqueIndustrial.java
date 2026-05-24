@@ -219,7 +219,17 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public List<Lote> ObtenerLotes() {
         return loteDAO.findAll();
     }
+    @Override
+    public Lote obtenerLote(int id) {
+        LoteDAO loteDAO = new LoteDAOJDBC();
+        return loteDAO.find(id);
+    }
 
+    @Override
+    public void actualizarLote(Lote lote) {
+        LoteDAO loteDAO = new LoteDAOJDBC();
+        loteDAO.update(lote);
+    }
     @Override
     public void agregarLote(Lote lote) {
         loteDAO.create(lote);
@@ -235,16 +245,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return null;//lotesDTO
     }
 
-    public LoteDTO obtenerLote(int id){
-        /*
-       Lote lote= lotesDao.find(id)
 
-       return toLote(lote)
-       */
-
-        return null;//toLote(lote)
-
-    }
 
 
     public void asignarLote(Usuario user, LoteDTO lote, ProyectoProductivoDTO proyecto){
