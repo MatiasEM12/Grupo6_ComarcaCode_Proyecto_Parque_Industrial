@@ -4,10 +4,10 @@
 <%@ page import="model.EstadoSolicitud" %>
 <%@ page import="model.Lote" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null){
         response.sendRedirect(request.getContextPath() + "/perfiles");
@@ -19,12 +19,8 @@
         return;
     }
 
-    List<SolicitudRadicacion> solicitudes =
-            (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
-
-    List<Lote> lotes =
-            (List<Lote>) request.getAttribute("lotes");
 %>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,7 +28,7 @@
     <meta charset="UTF-8">
     <title>Solicitudes de Radicación</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/solicitudesAdmin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 </head>
 
 <body>
@@ -85,74 +81,97 @@
 </nav>
 
 <main>
-    <div class="solicitudes__container">
+ <div class="projects__container">
 
         <%
-            if(solicitudes == null || solicitudes.isEmpty()){
-        %>
+            List<SolicitudRadicacion> solicitudes =
+                    (List<SolicitudRadicacion>)
+                            request.getAttribute("solicitudes");
 
-        <div class="solicitud__card">
-            <h2>No hay solicitudes cargadas</h2>
-            <p>Todavía ningún representante envió una solicitud de radicación.</p>
-        </div>
+            if (solicitudes != null && !solicitudes.isEmpty()) {
 
-        <%
-            } else {
-                for(SolicitudRadicacion solicitud : solicitudes){
+                for (SolicitudRadicacion solicitud : solicitudes) {
 
-                    String claseEstado = "estado--pendiente";
+                    String claseEstado = "";
 
-                    if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA){
-                        claseEstado = "estado--aprobada";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
-                        claseEstado = "estado--observada";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA){
-                        claseEstado = "estado--rechazada";
+                    if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("PENDIENTE")) {
+
+                        claseEstado = "estado__pendiente";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("APROBADA")) {
+
+                        claseEstado = "estado__aprobado";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("OBSERVADA")) {
+
+                        claseEstado = "estado__revision";
                     }
         %>
 
-        <article class="solicitud__card">
+        <a href="${pageContext.request.contextPath}/solicitudDetalle?id=<%= solicitud.id() %>"
+           class="project__card">
 
-            <div class="solicitud__header">
+            <div class="project__content">
 
-                <h2><%= solicitud.nombreProyecto() %></h2>
+                <h2>
 
-                <span class="estado <%= claseEstado %>">
-                    <%= solicitud.estadoSolicitud().name() %>
+                    <%= solicitud.nombreProyecto() %>
+
+                </h2>
+
+                <p>
+
+                    <%= solicitud.descripcionServicio() %>
+
+                </p>
+
+                    <p class="project__date">
+
+                       Última actualización: <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+
+                    </p>
+
+                <span class="project__state <%= claseEstado %>">
+
+                    <%= solicitud.estadoSolicitud() %>
+
                 </span>
 
             </div>
 
-            <div class="solicitud__body">
-
-                <p>
-                    <strong>N° trámite:</strong>
-                    <%= solicitud.numeroTramite() %>
-                </p>
-
-                <p>
-                    <strong>Representante:</strong>
-                    <%= solicitud.representante().dni() %>
-                </p>
-
-                <p>
-                    <strong>Fecha:</strong>
-                    <%= solicitud.fechaCreacion() %>
-                </p>
-
-            </div>
-
-            <a href="${pageContext.request.contextPath}/detalleSolicitud?id=<%= solicitud.id() %>"
-               class="btn__detalle">
-
-                Ver solicitud completa
-
-            </a>
-
-        </article>
+        </a>
 
         <%
                 }
+
+            } else {
+        %>
+
+        <div class="sin__solicitudes">
+
+            <h2>
+
+                No hay solicitudes cargadas
+
+            </h2>
+
+            <p>
+
+                Todavía no  hay solicitudes cargadas
+
+            </p>
+
+        </div>
+
+        <%
             }
         %>
 
@@ -166,17 +185,7 @@
     </div>
 </footer>
 
-<script>
-    function mostrarFormulario(id){
-        const form = document.getElementById(id);
 
-        if(form.style.display === "block"){
-            form.style.display = "none";
-        } else {
-            form.style.display = "block";
-        }
-    }
-</script>
 
 </body>
 </html>
