@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
 <%@ page import="model.SolicitudRadicacion" %>
+<%@ page import="model.EstadoSolicitud" %>
 <%@ page import="java.util.List" %>
 
 <%
@@ -18,12 +19,17 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Mis Solicitudes</title>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
+          href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
 </head>
 
 <body>
@@ -33,13 +39,17 @@
 
     <div class="header__item--container">
         <h1>MIS SOLICITUDES</h1>
-        <p>Estado de tus solicitudes de radicación.</p>
+
+        <p>
+            Estado de tus solicitudes de radicación.
+        </p>
     </div>
 </header>
 
 <nav class="nav">
     <div class="nav__ul--container">
         <ul class="nav__ul">
+
             <li class="nav__item">
                 <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
                    class="nav__link">
@@ -60,6 +70,7 @@
                     Nueva solicitud
                 </a>
             </li>
+
         </ul>
     </div>
 
@@ -76,90 +87,100 @@
 </nav>
 
 <main>
-    <div class="main__container">
+
+    <div class="lotes__container">
 
         <%
-            if(solicitudes == null || solicitudes.isEmpty()){
-        %>
+            if(solicitudes != null && !solicitudes.isEmpty()){
 
-        <article class="card">
-            <div class="card__content">
-                <h2>No tenés solicitudes pendientes</h2>
-                <p>Cuando cargues una solicitud, aparecerá en esta sección.</p>
-            </div>
-        </article>
-
-        <%
-            } else {
                 for(SolicitudRadicacion solicitud : solicitudes){
+
+                    String claseEstado = "";
+
+                    if(solicitud.estadoSolicitud() == EstadoSolicitud.PENDIENTE){
+                        claseEstado = "estado__disponible";
+                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA){
+                        claseEstado = "estado__ocupado";
+                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
+                        claseEstado = "estado__ocupado";
+                    }
         %>
 
-        <article class="card">
-            <div class="card__content">
+        <article class="lote__card">
 
-                <h2><%= solicitud.nombreProyecto() %></h2>
+            <div class="lote__content">
+
+                <h2>
+                    <%= solicitud.nombreProyecto() %>
+                </h2>
 
                 <p>
-                    <strong>N° trámite:</strong>
+                    N° trámite:
                     <%= solicitud.numeroTramite() %>
                 </p>
 
                 <p>
-                    <strong>Estado:</strong>
-                    <%= solicitud.estadoSolicitud().name() %>
-                </p>
-
-                <p>
-                    <strong>Fecha de creación:</strong>
+                    Fecha:
                     <%= solicitud.fechaCreacion() %>
                 </p>
 
                 <p>
-                    <strong>Última actualización:</strong>
-                    <%= solicitud.fechaActualizacion() %>
-                </p>
-
-                <p>
-                    <strong>Descripción:</strong>
-                    <%= solicitud.descripcionServicio() %>
-                </p>
-
-                <p>
-                    <strong>Superficie solicitada:</strong>
+                    Superficie:
                     <%= solicitud.m2() %> m²
                 </p>
 
                 <p>
-                    <strong>Personal:</strong>
+                    Personal:
                     <%= solicitud.personal() %>
                 </p>
 
                 <p>
-                    <strong>Materia prima:</strong>
+                    Materia prima:
                     <%= solicitud.materiasPrimas() %>
                 </p>
 
                 <p>
-                    <strong>Archivo:</strong>
-                    <%= solicitud.nombreArchivoPDF() == null || solicitud.nombreArchivoPDF().isBlank()
+                    Archivo:
+                    <%= solicitud.nombreArchivoPDF() == null
+                            || solicitud.nombreArchivoPDF().isBlank()
                             ? "Sin archivo"
                             : solicitud.nombreArchivoPDF() %>
                 </p>
 
+                <span class="lote__state <%= claseEstado %>">
+                    <%= solicitud.estadoSolicitud().name() %>
+                </span>
+
             </div>
+
         </article>
 
         <%
                 }
+
+            } else {
+        %>
+
+        <div class="sin__Lotes">
+            <h2>No tenés solicitudes cargadas</h2>
+
+            <p>
+                Cuando cargues una solicitud, aparecerá en esta sección.
+            </p>
+        </div>
+
+        <%
             }
         %>
 
     </div>
+
 </main>
 
 <footer>
     <div class="div__footer--container">
         <p>Parque Industrial</p>
+
         Sistema de gestión del Parque Industrial de Viedma.
     </div>
 </footer>
