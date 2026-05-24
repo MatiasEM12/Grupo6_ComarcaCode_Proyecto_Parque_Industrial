@@ -220,6 +220,11 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return loteDAO.findAll();
     }
 
+    @Override
+    public void agregarLote(Lote lote) {
+        loteDAO.create(lote);
+    }
+
     public LoteDTO obtenerLotes(){
        /*
        ArrayList   lotes= lotesDao.findAll

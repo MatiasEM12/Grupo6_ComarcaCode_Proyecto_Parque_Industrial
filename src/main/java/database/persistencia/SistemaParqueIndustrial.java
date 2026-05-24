@@ -26,4 +26,6 @@ public interface SistemaParqueIndustrial {
     public List<ProyectoProductivo> obtenerProyectosProductivos();
 
     List<Lote> ObtenerLotes();
+
+    void agregarLote(Lote lote);
 }
