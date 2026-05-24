@@ -161,6 +161,14 @@
             </div>
         </a>
 
+         <a href="${pageContext.request.contextPath}/listadoLotes" class="card">
+               <div class="card__content">
+                   <h2>Lotes<h2>
+                   <p>Listado de lotes.</p>
+               </div>
+         </a>
+
+
     </div>
 
 </main>

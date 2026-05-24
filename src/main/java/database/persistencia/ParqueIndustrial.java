@@ -23,8 +23,8 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
     private RepresentanteEmpresaDAO representanteDAO= new RepresentanteEmpresaDAOJDBC();
     private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
-    private ProyectoProductivoDAO proyectoProductivoDAO =
-            new ProyectoProductivoDAOJDBC();
+    private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
+    private LoteDAO loteDAO = new LoteDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -214,6 +214,12 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public List<ProyectoProductivo> obtenerProyectosProductivos() {
         return proyectoProductivoDAO.findAll();
     }
+
+    @Override
+    public List<Lote> ObtenerLotes() {
+        return loteDAO.findAll();
+    }
+
     public LoteDTO obtenerLotes(){
        /*
        ArrayList   lotes= lotesDao.findAll

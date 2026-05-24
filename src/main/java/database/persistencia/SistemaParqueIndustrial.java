@@ -24,4 +24,6 @@ public interface SistemaParqueIndustrial {
     List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);
     ProyectoProductivo obtenerProyectoProductivo(int idProyecto);
     public List<ProyectoProductivo> obtenerProyectosProductivos();
+
+    List<Lote> ObtenerLotes();
 }
