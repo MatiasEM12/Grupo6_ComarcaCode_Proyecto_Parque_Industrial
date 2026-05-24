@@ -1,83 +1,132 @@
-html {
+html{
     scroll-behavior: smooth;
 }
+
 body{
     margin: 0;
     font-family: sans-serif;
-    box-sizing: border-box;
-    background-color:rgb(245, 236, 226);
-    color: #000000;
+    background-color: rgb(245, 236, 226);
+    color: #000;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
 }
-body,div,header,nav,ul,h1,h2,p,img{
+
+body,
+div,
+header,
+nav,
+ul,
+li,
+h1,
+h2,
+h3,
+p,
+img,
+a,
+main,
+section,
+article,
+span{
     box-sizing: border-box;
 }
 
-/*Header Section*/
+/* =========================
+   HEADER
+========================= */
+
 .header{
     min-height: 300px;
+
     background-image: url("../img/viedma.webp");
+
     background-size: cover;
     background-position: center;
+
     display: flex;
-    position: relative; /* clave */
+
+    position: relative;
 }
 
 .header__overlay{
     position: absolute;
+
     top: 0;
     left: 0;
+
     width: 100%;
-    height: 100%; /* ahora sí */
-    background-color: rgba(124, 124, 124, 0.541);
+    height: 100%;
+
+    background-color: rgba(124,124,124,.55);
+
     backdrop-filter: blur(3px);
+
     z-index: 1;
 }
 
-h1{
+.header__item--container{
+    position: relative;
+
+    z-index: 10;
+
+    margin: auto;
+
+    text-align: center;
+
+    max-width: 700px;
+
+    padding: 20px;
+}
+
+.header__item--container h1{
     margin: 0;
-    font-size: 3.6rem;
+
+    font-size: 3.5rem;
+
     text-wrap: balance;
 }
 
-
-.header__item--container{
-    position: relative;
-    z-index: 10;
-    margin: auto;
-    text-align: center;
-    max-width: 700px;
-}
-
 .header__item--container p{
+    margin-top: 20px;
+
+    line-height: 1.6;
+
     text-wrap: pretty;
 }
-.header__img{
-    border-radius: 50%;
-    min-width: 200px;
-    max-width: 40%;
-    border: 6px solid #fff;
-    margin: 20px;
 
-}
-
-/*Navbar Section*/
+/* =========================
+   NAVBAR
+========================= */
 
 .nav{
     background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 20px;
-    position: sticky;
-    top: 0;
-    box-shadow: 0 0 25px #0006;
 
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 6px 20px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    box-shadow: 0 0 25px #0004;
 }
+
 .nav__ul{
     list-style: none;
+
     margin: 0;
     padding: 0;
+
     display: flex;
+
     gap: 15px;
 }
 
@@ -87,88 +136,347 @@ h1{
 
 .nav__right{
     display: flex;
+
     align-items: center;
+
     gap: 15px;
 }
+
 .nav__link{
-    color:  rgb(11, 122, 11);
+    color: rgb(11, 122, 11);
+
     text-decoration: none;
+
     display: inline-block;
-    padding: 8px 10px;
-    border-radius: 0;
-    transition: background-color .24s, border-radius .2s,outline .2s, outline-offset .2s;
-    outline: 0;
-    outline-offset: 0 ;
 
-}
+    padding: 8px 12px;
 
-.Link--Cerrar{
-    background-color: rgb(8, 155, 8);
-    color: #fff;
     border-radius: 20px;
-    padding: 8px 24px;
-    margin-left: 0;
+
+    transition:
+        background-color .25s,
+        transform .2s;
 }
+
 .nav__link:hover{
-    background-color: rgba(43, 255, 0, 0.2);
-    border-radius: 20px;
-    outline: 2px solid rgba(0, 255, 0, 0.719);
-    outline-offset: -7px;
+    background-color: rgba(43,255,0,.15);
+
+    transform: translateY(-2px);
 }
 
-.Link--login:hover{
-
-    background-color: rgb(69, 204, 6);
-    outline: none;
-}
 .nav__logo{
     width: 80px;
 }
 
-.acciones__container{
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
+.Link--Cerrar{
+    background-color: rgb(8,155,8);
+
+    color: white;
+
+    padding: 10px 24px;
 }
 
-.btn__aprobar,
-.btn__observar,
-.btn__enviar{
+.Link--Cerrar:hover{
+    background-color: rgb(6,130,6);
+}
 
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
+/* =========================
+   MAIN
+========================= */
+
+main{
+    flex: 1;
+
+    padding: 50px 20px;
+}
+
+/* =========================
+   GRID SOLICITUDES
+========================= */
+
+.solicitudes__container{
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(320px,1fr));
+
+    gap: 30px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.solicitud__card{
+
+    background-color: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.10),
+        0 10px 25px rgba(0,0,0,.08);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.solicitud__card:hover{
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.15),
+        0 18px 35px rgba(0,0,0,.12);
+}
+
+/* =========================
+   HEADER CARD
+========================= */
+
+.solicitud__header{
+
+    padding: 25px;
+
+    border-bottom: 1px solid #ececec;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.solicitud__header h2{
+
+    margin: 0;
+
+    color: rgb(11,122,11);
+
+    font-size: 1.5rem;
+}
+
+/* =========================
+   BODY CARD
+========================= */
+
+.solicitud__body{
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    flex: 1;
+}
+
+.solicitud__body p{
+
+    margin: 0;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.estado{
+
+    padding: 8px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.estado--pendiente{
+
+    background-color: #ffe08a;
+
+    color: #5e4400;
+}
+
+.estado--aprobada{
+
+    background-color: #b7f5c0;
+
+    color: #0f5e1c;
+}
+
+.estado--rechazada{
+
+    background-color: #ffc2c2;
+
+    color: #7c1111;
+}
+
+.estado--observada{
+
+    background-color: #b9dcff;
+
+    color: #124c84;
+}
+
+/* =========================
+   BOTON DETALLE
+========================= */
+
+.btn__detalle{
+
+    margin: 0 25px 25px 25px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    background-color: rgb(11,122,11);
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    transition:
+        background-color .25s,
+        transform .2s;
+}
+
+.btn__detalle:hover{
+
+    background-color: rgb(8,155,8);
+
+    transform: scale(1.02);
+}
+
+/* =========================
+   CARD SIN DATOS
+========================= */
+
+.solicitud__card h2{
+    margin-top: 0;
+}
+
+.solicitud__card:has(h2:only-child){
+
+    padding: 30px;
+
+    text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    width: 100%;
+
+    background-color: #222;
+
+    display: flex;
+
+    box-shadow: 0 0 15px 5px #0004;
+}
+
+.div__footer--container{
+
+    margin: auto;
+
+    padding: 25px;
+
+    max-width: 700px;
+
+    text-align: center;
+
+    color: white;
+
+    line-height: 1.6;
+}
+
+.div__footer--container p{
+
+    margin-top: 0;
+
+    font-size: 1.2rem;
+
     font-weight: bold;
 }
 
-.btn__aprobar{
-    background-color: rgb(20, 160, 20);
-    color: white;
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media screen and (max-width: 768px){
+
+    .nav{
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    .nav__ul{
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .header__item--container h1{
+
+        font-size: 2.5rem;
+    }
+
+    .solicitud__header{
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
 }
 
-.btn__observar{
-    background-color: rgb(226, 152, 15);
-    color: white;
-}
+@media screen and (max-width: 480px){
 
-.btn__enviar{
-    background-color: #1d3557;
-    color: white;
-    margin-top: 10px;
-}
+    .header__item--container h1{
 
-.observacion__form{
-    display: none;
-    margin-top: 15px;
-}
+        font-size: 2rem;
+    }
 
-.observacion__form textarea{
-    width: 100%;
-    min-height: 100px;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #aaa;
-    resize: vertical;
+    .solicitudes__container{
+
+        grid-template-columns: 1fr;
+    }
+
+    .btn__detalle{
+
+        margin:
+            0 20px 20px 20px;
+    }
 }

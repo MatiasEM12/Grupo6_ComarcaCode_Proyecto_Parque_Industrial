@@ -32,8 +32,7 @@
     <meta charset="UTF-8">
     <title>Solicitudes de Radicación</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/solicitudesAdmin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/solicitudesAdmin.css">
 </head>
 
 <body>
@@ -115,11 +114,13 @@
         <article class="solicitud__card">
 
             <div class="solicitud__header">
+
                 <h2><%= solicitud.nombreProyecto() %></h2>
 
                 <span class="estado <%= claseEstado %>">
                     <%= solicitud.estadoSolicitud().name() %>
                 </span>
+
             </div>
 
             <div class="solicitud__body">
@@ -131,147 +132,22 @@
 
                 <p>
                     <strong>Representante:</strong>
-                    <%= solicitud.representante() != null
-                            ? solicitud.representante().dni()
-                            : "Sin representante" %>
+                    <%= solicitud.representante().dni() %>
                 </p>
 
                 <p>
-                    <strong>Fecha de creación:</strong>
+                    <strong>Fecha:</strong>
                     <%= solicitud.fechaCreacion() %>
                 </p>
 
-                <p>
-                    <strong>Última actualización:</strong>
-                    <%= solicitud.fechaActualizacion() %>
-                </p>
-
-                <p>
-                    <strong>Descripción:</strong>
-                    <%= solicitud.descripcionServicio() %>
-                </p>
-
-                <p>
-                    <strong>Superficie solicitada:</strong>
-                    <%= solicitud.m2() %> m²
-                </p>
-
-                <p>
-                    <strong>Personal a ocupar:</strong>
-                    <%= solicitud.personal() %>
-                </p>
-
-                <p>
-                    <strong>Empleabilidad:</strong>
-                    <%= solicitud.empleabilidad() %>
-                </p>
-
-                <p>
-                    <strong>Materia prima:</strong>
-                    <%= solicitud.materiasPrimas() %>
-                </p>
-
-                <p>
-                    <strong>Archivo adjunto:</strong>
-                    <%= solicitud.nombreArchivoPDF() == null
-                            || solicitud.nombreArchivoPDF().isBlank()
-                            ? "Sin archivo"
-                            : solicitud.nombreArchivoPDF() %>
-                </p>
-
             </div>
 
-            <div class="acciones__container">
+            <a href="${pageContext.request.contextPath}/detalleSolicitud?id=<%= solicitud.id() %>"
+               class="btn__detalle">
 
-                <form action="${pageContext.request.contextPath}/aprobarSolicitud"
-                      method="post">
+                Ver solicitud completa
 
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <select name="idLote"
-                            required
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
-                                    ? "disabled"
-                                    : "" %>>
-
-                        <option value="">Seleccionar lote</option>
-
-                        <%
-                            if(lotes != null){
-                                for(Lote lote : lotes){
-                        %>
-
-                        <option value="<%= lote.id() %>">
-                            Lote <%= lote.id() %>
-                            -
-                            <%= lote.superficie() %> m²
-                            -
-                            <%= lote.infraestructura() %>
-                        </option>
-
-                        <%
-                                }
-                            }
-                        %>
-
-                    </select>
-
-                    <button type="submit"
-                            class="btn__aprobar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
-                                    ? "disabled"
-                                    : "" %>>
-                        Confirmar y asignar lote
-                    </button>
-                </form>
-
-                <form action="${pageContext.request.contextPath}/rechazarSolicitud"
-                      method="post">
-
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <button type="submit"
-                            class="btn__rechazar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA
-                                    ? "disabled"
-                                    : "" %>>
-                        Rechazar
-                    </button>
-                </form>
-
-                <button class="btn__observar"
-                        onclick="mostrarFormulario('obs<%= solicitud.id() %>')">
-                    Observar documentación
-                </button>
-
-            </div>
-
-            <div id="obs<%= solicitud.id() %>"
-                 class="observacion__form"
-                 style="display:none;">
-
-                <form action="${pageContext.request.contextPath}/observarSolicitud"
-                      method="post">
-
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <textarea name="descripcion"
-                              placeholder="Escriba la observación para que la empresa corrija la documentación..."
-                              required></textarea>
-
-                    <button type="submit"
-                            class="btn__enviar">
-                        Enviar observación
-                    </button>
-                </form>
-
-            </div>
+            </a>
 
         </article>
 
