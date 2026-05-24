@@ -97,6 +97,11 @@
                     Inventario
                 </a>
             </li>
+             <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Reportes
+                </a>
+             </li>
 
         </ul>
     </div>
@@ -146,6 +151,20 @@
                    <p>Listado de lotes.</p>
                </div>
          </a>
+
+          <a href="#" class="card">
+               <div class="card__content">
+                    <h2>Inventario<h2>
+                    <p>Listado de elementos del parque industrial.</p>
+               </div>
+          </a>
+
+          <a href="#" class="card">
+               <div class="card__content">
+                    <h2>Reportes<h2>
+                    <p>Estadisticas del parque y reportes.</p>
+               </div>
+          </a>
     </div>
 
 </main>
