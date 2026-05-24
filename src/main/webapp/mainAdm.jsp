@@ -2,30 +2,20 @@
 <%@ page import="model.Usuario" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute(
-                    "usuarioLogueado"
-            );
+    Usuario usuario = (Usuario) session.getAttribute( "usuarioLogueado" );
 
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(
-                request.getContextPath()
-                + "/perfiles"
-        );
-
+        response.sendRedirect( request.getContextPath() + "/perfiles" );
         return;
     }
 
     // SI NO ES ADMINISTRADOR
     if(!usuario.nombreRol().equals("administrador")){
 
-        response.sendRedirect(
-                request.getContextPath()
-                + "/perfiles"
+        response.sendRedirect( request.getContextPath() + "/perfiles"
         );
-
         return;
     }
 %>
@@ -38,13 +28,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Main Administrador</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
 
 </head>
 
@@ -76,57 +64,55 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-
-                <a href="#"
-                   class="nav__link">
-
+                <a href="#" class="nav__link">
+                    Perfil
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
                     Usuarios
-
                 </a>
-
             </li>
 
             <li class="nav__item">
-
-                <a href="#"
-                   class="nav__link">
-
+                <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
                     Solicitudes
-
                 </a>
+            </li>
 
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
+                    Proyectos
+                </a>
             </li>
 
             <li class="nav__item">
-
-                <a href="#"
-                   class="nav__link">
-
-                    Proyectos
-
-                </a>
-
+                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                    Lotes
+                 </a>
             </li>
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Inventario
+                </a>
+            </li>
+             <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Reportes
+                </a>
+             </li>
 
         </ul>
-
     </div>
 
     <div class="nav__right">
 
-        <img
-            src="${pageContext.request.contextPath}/img/logo.png"
-            alt="Logo"
-            class="nav__logo"
-        >
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
-
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
-
         </a>
-
     </div>
 
 </nav>
@@ -135,24 +121,22 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/usuariosRegistrados"
-           class="card">
+        <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="card">
 
             <div class="card__content">
                 <h2>Usuarios</h2>
                 <p>Consultar usuarios.</p>
             </div>
-
         </a>
 
         <a href="${pageContext.request.contextPath}/solicitudesAdmin"
            class="card">
             <div class="card__content">
                 <h2>Solicitudes</h2>
-                <p>Consultar solicitudes de radicacion</p>
+                <p>Consultar solicitudes de radicacion.</p>
             </div>
         </a>
-
+                <!-- despues modificar a listatoProyectos, EnEjecucion seria un filtro dentro de lang pag  -->
         <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
@@ -168,7 +152,19 @@
                </div>
          </a>
 
+          <a href="#" class="card">
+               <div class="card__content">
+                    <h2>Inventario<h2>
+                    <p>Listado de elementos del parque industrial.</p>
+               </div>
+          </a>
 
+          <a href="#" class="card">
+               <div class="card__content">
+                    <h2>Reportes<h2>
+                    <p>Estadisticas del parque y reportes.</p>
+               </div>
+          </a>
     </div>
 
 </main>
