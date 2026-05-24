@@ -3,16 +3,14 @@
 <%@ page import="model.Usuario" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null || !usuario.nombreRol().equals("administrador")){
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
-    Lote lote =
-            (Lote) request.getAttribute("lote");
+    Lote lote = (Lote) request.getAttribute("lote");
 
     if(lote == null){
         response.sendRedirect(request.getContextPath() + "/listadoLotes");
@@ -26,8 +24,7 @@
     <meta charset="UTF-8">
     <title>Detalle Lote</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
 </head>
 
 <body>
@@ -44,15 +41,13 @@
     <div class="nav__ul--container">
         <ul class="nav__ul">
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/listadoLotes"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
                     Volver a lotes
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
                     Inicio
                 </a>
             </li>
@@ -60,12 +55,9 @@
     </div>
 
     <div class="nav__right">
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
     </div>
@@ -75,9 +67,7 @@
 
     <div class="crear__lote--mini">
 
-        <form action="${pageContext.request.contextPath}/editarLote"
-              method="POST"
-              class="crear__lote--formMini">
+        <form action="${pageContext.request.contextPath}/editarLote" method="POST" class="crear__lote--formMini">
 
             <input type="hidden"
                    name="id"
@@ -117,11 +107,6 @@
                 <option value="OCUPADO"
                         <%= lote.estado().equals("OCUPADO") ? "selected" : "" %>>
                     OCUPADO
-                </option>
-
-                <option value="ASIGNADO"
-                        <%= lote.estado().equals("ASIGNADO") ? "selected" : "" %>>
-                    ASIGNADO
                 </option>
             </select>
 
