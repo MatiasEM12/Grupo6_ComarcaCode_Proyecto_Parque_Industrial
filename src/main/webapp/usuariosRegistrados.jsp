@@ -4,20 +4,13 @@
 <%@ page import="java.util.List" %>
 
 <%
-    Usuario usuarioLogueado =
-            (Usuario) session.getAttribute(
-                    "usuarioLogueado"
-            );
+    Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
 
     // VALIDAR SESIÓN
 
     if(usuarioLogueado == null){
 
-        response.sendRedirect(
-                request.getContextPath()
-                        + "/perfiles"
-        );
-
+        response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
@@ -25,16 +18,17 @@
 
     if(!usuarioLogueado.nombreRol().equals("administrador")){
 
-        response.sendRedirect(
-                request.getContextPath()
-                        + "/perfiles"
-        );
-
+        response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
-    List<Usuario> usuarios =
-            (List<Usuario>) request.getAttribute("usuarios");
+    List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
+
+    String filtroRol = request.getParameter("rol");
+
+    if(filtroRol == null){
+        filtroRol = "todos";
+    }
 %>
 
 <!DOCTYPE html>
@@ -45,13 +39,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Usuarios Registrados</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/usuariosRegistrados.css">
 
 </head>
 
@@ -83,36 +75,51 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp"
-                   class="nav__link">
-
+                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
                     Inicio
-
                 </a>
-
             </li>
 
             <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Perfil
+                </a>
+            </li>
 
-                <a href="${pageContext.request.contextPath}/solicitudesAdmin"
-                   class="nav__link">
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
+                    Usuarios
+                </a>
+            </li>
 
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
                     Solicitudes
-
                 </a>
-
             </li>
 
             <li class="nav__item">
-
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
-                   class="nav__link">
-
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
                     Proyectos
-
                 </a>
+            </li>
 
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                    Lotes
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Inventario
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Reportes
+                </a>
             </li>
 
         </ul>
@@ -121,17 +128,10 @@
 
     <div class="nav__right">
 
-        <img
-                src="${pageContext.request.contextPath}/img/logo.png"
-                alt="Logo"
-                class="nav__logo"
-        >
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
-
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
-
         </a>
 
     </div>
@@ -139,6 +139,43 @@
 </nav>
 
 <main>
+
+    <div class="filtro__container">
+
+        <form method="get" action="${pageContext.request.contextPath}/usuariosRegistrados">
+
+            <select name="rol" class="filtro__select">
+
+                <option value="todos"
+                    <%= filtroRol.equals("todos") ? "selected" : "" %>>
+                    Todos
+                </option>
+
+                <option value="administrador"
+                    <%= filtroRol.equals("administrador") ? "selected" : "" %>>
+                    Administrador
+                </option>
+
+                <option value="organismo_publico"
+                    <%= filtroRol.equals("organismo_publico") ? "selected" : "" %>>
+                    Organismo Público
+                </option>
+
+                <option value="representante"
+                    <%= filtroRol.equals("representante") ? "selected" : "" %>>
+                    Representante
+                </option>
+
+            </select>
+
+            <button type="submit"
+                    class="filtro__btn">
+                Filtrar
+            </button>
+
+        </form>
+
+    </div>
 
     <div class="usuarios__container">
 
@@ -149,17 +186,22 @@
         <div class="card">
 
             <div class="card__content">
-
-                <h2>No hay usuarios registrados</h2>
-
+                <h2>
+                    No hay usuarios registrados
+                </h2>
             </div>
 
         </div>
-
         <%
             } else {
 
                 for(Usuario u : usuarios){
+
+                    boolean mostrar =filtroRol.equals("todos")|| u.nombreRol().equalsIgnoreCase(filtroRol);
+
+                    if(!mostrar){
+                        continue;
+                    }
         %>
 
         <article class="usuario__card">
@@ -181,10 +223,8 @@
 
                 <p>
                     <strong>Rol:</strong>
-                    <%= u.rol() %>
+                    <%= u.nombreRol() %>
                 </p>
-
-
 
             </div>
 
@@ -203,7 +243,9 @@
 
     <div class="div__footer--container">
 
-        <p>Parque Industrial</p>
+        <p>
+            Parque Industrial
+        </p>
 
         Sistema de gestión del Parque Industrial de Viedma.
 
