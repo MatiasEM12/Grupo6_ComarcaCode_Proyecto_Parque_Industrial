@@ -17,7 +17,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
     //le quitaria o agregaria rubro a la clase empresa porque no existe
     public void registrarEmpresa(Empresa empresa) {
         final String SQL = "INSERT INTO Empresa(cuit, razonSocial, rubro, contacto, " +
-                "contactoRepresentante, esRadicada, dni_representante) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "contactoRepresentante, esRadicada) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, empresa.cuit());
@@ -26,8 +26,6 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
             st.setString(4, empresa.contacto());
             st.setString(5, empresa.contactoRepresentante());
             st.setBoolean(6, empresa.esRadicada());
-            //abria que ponerle al usuario dni o que se estienda enves de usuario a reprecentanteEmpresa
-            st.setString(7, empresa.representante().dni());
             int fila = st.executeUpdate();
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");
@@ -39,6 +37,29 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 
     @Override
     public void actualizar(EmpresaDTO empresa) {
+        final String SQL =
 
+                "UPDATE Empresa SET razonSocial = ?, rubro = ?, contacto = ?, " +
+                        "contactoRepresentante = ?, esRadicada = ? WHERE cuit = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+            st.setString(1, empresa.getRazonSocial());
+            st.setString(2, "todavia no existe");
+            st.setString(3, empresa.getContacto());
+            st.setString(4, empresa.getContactoRepresentante());
+            st.setBoolean(5, empresa.getRadicada());
+
+            st.setString(6, empresa.getCuit());
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró la empresa");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar empresa", e);
+        }
     }
 }
