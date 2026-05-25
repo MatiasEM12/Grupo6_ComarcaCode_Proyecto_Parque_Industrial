@@ -20,13 +20,14 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
 
         final String SQL =
                 "INSERT INTO RepresentanteEmpresa " +
-                        "(DNI, userName) VALUES (?, ?)";
+                        "(DNI, userName, cuit_empresa) VALUES (?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setString(1, representante.dni());
             st.setString(2, representante.usuario().UserName());
+            st.setString(3, representante.cuitEmpresa());
 
             int fila = st.executeUpdate();
 
@@ -105,7 +106,7 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
                         "FROM RepresentanteEmpresa re " +
                         "JOIN usuario u ON re.userName = u.userName " +
                         "JOIN roles r ON u.rol = r.codigo " +
-                        "LEFT JOIN Empresa e ON e.dni_representante = re.DNI " +
+                        "LEFT JOIN Empresa e ON re.cuit_empresa = e.cuit " +
                         "LEFT JOIN lotes l ON e.id_lote = l.id " +
                         "WHERE re.DNI = ?";
 
@@ -149,7 +150,7 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
                         "FROM RepresentanteEmpresa re " +
                         "JOIN usuario u ON re.userName = u.userName " +
                         "JOIN roles r ON u.rol = r.codigo " +
-                        "LEFT JOIN Empresa e ON e.dni_representante = re.DNI " +
+                        "LEFT JOIN Empresa e ON re.cuit_empresa = e.cuit " +
                         "LEFT JOIN lotes l ON e.id_lote = l.id " +
                         "WHERE re.userName = ?";
 
@@ -216,7 +217,7 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
                         "FROM RepresentanteEmpresa re " +
                         "JOIN usuario u ON re.userName = u.userName " +
                         "JOIN roles r ON u.rol = r.codigo " +
-                        "LEFT JOIN Empresa e ON e.dni_representante = re.DNI " +
+                        "LEFT JOIN Empresa e ON re.cuit_empresa = e.cuit " +
                         "LEFT JOIN lotes l ON e.id_lote = l.id";
 
         List<RepresentanteEmpresa> representantes =

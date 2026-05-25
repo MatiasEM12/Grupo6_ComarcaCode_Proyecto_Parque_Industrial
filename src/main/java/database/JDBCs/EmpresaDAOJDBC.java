@@ -17,7 +17,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
     //le quitaria o agregaria rubro a la clase empresa porque no existe
     public void registrarEmpresa(Empresa empresa) {
         final String SQL = "INSERT INTO Empresa(cuit, razonSocial, rubro, contacto, " +
-                "contactoRepresentante, esRadicada) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "contactoRepresentante, esRadicada) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, empresa.cuit());

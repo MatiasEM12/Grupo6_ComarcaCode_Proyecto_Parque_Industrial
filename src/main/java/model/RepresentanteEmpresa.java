@@ -29,6 +29,10 @@ public class RepresentanteEmpresa {
         return empresa.nombre();
     }
 
+    public String cuitEmpresa(){
+        return empresa.cuit();
+    }
+
     public Usuario usuario(){
         return usuario;
     }
@@ -39,6 +43,7 @@ public class RepresentanteEmpresa {
     public void NopuedeIngresarSolicitud(){
         this.puedeIngresarSolicitud=false;
     }
+
     public Boolean puedeIngresarSolititud(){
         return this.puedeIngresarSolicitud;
     }
