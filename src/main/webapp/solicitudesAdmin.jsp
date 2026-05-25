@@ -4,10 +4,10 @@
 <%@ page import="model.EstadoSolicitud" %>
 <%@ page import="model.Lote" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null){
         response.sendRedirect(request.getContextPath() + "/perfiles");
@@ -19,12 +19,8 @@
         return;
     }
 
-    List<SolicitudRadicacion> solicitudes =
-            (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
-
-    List<Lote> lotes =
-            (List<Lote>) request.getAttribute("lotes");
 %>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,8 +28,7 @@
     <meta charset="UTF-8">
     <title>Solicitudes de Radicación</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/solicitudesAdmin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 </head>
 
 <body>
@@ -48,235 +43,166 @@
 </header>
 
 <nav class="nav">
+
     <div class="nav__ul--container">
+
         <ul class="nav__ul">
+
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
                     Inicio
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/usuariosRegistrados"
-                   class="nav__link">
+                <a href="#" class="nav__link">
+                    Perfil
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
                     Usuarios
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
+                    Solicitudes
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
                     Proyectos
                 </a>
             </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                    Lotes
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Inventario
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Reportes
+                </a>
+            </li>
+
         </ul>
+
     </div>
 
     <div class="nav__right">
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
+
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
+
     </div>
+
 </nav>
-
 <main>
-    <div class="solicitudes__container">
+ <div class="projects__container">
 
         <%
-            if(solicitudes == null || solicitudes.isEmpty()){
-        %>
+            List<SolicitudRadicacion> solicitudes =
+                    (List<SolicitudRadicacion>)
+                            request.getAttribute("solicitudes");
 
-        <div class="solicitud__card">
-            <h2>No hay solicitudes cargadas</h2>
-            <p>Todavía ningún representante envió una solicitud de radicación.</p>
-        </div>
+            if (solicitudes != null && !solicitudes.isEmpty()) {
 
-        <%
-            } else {
-                for(SolicitudRadicacion solicitud : solicitudes){
+                for (SolicitudRadicacion solicitud : solicitudes) {
 
-                    String claseEstado = "estado--pendiente";
+                    String claseEstado = "";
 
-                    if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA){
-                        claseEstado = "estado--aprobada";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
-                        claseEstado = "estado--observada";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA){
-                        claseEstado = "estado--rechazada";
+                    if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("PENDIENTE")) {
+
+                        claseEstado = "estado__pendiente";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("APROBADA")) {
+
+                        claseEstado = "estado__aprobado";
+                    }
+
+                    else if (solicitud.estadoSolicitud()
+                            .toString()
+                            .equals("OBSERVADA")) {
+
+                        claseEstado = "estado__revision";
                     }
         %>
 
-        <article class="solicitud__card">
+        <a href="${pageContext.request.contextPath}/solicitudDetalle?id=<%= solicitud.id() %>"
+           class="project__card">
 
-            <div class="solicitud__header">
-                <h2><%= solicitud.nombreProyecto() %></h2>
+            <div class="project__content">
 
-                <span class="estado <%= claseEstado %>">
-                    <%= solicitud.estadoSolicitud().name() %>
-                </span>
-            </div>
+                <h2>
 
-            <div class="solicitud__body">
+                    <%= solicitud.nombreProyecto() %>
 
-                <p>
-                    <strong>N° trámite:</strong>
-                    <%= solicitud.numeroTramite() %>
-                </p>
+                </h2>
 
                 <p>
-                    <strong>Representante:</strong>
-                    <%= solicitud.representante() != null
-                            ? solicitud.representante().dni()
-                            : "Sin representante" %>
-                </p>
 
-                <p>
-                    <strong>Fecha de creación:</strong>
-                    <%= solicitud.fechaCreacion() %>
-                </p>
-
-                <p>
-                    <strong>Última actualización:</strong>
-                    <%= solicitud.fechaActualizacion() %>
-                </p>
-
-                <p>
-                    <strong>Descripción:</strong>
                     <%= solicitud.descripcionServicio() %>
+
                 </p>
 
-                <p>
-                    <strong>Superficie solicitada:</strong>
-                    <%= solicitud.m2() %> m²
-                </p>
+                    <p class="project__date">
 
-                <p>
-                    <strong>Personal a ocupar:</strong>
-                    <%= solicitud.personal() %>
-                </p>
+                       Última actualización: <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
 
-                <p>
-                    <strong>Empleabilidad:</strong>
-                    <%= solicitud.empleabilidad() %>
-                </p>
+                    </p>
 
-                <p>
-                    <strong>Materia prima:</strong>
-                    <%= solicitud.materiasPrimas() %>
-                </p>
+                <span class="project__state <%= claseEstado %>">
 
-                <p>
-                    <strong>Archivo adjunto:</strong>
-                    <%= solicitud.nombreArchivoPDF() == null
-                            || solicitud.nombreArchivoPDF().isBlank()
-                            ? "Sin archivo"
-                            : solicitud.nombreArchivoPDF() %>
-                </p>
+                    <%= solicitud.estadoSolicitud() %>
+
+                </span>
 
             </div>
 
-            <div class="acciones__container">
-
-                <form action="${pageContext.request.contextPath}/aprobarSolicitud"
-                      method="post">
-
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <select name="idLote"
-                            required
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
-                                    ? "disabled"
-                                    : "" %>>
-
-                        <option value="">Seleccionar lote</option>
-
-                        <%
-                            if(lotes != null){
-                                for(Lote lote : lotes){
-                        %>
-
-                        <option value="<%= lote.id() %>">
-                            Lote <%= lote.id() %>
-                            -
-                            <%= lote.superficie() %> m²
-                            -
-                            <%= lote.infraestructura() %>
-                        </option>
-
-                        <%
-                                }
-                            }
-                        %>
-
-                    </select>
-
-                    <button type="submit"
-                            class="btn__aprobar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA
-                                    ? "disabled"
-                                    : "" %>>
-                        Confirmar y asignar lote
-                    </button>
-                </form>
-
-                <form action="${pageContext.request.contextPath}/rechazarSolicitud"
-                      method="post">
-
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <button type="submit"
-                            class="btn__rechazar"
-                            <%= solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA
-                                    ? "disabled"
-                                    : "" %>>
-                        Rechazar
-                    </button>
-                </form>
-
-                <button class="btn__observar"
-                        onclick="mostrarFormulario('obs<%= solicitud.id() %>')">
-                    Observar documentación
-                </button>
-
-            </div>
-
-            <div id="obs<%= solicitud.id() %>"
-                 class="observacion__form"
-                 style="display:none;">
-
-                <form action="${pageContext.request.contextPath}/observarSolicitud"
-                      method="post">
-
-                    <input type="hidden"
-                           name="idSolicitud"
-                           value="<%= solicitud.id() %>">
-
-                    <textarea name="descripcion"
-                              placeholder="Escriba la observación para que la empresa corrija la documentación..."
-                              required></textarea>
-
-                    <button type="submit"
-                            class="btn__enviar">
-                        Enviar observación
-                    </button>
-                </form>
-
-            </div>
-
-        </article>
+        </a>
 
         <%
                 }
+
+            } else {
+        %>
+
+        <div class="sin__solicitudes">
+
+            <h2>
+
+                No hay solicitudes cargadas
+
+            </h2>
+
+            <p>
+
+                Todavía no  hay solicitudes cargadas
+
+            </p>
+
+        </div>
+
+        <%
             }
         %>
 
@@ -290,17 +216,7 @@
     </div>
 </footer>
 
-<script>
-    function mostrarFormulario(id){
-        const form = document.getElementById(id);
 
-        if(form.style.display === "block"){
-            form.style.display = "none";
-        } else {
-            form.style.display = "block";
-        }
-    }
-</script>
 
 </body>
 </html>

@@ -25,6 +25,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
     private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
     private LoteDAO loteDAO = new LoteDAOJDBC();
+    private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -233,6 +234,11 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public void agregarLote(Lote lote) {
         loteDAO.create(lote);
+    }
+
+    @Override
+    public AdministradorDelParque obtenerAdm(String s) {
+        return administradorDelParqueDAO.obtenerAdministradorPorUsername(s);
     }
 
     public LoteDTO obtenerLotes(){

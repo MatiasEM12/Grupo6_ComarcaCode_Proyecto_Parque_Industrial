@@ -29,131 +29,175 @@
 
 <body>
 
-<header class="header">
-    <div class="header__overlay"></div>
-    <div class="header__item--container">
-        <h1>DETALLE DEL LOTE #<%= lote.id() %></h1>
-        <p>Visualización y edición del lote seleccionado.</p>
-    </div>
-</header>
+    <header class="header">
+        <div class="header__overlay"></div>
+        <div class="header__item--container">
+            <h1>DETALLE DEL LOTE #<%= lote.id() %></h1>
+            <p>Visualización y edición del lote seleccionado.</p>
+        </div>
+    </header>
 
-<nav class="nav">
-    <div class="nav__ul--container">
-        <ul class="nav__ul">
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
-                    Volver a lotes
-                </a>
-            </li>
+    <nav class="nav">
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
-                    Inicio
-                </a>
-            </li>
-        </ul>
-    </div>
+        <div class="nav__ul--container">
 
-    <div class="nav__right">
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
+            <ul class="nav__ul">
 
-        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
-            Cerrar Sesión
-        </a>
-    </div>
-</nav>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
+                        Inicio
+                    </a>
+                </li>
 
-<main>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Perfil
+                    </a>
+                </li>
 
-    <div class="crear__lote--mini">
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
+                        Usuarios
+                    </a>
+                </li>
 
-        <form action="${pageContext.request.contextPath}/editarLote" method="POST" class="crear__lote--formMini">
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
+                        Solicitudes
+                    </a>
+                </li>
 
-            <input type="hidden"
-                   name="id"
-                   value="<%= lote.id() %>">
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
+                        Proyectos
+                    </a>
+                </li>
 
-            <input type="number"
-                   name="latitud"
-                   value="<%= lote.ubicacion().latitud() %>"
-                   placeholder="Latitud"
-                   required>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                        Lotes
+                    </a>
+                </li>
 
-            <input type="number"
-                   name="longitud"
-                   value="<%= lote.ubicacion().longitud() %>"
-                   placeholder="Longitud"
-                   required>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Inventario
+                    </a>
+                </li>
 
-            <input type="number"
-                   name="altitud"
-                   value="<%= lote.ubicacion().altitud() %>"
-                   placeholder="Altitud"
-                   required>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Reportes
+                    </a>
+                </li>
 
-            <input type="number"
-                   step="0.01"
-                   name="superficie"
-                   value="<%= lote.superficie() %>"
-                   placeholder="Superficie"
-                   required>
+            </ul>
 
-            <select name="estado" required>
-                <option value="DISPONIBLE"
-                        <%= lote.estado().equals("DISPONIBLE") ? "selected" : "" %>>
-                    DISPONIBLE
-                </option>
+        </div>
 
-                <option value="OCUPADO"
-                        <%= lote.estado().equals("OCUPADO") ? "selected" : "" %>>
-                    OCUPADO
-                </option>
-            </select>
+        <div class="nav__right">
 
-            <input type="text"
-                   name="infraestructura"
-                   value="<%= lote.infraestructura() %>"
-                   placeholder="Infraestructura"
-                   required>
+            <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
 
-            <button type="submit">
-                Guardar cambios
-            </button>
+            <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
+                Cerrar Sesión
+            </a>
 
-        </form>
+        </div>
 
-    </div>
+    </nav>
 
-    <div class="lotes__container">
+    <main>
 
-        <article class="lote__card">
-            <div class="lote__content">
+        <div class="crear__lote--mini">
 
-                <h2>Lote #<%= lote.id() %></h2>
+            <form action="${pageContext.request.contextPath}/editarLote" method="POST" class="crear__lote--formMini">
 
-                <p>Latitud: <%= lote.ubicacion().latitud() %></p>
-                <p>Longitud: <%= lote.ubicacion().longitud() %></p>
-                <p>Altitud: <%= lote.ubicacion().altitud() %></p>
-                <p>Superficie: <%= lote.superficie() %> m²</p>
-                <p>Infraestructura: <%= lote.infraestructura() %></p>
+                <input type="hidden"
+                       name="id"
+                       value="<%= lote.id() %>">
 
-                <span class="lote__state">
-                    <%= lote.estado() %>
-                </span>
+                <input type="number"
+                       name="latitud"
+                       value="<%= lote.ubicacion().latitud() %>"
+                       placeholder="Latitud"
+                       required>
 
-            </div>
-        </article>
+                <input type="number"
+                       name="longitud"
+                       value="<%= lote.ubicacion().longitud() %>"
+                       placeholder="Longitud"
+                       required>
 
-    </div>
+                <input type="number"
+                       name="altitud"
+                       value="<%= lote.ubicacion().altitud() %>"
+                       placeholder="Altitud"
+                       required>
 
-</main>
+                <input type="number"
+                       step="0.01"
+                       name="superficie"
+                       value="<%= lote.superficie() %>"
+                       placeholder="Superficie"
+                       required>
 
-<footer>
-    <div class="div__footer--container">
-        <p>Parque Industrial</p>
-        Sistema de administración del Parque Industrial Viedma.
-    </div>
-</footer>
+                <select name="estado" required>
+                    <option value="DISPONIBLE"
+                            <%= lote.estado().equals("DISPONIBLE") ? "selected" : "" %>>
+                        DISPONIBLE
+                    </option>
+
+                    <option value="OCUPADO"
+                            <%= lote.estado().equals("OCUPADO") ? "selected" : "" %>>
+                        OCUPADO
+                    </option>
+                </select>
+
+                <input type="text"
+                       name="infraestructura"
+                       value="<%= lote.infraestructura() %>"
+                       placeholder="Infraestructura"
+                       required>
+
+                <button type="submit">
+                    Guardar cambios
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="lotes__container">
+
+            <article class="lote__card">
+                <div class="lote__content">
+
+                    <h2>Lote #<%= lote.id() %></h2>
+
+                    <p>Latitud: <%= lote.ubicacion().latitud() %></p>
+                    <p>Longitud: <%= lote.ubicacion().longitud() %></p>
+                    <p>Altitud: <%= lote.ubicacion().altitud() %></p>
+                    <p>Superficie: <%= lote.superficie() %> m²</p>
+                    <p>Infraestructura: <%= lote.infraestructura() %></p>
+
+                    <span class="lote__state">
+                        <%= lote.estado() %>
+                    </span>
+
+                </div>
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="div__footer--container">
+            <p>Parque Industrial</p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo qui laborum, hic corporis odit porro, adipisci minus harum aut maiores odio. Totam, autem. Obcaecati, molestias ullam voluptas harum vel corporis.
+        </div>
+    </footer>
 
 </body>
 </html>

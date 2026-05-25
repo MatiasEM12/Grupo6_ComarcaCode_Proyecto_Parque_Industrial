@@ -144,125 +144,74 @@ footer{
     box-sizing: border-box;
     display: flex;
     box-shadow: 0 0  15px 5px #0006;
-
-
 }
 
-.div__footer--container{
-
-    margin: auto;
-    padding: 20px;
-    max-width: 600px;
-    text-align: center;
-    text-wrap: pretty;
-    font-size: 16px;
-}
-.div__footer--container {
+.div__footer--container p {
     font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
-
-/* =========================
-   MAIN PROYECTOS
-========================= */
-
-main{
-    padding: 40px 20px;
-    min-height: 60vh;
-    background-color: rgb(244, 252, 246);
-}
-
-/* GRID */
-
-.projects__container{
-    max-width: 1200px;
-    margin: auto;
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-    gap: 30px;
-}
-
 /* CARD */
 
-.project__card{
-    text-decoration: none;
-    color: black;
-
+.perfil__card{
     background-color: white;
-
-    border-radius: 14px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,0.12),
-        0 8px 25px rgba(0,0,0,0.10);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
-.project__card:hover{
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 10px 20px rgba(0,0,0,0.18),
-        0 15px 35px rgba(0,0,0,0.15);
+.perfil__titulo{
+    margin-bottom: 25px;
 }
 
-/* CONTENIDO */
-
-.project__content{
-    padding: 25px;
+.perfil__titulo h2{
+    margin: 0;
+    color: rgb(11,122,11);
+    font-size: 28px;
 }
 
-.project__content h2{
-    margin-top: 0;
+/* FORM */
 
-    color: rgb(11, 122, 11);
-
-    margin-bottom: 15px;
+.perfil__form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.project__content p{
-    line-height: 1.5;
-
-    margin-bottom: 20px;
+.input__group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-/* ESTADOS */
+.input__group label{
+    font-weight: bold;
+    color: #333;
+}
 
-.project__state{
-    display: inline-block;
+.input__group input{
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    font-size: 15px;
+}
 
-    padding: 8px 14px;
+/* BOTON */
 
-    border-radius: 20px;
-
-    font-size: 14px;
-
+.btn__actualizar{
+    margin-top: 10px;
+    background-color: rgb(11,122,11);
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px;
+    transition: 0.3s;
     font-weight: bold;
 }
 
-/* colores estados */
-
-.estado__pendiente{
-    background-color: #ffe08a;
-}
-
-.estado__aprobado{
-    background-color: #b7f5c0;
-}
-
-.estado__revision{
-    background-color: #b9dcff;
-}
-
-.project__date{
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #666;
+.btn__actualizar:hover{
+    background-color: rgb(8,155,8);
+    transform: translateY(-2px);
 }

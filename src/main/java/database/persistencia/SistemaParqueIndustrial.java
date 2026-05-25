@@ -1,11 +1,8 @@
 package database.persistencia;
 
+import model.*;
 import model.DTO.LoteDTO;
 import model.DTO.SolicitudRadicacionDTO;
-import model.Lote;
-import model.ProyectoProductivo;
-import model.SolicitudRadicacion;
-import model.Usuario;
 
 import java.util.List;
 
@@ -30,4 +27,6 @@ public interface SistemaParqueIndustrial {
 
     void actualizarLote(Lote lote);
     void agregarLote(Lote lote);
+
+    AdministradorDelParque obtenerAdm(String s);
 }
