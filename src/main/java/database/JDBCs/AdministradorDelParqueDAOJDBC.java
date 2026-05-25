@@ -5,9 +5,11 @@ import model.AdministradorDelParque;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.DAOs.AdministradorDelParqueDAO;
+import model.Rol;
 
 public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
     @Override
@@ -24,6 +26,60 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
             }
         }catch (Exception e){
             throw new RuntimeException("Error al registrar usuario", e);
+        }
+    }
+
+    @Override
+    public AdministradorDelParque obtenerAdministradorPorUsername(String username) {
+
+        final String SQL =
+                "SELECT u.userName, u.contrasena, u.gmail, " +
+                        "r.codigo, r.nombre AS rolNombre, " +
+                        "a.dni, a.nombre " +
+                        "FROM AdministradorDelParque a " +
+                        "INNER JOIN usuario u ON a.userName = u.userName " +
+                        "INNER JOIN roles r ON u.rol = r.codigo " +
+                        "WHERE u.userName = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, username);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+
+                String userName = rs.getString("userName");
+                String contrasena = rs.getString("contrasena");
+                String gmail = rs.getString("gmail");
+
+                int codigoRol = rs.getInt("codigo");
+                String nombreRol = rs.getString("rolNombre");
+
+                Rol rol = new Rol( nombreRol,codigoRol);
+
+                String dni = rs.getString("dni");
+                String nombre = rs.getString("nombre");
+
+                return new AdministradorDelParque(
+                        userName,
+                        contrasena,
+                        rol,
+                        gmail,
+                        dni,
+                        nombre
+                );
+            }
+
+            return null;
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error al obtener administrador por username",
+                    e
+            );
         }
     }
 }

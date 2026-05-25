@@ -43,43 +43,74 @@
 </header>
 
 <nav class="nav">
+
     <div class="nav__ul--container">
+
         <ul class="nav__ul">
+
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
                     Inicio
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/usuariosRegistrados"
-                   class="nav__link">
+                <a href="#" class="nav__link">
+                    Perfil
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
                     Usuarios
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
+                    Solicitudes
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
                     Proyectos
                 </a>
             </li>
+
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                    Lotes
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Inventario
+                </a>
+            </li>
+
+            <li class="nav__item">
+                <a href="#" class="nav__link">
+                    Reportes
+                </a>
+            </li>
+
         </ul>
+
     </div>
 
     <div class="nav__right">
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
+
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
-    </div>
-</nav>
 
+    </div>
+
+</nav>
 <main>
  <div class="projects__container">
 

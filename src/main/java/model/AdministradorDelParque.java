@@ -8,8 +8,7 @@ public class AdministradorDelParque extends Usuario{
     private List<Lote> loteList;
     private List<Reporte> reportes;
     private List<Observacion> observaciones;
-    public AdministradorDelParque(String userName, String contrasena,
-                                  Rol rol, String gmail, String dni, String nombre) {
+    public AdministradorDelParque(String userName, String contrasena, Rol rol, String gmail, String dni, String nombre) {
         super(userName, contrasena, rol, gmail);
         this.dni = dni;
         this.nombre = nombre;

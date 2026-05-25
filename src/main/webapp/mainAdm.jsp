@@ -64,7 +64,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="#" class="nav__link">
+                <a href="${pageContext.request.contextPath}/perfilAdmin" class="nav__link">
                     Perfil
                 </a>
             </li>
