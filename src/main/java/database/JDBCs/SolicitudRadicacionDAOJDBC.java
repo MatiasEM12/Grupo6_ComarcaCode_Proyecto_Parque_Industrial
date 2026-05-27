@@ -81,30 +81,35 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
     @Override
     public void update(SolicitudRadicacion solicitudRadicacion) {
-        // Implementación del método para actualizar una solicitud de radicación en la base de datos
-        final String SQL = "UPDATE SolicitudRadicacion SET numeroTramite = ?, estadoSolicitud = ?, fechaActualizacion = ?," +
-                "nombreProyecto = ?, descripcionServicio = ?, cuitEmpresa = ?, idProyecto = ?, dniRepresentante = ? WHERE id = ?";
+
+        final String SQL =
+                "UPDATE SolicitudRadicacion " +
+                        "SET estadoSolicitud = ?, fechaActualizacion = ? " +
+                        "WHERE id = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
-             java.sql.PreparedStatement st = conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            st.setString(1, solicitudRadicacion.numeroTramite());
-            st.setString(2, solicitudRadicacion.estadoSolicitud().name());
-            st.setDate(3, java.sql.Date.valueOf(solicitudRadicacion.fechaActualizacion()));
-            st.setString(4, solicitudRadicacion.nombreProyecto());
-            st.setString(5, solicitudRadicacion.descripcionServicio());
-            st.setString(6, solicitudRadicacion.empresa().cuit());
-            st.setInt(7, solicitudRadicacion.proyecto().idProyecto());
-            st.setString(8, solicitudRadicacion.representante().dni());
-            st.setInt(9, solicitudRadicacion.id());
+            st.setString(1, solicitudRadicacion.estadoSolicitud().name());
+
+            st.setDate(2, java.sql.Date.valueOf(solicitudRadicacion.fechaActualizacion()));
+
+            st.setInt(3, solicitudRadicacion.id());
 
             int fila = st.executeUpdate();
+
             if (fila <= 0) {
-                throw new RuntimeException("Error al actualizar la solicitud de radicación");
+                throw new RuntimeException(
+                        "Error al actualizar estado de la solicitud"
+                );
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al actualizar la solicitud de radicación", e);
+
+            throw new RuntimeException(
+                    "Error al actualizar estado de la solicitud",
+                    e
+            );
         }
     }
 

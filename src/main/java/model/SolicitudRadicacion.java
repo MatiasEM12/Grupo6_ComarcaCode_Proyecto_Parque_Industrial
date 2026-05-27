@@ -366,11 +366,11 @@ public class SolicitudRadicacion {
         int areaD = Integer.parseInt(areaDeposito);
         int est= Integer.parseInt(estacionamiento);
 
-        if( ( areaT+areaD+est)< superficie) throw new IllegalArgumentException("la superfice no alcanza para el area de Trabajo,Deposito y estacionamiento");
+        if( ( areaT+areaD+est)> superficie) throw new IllegalArgumentException("la superfice no alcanza para el area de Trabajo,Deposito y estacionamiento");
     }
 
     private void validarSuperficieCon(int superficie){
-        if( Integer.parseInt(this.m2)<superficie) throw  new IllegalArgumentException("Superfice no compatible");
+        if( Integer.parseInt(this.m2)>superficie) throw  new IllegalArgumentException("Superfice no compatible");
     }
     private void validarId(int id) {
         if (id <= 0) {
