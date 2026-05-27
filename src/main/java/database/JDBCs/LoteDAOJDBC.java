@@ -2,6 +2,7 @@ package database.JDBCs;
 
 import database.ConnectionManager;
 import database.DAOs.LoteDAO;
+import model.DTO.LoteDTO;
 import model.Lote;
 import model.Ubicacion;
 
@@ -77,6 +78,28 @@ public class LoteDAOJDBC implements LoteDAO {
 
             while (rs.next()) {
                 lotes.add(mapearLote(rs));
+            }
+
+            return lotes;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener lotes", e);
+        }
+    }
+
+    @Override
+    public List<LoteDTO> findAllLoteDTO() {
+
+        final String SQL = "SELECT * FROM lotes";
+
+        List<LoteDTO> lotes = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                lotes.add(mapearLoteDTO(rs));
             }
 
             return lotes;
@@ -167,6 +190,19 @@ public class LoteDAOJDBC implements LoteDAO {
                 rs.getString("infraestructura")
         );
     }
+
+    private LoteDTO mapearLoteDTO(ResultSet rs) throws SQLException {
+        return new LoteDTO(
+                rs.getInt("id"),
+                rs.getLong("latitud"),
+                rs.getLong("longitud"),
+                rs.getLong("altitud"),
+                rs.getDouble("superficie"),
+                rs.getString("estado"),
+                rs.getString("infraestructura")
+        );
+    }
+
     @Override
     public void update(Lote lote) {
 
@@ -195,26 +231,26 @@ public class LoteDAOJDBC implements LoteDAO {
         }
     }
     @Override
-    public void RegistrarProyectoLote(int id, int idProyecto) {
+    public void registrarProyectoLote(int idLote, int idProyecto) {
 
         final String SQL =
-                "UPDATE lotes SET estado = ?, id_proyecto = ? WHERE id = ?";
+                "UPDATE lotes SET estado = ?, id_proyecto = ? WHERE id = ? AND estado = 'DISPONIBLE'";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setString(1, "OCUPADO");
             st.setInt(2, idProyecto);
-            st.setInt(3, id);
+            st.setInt(3, idLote);
 
             int fila = st.executeUpdate();
 
             if (fila <= 0) {
-                throw new RuntimeException("No se encontró el lote");
+                throw new RuntimeException("EL lote no existe o ya esta ocupado");
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Error al actualizar lote", e);
+            throw new RuntimeException("Error al asignar proyecto a lote", e);
         }
     }
 }

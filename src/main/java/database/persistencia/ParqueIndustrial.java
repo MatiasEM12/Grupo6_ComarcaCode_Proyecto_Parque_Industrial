@@ -251,6 +251,15 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return null;//lotesDTO
     }
 
+    /* dejo el obtener lotes como comentario porque no se porque el de pedro tambien solo estaba comentadp
+    no me queda claro igual en el
+    public List<LoteDTO> obtenerLotes(){
+        List<LoteDTO> lotes = new ArrayList<>();
+        lotes = loteDAO.findAllLoteDTO().stream().toList();
+        return lotes;
+    }
+    */
+
 
 
 
@@ -266,6 +275,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         * */
     }
+
+/* lo dejo como comentario porque no se para que querian el usuario
+    public void asignarLote( LoteDTO lote, ProyectoProductivoDTO proyecto){
+        loteDAO.registrarProyectoLote(lote.getId(), proyecto.idProyecto());
+
+    }
+
+ */
 
     public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){
         /*
