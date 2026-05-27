@@ -257,24 +257,25 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         empresaDAO.actualizar(empresa);
     }
 
+    /*
     public LoteDTO obtenerLotes(){
        /*
        ArrayList   lotes= lotesDao.findAll
 
        ArrayList lotesDTO= stream.filtrer....toLote(lote)
        */
-
+    /*
         return null;//lotesDTO
     }
+     */
 
-    /* dejo el obtener lotes como comentario porque no se porque el de pedro tambien solo estaba comentadp
-    no me queda claro igual en el
+
+
     public List<LoteDTO> obtenerLotes(){
         List<LoteDTO> lotes = new ArrayList<>();
         lotes = loteDAO.findAllLoteDTO().stream().toList();
         return lotes;
     }
-    */
 
 
 
