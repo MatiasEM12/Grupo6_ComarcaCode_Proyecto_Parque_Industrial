@@ -121,6 +121,7 @@ public class SolicitudRadicacion {
         validarLongitud(objeto, 255,
                 "El objeto no puede superar los 255 caracteres");
 
+        validarSuperficie(m2, areaTrabajo,areaDeposito ,estacionamiento );
         this.id = contador++;
         this.numeroTramite = "SOL-" + id;
         this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
@@ -263,9 +264,14 @@ public class SolicitudRadicacion {
     }
 
 
-    public void aprobar() {
+    public void aprobar(Lote lote) {
+
+        validarSuperficieCon((int)lote.superficie());
         this.estadoSolicitud = EstadoSolicitud.APROBADA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
+
+        ProyectoProductivo  proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), " ",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
     }
 
     public void rechazar() {
@@ -353,6 +359,18 @@ public class SolicitudRadicacion {
         if (valor != null && valor.length() > maximo) {
             throw new RuntimeException(mensaje);
         }
+    }
+    private void validarSuperficie(String m2, String areaTrabajo,String areaDeposito,String estacionamiento){
+        int superficie= Integer.parseInt(m2);
+        int areaT= Integer.parseInt(areaTrabajo);
+        int areaD = Integer.parseInt(areaDeposito);
+        int est= Integer.parseInt(estacionamiento);
+
+        if( ( areaT+areaD+est)< superficie) throw new IllegalArgumentException("la superfice no alcanza para el area de Trabajo,Deposito y estacionamiento");
+    }
+
+    private void validarSuperficieCon(int superficie){
+        if( Integer.parseInt(this.m2)<superficie) throw  new IllegalArgumentException("Superfice no compatible");
     }
     private void validarId(int id) {
         if (id <= 0) {

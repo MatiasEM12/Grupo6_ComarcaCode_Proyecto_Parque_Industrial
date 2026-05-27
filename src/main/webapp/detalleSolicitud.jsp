@@ -298,9 +298,7 @@
 
                         </select>
 
-                        <button type="submit"
-                                class="btn__aprobar">
-
+                        <button type="submit" class="btn__aprobar">
                             Aprobar y asignar lote
 
                         </button>

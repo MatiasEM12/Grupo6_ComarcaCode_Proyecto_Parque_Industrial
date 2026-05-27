@@ -127,7 +127,12 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     @Override
     public void aprobarSolicitud(int idSolicitud, int idLote) {
-        final String ACTUALIZAR_SOLICITUD = "UPDATE SolicitudRadicacion " +
+
+        SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find( idSolicitud);
+        Lote lote = loteDAO.find(idLote);
+
+        solicitudRadicacion.aprobar(lote);
+       /* final String ACTUALIZAR_SOLICITUD = "UPDATE SolicitudRadicacion " +
                 "SET estadoSolicitud = 'APROBADA', fechaActualizacion = CURRENT_DATE, idLote = ? " +
                 "WHERE id = ?";
 
@@ -161,7 +166,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         } catch (Exception e) {
             throw new RuntimeException("Error al aprobar la solicitud", e);
-        }
+        }*/
     }
 
     @Override
