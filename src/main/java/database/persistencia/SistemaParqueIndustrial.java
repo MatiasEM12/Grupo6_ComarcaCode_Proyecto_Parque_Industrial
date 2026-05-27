@@ -1,6 +1,7 @@
 package database.persistencia;
 
 import model.*;
+import model.DTO.EmpresaDTO;
 import model.DTO.LoteDTO;
 import model.DTO.SolicitudRadicacionDTO;
 
@@ -29,4 +30,6 @@ public interface SistemaParqueIndustrial {
     void agregarLote(Lote lote);
 
     AdministradorDelParque obtenerAdm(String s);
+
+    void actualizarEmpresa(EmpresaDTO empresa);
 }

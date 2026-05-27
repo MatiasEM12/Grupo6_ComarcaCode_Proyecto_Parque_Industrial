@@ -241,6 +241,12 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return administradorDelParqueDAO.obtenerAdministradorPorUsername(s);
     }
 
+    @Override
+    public void actualizarEmpresa(EmpresaDTO empresa) {
+        EmpresaDAO empresaDAO = new EmpresaDAOJDBC();
+        empresaDAO.actualizar(empresa);
+    }
+
     public LoteDTO obtenerLotes(){
        /*
        ArrayList   lotes= lotesDao.findAll

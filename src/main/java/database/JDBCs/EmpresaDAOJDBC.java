@@ -37,9 +37,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 
     @Override
     public void actualizar(EmpresaDTO empresa) {
-        final String SQL =
-
-                "UPDATE Empresa SET razonSocial = ?, rubro = ?, contacto = ?, " +
+        final String SQL = "UPDATE Empresa SET razonSocial = ?, rubro = ?, contacto = ?, " +
                         "contactoRepresentante = ?, esRadicada = ? WHERE cuit = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
