@@ -8,8 +8,7 @@
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(request.getContextPath()+ "/perfiles"
-        );
+        response.sendRedirect(request.getContextPath()+ "/perfiles");
 
         return;
     }
@@ -17,8 +16,7 @@
     // SI NO ES REPRESENTANTE
     if(!usuario.nombreRol().equals("representante")){
 
-        response.sendRedirect( request.getContextPath()+ "/perfiles"
-        );
+        response.sendRedirect( request.getContextPath()+ "/perfiles");
 
         return;
     }
@@ -32,13 +30,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
 
 </head>
 
@@ -101,14 +97,9 @@
 
     <div class="nav__right">
 
-        <img
-            src="${pageContext.request.contextPath}/img/logo.png"
-            alt="Logo"
-            class="nav__logo"
-        >
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
 
@@ -120,8 +111,7 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/misProyectos"
-           class="card">
+        <a href="${pageContext.request.contextPath}/misProyectos" class="card">
 
             <div class="card__content">
                 <h2>Mis Proyectos</h2>
@@ -129,16 +119,14 @@
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
-           class="card">
+        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="card">
 
             <div class="card__content">
                 <h2>Enviar Solicitud de Radicación</h2>
             </div>
 
         </a>
-        <a href="${pageContext.request.contextPath}/misSolicitudes"
-           class="card">
+        <a href="${pageContext.request.contextPath}/misSolicitudes" class="card">
 
             <div class="card__content">
                 <h2>Mis Solicitudes </h2>

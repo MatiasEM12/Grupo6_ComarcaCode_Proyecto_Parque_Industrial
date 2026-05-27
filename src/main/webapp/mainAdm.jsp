@@ -14,8 +14,7 @@
     // SI NO ES ADMINISTRADOR
     if(!usuario.nombreRol().equals("administrador")){
 
-        response.sendRedirect( request.getContextPath() + "/perfiles"
-        );
+        response.sendRedirect( request.getContextPath() + "/perfiles");
         return;
     }
 %>
@@ -129,8 +128,7 @@
             </div>
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudesAdmin"
-           class="card">
+        <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="card">
             <div class="card__content">
                 <h2>Solicitudes</h2>
                 <p>Consultar solicitudes de radicacion.</p>

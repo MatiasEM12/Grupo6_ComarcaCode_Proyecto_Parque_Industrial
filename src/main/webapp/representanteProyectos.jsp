@@ -52,8 +52,7 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp" class="nav__link">
 
                     Inicio
 
@@ -63,8 +62,7 @@
 
             <li class="nav__item">
 
-                <a href=""
-                   class="nav__link">
+                <a href="" class="nav__link">
 
                     Perfil
 
@@ -74,8 +72,7 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/misProyectos"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">
 
                     Mis Proyectos
 
@@ -85,8 +82,7 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
 
                     Enviar Solicitud
 
@@ -100,12 +96,9 @@
 
     <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
+        <a href="" class="nav__link Link--Cerrar">
 
             Cerrar Sesión
 
@@ -120,9 +113,7 @@
     <div class="projects__container">
 
         <%
-            List<SolicitudRadicacion> solicitudes =
-                    (List<SolicitudRadicacion>)
-                            request.getAttribute("solicitudes");
+            List<SolicitudRadicacion> solicitudes = (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
 
             if (solicitudes != null && !solicitudes.isEmpty()) {
 
@@ -130,23 +121,17 @@
 
                     String claseEstado = "";
 
-                    if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("PENDIENTE")) {
+                    if (solicitud.estadoSolicitud().toString().equals("PENDIENTE")) {
 
                         claseEstado = "estado__pendiente";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("APROBADA")) {
+                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA")) {
 
                         claseEstado = "estado__aprobado";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("OBSERVADA")) {
+                    else if (solicitud.estadoSolicitud().toString().equals("OBSERVADA")) {
 
                         claseEstado = "estado__revision";
                     }

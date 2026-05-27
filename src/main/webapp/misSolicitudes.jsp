@@ -5,16 +5,14 @@
 <%@ page import="java.util.List" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null){
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
-    List<SolicitudRadicacion> solicitudes =
-            (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
+    List<SolicitudRadicacion> solicitudes = (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
 %>
 
 <!DOCTYPE html>
@@ -23,13 +21,11 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Mis Solicitudes</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
 </head>
 
 <body>

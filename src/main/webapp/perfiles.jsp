@@ -10,13 +10,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Seleccionar Perfil</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/perfiles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/perfiles.css">
 
 </head>
 
@@ -48,11 +46,8 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/index.jsp"
-                   class="nav__link">
-
+                <a href="${pageContext.request.contextPath}/index.jsp"class="nav__link">
                     Inicio
-
                 </a>
 
             </li>
@@ -63,9 +58,7 @@
 
     <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
     </div>
 
@@ -81,9 +74,7 @@
                 Elegir Perfil
             </h2>
 
-            <form action="${pageContext.request.contextPath}/seleccionarPerfil"
-                  method="post"
-                  class="perfil__form">
+            <form action="${pageContext.request.contextPath}/seleccionarPerfil" method="post" class="perfil__form">
 
                 <label for="usuario">
 
@@ -91,21 +82,16 @@
 
                 </label>
 
-                <select name="username"
-                        id="usuario"
-                        required>
+                <select name="username" id="usuario" required>
 
                     <option value="">
                         -- Seleccione un usuario --
                     </option>
 
                     <%
-                        List<Usuario> usuarios =
-                                (List<Usuario>)
-                                        request.getAttribute("usuarios");
+                        List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 
                         if (usuarios != null) {
-
                             for (Usuario usuario : usuarios) {
                     %>
 

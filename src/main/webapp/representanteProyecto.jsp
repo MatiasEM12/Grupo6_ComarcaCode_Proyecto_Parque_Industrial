@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/representanteProyecto.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyecto.css">
 </head>
 
 <body>
@@ -43,8 +42,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"  class="nav__link">
                     Inicio
                 </a>
             </li>
@@ -56,15 +54,13 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/representanteProyectos.jsp" class="nav__link">
                     Mis Proyectos
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
                     Enviar Solicitud
                 </a>
             </li>
@@ -96,9 +92,7 @@
 
         <!-- FORMULARIO DEL PROYECTO -->
 
-        <form class="project__form"
-              action="${pageContext.request.contextPath}/actualizarProyecto"
-              method="post">
+        <form class="project__form" action="${pageContext.request.contextPath}/actualizarProyecto" method="post">
 
             <!-- DATOS DEL PROYECTO -->
 
@@ -106,18 +100,15 @@
 
                 <label>Nombre del Proyecto</label>
 
-                <input type="text"
-                       name="nombreProyecto"
-                       value="Proyecto Metalúrgico">
+                <input type="text" name="nombreProyecto" value="Proyecto Metalúrgico">
 
             </div>
 
             <div class="form__group">
 
                 <label>Descripción</label>
-
                 <textarea name="descripcion">
-Producción de estructuras metálicas industriales.
+                    Producción de estructuras metálicas industriales.
                 </textarea>
 
             </div>
@@ -136,9 +127,7 @@ Producción de estructuras metálicas industriales.
 
                 <label>Necesidades</label>
 
-                <input type="text"
-                       name="necesidades"
-                       value="Gas Industrial - Energía Trifásica">
+                <input type="text" name="necesidades" value="Gas Industrial - Energía Trifásica">
 
             </div>
 
@@ -146,9 +135,7 @@ Producción de estructuras metálicas industriales.
 
                 <label>Empleabilidad</label>
 
-                <input type="text"
-                       name="empleabilidad"
-                       value="35">
+                <input type="text" name="empleabilidad" value="35">
 
             </div>
 
@@ -156,9 +143,7 @@ Producción de estructuras metálicas industriales.
 
                 <label>Materia Prima</label>
 
-                <input type="text"
-                       name="materiaPrima"
-                       value="Acero y aluminio">
+                <input type="text" name="materiaPrima"  value="Acero y aluminio">
 
             </div>
 
@@ -180,8 +165,7 @@ Producción de estructuras metálicas industriales.
 
             <div class="buttons__container">
 
-                <button type="submit"
-                        class="btn">
+                <button type="submit" class="btn">
 
                     Actualizar
 

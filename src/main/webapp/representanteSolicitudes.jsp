@@ -9,13 +9,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 
 </head>
 
@@ -51,32 +49,28 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp" class="nav__link">
                     Inicio
                 </a>
 
             </li>
 
             <li class="nav__item">
-                <a href=""
-                   class="nav__link">
+                <a href="" class="nav__link">
                     Perfil
                 </a>
 
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/misSolicitudes"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/misSolicitudes" class="nav__link">
                     Mis Proyectos
                 </a>
             </li>
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
                     Enviar Solicitud
                 </a>
 
@@ -88,12 +82,9 @@
 
     <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
+        <a href="" class="nav__link Link--Cerrar">
 
             Cerrar Sesión
 
@@ -108,9 +99,7 @@
     <div class="projects__container">
 
         <%
-            List<SolicitudRadicacion> solicitudes =
-                    (List<SolicitudRadicacion>)
-                            request.getAttribute("solicitudes");
+            List<SolicitudRadicacion> solicitudes = (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
 
             if (solicitudes != null && !solicitudes.isEmpty()) {
 
@@ -118,24 +107,16 @@
 
                     String claseEstado = "";
 
-                    if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("PENDIENTE")) {
+                    if (solicitud.estadoSolicitud().toString().equals("PENDIENTE")) {
 
                         claseEstado = "estado__pendiente";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("APROBADA")) {
-
+                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA")) {
                         claseEstado = "estado__aprobado";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("OBSERVADA")) {
-
+                    else if (solicitud.estadoSolicitud().toString().equals("OBSERVADA")) {
                         claseEstado = "estado__revision";
                     }
         %>

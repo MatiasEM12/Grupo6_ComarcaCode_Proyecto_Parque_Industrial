@@ -115,9 +115,7 @@
  <div class="projects__container">
 
         <%
-            List<SolicitudRadicacion> solicitudes =
-                    (List<SolicitudRadicacion>)
-                            request.getAttribute("solicitudes");
+            List<SolicitudRadicacion> solicitudes =(List<SolicitudRadicacion>)request.getAttribute("solicitudes");
 
             if (solicitudes != null && !solicitudes.isEmpty()) {
 
@@ -125,30 +123,23 @@
 
                     String claseEstado = "";
 
-                    if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("PENDIENTE")) {
+                    if (solicitud.estadoSolicitud().toString().equals("PENDIENTE")) {
 
                         claseEstado = "estado__pendiente";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("APROBADA")) {
+                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA")) {
 
                         claseEstado = "estado__aprobado";
                     }
 
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("OBSERVADA")) {
+                    else if (solicitud.estadoSolicitud().toString().equals("OBSERVADA")) {
 
                         claseEstado = "estado__revision";
                     }
         %>
 
-        <a href="${pageContext.request.contextPath}/solicitudDetalle?id=<%= solicitud.id() %>"
-           class="project__card">
+        <a href="${pageContext.request.contextPath}/solicitudDetalle?id=<%= solicitud.id() %>" class="project__card">
 
             <div class="project__content">
 

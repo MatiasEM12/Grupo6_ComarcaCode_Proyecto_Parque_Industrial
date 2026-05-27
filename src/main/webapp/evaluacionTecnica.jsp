@@ -17,8 +17,7 @@
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
-    List<ProyectoProductivo> proyectos =
-                (List<ProyectoProductivo>) request.getAttribute("proyectos");
+    List<ProyectoProductivo> proyectos = (List<ProyectoProductivo>) request.getAttribute("proyectos");
 %>
 
 <!DOCTYPE html>
@@ -26,158 +25,144 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Evaluación Técnica</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
 </head>
 
 <body>
 
-<header class="header">
+    <header class="header">
 
-    <div class="header__overlay"></div>
+        <div class="header__overlay"></div>
 
-    <div class="header__item--container">
+        <div class="header__item--container">
 
-        <h1>EVALUACIÓN TÉCNICA</h1>
+            <h1>EVALUACIÓN TÉCNICA</h1>
 
-        <p>
-            Registrar evaluaciones técnicas sobre proyectos,
-            documentación o funcionamiento del Parque Industrial.
-        </p>
+            <p>
+                Registrar evaluaciones técnicas sobre proyectos,
+                documentación o funcionamiento del Parque Industrial.
+            </p>
 
-    </div>
+        </div>
 
-</header>
+    </header>
 
-<nav class="nav">
+    <nav class="nav">
 
-    <div class="nav__ul--container">
+        <div class="nav__ul--container">
 
-        <ul class="nav__ul">
+            <ul class="nav__ul">
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainOrganismoPublico.jsp"
-                   class="nav__link">
-                    Inicio
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/mainOrganismoPublico.jsp" class="nav__link">
+                        Inicio
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
-                   class="nav__link">
-                    Proyectos en Ejecución
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
+                        Proyectos en Ejecución
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/reporte.jsp"
-                   class="nav__link">
-                    Reportes
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/reporte.jsp" class="nav__link">
+                        Reportes
+                    </a>
+                </li>
 
-        </ul>
+            </ul>
 
-    </div>
+        </div>
 
-    <div class="nav__right">
+        <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+            <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
-            Cerrar Sesión
-        </a>
+            <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
+                Cerrar Sesión
+            </a>
 
-    </div>
+        </div>
 
-</nav>
+    </nav>
 
-<main>
+    <main>
 
-    <section class="form__container">
+        <section class="form__container">
 
-        <h2>Nueva Evaluación Técnica</h2>
+            <h2>Nueva Evaluación Técnica</h2>
 
-        <form action="${pageContext.request.contextPath}/guardarEvaluacionTecnica"
-              method="post"
-              class="form">
-            <label>Proyectos en ejecucion</label>
+            <form action="${pageContext.request.contextPath}/guardarEvaluacionTecnica" method="post" class="form">
+                <label>Proyectos en ejecucion</label>
 
-            <select name="proyectoSeleccionado" required>
+                <select name="proyectoSeleccionado" required>
 
-                <option value="">
-                    Seleccione una opción
-                </option>
-
-                <%
-                    if(proyectos != null){
-
-                        for(ProyectoProductivo proyecto : proyectos){
-                %>
-
-                    <option value="<%= proyecto.getNombre() %>">
-
-                        <%= proyecto.getNombre() %>
-
+                    <option value="">
+                        Seleccione una opción
                     </option>
 
-                <%
+                    <%
+                        if(proyectos != null){
+
+                            for(ProyectoProductivo proyecto : proyectos){
+                    %>
+
+                        <option value="<%= proyecto.getNombre() %>">
+
+                            <%= proyecto.getNombre() %>
+
+                        </option>
+
+                    <%
+                            }
                         }
-                    }
-                %>
+                    %>
 
-            </select>
+                </select>
 
-            <label>Descripción</label>
+                <label>Descripción</label>
 
-            <textarea name="descripcion"
-                      placeholder="Describa la evaluación técnica..."
-                      required></textarea>
+                <textarea name="descripcion" placeholder="Describa la evaluación técnica..." required></textarea>
 
-            <label>Resultado</label>
+                <label>Resultado</label>
 
-            <select name="resultado" required>
-                <option value="">Seleccione una opción</option>
-                <option value="APROBADA">Aprobada</option>
-                <option value="OBSERVADA">Observada</option>
-                <option value="RECHAZADA">Rechazada</option>
-            </select>
+                <select name="resultado" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="APROBADA">Aprobada</option>
+                    <option value="OBSERVADA">Observada</option>
+                    <option value="RECHAZADA">Rechazada</option>
+                </select>
 
-            <label>Observaciones</label>
+                <label>Observaciones</label>
 
-            <textarea name="observaciones"
-                      placeholder="Ingrese observaciones si corresponde..."></textarea>
+                <textarea name="observaciones" placeholder="Ingrese observaciones si corresponde..."></textarea>
 
-            <button type="submit"
-                    class="btn__form">
-                Guardar Evaluación
-            </button>
+                <button type="submit" class="btn__form">
+                    Guardar Evaluación
+                </button>
 
-        </form>
+            </form>
 
-    </section>
+        </section>
 
-</main>
+    </main>
 
-<footer>
+    <footer>
 
-    <div class="div__footer--container">
+        <div class="div__footer--container">
 
-        <p>Parque Industrial</p>
+            <p>Parque Industrial</p>
 
-        Sistema de gestión del Parque Industrial de Viedma.
+            Sistema de gestión del Parque Industrial de Viedma.
 
-    </div>
+        </div>
 
-</footer>
+    </footer>
 
 </body>
 </html>

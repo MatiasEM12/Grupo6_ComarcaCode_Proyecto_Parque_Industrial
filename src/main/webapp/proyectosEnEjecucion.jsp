@@ -4,16 +4,14 @@
 <%@ page import="java.util.List" %>
 
 <%
-    Usuario usuario =
-            (Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null){
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
 
-    if(!usuario.nombreRol().equals("organismo_publico")
-            && !usuario.nombreRol().equals("administrador")){
+    if(!usuario.nombreRol().equals("organismo_publico") && !usuario.nombreRol().equals("administrador")){
 
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
@@ -23,8 +21,7 @@
             ? "/mainAdm.jsp"
             : "/mainOrganismoPublico.jsp";
 
-    List<ProyectoProductivo> proyectos =
-            (List<ProyectoProductivo>) request.getAttribute("proyectos");
+    List<ProyectoProductivo> proyectos = (List<ProyectoProductivo>) request.getAttribute("proyectos");
 %>
 
 <!DOCTYPE html>
@@ -34,8 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos en Ejecución</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainOrganismoPublico.css">
 </head>
 
 <body>
@@ -53,23 +49,20 @@
     <div class="nav__ul--container">
         <ul class="nav__ul">
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}<%= paginaInicio %>"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}<%= paginaInicio %>" class="nav__link">
                     Inicio
                 </a>
             </li>
 
             <% if(usuario.rol().equals("administrador")){ %>
                 <li class="nav__item">
-                    <a href="${pageContext.request.contextPath}/solicitudesAdmin"
-                       class="nav__link">
+                    <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
                         Solicitudes
                     </a>
                 </li>
             <% } else { %>
                 <li class="nav__item">
-                    <a href="${pageContext.request.contextPath}/reporte.jsp"
-                       class="nav__link">
+                    <a href="${pageContext.request.contextPath}/reporte.jsp" class="nav__link">
                         Reportes
                     </a>
                 </li>
@@ -78,12 +71,9 @@
     </div>
 
     <div class="nav__right">
-        <img src="${pageContext.request.contextPath}/img/logo.png"
-             alt="Logo"
-             class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
     </div>

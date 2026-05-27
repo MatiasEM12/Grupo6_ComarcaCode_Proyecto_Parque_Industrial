@@ -14,8 +14,7 @@
         return;
     }
 
-    SolicitudRadicacion solicitud =
-            (SolicitudRadicacion) request.getAttribute("solicitud");
+    SolicitudRadicacion solicitud =  (SolicitudRadicacion) request.getAttribute("solicitud");
 
     List<Lote> lotes = (List<Lote>) request.getAttribute("lotes");
 
@@ -71,75 +70,75 @@
 
     </header>
 
-<nav class="nav">
+    <nav class="nav">
 
-    <div class="nav__ul--container">
+        <div class="nav__ul--container">
 
-        <ul class="nav__ul">
+            <ul class="nav__ul">
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
-                    Inicio
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/mainAdm.jsp" class="nav__link">
+                        Inicio
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Perfil
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Perfil
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
-                    Usuarios
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
+                        Usuarios
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
-                    Solicitudes
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
+                        Solicitudes
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
-                    Proyectos
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/proyectosEnEjecucion" class="nav__link">
+                        Proyectos
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
-                    Lotes
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                        Lotes
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Inventario
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Inventario
+                    </a>
+                </li>
 
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Reportes
-                </a>
-            </li>
+                <li class="nav__item">
+                    <a href="#" class="nav__link">
+                        Reportes
+                    </a>
+                </li>
 
-        </ul>
+            </ul>
 
-    </div>
+        </div>
 
-    <div class="nav__right">
+        <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
+            <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo" >
 
-        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
-            Cerrar Sesión
-        </a>
+            <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
+                Cerrar Sesión
+            </a>
 
-    </div>
+        </div>
 
-</nav>
+    </nav>
 
     <main>
 
@@ -165,7 +164,9 @@
 
                 <div class="detalle__body">
 
-                    <p><strong>N° trámite:</strong> <%= solicitud.numeroTramite() %></p>
+                    <p><strong>N° trámite:</strong>
+                        <%= solicitud.numeroTramite() %>
+                    </p>
 
                     <p><strong>Representante:</strong>
                         <%= solicitud.representante().dni() %>
@@ -333,6 +334,6 @@
                 <p>Parque Industrial</p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo qui laborum, hic corporis odit porro, adipisci minus harum aut maiores odio. Totam, autem. Obcaecati, molestias ullam voluptas harum vel corporis.
             </div>
-        </footer>
+    </footer>
 </body>
 </html>

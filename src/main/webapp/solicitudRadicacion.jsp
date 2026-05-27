@@ -43,8 +43,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp" class="nav__link">
                     Inicio
                 </a>
             </li>
@@ -71,8 +70,7 @@
              alt="Logo"
              class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
+        <a href="" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
 
@@ -86,17 +84,13 @@
 
         <h2>Solicitud de Radicación</h2>
 
-        <form action="${pageContext.request.contextPath}/subirSolicitud"
-              method="post"
-              enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/subirSolicitud" method="post" enctype="multipart/form-data">
 
             <div class="form__group">
 
                 <label>Nombre del Proyecto*</label>
 
-                <input type="text"
-                       name="nombreProyecto"
-                       placeholder="Ingrese el nombre del proyecto">
+                <input type="text" name="nombreProyecto" placeholder="Ingrese el nombre del proyecto">
 
             </div>
             <!-- Proyecto -->
