@@ -93,7 +93,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                     String contrasena = rs.getString("contrasena");
                     int rol = rs.getInt("rol");
                     String gmail = rs.getString("gmail");
-                    return new Usuario(userName, contrasena, Rol.fromCodigo(rol), gmail);
+                    return new Usuario(rs.getInt("codigo"),userName, contrasena, Rol.fromCodigo(rol), gmail);
                 } else {
                     return null; // Usuario no encontrado
                 }
@@ -118,7 +118,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                 String contrasena = rs.getString("contrasena");
                 int rol = rs.getInt("rol");
                 String gmail = rs.getString("gmail");
-                usuarios.add(new Usuario(userName, contrasena, Rol.fromCodigo(rol), gmail));
+                usuarios.add(new Usuario(rs.getInt("codigo"),userName, contrasena, Rol.fromCodigo(rol), gmail));
             }
 
         } catch (SQLException e) {

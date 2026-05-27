@@ -7,19 +7,31 @@ import model.DTO.EmpresaDTO;
 public class RepresentanteEmpresa {
 
     private String dni;
-    private Empresa empresa;
+    public Empresa empresa;
     private Usuario usuario;
     private boolean  puedeIngresarSolicitud=true;
     private RepresentanteEmpresaDAO representanteEmpresaDAO = new RepresentanteEmpresaDAOJDBC();
-    public RepresentanteEmpresa(String dni, Empresa empresa, Usuario usuario){
+
+    public RepresentanteEmpresa(String dni, Empresa empresa, Usuario usuario, boolean puedeIngresarSolicitud){
         validarEmpresa(empresa);
         validarUsuario(usuario);
         this.dni = dni;
         this.empresa = empresa;
         this.usuario = usuario;
+        this.puedeIngresarSolicitud=puedeIngresarSolicitud;
 
-       // reprecentanteEmpresaDAO.registrarReprecentante(this);
+        representanteEmpresaDAO.registrarRepresentante(this);
     }
+
+    public RepresentanteEmpresa(String dni, Empresa empresa, Usuario usuario) {
+        this.dni = dni;
+        this.empresa = empresa;
+        this.usuario = usuario;
+    }
+
+
+
+
 
     public String dni(){
         return dni;
@@ -112,6 +124,7 @@ public class RepresentanteEmpresa {
     }
 
 
-
-
+    public Empresa empresa() {
+        return empresa;
+    }
 }

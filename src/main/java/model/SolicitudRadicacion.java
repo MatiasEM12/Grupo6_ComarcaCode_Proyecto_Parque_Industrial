@@ -47,6 +47,7 @@ public class SolicitudRadicacion {
     private String descripcionArchivo;
     private String nombreArchivoPDF;
 
+
     public SolicitudRadicacion(
             RepresentanteEmpresa representante,
             String objeto,
@@ -154,26 +155,112 @@ public class SolicitudRadicacion {
         this.nombreArchivoPDF = nombreArchivoPDF;
 
         this.representante.NopuedeIngresarSolicitud();
+
+
+        this.solicitudRadicacionDAO.create(this);
     }
 
-    //Constructor sobrecargado para usar en la base de datos
-    public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
-         LocalDate fechaActualizacion, String nombreProyecto, String descripcionServicio,
-        ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
-            validarUsuario(representante);
-            validarId(id);
-            this.id = id;
-            this.numeroTramite = numeroTramite;
-            this.estadoSolicitud = transformador(estadoSolicitud);
-            this.fechaCreacion = fechaCreacion;
-            this.fechaActualizacion = fechaActualizacion;
-            this.representante = representante;
-            this.nombreProyecto = nombreProyecto;
-            this.descripcionServicio = descripcionServicio;
-            this.proyectoProductivo = proyecto;
-            this.empresa = empresa;
-         }
+    public SolicitudRadicacion(
+            int id,
+            String numeroTramite,
+            String estadoSolicitud,
+            LocalDate fechaCreacion,
+            LocalDate fechaActualizacion,
 
+            RepresentanteEmpresa representante,
+
+            String objeto,
+            String nombreProyecto,
+            String descripcionServicio,
+
+            String emplazamiento,
+            String personal,
+            String tiempoRadicacion,
+
+            String m2,
+            String areaTrabajo,
+            String areaDeposito,
+            String estacionamiento,
+
+            String planos,
+            String empleabilidad,
+            String materiasPrimas,
+
+            String destinoProduccion,
+            String tension,
+            String potencia,
+
+            String agua,
+            String gas,
+
+            String residuos,
+            String tratamiento,
+
+            String balanza,
+            String comedor,
+            String coworking
+    ) {
+
+        this.id = id;
+
+        this.numeroTramite = numeroTramite;
+
+        this.estadoSolicitud =
+                EstadoSolicitud.valueOf(estadoSolicitud);
+
+        this.fechaCreacion = fechaCreacion;
+
+        this.fechaActualizacion = fechaActualizacion;
+
+        this.representante = representante;
+
+        this.objeto = objeto;
+
+        this.nombreProyecto = nombreProyecto;
+
+        this.descripcionServicio = descripcionServicio;
+
+        this.emplazamiento = emplazamiento;
+
+        this.personal = personal;
+
+        this.tiempoRadicacion = tiempoRadicacion;
+
+        this.m2 = m2;
+
+        this.areaTrabajo = areaTrabajo;
+
+        this.areaDeposito = areaDeposito;
+
+        this.estacionamiento = estacionamiento;
+
+        this.planos = planos;
+
+        this.empleabilidad = empleabilidad;
+
+        this.materiasPrimas = materiasPrimas;
+
+        this.destinoProduccion = destinoProduccion;
+
+        this.tension = tension;
+
+        this.potencia = potencia;
+
+        this.agua = agua;
+
+        this.gas = gas;
+
+        this.residuos = residuos;
+
+        this.tratamiento = tratamiento;
+
+        this.balanza = balanza;
+
+        this.comedor = comedor;
+
+        this.coworking = coworking;
+
+    }
 
 
     public void aprobar() {

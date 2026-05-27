@@ -4,6 +4,7 @@ import database.DAOs.UsuarioDAO;
 import database.JDBCs.UsuarioDAOJDBC;
 
 public class Usuario {
+    private int codigo;
     private String userName;
     private String contrasena;
     private Rol rol;
@@ -15,6 +16,18 @@ public class Usuario {
         validarContracena(contrasena);
         validarGmail(gmail);
         validarRol(rol);
+        this.userName=userName;
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.gmail = gmail;
+
+    }
+    public Usuario(int codigo, String userName, String contrasena, Rol rol, String gmail){
+        validarName(userName);
+        validarContracena(contrasena);
+        validarGmail(gmail);
+        validarRol(rol);
+        this.codigo=codigo;
         this.userName=userName;
         this.contrasena = contrasena;
         this.rol = rol;

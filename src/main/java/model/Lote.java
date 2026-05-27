@@ -1,12 +1,23 @@
 package model;
 
+import database.JDBCs.LoteDAOJDBC;
+
 public class Lote {
     private int id;
     private Ubicacion ubicacion;
     private double superficie;
     private String estado;
     private String infraestructura;
+    private LoteDAOJDBC loteDAO = new LoteDAOJDBC();
 
+    public Lote( Ubicacion ubicacion, double superficie, String estado, String infraestructura) {
+
+        this.ubicacion = ubicacion;
+        this.superficie = superficie;
+        this.estado = estado;
+        this.infraestructura = infraestructura;
+        loteDAO.create(this);
+    }
     public Lote(int id, Ubicacion ubicacion, double superficie,
                 String estado, String infraestructura) {
         this.id = id;
@@ -16,9 +27,8 @@ public class Lote {
         this.infraestructura = infraestructura;
     }
 
-    public Lote asignarEmpresa(Empresa empresa){
+    public void asignarEmpresa(Empresa empresa){
         empresa.asignarLote(this);
-        return null;
     }
     public int id() {
         return id;

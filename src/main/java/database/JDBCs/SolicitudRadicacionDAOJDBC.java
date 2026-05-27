@@ -9,6 +9,9 @@ import model.SolicitudRadicacion;
 import model.Usuario;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +30,8 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                         "personal, tiempoRadicacion, m2, areaTrabajo, areaDeposito, estacionamiento, " +
                         "planos, empleabilidad, materiasPrimas, destinoProduccion, tension, potencia, " +
                         "agua, gas, residuos, tratamiento, balanza, comedor, coworking, " +
-                        "descripcionArchivo, nombreArchivoPDF" +
-                        ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                        ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnectionManager.getConnection();
              java.sql.PreparedStatement st = conn.prepareStatement(SQL)) {
@@ -63,8 +66,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
             st.setString(27, solicitud.balanza());
             st.setString(28, solicitud.comedor());
             st.setString(29, solicitud.coworking());
-            st.setString(30, solicitud.descripcionArchivo());
-            st.setString(31, solicitud.nombreArchivoPDF());
+
 
             int fila = st.executeUpdate();
 
@@ -82,7 +84,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
         // Implementación del método para actualizar una solicitud de radicación en la base de datos
         final String SQL = "UPDATE SolicitudRadicacion SET numeroTramite = ?, estadoSolicitud = ?, fechaActualizacion = ?," +
                 "nombreProyecto = ?, descripcionServicio = ?, cuitEmpresa = ?, idProyecto = ?, dniRepresentante = ? WHERE id = ?";
-                
+
         try (Connection conn = ConnectionManager.getConnection();
              java.sql.PreparedStatement st = conn.prepareStatement(SQL)) {
 
@@ -101,7 +103,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                 throw new RuntimeException("Error al actualizar la solicitud de radicación");
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Error al actualizar la solicitud de radicación", e);
         }
     }
@@ -133,143 +135,209 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
     @Override
     public SolicitudRadicacion find(Integer id) {
-        // Implementación del método para encontrar una solicitud de radicación por su ID en la base de datos
-        final String SQL = "SELECT * FROM SolicitudRadicacion s JOIN Empresa e ON s.cuitEmpresa = e.cuit" +
-        " JOIN Proyecto p ON s.idProyecto = p.idProyecto" +
-        " JOIN RepresentanteEmpresa r ON s.dniRepresentante = r.DNI" +
-        " WHERE s.id = ?";
+
+        final String SQL =
+                "SELECT s.*, " +
+
+                        "re.DNI AS representante_dni, " +
+
+                        "u.userName, u.contrasena, u.gmail, " +
+
+                        "r.codigo AS rol_codigo, " +
+                        "r.nombre AS rol_nombre, " +
+
+                        "e.cuit, e.razonSocial, " +
+                        "e.contacto, e.contactoRepresentante, " +
+                        "e.radicada " +
+
+                        "FROM SolicitudRadicacion s " +
+
+                        "JOIN RepresentanteEmpresa re " +
+                        "ON s.dniRepresentante = re.DNI " +
+
+                        "JOIN usuario u " +
+                        "ON re.userName = u.userName " +
+
+                        "JOIN roles r " +
+                        "ON u.rol = r.codigo " +
+
+                        "LEFT JOIN Empresa e " +
+                        "ON re.cuit_empresa = e.cuit " +
+
+                        "WHERE s.id = ?";
+
         try (Connection conn = ConnectionManager.getConnection();
-             java.sql.PreparedStatement st = conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setInt(1, id);
 
-            java.sql.ResultSet rs = st.executeQuery();
+            ResultSet rs = st.executeQuery();
+
             if (rs.next()) {
-                // Crear y retornar un objeto SolicitudRadicacion con los datos de la fila
-                Rol rol = new Rol(rs.getString("nombre"), rs.getInt("codigo"));
-
-                Usuario usuario = new Usuario(rs.getString("userName"), rs.getString("contrasena"),
-                 rol, rs.getString("gmail"));
-
-                Empresa empresa = new Empresa(rs.getString("cuit"), rs.getString("razon_Social"), rs.getString("contacto"),
-                        rs.getString("contacto_Representante"), rs.getBoolean("radicada"),
-                        null,null);
-                ProyectoProductivo proyecto = new ProyectoProductivo(rs.getString("nombreProyecto"),
-                     rs.getString("descripcionProyecto"), rs.getDouble("superficie"),
-                      rs.getString("necesidades"), rs.getInt("empleabilidad"),
-                       rs.getString("materiaPrima"), empresa);
-
-                //buscar la empresa  empresa= eempresaDao.find(rs.getString("nombreEmpresa"))
-                RepresentanteEmpresa representante = new RepresentanteEmpresa(rs.getString("DNI"), empresa, usuario);
-
-                return new SolicitudRadicacion(
-                        // ... (inicialización de propiedades)
-                        rs.getInt("id"),
-                        rs.getString("numeroTramite"),
-                        rs.getString("estadoSolicitud"),
-                        rs.getDate("fechaCreacion").toLocalDate(),
-                        rs.getDate("fechaActualizacion").toLocalDate(),
-                        rs.getString("nombreProyecto"),
-                        rs.getString("descripcionServicio"),
-                        proyecto,
-                        empresa,
-                        representante
-                );
+                return mapearSolicitud(rs);
             }
 
+            return null;
+
         } catch (Exception e) {
-            throw new RuntimeException("Error al encontrar la solicitud de radicación", e);
+            throw new RuntimeException(
+                    "Error al buscar solicitud",
+                    e
+            );
         }
-        return null;
     }
 
     @Override
     public List<SolicitudRadicacion> findAll() {
 
-        List<SolicitudRadicacion> solicitudes = new ArrayList<>();
+        List<SolicitudRadicacion> solicitudes =
+                new ArrayList<>();
 
         final String SQL =
                 "SELECT s.*, " +
+
                         "re.DNI AS representante_dni, " +
+
                         "u.userName, u.contrasena, u.gmail, " +
-                        "r.codigo AS rol_codigo, r.nombre AS rol_nombre, " +
-                        "e.cuit, e.razonSocial, e.contacto, e.contactoRepresentante, e.radicada " +
+
+                        "r.codigo AS rol_codigo, " +
+                        "r.nombre AS rol_nombre, " +
+
+                        "e.cuit, e.razonSocial, " +
+                        "e.contacto, e.contactoRepresentante, " +
+                        "e.radicada " +
+
                         "FROM SolicitudRadicacion s " +
-                        "JOIN RepresentanteEmpresa re ON s.dniRepresentante = re.DNI " +
-                        "JOIN usuario u ON re.userName = u.userName " +
-                        "JOIN roles r ON u.rol = r.codigo " +
-                        "LEFT JOIN Empresa e ON e.dni_representante = re.DNI";
+
+                        "JOIN RepresentanteEmpresa re " +
+                        "ON s.dniRepresentante = re.DNI " +
+
+                        "JOIN usuario u " +
+                        "ON re.userName = u.userName " +
+
+                        "JOIN roles r " +
+                        "ON u.rol = r.codigo " +
+
+                        "LEFT JOIN Empresa e " +
+                        "ON re.cuit_empresa = e.cuit";
 
         try (Connection conn = ConnectionManager.getConnection();
-             java.sql.PreparedStatement st = conn.prepareStatement(SQL);
-             java.sql.ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
-
-                Rol rol = new Rol(
-                        rs.getString("rol_nombre"),
-                        rs.getInt("rol_codigo")
-                );
-
-                Usuario usuario = new Usuario(
-                        rs.getString("userName"),
-                        rs.getString("contrasena"),
-                        rol,
-                        rs.getString("gmail")
-                );
-
-                Empresa empresa = null;
-
-                String cuit = rs.getString("cuit");
-
-                if (cuit != null) {
-                    empresa = new Empresa(
-                            rs.getString("cuit"),
-                            rs.getString("razonSocial"),
-                            rs.getString("contacto"),
-                            rs.getString("contactoRepresentante"),
-                            rs.getBoolean("radicada"),
-                            null
-                    );
-                }
-
-                RepresentanteEmpresa representante =
-                        new RepresentanteEmpresa(
-                                rs.getString("representante_dni"),
-                                empresa,
-                                usuario
-                        );
-
-                SolicitudRadicacion solicitud =
-                        new SolicitudRadicacion(
-                                rs.getInt("id"),
-                                rs.getString("numeroTramite"),
-                                rs.getString("estadoSolicitud"),
-                                rs.getDate("fechaCreacion").toLocalDate(),
-                                rs.getDate("fechaActualizacion").toLocalDate(),
-                                rs.getString("nombreProyecto"),
-                                rs.getString("descripcionServicio"),
-                                null,
-                                empresa,
-                                representante
-                        );
-
-                solicitudes.add(solicitud);
+                solicitudes.add(mapearSolicitud(rs));
             }
 
             return solicitudes;
 
         } catch (Exception e) {
             throw new RuntimeException(
-                    "Error al obtener las solicitudes de radicación",
+                    "Error al obtener solicitudes",
                     e
             );
         }
     }
 
-    /* @Override
-    public int obtenerCantidadSolicitudes() {
-        // Implementación del método para obtener la cantidad total de solicitudes de radicación en la base de datos
-        return 0;
-    } */
+    private SolicitudRadicacion mapearSolicitud(ResultSet rs)
+            throws SQLException {
+
+        Rol rol = new Rol(
+                rs.getString("rol_nombre"),
+                rs.getInt("rol_codigo")
+        );
+
+        Usuario usuario = new Usuario(
+                rs.getString("userName"),
+                rs.getString("contrasena"),
+                rol,
+                rs.getString("gmail")
+        );
+
+        Empresa empresa = null;
+
+        String cuit = rs.getString("cuit");
+
+        if (cuit != null) {
+
+            empresa = new Empresa(
+                    rs.getString("cuit"),
+                    rs.getString("razonSocial"),
+                    rs.getString("contacto"),
+                    rs.getString("contactoRepresentante"),
+                    rs.getBoolean("radicada")
+            );
+        }
+
+        RepresentanteEmpresa representante =
+                new RepresentanteEmpresa(
+                        rs.getString("representante_dni"),
+                        empresa,
+                        usuario
+                );
+
+        return new SolicitudRadicacion(
+
+                rs.getInt("id"),
+
+                rs.getString("numeroTramite"),
+
+                rs.getString("estadoSolicitud"),
+
+                rs.getDate("fechaCreacion").toLocalDate(),
+
+                rs.getDate("fechaActualizacion").toLocalDate(),
+
+                representante,
+
+                rs.getString("objeto"),
+
+                rs.getString("nombreProyecto"),
+
+                rs.getString("descripcionServicio"),
+
+                rs.getString("emplazamiento"),
+
+                rs.getString("personal"),
+
+                rs.getString("tiempoRadicacion"),
+
+                rs.getString("m2"),
+
+                rs.getString("areaTrabajo"),
+
+                rs.getString("areaDeposito"),
+
+                rs.getString("estacionamiento"),
+
+                rs.getString("planos"),
+
+                rs.getString("empleabilidad"),
+
+                rs.getString("materiasPrimas"),
+
+                rs.getString("destinoProduccion"),
+
+                rs.getString("tension"),
+
+                rs.getString("potencia"),
+
+                rs.getString("agua"),
+
+                rs.getString("gas"),
+
+                rs.getString("residuos"),
+
+                rs.getString("tratamiento"),
+
+                rs.getString("balanza"),
+
+                rs.getString("comedor"),
+
+                rs.getString("coworking")
+        );
+    }
 }
+
+
+
