@@ -1,5 +1,8 @@
 package model;
 
+import database.DAOs.ProyectoProductivoDAO;
+import database.JDBCs.ProyectoProductivoDAOJDBC;
+
 public class ProyectoProductivo {
     private int idProyecto;
     private String nombre;
@@ -10,10 +13,13 @@ public class ProyectoProductivo {
     private String materiaPrima;
     private boolean enEjecucion;
     private Empresa empresa;
+    private Lote lote;
+
+    private ProyectoProductivoDAOJDBC proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
     public ProyectoProductivo(int idProyecto, String nombre, String descripcion,
                               double superficie, String necesidades,
                               int empleabilidad, String materiaPrima,
-                              boolean enEjecucion, Empresa empresa) {
+                              boolean enEjecucion, Empresa empresa,Lote lote){
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -23,6 +29,9 @@ public class ProyectoProductivo {
         this.materiaPrima = materiaPrima;
         this.enEjecucion = enEjecucion;
         this.empresa = empresa;
+        this.lote=lote;
+
+        proyectoProductivoDAO.registrarProyectoProductivo(this);
     }
     public ProyectoProductivo(String nombre,
                               String descripcion,
@@ -30,7 +39,7 @@ public class ProyectoProductivo {
                               String necesidades,
                               int empleabilidad,
                               String materiaPrima,
-                              Empresa empresa) {
+                              Empresa empresa,Lote lote) {
 
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -39,6 +48,7 @@ public class ProyectoProductivo {
         this.empleabilidad = empleabilidad;
         this.materiaPrima = materiaPrima;
         this.empresa = empresa;
+        this.lote = lote;
         this.enEjecucion = false;
     }
     public void actualizarEstado(){
@@ -113,5 +123,9 @@ public class ProyectoProductivo {
 
     public int idProyecto() {
         return idProyecto;
+    }
+
+    public Lote lote(){
+        return lote;
     }
 }

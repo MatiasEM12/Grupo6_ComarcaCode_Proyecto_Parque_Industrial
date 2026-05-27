@@ -28,7 +28,7 @@ public class Lote {
     }
 
     public void asignarEmpresa(Empresa empresa){
-        empresa.asignarLote(this);
+       // empresa.asignarLote(this);
     }
     public int id() {
         return id;

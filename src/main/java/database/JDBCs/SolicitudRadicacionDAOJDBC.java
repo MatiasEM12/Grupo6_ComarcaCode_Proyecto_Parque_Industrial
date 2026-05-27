@@ -29,7 +29,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                         "dniRepresentante, objeto, nombreProyecto, descripcionServicio, emplazamiento, " +
                         "personal, tiempoRadicacion, m2, areaTrabajo, areaDeposito, estacionamiento, " +
                         "planos, empleabilidad, materiasPrimas, destinoProduccion, tension, potencia, " +
-                        "agua, gas, residuos, tratamiento, balanza, comedor, coworking, " +
+                        "agua, gas, residuos, tratamiento, balanza, comedor, coworking " +
 
                         ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -5,7 +5,7 @@
 <%@ page import="java.util.List" %>
 
 <%
-    Usuario usuario = Usuario) session.getAttribute("usuarioLogueado");
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
     if(usuario == null){
         response.sendRedirect(request.getContextPath() + "/perfiles");

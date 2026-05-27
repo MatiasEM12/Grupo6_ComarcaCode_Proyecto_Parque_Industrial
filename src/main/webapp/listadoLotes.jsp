@@ -132,12 +132,22 @@
                    placeholder="Altitud"
                    required>
 
-            <input type="number"
-                   step="0.01"
-                   name="superficie"
-                   placeholder="Superficie"
-                   required>
+            <div class="form__group">
 
+                <label>Superficie*</label>
+
+                <select name="superficie">
+
+                    <option value="1200">1200 m² aprox</option>
+                    <option value="1800">1800 m² aprox</option>
+                    <option value="2500">2500 m² aprox</option>
+                    <option value="3300">3300 m² aprox</option>
+                    <option value="5000">5000 m² aprox</option>
+                    <option value="6000">6000 m² aprox</option>
+
+                </select>
+
+            </div>
             <input type="text"
                    name="infraestructura"
                    placeholder="Infraestructura"

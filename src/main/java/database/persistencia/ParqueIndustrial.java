@@ -41,14 +41,19 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     @Override
-    public void agregarSolicitud(SolicitudRadicacionDTO solicitud) {
-        RepresentanteEmpresa representante= representanteDAO.find(solicitud.usuario().UserName());
-/*
-        //proyecto y solicitud se cargan en la base de datos al crear el objeto, por lo que no es necesario hacer un insert adicional
-        ProyectoProductivo proyectoProductivo = this.toProyecto( solicitud.proyecto());
-        SolicitudRadicacion solicitudRadicacion=new SolicitudRadicacion(representante,proyectoProductivo);*/
-    }
+    public void agregarSolicitud(
+            SolicitudRadicacionDTO solicitud) {
 
+        RepresentanteEmpresa representante = representanteDAO.findByUserName(solicitud.usuario().UserName());
+
+        SolicitudRadicacion solicitudRadicacion = new SolicitudRadicacion(representante, solicitud.objeto(), solicitud.nombreProyecto(),
+                solicitud.descripcionServicio(), solicitud.emplazamiento(), solicitud.personal(), solicitud.tiempoRadicacion(), solicitud.m2(), solicitud.areaTrabajo(),
+                solicitud.areaDeposito(), solicitud.estacionamiento(), solicitud.planos(), solicitud.empleabilidad(), solicitud.materiasPrimas(),
+                solicitud.destinoProduccion(), solicitud.tension(), solicitud.potencia(), solicitud.agua(), solicitud.gas(),
+                solicitud.residuos(), solicitud.tratamiento(), solicitud.balanza(), solicitud.comedor(), solicitud.coworking(),
+                solicitud.descripcionArchivo(), solicitud.nombreArchivoPDF()
+                );
+    }
 
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario) {
