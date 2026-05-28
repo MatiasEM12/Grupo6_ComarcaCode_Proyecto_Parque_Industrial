@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.SolicitudRadicacion" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="model.ProyectoProductivo" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -10,13 +9,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 
 </head>
 
@@ -52,7 +49,8 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp" class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
+                   class="nav__link">
 
                     Inicio
 
@@ -72,7 +70,8 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">
+                <a href="${pageContext.request.contextPath}/misProyectos"
+                   class="nav__link">
 
                     Mis Proyectos
 
@@ -82,7 +81,8 @@
 
             <li class="nav__item">
 
-                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="nav__link">
+                <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
+                   class="nav__link">
 
                     Enviar Solicitud
 
@@ -96,9 +96,12 @@
 
     <div class="nav__right">
 
-        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
+        <img src="${pageContext.request.contextPath}/img/logo.png"
+             alt="Logo"
+             class="nav__logo">
 
-        <a href="" class="nav__link Link--Cerrar">
+        <a href=""
+           class="nav__link Link--Cerrar">
 
             Cerrar Sesión
 
@@ -113,58 +116,45 @@
     <div class="projects__container">
 
         <%
-            List<SolicitudRadicacion> solicitudes = (List<SolicitudRadicacion>) request.getAttribute("solicitudes");
+            List<ProyectoProductivo> proyectos = (List<ProyectoProductivo>) request.getAttribute("proyectos");
 
-            if (solicitudes != null && !solicitudes.isEmpty()) {
+            if (proyectos != null && !proyectos.isEmpty()) {
 
-                for (SolicitudRadicacion solicitud : solicitudes) {
-
-                    String claseEstado = "";
-
-                    if (solicitud.estadoSolicitud().toString().equals("PENDIENTE")) {
-
-                        claseEstado = "estado__pendiente";
-                    }
-
-                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA")) {
-
-                        claseEstado = "estado__aprobado";
-                    }
-
-                    else if (solicitud.estadoSolicitud().toString().equals("OBSERVADA")) {
-
-                        claseEstado = "estado__revision";
-                    }
+                for (ProyectoProductivo proyecto : proyectos) {
         %>
 
-        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= solicitud.id() %>"
+        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= proyecto.idProyecto() %>"
            class="project__card">
 
             <div class="project__content">
 
                 <h2>
 
-                    <%= solicitud.nombreProyecto() %>
+                    <%= proyecto.nombre() %>
 
                 </h2>
 
                 <p>
 
-                    <%= solicitud.descripcionServicio() %>
+                    <%= proyecto.descripcion() %>
 
                 </p>
 
-                    <p class="project__date">
+                <p class="project__date">
 
-                       Última actualización: <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+                    Superficie:
+                    <%= proyecto.superficie() %> m²
 
-                    </p>
+                </p>
 
-                <span class="project__state <%= claseEstado %>">
+                <p class="project__date">
 
-                    <%= solicitud.estadoSolicitud() %>
+                    Estado:
+                    <%= proyecto.enEjecucion()
+                            ? "En ejecución"
+                            : "Pendiente" %>
 
-                </span>
+                </p>
 
             </div>
 
@@ -186,7 +176,7 @@
 
             <p>
 
-                Todavía no enviaste ninguna solicitud de radicación.
+                Todavía no tenés proyectos productivos.
 
             </p>
 

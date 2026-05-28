@@ -157,7 +157,7 @@ public class SolicitudRadicacion {
 
         this.representante.NopuedeIngresarSolicitud();
 
-
+        this.empresa=representante.empresa;
         this.solicitudRadicacionDAO.create(this);
     }
 
@@ -260,6 +260,8 @@ public class SolicitudRadicacion {
         this.comedor = comedor;
 
         this.coworking = coworking;
+
+        this.empresa=representante.empresa;
 
     }
 
@@ -412,9 +414,7 @@ public class SolicitudRadicacion {
     public String comedor() { return comedor; }
     public String coworking() { return coworking; }
     public String descripcionArchivo() { return descripcionArchivo; }
-    public void cargate() {
-        solicitudRadicacionDAO.create(this);
-    }
+
 
 
 }

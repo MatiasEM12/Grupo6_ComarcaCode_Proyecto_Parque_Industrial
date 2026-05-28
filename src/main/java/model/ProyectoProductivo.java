@@ -31,7 +31,6 @@ public class ProyectoProductivo {
         this.empresa = empresa;
         this.lote=lote;
 
-        proyectoProductivoDAO.registrarProyectoProductivo(this);
     }
     public ProyectoProductivo(String nombre,
                               String descripcion,
@@ -50,6 +49,8 @@ public class ProyectoProductivo {
         this.empresa = empresa;
         this.lote = lote;
         this.enEjecucion = false;
+
+        proyectoProductivoDAO.registrarProyectoProductivo(this);
     }
     public void actualizarEstado(){
 

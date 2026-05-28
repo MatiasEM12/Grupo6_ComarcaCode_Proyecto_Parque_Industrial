@@ -2,6 +2,7 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
+import model.ProyectoProductivo;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
@@ -24,46 +25,29 @@ public class MisProyectosServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(
-                    request.getContextPath() + "/perfiles"
-            );
+            response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
 
 
         if (usuario == null) {
-            response.sendRedirect(
-                    request.getContextPath() + "/perfiles"
-            );
+            response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
         /*Sistema sistema =
                 (Sistema) getServletContext()
                         .getAttribute("sistema");
 
          */
 
-        /*
-         * Obtiene solamente las solicitudes
-         * del representante logueado
-         */
 
-        List<SolicitudRadicacion> solicitudes =
-                sistema.obtenerSolicitudesDe(usuario.UserName())
-                        .stream()
-                        .filter(s -> s.estadoSolicitud().name().equals("APROBADA"))
-                        .toList();
+        List<ProyectoProductivo> proyectos= sistema.obtenerProyectosProductivosDe(usuario.UserName());
 
-        /*
-         * Envia las solicitudes al JSP
-         */
-        request.setAttribute("solicitudes", solicitudes);
+        request.setAttribute("proyectos", proyectos);
 
         /*
          * Redirecciona al JSP

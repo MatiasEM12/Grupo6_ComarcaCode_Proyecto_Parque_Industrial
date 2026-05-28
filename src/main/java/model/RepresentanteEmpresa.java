@@ -60,10 +60,7 @@ public class RepresentanteEmpresa {
         return this.puedeIngresarSolicitud;
     }
 
-    public void cargarSolicitud(SolicitudRadicacion solicitudRadicacion){
-        validarSolicitud(solicitudRadicacion);
-        solicitudRadicacion.cargate();
-    }
+
 
     public void actualizarEmpresa(EmpresaDTO empresa){
         validarEmpresaDTO(empresa);

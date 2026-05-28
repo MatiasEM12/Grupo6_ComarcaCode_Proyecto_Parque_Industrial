@@ -37,11 +37,7 @@ public class MisSolicitudesServlet extends HttpServlet {
         SistemaParqueIndustrial sistema =
                 new ParqueIndustrial();
 
-        List<SolicitudRadicacion> solicitudes =
-                sistema.obtenerSolicitudesDe(usuario.UserName())
-                        .stream()
-                        .filter(s -> !s.estadoSolicitud().name().equals("APROBADA"))
-                        .toList();
+        List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudesDe(usuario.UserName());
 
         request.setAttribute("solicitudes", solicitudes);
 

@@ -32,4 +32,6 @@ public interface SistemaParqueIndustrial {
     AdministradorDelParque obtenerAdm(String s);
 
     void actualizarEmpresa(EmpresaDTO empresa);
+
+    List<ProyectoProductivo> obtenerProyectosProductivosDe(String s);
 }

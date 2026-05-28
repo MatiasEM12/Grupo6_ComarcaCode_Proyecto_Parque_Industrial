@@ -257,6 +257,13 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         empresaDAO.actualizar(empresa);
     }
 
+    @Override
+    public List<ProyectoProductivo> obtenerProyectosProductivosDe(String s) {
+        RepresentanteEmpresa representanteEmpresa= representanteDAO.findByUserName(s);
+
+        return proyectoProductivoDAO.findByEmpresa(representanteEmpresa.empresa.cuit());
+    }
+
     /*
     public LoteDTO obtenerLotes(){
        /*
@@ -280,18 +287,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
 
 
-    public void asignarLote(Usuario user, LoteDTO lote, ProyectoProductivoDTO proyecto){
-
-        /*
-        RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
-
-        Lote lote= loteDao.find(loteDTO.id());
-        ProyectoProductivo proyecto= proyectoDao.find(proyectoDTO.id());
-
-        representante.asignarLote(lote, proyecto)
-
-        * */
-    }
 
 
     public void asignarLote( LoteDTO lote, ProyectoProductivoDTO proyecto){
