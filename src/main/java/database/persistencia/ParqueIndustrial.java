@@ -98,6 +98,15 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         solicitudRadicacion.aprobar(lote);
 
+
+
+    }
+    public void asignarLote( int idLote,int idProyecto){
+        //no pude usarlo , las tablas me tiraban error lote con idProyecto y Proyecto con idLote
+        //al estar como "cruzados" no me dejaba crear las tablas asi que Lote no tiene idProyecto
+        //el solicitud.aprobar lote cambia a Ocupado y llama a lote.update
+        loteDAO.registrarProyectoLote(idLote,idProyecto);
+
     }
 
     @Override
@@ -195,21 +204,24 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return proyectoProductivoDAO.findByEmpresa(representanteEmpresa.empresa.cuit());
     }
 
+    @Override
+    public ProyectoProductivo obtenerProyectoPorId(int id) {
+        return proyectoProductivoDAO.find(id);
+    }
 
+    @Override
+    public ProyectoProductivo obtenerProyectoPorLote(int id) {
+        List<ProyectoProductivo> proyectos = proyectoProductivoDAO.findAll();
 
+        return proyectos.stream().filter(proyecto -> proyecto.idLote() == id).findFirst().orElse(null);
+
+    }
 
 
     public List<LoteDTO> obtenerLotes(){
         List<LoteDTO> lotes = new ArrayList<>();
         lotes = loteDAO.findAllLoteDTO().stream().toList();
         return lotes;
-    }
-
-
-
-    public void asignarLote( LoteDTO lote, ProyectoProductivoDTO proyecto){
-        loteDAO.registrarProyectoLote(lote.getId(), proyecto.idProyecto());
-
     }
 
     public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){

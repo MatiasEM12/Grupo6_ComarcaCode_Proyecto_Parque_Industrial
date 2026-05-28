@@ -152,7 +152,7 @@
                     Estado:
                     <%= proyecto.enEjecucion()
                             ? "En ejecución"
-                            : "Pendiente" %>
+                            : "No comenzo su ejecución" %>
 
                 </p>
 

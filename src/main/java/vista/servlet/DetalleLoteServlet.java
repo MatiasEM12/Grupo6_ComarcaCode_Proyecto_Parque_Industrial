@@ -3,6 +3,7 @@ package vista.servlet;
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
 import model.Lote;
+import model.ProyectoProductivo;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -35,14 +36,19 @@ public class DetalleLoteServlet extends HttpServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         Lote lote = sistema.obtenerLote(id);
 
         request.setAttribute("lote", lote);
+        ProyectoProductivo proyecto = null;
 
-        request.getRequestDispatcher("/detalleLote.jsp")
-                .forward(request, response);
+        if (lote != null && lote.estado().equals("OCUPADO")) {
+            proyecto = sistema.obtenerProyectoPorLote(lote.id());
+        }
+
+        request.setAttribute("proyecto", proyecto);
+
+        request.getRequestDispatcher("/detalleLote.jsp").forward(request, response);
     }
 }

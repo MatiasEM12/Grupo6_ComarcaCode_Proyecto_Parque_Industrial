@@ -129,4 +129,8 @@ public class ProyectoProductivo {
     public Lote lote(){
         return lote;
     }
+
+    public int idLote() {
+        return lote.id();
+    }
 }

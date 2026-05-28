@@ -25,6 +25,7 @@ public class Lote {
         this.superficie = superficie;
         this.estado = estado;
         this.infraestructura = infraestructura;
+
     }
 
     public void asignarEmpresa(Empresa empresa){
@@ -48,5 +49,12 @@ public class Lote {
 
     public String infraestructura() {
         return infraestructura;
+    }
+
+
+
+    public void Ocupado() {
+        this.estado="OCUPADO";
+        loteDAO.update( this);
     }
 }

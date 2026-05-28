@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Lote" %>
 <%@ page import="model.Usuario" %>
+<%@ page import="model.ProyectoProductivo" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -16,6 +17,8 @@
         response.sendRedirect(request.getContextPath() + "/listadoLotes");
         return;
     }
+
+    ProyectoProductivo proyecto = (ProyectoProductivo) request.getAttribute("proyecto");
 %>
 
 <!DOCTYPE html>
@@ -135,13 +138,16 @@
                        placeholder="Altitud"
                        required>
 
-                <input type="number"
-                       step="0.01"
-                       name="superficie"
-                       value="<%= lote.superficie() %>"
-                       placeholder="Superficie"
-                       required>
+                <select name="superficie">
 
+                    <option value="1200">1200 m² aprox</option>
+                    <option value="1800">1800 m² aprox</option>
+                    <option value="2500">2500 m² aprox</option>
+                    <option value="3300">3300 m² aprox</option>
+                    <option value="5000">5000 m² aprox</option>
+                    <option value="6000">6000 m² aprox</option>
+
+                </select>
                 <select name="estado" required>
                     <option value="DISPONIBLE"
                             <%= lote.estado().equals("DISPONIBLE") ? "selected" : "" %>>
@@ -187,6 +193,51 @@
 
                 </div>
             </article>
+        <div class="proyecto__container">
+
+                <h2>Proyecto productivo asociado</h2>
+
+                <%
+                    if (proyecto != null) {
+                %>
+
+                    <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= proyecto.idProyecto() %>"
+                       class="project__card">
+
+                        <div class="project__content">
+
+                            <h2><%= proyecto.nombre() %></h2>
+
+                            <p><%= proyecto.descripcion() %></p>
+
+                            <p class="project__date">
+                                Superficie: <%= proyecto.superficie() %> m²
+                            </p>
+
+                            <p class="project__date">
+                                Estado:
+                                <%= proyecto.enEjecucion()
+                                        ? "En ejecución"
+                                        : "No comenzó su ejecución" %>
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                <%
+                    } else {
+                %>
+
+                    <div class="sin__proyectos">
+                        <h2>Este lote no tiene proyecto productivo asignado</h2>
+                    </div>
+
+                <%
+                    }
+                %>
+
+            </div>
 
         </div>
 

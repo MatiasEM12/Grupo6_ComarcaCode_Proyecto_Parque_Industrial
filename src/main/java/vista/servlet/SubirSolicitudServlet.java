@@ -116,7 +116,7 @@ public class SubirSolicitudServlet extends HttpServlet {
 
             response.sendRedirect(
                     request.getContextPath()
-                            + "/misProyectos"
+                            + "/misSolicitudes"
             );
 
         }  catch (RuntimeException e) {
