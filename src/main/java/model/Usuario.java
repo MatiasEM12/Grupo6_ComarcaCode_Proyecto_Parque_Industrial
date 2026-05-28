@@ -21,6 +21,7 @@ public class Usuario {
         this.rol = rol;
         this.gmail = gmail;
 
+
     }
     public Usuario(int codigo, String userName, String contrasena, Rol rol, String gmail){
         validarName(userName);

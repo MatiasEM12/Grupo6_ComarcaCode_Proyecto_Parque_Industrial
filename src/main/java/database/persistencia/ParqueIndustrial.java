@@ -87,42 +87,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     @Override
     public List<Lote> obtenerLotesDisponibles() {
-
-        List<Lote> lotes = new ArrayList<>();
-
-        final String SQL =
-                "SELECT id, latitud, longitud, altitud, superficie, estado, infraestructura " +
-                        "FROM lotes " +
-                        "WHERE estado = 'DISPONIBLE'";
-
-        try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement st = conn.prepareStatement(SQL);
-             ResultSet rs = st.executeQuery()) {
-
-            while (rs.next()) {
-
-                Ubicacion ubicacion = new Ubicacion(
-                        rs.getLong("latitud"),
-                        rs.getLong("longitud"),
-                        rs.getLong("altitud")
-                );
-
-                Lote lote = new Lote(
-                        rs.getInt("id"),
-                        ubicacion,
-                        rs.getDouble("superficie"),
-                        rs.getString("estado"),
-                        rs.getString("infraestructura")
-                );
-
-                lotes.add(lote);
-            }
-
-            return lotes;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al obtener lotes disponibles", e);
-        }
+        return loteDAO.findDisponibles();
     }
 
     @Override
@@ -132,55 +97,21 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         Lote lote = loteDAO.find(idLote);
 
         solicitudRadicacion.aprobar(lote);
-       /* final String ACTUALIZAR_SOLICITUD = "UPDATE SolicitudRadicacion " +
-                "SET estadoSolicitud = 'APROBADA', fechaActualizacion = CURRENT_DATE, idLote = ? " +
-                "WHERE id = ?";
 
-        final String ACTUALIZAR_LOTE = "UPDATE lotes SET estado = 'ASIGNADO' WHERE id = ?";
-
-        try (Connection conn = ConnectionManager.getConnection()) {
-            conn.setAutoCommit(false);
-
-            try (PreparedStatement stSolicitud = conn.prepareStatement(ACTUALIZAR_SOLICITUD);
-                 PreparedStatement stLote = conn.prepareStatement(ACTUALIZAR_LOTE)) {
-
-                stSolicitud.setInt(1, idLote);
-                stSolicitud.setInt(2, idSolicitud);
-                int filasSolicitud = stSolicitud.executeUpdate();
-
-                stLote.setInt(1, idLote);
-                int filasLote = stLote.executeUpdate();
-
-                if (filasSolicitud <= 0 || filasLote <= 0) {
-                    conn.rollback();
-                    throw new RuntimeException("No se pudo aprobar la solicitud o asignar el lote");
-                }
-
-                conn.commit();
-            } catch (Exception e) {
-                conn.rollback();
-                throw e;
-            } finally {
-                conn.setAutoCommit(true);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al aprobar la solicitud", e);
-        }*/
     }
 
     @Override
     public void rechazarSolicitud(int idSolicitud) {
-        final String SQL = "UPDATE SolicitudRadicacion " +
+       /* final String SQL = "UPDATE SolicitudRadicacion " +
                 "SET estadoSolicitud = 'RECHAZADA', fechaActualizacion = CURRENT_DATE " +
                 "WHERE id = ?";
 
-        actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");
+        actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");*/
     }
 
     @Override
     public void observarSolicitud(int idSolicitud, String descripcion) {
-        if (descripcion == null || descripcion.isBlank()) {
+       /* if (descripcion == null || descripcion.isBlank()) {
             throw new RuntimeException("La observación no puede estar vacía");
         }
 
@@ -200,11 +131,11 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         } catch (SQLException e) {
             throw new RuntimeException("Error al observar la solicitud", e);
-        }
+        }*/
     }
 
     private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {
-        try (Connection conn = ConnectionManager.getConnection();
+      /*  try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(sql)) {
 
             st.setInt(1, idSolicitud);
@@ -215,7 +146,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
         } catch (SQLException e) {
             throw new RuntimeException(mensajeError, e);
-        }
+        }*/
     }
     @Override
     public ProyectoProductivo obtenerProyectoProductivo(int idProyecto) {
@@ -264,17 +195,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return proyectoProductivoDAO.findByEmpresa(representanteEmpresa.empresa.cuit());
     }
 
-    /*
-    public LoteDTO obtenerLotes(){
-       /*
-       ArrayList   lotes= lotesDao.findAll
 
-       ArrayList lotesDTO= stream.filtrer....toLote(lote)
-       */
-    /*
-        return null;//lotesDTO
-    }
-     */
 
 
 
@@ -283,9 +204,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         lotes = loteDAO.findAllLoteDTO().stream().toList();
         return lotes;
     }
-
-
-
 
 
 
@@ -350,29 +268,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     * */
-/*
-    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
-        RepresentanteEmpresa representante  = new RepresentanteEmpresa("11111111","nike",dto.usuario());
-        representantes.add(representante);
-        return new ProyectoProductivo(dto.nombre(), dto.objeto(), dto.descripcionServicio(), dto.emplazamiento(), dto.tipoPersonal(),
-                dto.tiempoRadicacion(), dto.metrosCuadrados(), dto.areaTrabajo(), dto.areaDeposito(),
-                dto.estacionamiento(), dto.tienePlanos(), dto.personalOcupar(), dto.materiasPrimas(),
-                dto.destinoProduccion(), dto.tension(), dto.potencia(), dto.agua(), dto.necesitaGas(), dto.residuos(),
-                dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
-                representante
-        );
-    }*/
-/*
-    private ProyectoProductivo toProyecto (ProyectoProductivoDTO dto){
-        RepresentanteEmpresa representante =
-                representanteDAO.find(dto.usuario().UserName());
 
-        return new ProyectoProductivo(dto.nombre(), dto.objeto(), dto.descripcionServicio(), dto.emplazamiento(), dto.tipoPersonal(),
-                dto.tiempoRadicacion(), dto.metrosCuadrados(), dto.areaTrabajo(), dto.areaDeposito(),
-                dto.estacionamiento(), dto.tienePlanos(), dto.personalOcupar(), dto.materiasPrimas(),
-                dto.destinoProduccion(), dto.tension(), dto.potencia(), dto.agua(), dto.necesitaGas(), dto.residuos(),
-                dto.realizaTratamiento(), dto.necesitaBalanza(), dto.necesitaComedor(), dto.necesitaCoworking(),
-                representante
-        );
-    }*/
+
 }
