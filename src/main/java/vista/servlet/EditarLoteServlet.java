@@ -15,9 +15,7 @@ import java.io.IOException;
 public class EditarLoteServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
 
@@ -28,8 +26,7 @@ public class EditarLoteServlet extends HttpServlet {
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null || !usuario.nombreRol().equals("administrador")) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
@@ -44,19 +41,15 @@ public class EditarLoteServlet extends HttpServlet {
         String estado = request.getParameter("estado");
         String infraestructura = request.getParameter("infraestructura");
 
-        Ubicacion ubicacion =
-                new Ubicacion(latitud, longitud, altitud);
+        Ubicacion ubicacion = new Ubicacion(latitud, longitud, altitud);
 
-        Lote lote =
-                new Lote(id, ubicacion, superficie, estado, infraestructura);
+        Lote lote = new Lote(id, ubicacion, superficie, estado, infraestructura);
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         sistema.actualizarLote(lote);
 
-        response.sendRedirect(
-                request.getContextPath() + "/detalleLote?id=" + id
+        response.sendRedirect(request.getContextPath() + "/detalleLote?id=" + id
         );
     }
 }

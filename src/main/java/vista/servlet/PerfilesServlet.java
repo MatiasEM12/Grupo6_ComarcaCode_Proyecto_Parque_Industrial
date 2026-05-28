@@ -16,9 +16,7 @@ import java.util.List;
 public class PerfilesServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
@@ -26,7 +24,6 @@ public class PerfilesServlet extends HttpServlet {
 
         request.setAttribute("usuarios", usuarios);
 
-        request.getRequestDispatcher("/perfiles.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/perfiles.jsp").forward(request, response);
     }
 }

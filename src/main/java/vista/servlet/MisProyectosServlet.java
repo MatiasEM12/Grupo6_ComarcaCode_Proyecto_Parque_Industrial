@@ -16,9 +16,7 @@ import java.util.List;
 public class MisProyectosServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -38,11 +36,7 @@ public class MisProyectosServlet extends HttpServlet {
             return;
         }
         SistemaParqueIndustrial sistema = new ParqueIndustrial();
-        /*Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
 
-         */
 
 
         List<ProyectoProductivo> proyectos= sistema.obtenerProyectosProductivosDe(usuario.UserName());
@@ -52,8 +46,6 @@ public class MisProyectosServlet extends HttpServlet {
         /*
          * Redirecciona al JSP
          */
-        request.getRequestDispatcher(
-                "/representanteProyectos.jsp"
-        ).forward(request, response);
+        request.getRequestDispatcher("/representanteProyectos.jsp").forward(request, response);
     }
 }

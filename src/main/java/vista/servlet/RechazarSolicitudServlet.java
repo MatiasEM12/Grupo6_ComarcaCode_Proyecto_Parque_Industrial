@@ -16,9 +16,7 @@ import java.io.IOException;
 public class RechazarSolicitudServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if (!esAdministrador(request)) {
             response.sendRedirect(request.getContextPath() + "/perfiles");

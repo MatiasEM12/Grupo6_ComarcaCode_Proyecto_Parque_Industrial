@@ -14,19 +14,12 @@ import java.io.IOException;
 public class EvaluacionTecnicaServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        request.setAttribute(
-                "proyectos",
-                sistema.obtenerProyectosProductivos()
-        );
+        request.setAttribute("proyectos", sistema.obtenerProyectosProductivos());
 
-        request.getRequestDispatcher("/evaluacionTecnica.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/evaluacionTecnica.jsp").forward(request, response);
     }
 }

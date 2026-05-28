@@ -15,14 +15,11 @@ import java.util.List;
 public class UsuariosRegistradosServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
-        Usuario usuarioLogueado =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuarioLogueado == null) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
@@ -33,14 +30,11 @@ public class UsuariosRegistradosServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
-        List<Usuario> usuarios =
-                sistema.obtenerUsuarios();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+        List<Usuario> usuarios = sistema.obtenerUsuarios();
 
         request.setAttribute("usuarios", usuarios);
 
-        request.getRequestDispatcher("/usuariosRegistrados.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/usuariosRegistrados.jsp").forward(request, response);
     }
 }

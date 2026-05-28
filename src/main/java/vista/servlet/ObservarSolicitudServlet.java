@@ -16,17 +16,14 @@ import java.io.IOException;
 public class ObservarSolicitudServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         if (!esAdministrador(request)) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         String descripcion = request.getParameter("descripcion");
@@ -43,8 +40,7 @@ public class ObservarSolicitudServlet extends HttpServlet {
             return false;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         return usuario != null && usuario.nombreRol().equals("administrador");
     }

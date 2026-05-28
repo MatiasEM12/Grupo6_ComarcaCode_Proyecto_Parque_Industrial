@@ -15,9 +15,7 @@ import java.io.IOException;
 public class DetalleLoteServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -26,8 +24,7 @@ public class DetalleLoteServlet extends HttpServlet {
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null || !usuario.nombreRol().equals("administrador")) {
             response.sendRedirect(request.getContextPath() + "/perfiles");

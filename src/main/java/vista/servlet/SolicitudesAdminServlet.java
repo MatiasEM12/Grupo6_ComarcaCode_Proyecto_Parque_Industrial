@@ -19,9 +19,7 @@ import java.util.List;
 public class SolicitudesAdminServlet extends HttpServlet{
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -30,30 +28,22 @@ public class SolicitudesAdminServlet extends HttpServlet{
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null || !usuario.nombreRol().equals("administrador")) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        List<SolicitudRadicacion> solicitudes =
-                sistema.obtenerSolicitudes();
+        List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudes();
 
-        request.setAttribute(
-                "solicitudes",
-                solicitudes
-        );
+        request.setAttribute("solicitudes", solicitudes);
         List<Lote> lotes = sistema.obtenerLotesDisponibles();
 
         request.setAttribute("lotes", lotes);
 
-        request.getRequestDispatcher(
-                "/solicitudesAdmin.jsp"
-        ).forward(request, response);
+        request.getRequestDispatcher("/solicitudesAdmin.jsp").forward(request, response);
     }
 }

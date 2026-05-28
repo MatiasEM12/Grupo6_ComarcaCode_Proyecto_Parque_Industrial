@@ -17,31 +17,17 @@ import java.util.Map;
 public class SeleccionarPerfilServlet extends HttpServlet {
 
         @Override
-        protected void doPost(HttpServletRequest request,
-                              HttpServletResponse response)
-                throws  IOException {
-            SistemaParqueIndustrial sistema =
-                    new ParqueIndustrial();
-          /*  Sistema sistema =
-                    (Sistema) getServletContext()
-                            .getAttribute("sistema");
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-           */
 
             String usuarioUsername =request.getParameter("username");
 
-            Usuario usuario =
-                    sistema.obtenerUsuarioPorUsername(
-                            usuarioUsername
-                    );
+            Usuario usuario = sistema.obtenerUsuarioPorUsername(usuarioUsername);
 
-            HttpSession session =
-                    request.getSession();
+            HttpSession session = request.getSession();
 
-            session.setAttribute(
-                    "usuarioLogueado",
-                    usuario
-            );
+            session.setAttribute("usuarioLogueado", usuario);
 
             String pagina = paginaSegunRol(usuario.nombreRol());
 

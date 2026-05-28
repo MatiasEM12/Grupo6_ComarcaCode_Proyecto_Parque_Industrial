@@ -18,9 +18,7 @@ import java.util.List;
 public class PerfilAdminServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -39,7 +37,6 @@ public class PerfilAdminServlet extends HttpServlet {
             request.setAttribute("admin", admin);
 
 
-        request.getRequestDispatcher("/PerfilAdmin.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/PerfilAdmin.jsp").forward(request, response);
     }
 }

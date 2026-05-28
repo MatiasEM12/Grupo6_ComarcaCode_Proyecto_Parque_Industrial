@@ -15,15 +15,11 @@ import java.util.List;
 @WebServlet("/solicitudDetalle")
 public class DetalleSolicitudServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int id =
-                Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         SolicitudRadicacion solicitud = sistema.obtenerSolicitudes().stream()
                 .filter(s -> s.id() == id)
@@ -35,7 +31,6 @@ public class DetalleSolicitudServlet extends HttpServlet {
         request.setAttribute("solicitud", solicitud);
         request.setAttribute("lotes", lotes);
 
-        request.getRequestDispatcher("/detalleSolicitud.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/detalleSolicitud.jsp").forward(request, response);
     }
 }

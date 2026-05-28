@@ -15,9 +15,7 @@ import java.util.List;
 public class MisSolicitudesServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
@@ -26,22 +24,19 @@ public class MisSolicitudesServlet extends HttpServlet {
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudesDe(usuario.UserName());
 
         request.setAttribute("solicitudes", solicitudes);
 
-        request.getRequestDispatcher("/misSolicitudes.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/misSolicitudes.jsp").forward(request, response);
     }
 }

@@ -19,18 +19,14 @@ import java.util.List;
 @WebServlet("/listadoLotes")
 public class ListadoLotesServlet  extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(
-                    request.getContextPath() + "/perfiles"
-            );
+            response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
 
