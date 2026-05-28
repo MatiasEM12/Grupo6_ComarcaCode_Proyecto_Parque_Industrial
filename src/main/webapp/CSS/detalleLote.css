@@ -192,13 +192,17 @@ main{
 
     margin: auto;
 
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
 
     gap: 30px;
+
+    align-items: stretch;
 }
 
+.lote__card,
+.proyecto__container{
+    flex: 1;
+}
 /* =========================
    CARD
 ========================= */
@@ -406,8 +410,7 @@ footer{
 
     background-color: rgb(17, 160, 17);
 }
-
-.projecto__container{
+.proyecto__container{
     max-width: 1200px;
     margin: auto;
 
@@ -417,7 +420,6 @@ footer{
 
     gap: 30px;
 }
-
 
 .project__content{
     padding: 25px;
@@ -436,6 +438,102 @@ footer{
 
     margin-bottom: 20px;
 }
+.project__card{
+    text-decoration: none;
+
+    color: black;
+
+    background-color: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+    display: block;
+}
+
+.project__card:hover{
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18),
+        0 15px 35px rgba(0,0,0,0.15);
+}
 
 
+
+.proyecto__container{
+    width: 100%;
+}
+
+.project__card{
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.project__card:hover{
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18),
+        0 15px 35px rgba(0,0,0,0.15);
+}
+
+.project__content{
+    padding: 25px;
+}
+
+.project__content h2{
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: rgb(11, 122, 11);
+}
+
+.project__link{
+    text-decoration: none;
+
+    color: #222;
+
+    display: block;
+}
+
+.project__link h3{
+    margin-top: 0;
+
+    margin-bottom: 15px;
+
+    color: rgb(63, 26, 148);
+}
+
+.project__link p{
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+.sin__proyectos{
+    padding: 20px 0;
 }

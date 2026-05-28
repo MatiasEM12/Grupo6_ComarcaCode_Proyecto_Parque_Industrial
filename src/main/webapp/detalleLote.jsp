@@ -193,51 +193,58 @@
 
                 </div>
             </article>
+        </div>
         <div class="proyecto__container">
 
-                <h2>Proyecto productivo asociado</h2>
+            <article class="project__card">
 
-                <%
-                    if (proyecto != null) {
-                %>
+                <div class="project__content">
 
-                    <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= proyecto.idProyecto() %>"
-                       class="project__card">
+                    <h2>Proyecto productivo asociado</h2>
 
-                        <div class="project__content">
+                    <%
+                        if (proyecto != null) {
+                    %>
 
-                            <h2><%= proyecto.nombre() %></h2>
+                        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= proyecto.idProyecto() %>"
+                           class="project__link">
+
+                            <h3><%= proyecto.nombre() %></h3>
 
                             <p><%= proyecto.descripcion() %></p>
 
-                            <p class="project__date">
+                            <p>
                                 Superficie: <%= proyecto.superficie() %> m²
                             </p>
 
-                            <p class="project__date">
+                            <p>
                                 Estado:
                                 <%= proyecto.enEjecucion()
                                         ? "En ejecución"
                                         : "No comenzó su ejecución" %>
                             </p>
 
+                        </a>
+
+                    <%
+                        } else {
+                    %>
+
+                        <div class="sin__proyectos">
+
+                            <h3>
+                                Este lote no tiene proyecto productivo asignado
+                            </h3>
+
                         </div>
 
-                    </a>
+                    <%
+                        }
+                    %>
 
-                <%
-                    } else {
-                %>
+                </div>
 
-                    <div class="sin__proyectos">
-                        <h2>Este lote no tiene proyecto productivo asignado</h2>
-                    </div>
-
-                <%
-                    }
-                %>
-
-            </div>
+            </article>
 
         </div>
 
