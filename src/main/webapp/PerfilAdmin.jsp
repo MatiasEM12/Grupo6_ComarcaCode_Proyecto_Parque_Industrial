@@ -223,7 +223,7 @@
     <footer>
             <div class="div__footer--container">
                 <p>Parque Industrial</p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo qui laborum, hic corporis odit porro, adipisci minus harum aut maiores odio. Totam, autem. Obcaecati, molestias ullam voluptas harum vel corporis.
+                 Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
             </div>
         </footer>
 </body>
