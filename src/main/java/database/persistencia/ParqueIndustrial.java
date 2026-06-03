@@ -222,6 +222,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     }
 
+    @Override
+    public void agregarDocumentoSolicitud(int idSolicitud, Documento d) {
+        SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find(idSolicitud);
+        SolicitudDocumentoDAO solicitudDocumentoDAO = new SolicitudDocumentoDAOJDBC();
+        solicitudDocumentoDAO.vincular(idSolicitud, d.id());
+        solicitudRadicacion.agregarDocumento(d);
+    }
+
 
     public List<LoteDTO> obtenerLotes(){
         List<LoteDTO> lotes = new ArrayList<>();

@@ -1,6 +1,7 @@
 package database.JDBCs;
 
 import database.ConnectionManager;
+import database.DAOs.SolicitudDocumentoDAO;
 import model.Empresa;
 import model.ProyectoProductivo;
 import model.RepresentanteEmpresa;
@@ -281,7 +282,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                         usuario
                 );
 
-        return new SolicitudRadicacion(
+        SolicitudRadicacion solicitud = new SolicitudRadicacion(
 
                 rs.getInt("id"),
 
@@ -341,6 +342,9 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
                 rs.getString("coworking")
         );
+
+        solicitud.setDocumentos(new SolicitudDocumentoDAOJDBC().documentosDe(solicitud.id()));
+        return solicitud;
     }
 }
 

@@ -258,17 +258,60 @@
                                         Actualizar Datos Principales
                                    </button>
                            </form>
-                           <form action="${pageContext.request.contextPath}/cargarArchivosSolicitud" method="post">
+                          <% if (solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) { %>
 
-                             <input type="hidden"
-                                  name="idSolicitud"
-                                  value="<%= solicitud.id() %>">
+                              <h3>Documentación complementaria</h3>
 
-                                  <button type="submit" class="btn__cargarArchivo">
-                                     Cargar archivos
+                              <form action="${pageContext.request.contextPath}/cargarArchivosSolicitud"
+                                    method="post"
+                                    enctype="multipart/form-data">
+
+                                  <input type="hidden"
+                                         name="idSolicitud"
+                                         value="<%= solicitud.id() %>">
+
+                                  <div>
+
+                                      <label>Plano Implantación</label>
+                                      <input type="file" name="PLANO_IMPLANTACION">
+
+                                  </div>
+
+                                  <div>
+
+                                      <label>Impacto ambiental</label>
+                                      <input type="file" name="IMPACTO_AMBIENTAL">
+
+                                  </div>
+
+                                  <div>
+
+                                      <label>Análisis de mercado</label>
+                                      <input type="file" name="ESTUDIO_MERCADO">
+
+                                  </div>
+
+                                  <div>
+
+                                      <label>Memoria descriptiva</label>
+                                      <input type="file" name="MEMORIA_DESCRIPTIVA">
+
+                                  </div>
+
+                                  <div>
+
+                                      <label>Requerimientos de infraestructura</label>
+                                      <input type="file" name="REQUERIMIENTOS_INFRAESTRUCTURA">
+
+                                  </div>
+
+                                  <button type="submit">
+                                      Guardar documentos
                                   </button>
-                           </form>
 
+                              </form>
+
+                          <% } %>
 
                             <form action="${pageContext.request.contextPath}/proyectoDeSolicitud" method="post">
 

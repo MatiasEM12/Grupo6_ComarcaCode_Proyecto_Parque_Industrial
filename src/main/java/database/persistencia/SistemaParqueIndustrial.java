@@ -39,4 +39,6 @@ public interface SistemaParqueIndustrial {
     ProyectoProductivo obtenerProyectoPorId(int id);
 
     ProyectoProductivo obtenerProyectoPorLote(int id);
+
+    void agregarDocumentoSolicitud(int idSolicitud, Documento d);
 }

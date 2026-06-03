@@ -4,6 +4,8 @@ import database.DAOs.SolicitudRadicacionDAO;
 import database.JDBCs.SolicitudRadicacionDAOJDBC;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolicitudRadicacion {
 
@@ -46,7 +48,7 @@ public class SolicitudRadicacion {
 
     private String descripcionArchivo;
     private String nombreArchivoPDF;
-
+    private List<Documento> documentos = new ArrayList<>();
 
     public SolicitudRadicacion(
             RepresentanteEmpresa representante,
@@ -159,6 +161,7 @@ public class SolicitudRadicacion {
 
         this.empresa=representante.empresa;
         this.solicitudRadicacionDAO.create(this);
+
     }
 
     public SolicitudRadicacion(
@@ -262,6 +265,7 @@ public class SolicitudRadicacion {
 
         this.empresa=representante.empresa;
 
+
     }
 
 
@@ -283,7 +287,23 @@ public class SolicitudRadicacion {
         this.estadoSolicitud = EstadoSolicitud.OBSERVADA;
         this.fechaActualizacion = LocalDate.now();
     }
+    public void agregarDocumento(Documento documento) {
 
+        if (estadoSolicitud != EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) {
+            throw new RuntimeException(
+                    "Solo se pueden adjuntar documentos en primera instancia aprobada"
+            );
+        }
+
+        documentos.add(documento);
+    }
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+
+    public List<Documento> documentos() {
+        return List.copyOf(documentos);
+    }
     public int id() {
         return id;
     }
