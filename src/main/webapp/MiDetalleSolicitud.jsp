@@ -284,20 +284,6 @@
 
                             </form>
 
-                             <form action="${pageContext.request.contextPath}/rechazarSolicitud" method="post">
-
-                                 <input type="hidden"
-                                        name="idSolicitud"
-                                        value="<%= solicitud.id() %>">
-
-                                 <button type="submit"
-                                         class="btn__rechazar">
-
-                                     Rechazar
-
-                                 </button>
-
-                             </form>
 
                      </div>
 
