@@ -128,9 +128,14 @@
                         claseEstado = "estado__pendiente";
                     }
 
-                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA")) {
+                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA_PRIMERA_INSTANCIA")) {
 
-                        claseEstado = "estado__aprobado";
+                        claseEstado = "estado__aprobado_1";
+                    }
+
+                    else if (solicitud.estadoSolicitud().toString().equals("APROBADA_FINAL")) {
+
+                         claseEstado = "estado__aprobado_2";
                     }
 
                     else if (solicitud.estadoSolicitud().toString().equals("OBSERVADA")) {

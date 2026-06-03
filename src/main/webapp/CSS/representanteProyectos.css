@@ -250,17 +250,24 @@ main{
 /* colores estados */
 
 .estado__pendiente{
-    background-color: #ffe08a;
+    background-color: #f0b429;
 }
 
-.estado__aprobado{
-    background-color: #b7f5c0;
+.estado__aprobado_1{
+    background-color: #E6C51E;
+}
+
+.estado__aprobado_2{
+    background-color: #28a745;
 }
 
 .estado__revision{
-    background-color: #b9dcff;
+    background-color: #1CB0B0;
 }
 
+.estado__rechazado{
+    background-color: #dc3545;
+}
 .project__date{
     margin-top: 10px;
     font-size: 0.9rem;

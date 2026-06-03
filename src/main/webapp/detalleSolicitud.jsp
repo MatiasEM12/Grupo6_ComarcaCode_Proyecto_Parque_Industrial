@@ -20,8 +20,12 @@
 
     String claseEstado = "estado__pendiente";
 
-    if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA){
-        claseEstado = "estado__aprobado";
+    if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA){
+        claseEstado = "estado__aprobado_1";
+    }
+
+    if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_FINAL){
+            claseEstado = "estado__aprobado_2";
     }
 
     else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
@@ -268,57 +272,70 @@
 
                 <div class="acciones__container">
 
-                    <form action="${pageContext.request.contextPath}/aprobarSolicitud" method="post">
+                      <form action="${pageContext.request.contextPath}/aprobarSolicitudPrimerInstancia" method="post">
 
                         <input type="hidden"
-                               name="idSolicitud"
-                               value="<%= solicitud.id() %>">
+                             name="idSolicitud"
+                             value="<%= solicitud.id() %>">
 
-                        <select name="idLote" required>
+                             <button type="submit" class="btn__aprobar">
+                                Aprobar en primera instancia
+                             </button>
 
-                            <option value="">
-                                Seleccionar lote
-                            </option>
+                      </form>
 
-                            <%
-                                for(Lote lote : lotes){
-                            %>
 
-                            <option value="<%= lote.id() %>">
+                       <form action="${pageContext.request.contextPath}/aprobarSolicitudFinal" method="post">
 
-                                Lote <%= lote.id() %>
-                                -
-                                <%= lote.superficie() %> m²
+                            <input type="hidden"
+                                   name="idSolicitud"
+                                   value="<%= solicitud.id() %>">
 
-                            </option>
+                            <select name="idLote" required>
 
-                            <%
-                                }
-                            %>
+                                <option value="">
+                                    Seleccionar lote
+                                </option>
 
-                        </select>
+                                <%
+                                    for(Lote lote : lotes){
+                                %>
 
-                        <button type="submit" class="btn__aprobar">
-                            Aprobar y asignar lote
+                                <option value="<%= lote.id() %>">
 
-                        </button>
+                                    Lote <%= lote.id() %>
+                                    -
+                                    <%= lote.superficie() %> m²
 
-                    </form>
+                                </option>
 
-                    <form action="${pageContext.request.contextPath}/rechazarSolicitud" method="post">
+                                <%
+                                    }
+                                %>
 
-                        <input type="hidden"
-                               name="idSolicitud"
-                               value="<%= solicitud.id() %>">
+                            </select>
 
-                        <button type="submit"
-                                class="btn__rechazar">
+                            <button type="submit" class="btn__aprobar">
+                                Aprobacion Final y asignar lote
 
-                            Rechazar
+                            </button>
 
-                        </button>
+                       </form>
 
-                    </form>
+                        <form action="${pageContext.request.contextPath}/rechazarSolicitud" method="post">
+
+                            <input type="hidden"
+                                   name="idSolicitud"
+                                   value="<%= solicitud.id() %>">
+
+                            <button type="submit"
+                                    class="btn__rechazar">
+
+                                Rechazar
+
+                            </button>
+
+                        </form>
 
                 </div>
 

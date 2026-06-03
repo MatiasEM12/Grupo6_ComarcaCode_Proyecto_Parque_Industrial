@@ -3,6 +3,7 @@ package model;
 public enum EstadoSolicitud {
     PENDIENTE,
     OBSERVADA,
-    APROBADA,
+    APROBADA_PRIMER_INSTANCIA,
+    APROBADA_FINAL,
     RECHAZADA
 }

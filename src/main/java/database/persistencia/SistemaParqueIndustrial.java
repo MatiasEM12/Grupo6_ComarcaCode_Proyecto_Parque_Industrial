@@ -16,7 +16,8 @@ public interface SistemaParqueIndustrial {
     List<SolicitudRadicacion> obtenerSolicitudes();
 
     List<Lote> obtenerLotesDisponibles();
-    void aprobarSolicitud(int idSolicitud, int idLote);
+    void aprobarSolicitudFinal(int idSolicitud, int idLote);
+    void aprobarSolicitudPrimeraInstancia(int idSolicitud);
     void rechazarSolicitud(int idSolicitud);
     void observarSolicitud(int idSolicitud, String descripcion);
     List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);

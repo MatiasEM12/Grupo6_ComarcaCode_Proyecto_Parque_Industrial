@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/aprobarSolicitud")
-public class AprobarSolicitudServlet extends HttpServlet {
+@WebServlet("/aprobarSolicitudFinal")
+public class AprobarSolicitudFinalServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class AprobarSolicitudServlet extends HttpServlet {
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         int idLote = Integer.parseInt(request.getParameter("idLote"));
 
-        sistema.aprobarSolicitud(idSolicitud, idLote);
+        sistema.aprobarSolicitudFinal(idSolicitud, idLote);
 
         response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }

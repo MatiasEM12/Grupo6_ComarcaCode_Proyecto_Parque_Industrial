@@ -25,7 +25,7 @@
 
     <title>Mis Solicitudes</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 </head>
 
 <body>
@@ -84,28 +84,37 @@
 
 <main>
 
-    <div class="lotes__container">
+    <div class="projects__container">
 
         <%
             if(solicitudes != null && !solicitudes.isEmpty()){
 
                 for(SolicitudRadicacion solicitud : solicitudes){
 
-                    String claseEstado = "";
+                     String claseEstado = "";
 
-                    if(solicitud.estadoSolicitud() == EstadoSolicitud.PENDIENTE){
-                        claseEstado = "estado__disponible";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA){
-                        claseEstado = "estado__ocupado";
-                    } else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
-                        claseEstado = "estado__ocupado";
-                    }
+                     if(solicitud.estadoSolicitud() == EstadoSolicitud.PENDIENTE){
+                         claseEstado = "estado__pendiente";
+                     }
+                     else if(solicitud.estadoSolicitud() == EstadoSolicitud.RECHAZADA){
+                         claseEstado = "estado__rechazado";
+                     }
+                     else if(solicitud.estadoSolicitud() == EstadoSolicitud.OBSERVADA){
+                         claseEstado = "estado__revision";
+                     }
+                     else if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA){
+                         claseEstado = "estado__aprobado_1";
+                     }
+                     else if(solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_FINAL){
+                         claseEstado = "estado__aprobado_2";
+                     }
+
         %>
 
-        <article class="lote__card">
+       <a href="${pageContext.request.contextPath}/miSolicitudDetalle?id=<%= solicitud.id() %>"
+          class="project__card">
 
-            <div class="lote__content">
-
+           <div class="project__content">
                 <h2>
                     <%= solicitud.nombreProyecto() %>
                 </h2>
@@ -115,7 +124,7 @@
                     <%= solicitud.numeroTramite() %>
                 </p>
 
-                <p>
+                <p class="project__date">
                     Fecha:
                     <%= solicitud.fechaCreacion() %>
                 </p>
@@ -143,13 +152,13 @@
                             : solicitud.nombreArchivoPDF() %>
                 </p>
 
-                <span class="lote__state <%= claseEstado %>">
+                <span class="project__state <%= claseEstado %>">
                     <%= solicitud.estadoSolicitud().name() %>
                 </span>
 
-            </div>
+             </div>
 
-        </article>
+       </a>
 
         <%
                 }
@@ -157,7 +166,7 @@
             } else {
         %>
 
-        <div class="sin__Lotes">
+        <div class="sin__proyectos">
             <h2>No tenés solicitudes cargadas</h2>
 
             <p>

@@ -206,8 +206,7 @@ public class SolicitudRadicacion {
 
         this.numeroTramite = numeroTramite;
 
-        this.estadoSolicitud =
-                EstadoSolicitud.valueOf(estadoSolicitud);
+        this.estadoSolicitud = transformador(estadoSolicitud);
 
         this.fechaCreacion = fechaCreacion;
 
@@ -266,14 +265,13 @@ public class SolicitudRadicacion {
     }
 
 
-    public void aprobar(Lote lote) {
+    public void aprobarPrimeraInstancia() {
 
-        validarSuperficieCon((int)lote.superficie());
-        this.estadoSolicitud = EstadoSolicitud.APROBADA;
+
+        this.estadoSolicitud = EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
         this.fechaActualizacion = LocalDate.now();
         solicitudRadicacionDAO.update(this);
-        proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), " ",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
-        lote.Ocupado();
+
     }
 
     public void rechazar() {
@@ -333,7 +331,11 @@ public class SolicitudRadicacion {
 
         switch (estado) {
             case "APROBADA":
-                return EstadoSolicitud.APROBADA;
+                return EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
+            case "APROBADA_PRIMER_INSTANCIA":
+                return EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
+            case "APROBADA_FINAL":
+                return EstadoSolicitud.APROBADA_FINAL;
             case "RECHAZADA":
                 return EstadoSolicitud.RECHAZADA;
             case "OBSERVADA":
@@ -416,5 +418,12 @@ public class SolicitudRadicacion {
     public String descripcionArchivo() { return descripcionArchivo; }
 
 
-
+    public void aprobarFinal(Lote lote) {
+        validarSuperficieCon((int)lote.superficie());
+        this.estadoSolicitud = EstadoSolicitud.APROBADA_FINAL;
+        this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
+        proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), " ",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
+        lote.Ocupado();
+    }
 }

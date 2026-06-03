@@ -91,16 +91,21 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     @Override
-    public void aprobarSolicitud(int idSolicitud, int idLote) {
+    public void aprobarSolicitudFinal(int idSolicitud, int idLote) {
 
         SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find( idSolicitud);
         Lote lote = loteDAO.find(idLote);
 
-        solicitudRadicacion.aprobar(lote);
-
-
+        solicitudRadicacion.aprobarFinal(lote);
 
     }
+
+    @Override
+    public void aprobarSolicitudPrimeraInstancia(int idSolicitud) {
+        SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find( idSolicitud);
+        solicitudRadicacion.aprobarPrimeraInstancia();
+    }
+
     public void asignarLote( int idLote,int idProyecto){
         //no pude usarlo , las tablas me tiraban error lote con idProyecto y Proyecto con idLote
         //al estar como "cruzados" no me dejaba crear las tablas asi que Lote no tiene idProyecto

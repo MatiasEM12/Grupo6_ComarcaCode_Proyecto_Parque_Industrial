@@ -346,51 +346,42 @@ main{
 
 /* BOTONES */
 
-.btn__aprobar{
+.btn__actualizarDatosPrincipales{
     background-color: rgb(11,122,11);
 
     color: white;
 }
 
-.btn__aprobar:hover{
+.btn__actualizarDatosPrincipalesr:hover{
     background-color: rgb(8,155,8);
 
     transform: translateY(-2px);
 }
 
-.btn__rechazar{
-    background-color: #dc3545;
+.btn__cargarArchivo{
+    background-color: rgb(11,122,11);
 
     color: white;
 }
 
-.btn__rechazar:hover{
+.btn__cargarArchivor:hover{
     background-color: #b52a37;
 
     transform: translateY(-2px);
 }
 
-.btn__observar{
+.btn__verProyecto{
     background-color: #007bff;
 
     color: white;
 }
 
-.btn__observar:hover{
-    background-color: #005fd1;
+.btn__verProyecto:hover{
+    background-color: rgb(11,122,11);
 
     transform: translateY(-2px);
 }
 
-.btn__enviar{
-    background-color: rgb(11,122,11);
-
-    color: white;
-}
-
-.btn__enviar:hover{
-    background-color: rgb(8,155,8);
-}
 
 /* =========================
    OBSERVACIONES
