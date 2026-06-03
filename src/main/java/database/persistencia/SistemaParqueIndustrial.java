@@ -41,4 +41,10 @@ public interface SistemaParqueIndustrial {
     ProyectoProductivo obtenerProyectoPorLote(int id);
 
     void agregarDocumentoSolicitud(int idSolicitud, Documento d);
+
+    void cargarDocumento(TipoDocumento tipo, String fileName, String s, long size);
+
+    Documento obtenerDocumentoPorRuta(String ruta);
+
+    Documento obtenerDocumento(int idDocumento);
 }

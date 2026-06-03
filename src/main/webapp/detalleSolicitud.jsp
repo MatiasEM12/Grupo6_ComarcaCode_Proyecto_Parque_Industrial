@@ -5,6 +5,7 @@
 <%@ page import="model.EstadoSolicitud" %>
 <%@ page import="model.Lote" %>
 <%@ page import="java.util.List" %>
+<%@ page import="model.Documento" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -269,6 +270,69 @@
                     </p>
 
                 </div>
+
+                <%
+                    boolean mostrarDocumentos =
+                            solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA
+                            || solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_FINAL;
+                %>
+
+                <% if(mostrarDocumentos){ %>
+
+                    <div class="documentos__container">
+
+                        <h3>Documentación Complementaria</h3>
+
+                        <table class="tabla__documentos">
+
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Archivo</th>
+                                    <th>Descargar</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <% for(Documento documento : solicitud.documentos()){ %>
+
+                                <tr>
+
+                                    <td>
+                                        <%= documento.tipo() %>
+                                    </td>
+
+                                    <td>
+                                        <%= documento.nombreArchivo() %>
+                                    </td>
+
+                                    <td>
+                                        <%= documento.rutaArchivo() %>
+                                    </td>
+
+                                    <td>
+
+                                        <a href="${pageContext.request.contextPath}/descargarDocumento?id=<%= documento.id() %>">
+
+                                            Descargar
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            <% } %>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                <% } %>
 
                 <div class="acciones__container">
 

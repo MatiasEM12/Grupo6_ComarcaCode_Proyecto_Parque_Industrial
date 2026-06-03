@@ -26,6 +26,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
     private LoteDAO loteDAO = new LoteDAOJDBC();
     private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
+    private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -224,10 +225,30 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     @Override
     public void agregarDocumentoSolicitud(int idSolicitud, Documento d) {
+
+        System.out.println("Solicitud = " + idSolicitud);
+        System.out.println("Documento ID = " + d.id());
+        System.out.println("Ruta = " + d.rutaArchivo());
         SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find(idSolicitud);
         SolicitudDocumentoDAO solicitudDocumentoDAO = new SolicitudDocumentoDAOJDBC();
         solicitudDocumentoDAO.vincular(idSolicitud, d.id());
         solicitudRadicacion.agregarDocumento(d);
+    }
+
+    @Override
+    public void cargarDocumento(TipoDocumento tipo, String fileName, String s, long size) {
+
+        Documento documento = new Documento(tipo, fileName, s, size);
+    }
+
+    @Override
+    public Documento obtenerDocumentoPorRuta(String ruta) {
+        return documentoDAO.findPorRuta(ruta);
+    }
+
+    @Override
+    public Documento obtenerDocumento(int idDocumento) {
+        return documentoDAO.find(idDocumento);
     }
 
 

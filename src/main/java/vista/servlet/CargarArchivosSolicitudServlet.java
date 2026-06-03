@@ -6,6 +6,7 @@ import model.Documento;
 import model.TipoDocumento;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/cargarArchivosSolicitud")
+@MultipartConfig
 public class CargarArchivosSolicitudServlet extends HttpServlet {
 
     @Override
@@ -26,9 +28,13 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        int idSolicitud =
-                Integer.parseInt(request.getParameter("idSolicitud"));
 
+
+        String id = request.getParameter("idSolicitud");
+
+        System.out.println("idSolicitud = [" + id + "]");
+
+        int idSolicitud = Integer.parseInt(id);
         SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
         List<Documento> documentos = new ArrayList<>();
@@ -51,15 +57,12 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
 
         response.sendRedirect(
                 request.getContextPath()
-                        + "/miDetalleSolicitud?id="
+                        + "/miSolicitudDetalle?id="
                         + idSolicitud
         );
     }
 
-    private Documento armarDocumento(HttpServletRequest request,
-                                     String inputName,
-                                     TipoDocumento tipo)
-            throws IOException, ServletException {
+    private Documento armarDocumento(HttpServletRequest request, String inputName, TipoDocumento tipo) throws IOException, ServletException {
 
         Part filePart = request.getPart(inputName);
 
@@ -69,22 +72,38 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
 
         String fileName = filePart.getSubmittedFileName();
 
+        String uniqueId = java.util.UUID.randomUUID().toString();
+        String name = uniqueId + "_" + fileName;
+
         String basePath = System.getProperty("user.dir");
         String uploadDir = basePath + "/uploads";
 
         File dir = new File(uploadDir);
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
 
-        String fullPath = uploadDir + File.separator + fileName;
+        String fullPath = uploadDir + File.separator + name;
 
         filePart.write(fullPath);
-        String uniqueId = java.util.UUID.randomUUID().toString();//momentaneo
-        String name = uniqueId + "_" + fileName;
-        return new Documento(
+
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+        sistema.cargarDocumento(
                 tipo,
                 fileName,
                 "uploads/" + name,
                 filePart.getSize()
         );
+
+        Documento documento = sistema.obtenerDocumentoPorRuta("uploads/" + name);
+
+        if (documento == null) {
+            throw new RuntimeException(
+                    "No se pudo recuperar el documento recién guardado"
+            );
+        }
+
+        return documento;
     }
 }

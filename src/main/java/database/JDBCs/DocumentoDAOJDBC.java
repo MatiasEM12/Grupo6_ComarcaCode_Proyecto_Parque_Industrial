@@ -43,7 +43,30 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
     }
     @Override
     public Documento find(int id) {
-        return null;
+        final String SQL = "SELECT * "
+                + "FROM Documento "
+                + "WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, String.valueOf(id));
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return mapearDocumento(rs);
+            }
+
+            return null;
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error al buscar documento por ruta",
+                    e
+            );
+        }
     }
 
     @Override
@@ -61,6 +84,34 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
 
     }
 
+    @Override
+    public Documento findPorRuta(String ruta) {
+
+        final String SQL = "SELECT * "
+                            + "FROM Documento "
+                            + "WHERE rutaArchivo = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, ruta);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return mapearDocumento(rs);
+            }
+
+            return null;
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error al buscar documento por ruta",
+                    e
+            );
+        }
+    }
     public static Documento mapearDocumento(ResultSet rs)
             throws SQLException {
 
