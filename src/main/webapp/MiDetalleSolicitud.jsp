@@ -2,6 +2,7 @@
 <%@ page import="model.Usuario" %>
 <%@ page import="model.SolicitudRadicacion" %>
 <%@ page import="model.EstadoSolicitud" %>
+<%@ page import="model.Documento" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -258,61 +259,102 @@
                                         Actualizar Datos Principales
                                    </button>
                            </form>
-                          <% if (solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) { %>
+                          <% if (solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA
+                                      || solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_FINAL) { %>
 
-                              <h3>Documentación complementaria</h3>
+                              <% if (solicitud.documentos().isEmpty()) { %>
 
-                              <form action="${pageContext.request.contextPath}/cargarArchivosSolicitud"
-                                    method="post"
-                                    enctype="multipart/form-data">
+                                  <!-- FORMULARIO PARA CARGAR DOCUMENTOS -->
 
-                                  <input type="hidden"
-                                         name="idSolicitud"
-                                         value="<%= solicitud.id() %>">
+                                  <h3>Documentación complementaria</h3>
 
-                                  <div>
+                                  <form action="${pageContext.request.contextPath}/cargarArchivosSolicitud"
+                                        method="post"
+                                        enctype="multipart/form-data">
 
-                                      <label>Plano Implantación</label>
-                                      <input type="file" name="PLANO_IMPLANTACION">
+                                      <input type="hidden"
+                                             name="idSolicitud"
+                                             value="<%= solicitud.id() %>">
 
-                                  </div>
+                                      <div>
+                                          <label>Plano Implantación</label>
+                                          <input type="file" name="PLANO_IMPLANTACION">
+                                      </div>
 
-                                  <div>
+                                      <div>
+                                          <label>Impacto ambiental</label>
+                                          <input type="file" name="IMPACTO_AMBIENTAL">
+                                      </div>
 
-                                      <label>Impacto ambiental</label>
-                                      <input type="file" name="IMPACTO_AMBIENTAL">
+                                      <div>
+                                          <label>Estudio de mercado</label>
+                                          <input type="file" name="ESTUDIO_MERCADO">
+                                      </div>
 
-                                  </div>
+                                      <div>
+                                          <label>Memoria descriptiva</label>
+                                          <input type="file" name="MEMORIA_DESCRIPTIVA">
+                                      </div>
 
-                                  <div>
+                                      <div>
+                                          <label>Requerimientos de infraestructura</label>
+                                          <input type="file" name="REQUERIMIENTOS_INFRAESTRUCTURA">
+                                      </div>
 
-                                      <label>Análisis de mercado</label>
-                                      <input type="file" name="ESTUDIO_MERCADO">
+                                      <button type="submit">
+                                          Guardar documentos
+                                      </button>
 
-                                  </div>
+                                  </form>
 
-                                  <div>
+                              <% } else { %>
 
-                                      <label>Memoria descriptiva</label>
-                                      <input type="file" name="MEMORIA_DESCRIPTIVA">
+                                  <!-- TABLA DE DOCUMENTOS YA CARGADOS -->
 
-                                  </div>
+                                  <h3>Documentos cargados</h3>
 
-                                  <div>
+                                  <table class="tabla-documentos">
 
-                                      <label>Requerimientos de infraestructura</label>
-                                      <input type="file" name="REQUERIMIENTOS_INFRAESTRUCTURA">
+                                      <thead>
+                                          <tr>
+                                              <th>Tipo</th>
+                                              <th>Nombre</th>
+                                              <th>Archivo</th>
+                                              <th>Descargar</th>
+                                          </tr>
+                                      </thead>
 
-                                  </div>
+                                      <tbody>
 
-                                  <button type="submit">
-                                      Guardar documentos
-                                  </button>
+                                      <% for (Documento documento : solicitud.documentos()) { %>
 
-                              </form>
+                                          <tr>
+
+                                              <td><%= documento.tipo() %></td>
+
+                                              <td><%= documento.nombreArchivo() %></td>
+
+                                              <td><%= documento.rutaArchivo() %></td>
+
+                                              <td>
+
+                                                  <a href="${pageContext.request.contextPath}/descargarDocumento?id=<%= documento.id() %>">
+                                                      Descargar
+                                                  </a>
+
+                                              </td>
+
+                                          </tr>
+
+                                      <% } %>
+
+                                      </tbody>
+
+                                  </table>
+
+                              <% } %>
 
                           <% } %>
-
                             <form action="${pageContext.request.contextPath}/proyectoDeSolicitud" method="post">
 
                                  <input type="hidden"

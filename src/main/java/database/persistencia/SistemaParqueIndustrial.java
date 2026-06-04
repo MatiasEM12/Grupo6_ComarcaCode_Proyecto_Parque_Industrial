@@ -47,4 +47,6 @@ public interface SistemaParqueIndustrial {
     Documento obtenerDocumentoPorRuta(String ruta);
 
     Documento obtenerDocumento(int idDocumento);
+
+    ProyectoProductivo obtenerProyecto(int idProyecto);
 }

@@ -251,6 +251,11 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return documentoDAO.find(idDocumento);
     }
 
+    @Override
+    public ProyectoProductivo obtenerProyecto(int idProyecto) {
+        return proyectoProductivoDAO.find(idProyecto);
+    }
+
 
     public List<LoteDTO> obtenerLotes(){
         List<LoteDTO> lotes = new ArrayList<>();

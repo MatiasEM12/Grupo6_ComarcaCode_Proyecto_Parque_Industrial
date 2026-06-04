@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.ProyectoProductivo" %>
-
+<%@ page import="model.Lote" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -156,6 +156,24 @@
 
                 </p>
 
+                 <% if (proyecto.lote() != null) { %>
+
+                       <form action="${pageContext.request.contextPath}/loteProyecto"
+                                  method="get">
+
+                                <input type="hidden"
+                                       name="idProyecto"
+                                       value="<%= proyecto.idProyecto() %>">
+
+                                <button type="submit" class="btn__verLote">
+
+                                    Ver lote
+
+                                </button>
+
+                       </form>
+
+                  <% } %>
             </div>
 
         </a>
