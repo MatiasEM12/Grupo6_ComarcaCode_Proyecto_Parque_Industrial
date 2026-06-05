@@ -1,9 +1,7 @@
 package database.JDBCs;
 
 import database.ConnectionManager;
-import database.DAOs.SolicitudDocumentoDAO;
 import model.Empresa;
-import model.ProyectoProductivo;
 import model.RepresentanteEmpresa;
 import model.Rol;
 import model.SolicitudRadicacion;
@@ -345,6 +343,33 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
         solicitud.setDocumentos(new SolicitudDocumentoDAOJDBC().documentosDe(solicitud.id()));
         return solicitud;
+    }
+
+    @Override
+    public void rechazarSolicitud(int idSolicitud){
+        final String SQL = "UPDATE SolicitudRadicacion " +
+                "SET estadoSolicitud = ? " +
+                "WHERE id = ?";
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, "RECHAZADA");
+
+            st.setInt(2, idSolicitud);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException(
+                        "no se encontro la solicitud"
+                );
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Error al actualizar el estado de la solicitud", e
+            );
+        }
     }
 }
 

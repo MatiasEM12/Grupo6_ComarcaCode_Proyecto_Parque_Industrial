@@ -115,8 +115,12 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     }
 
+
+
     @Override
     public void rechazarSolicitud(int idSolicitud) {
+        solicitudRadicacionDAO.rechazarSolicitud(idSolicitud);
+
        /* final String SQL = "UPDATE SolicitudRadicacion " +
                 "SET estadoSolicitud = 'RECHAZADA', fechaActualizacion = CURRENT_DATE " +
                 "WHERE id = ?";
@@ -264,6 +268,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){
+
         /*
         admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
         solicitud = SolicitudRadicacionDAO.find(solicitudDTO.id()/numeroTramite)
@@ -313,12 +318,12 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
 
 
-    /*
-    private loteDTO toLote(Lote lote){
-       return // transformar lote en loteDTO
+
+    private LoteDTO toLote(Lote lote){
+       return new LoteDTO(lote.id(), lote.ubicacion().latitud, lote.ubicacion().longitud, lote.ubicacion().altitud,
+       lote.superficie(), lote.estado(), lote.infraestructura());
     }
 
-    * */
 
 
 }

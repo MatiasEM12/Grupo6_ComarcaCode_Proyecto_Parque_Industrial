@@ -17,5 +17,7 @@ public interface SolicitudRadicacionDAO {
 
     List<SolicitudRadicacion> findAll();
 
+    void rechazarSolicitud(int idSolicitud);
+
     //int obtenerCantidadSolicitudes();
 }
