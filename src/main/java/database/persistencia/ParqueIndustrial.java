@@ -119,7 +119,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     @Override
     public void rechazarSolicitud(int idSolicitud) {
-        solicitudRadicacionDAO.rechazarSolicitud(idSolicitud);
+        solicitudRadicacionDAO.estadoSolicitud(idSolicitud, EstadoSolicitud.RECHAZADA);
 
        /* final String SQL = "UPDATE SolicitudRadicacion " +
                 "SET estadoSolicitud = 'RECHAZADA', fechaActualizacion = CURRENT_DATE " +
@@ -128,6 +128,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");*/
     }
 
+    //creo que esto es para hacer las observaciones acia el proyecto
     @Override
     public void observarSolicitud(int idSolicitud, String descripcion) {
        /* if (descripcion == null || descripcion.isBlank()) {
@@ -267,6 +268,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return lotes;
     }
 
+    /*
     public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){
 
         /*
@@ -276,7 +278,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         admin.modificarEstadoSolicitud( soliciud,estado)  //acá dentro filtra si es aprobada llama a solicidud.aprobar si es otro es solicitud.Algo
 
         * */
+    //}
+    //yo lo aria asi
+    public void estadoSolicitud(int idSolicitud, EstadoSolicitud estado){
+        solicitudRadicacionDAO.estadoSolicitud(idSolicitud, estado);
     }
+
+
+
 
     public void admActualizarDatosPersonales( Usuario user , AdministradorDelParqueDTO adm){
         /*

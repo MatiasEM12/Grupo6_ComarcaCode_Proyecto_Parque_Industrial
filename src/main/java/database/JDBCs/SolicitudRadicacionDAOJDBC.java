@@ -1,16 +1,11 @@
 package database.JDBCs;
 
 import database.ConnectionManager;
-import model.Empresa;
-import model.RepresentanteEmpresa;
-import model.Rol;
-import model.SolicitudRadicacion;
-import model.Usuario;
+import model.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -346,16 +341,16 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
     }
 
     @Override
-    public void rechazarSolicitud(int idSolicitud){
+    public void estadoSolicitud(int idSolicitud, EstadoSolicitud estado){
         final String SQL = "UPDATE SolicitudRadicacion " +
-                "SET estadoSolicitud = ? " +
+                "SET estadoSolicitud = ?, fechaActualizacion = ? " +
                 "WHERE id = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            st.setString(1, "RECHAZADA");
-
-            st.setInt(2, idSolicitud);
+            st.setString(1, String.valueOf(estado));
+            st.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            st.setInt(3, idSolicitud);
 
             int fila = st.executeUpdate();
 
