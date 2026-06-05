@@ -3,6 +3,8 @@ package database.JDBCs;
 import database.ConnectionManager;
 import database.DAOs.RepresentanteEmpresaDAO;
 import model.*;
+import model.DTO.AdministradorDelParqueDTO;
+import model.DTO.RepresentanteEmpresaDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -213,5 +215,32 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
                 empresa,
                 usuario
         );
+    }
+
+    @Override
+    public void actualizarDatosReprecentante(RepresentanteEmpresaDTO reprecentante) {
+
+        String sql = "UPDATE usuario u JOIN RepresentanteEmpresa r ON u.userName = r.userName " +
+                "SET u.gmail = ?, u.contrasena = ?, r.cuit_empresa = ? WHERE r.DNI = ? ";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+
+            st.setString(1, reprecentante.getUsuario().getGmail());
+            st.setString(2, reprecentante.getUsuario().contrasena());
+            st.setString(3, reprecentante.getEmpresa().cuit());
+            st.setString(4, reprecentante.getDni());
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException(
+                        "no se encontro al reprecemtamte"
+                );
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("no se pudo actualizar los datos del reprecentante");
+        }
     }
 }

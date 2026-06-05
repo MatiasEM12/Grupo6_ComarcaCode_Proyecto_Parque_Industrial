@@ -286,32 +286,52 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
 
 
-
+/*
     public void admActualizarDatosPersonales( Usuario user , AdministradorDelParqueDTO adm){
-        /*
+
          *  admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
          *  admin.ActualizarDatos(adm)
          *
-         * */
+         *
     }
 
+ */
+
+    public void admActualizarDatosPersonales(AdministradorDelParqueDTO adm){
+        administradorDelParqueDAO.actualizarDatosAdministrador(adm);
+    }
+
+/*
     public void representanteActualizarDatosPersonales( Usuario user , RepresentanteEmpresaDTO representante){
-        /*
+
          *  representante = RepresentanteEmpresaDAO.obtenerUsuarioPorUsername(user.UserName())
          *  representante.ActualizarDatos(representante)
          *
-         * */
+         *
     }
 
-    public void actualizarDatosDeUsuario(Usuario user, UsuarioDTO usuarioDTO){
-        /*
+ */
+
+    public void representanteActualizarDatosPersonales(RepresentanteEmpresaDTO representante){
+        representanteDAO.actualizarDatosReprecentante(representante);
+    }
+
+/*
+        public void actualizarDatosDeUsuario(Usuario user, UsuarioDTO usuarioDTO){
+
          *  usuario = UsuarioDAO.obtenerUsuarioPorUsername(user.UserName())
          *  usuario.ActualizarDatos(usuarioDTO)
          *
          * de modificar el username, tambien se debe actualizar la tabla del (adm/representante)
          *
-         * */
+         *
     }
+
+ */
+    public void actualizarDatosDeUsuario(UsuarioDTO usuarioDTO){
+        usuarioDAO.update(new Usuario(usuarioDTO.getUserName(), usuarioDTO.contrasena(),
+                new Rol(usuarioDTO.getRol().nombre()),usuarioDTO.gmail()));
+        }
 
     public void cargarAvanceProyecto( Usuario user, AvanceDeProyectoDTO avance,ProyectoProductivoDTO proyecto){
         /*

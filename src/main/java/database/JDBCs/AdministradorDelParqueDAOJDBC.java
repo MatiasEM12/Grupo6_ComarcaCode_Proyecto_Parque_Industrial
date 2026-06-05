@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.DAOs.AdministradorDelParqueDAO;
+import model.DTO.AdministradorDelParqueDTO;
 import model.Rol;
 
 public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
@@ -80,6 +81,33 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
                     "Error al obtener administrador por username",
                     e
             );
+        }
+    }
+
+    @Override
+    public void actualizarDatosAdministrador(AdministradorDelParqueDTO adm) {
+
+        String sql = "UPDATE usuario u JOIN AdministradorDelParque a ON u.userName = a.userName " +
+                "SET u.gmail = ?, u.contrasena = ?, a.nombre = ? WHERE a.dni = ? ";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+
+            st.setString(1, adm.getGmail());
+            st.setString(2, adm.getContrasena());
+            st.setString(3, adm.getNombre());
+            st.setString(4, adm.getDni());
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException(
+                        "no se encontro al administrador"
+                );
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("no se pudo actualizar los datos del administrador");
         }
     }
 }
