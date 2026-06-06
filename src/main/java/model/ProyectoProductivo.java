@@ -1,10 +1,13 @@
 package model;
 
+import database.DAOs.AvanceDeProyectoDAO;
 import database.DAOs.ProyectoDocumentoDAO;
 import database.DAOs.ProyectoProductivoDAO;
+import database.JDBCs.AvanceDeProyectoDAOJDBC;
 import database.JDBCs.ProyectoDocumentoDAOJDBC;
 import database.JDBCs.ProyectoProductivoDAOJDBC;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProyectoProductivo {
@@ -19,12 +22,17 @@ public class ProyectoProductivo {
     private Empresa empresa;
     private Lote lote;
     private EstadoProyecto estado;
+    private List<Documento> documentos = new ArrayList<>();
+    private List<AvanceDeProyecto> avanceDeProyectos = new ArrayList<>();
+
+
     private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
+    private AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
     private ProyectoDocumentoDAO proyectoDocumentoDAO = new ProyectoDocumentoDAOJDBC();
     public ProyectoProductivo(int idProyecto, String nombre, String descripcion,
                               double superficie, String necesidades,
                               int empleabilidad, String materiaPrima,
-                              boolean enEjecucion, Empresa empresa,Lote lote){
+                              String estado, Empresa empresa,Lote lote, List<Documento> documentos, List<AvanceDeProyecto> avanceDeProyectos) {
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -32,9 +40,11 @@ public class ProyectoProductivo {
         this.necesidades = necesidades;
         this.empleabilidad = empleabilidad;
         this.materiaPrima = materiaPrima;
-        this.enEjecucion = enEjecucion;
+        this.estado = EstadoProyecto.valueOf(estado);
         this.empresa = empresa;
         this.lote=lote;
+        this.documentos = documentos;
+        this.avanceDeProyectos = avanceDeProyectos;
 
     }
     public ProyectoProductivo(String nombre,

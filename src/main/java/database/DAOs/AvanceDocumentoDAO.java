@@ -5,5 +5,7 @@ import model.Documento;
 import java.util.List;
 
 public interface AvanceDocumentoDAO {
-    void registrarDocumentos(List<Documento> documentos, int id);
+    void vincular(int idAvance, int idDocumento);
+
+    List<Documento> documentosDe(int idAvance);
 }

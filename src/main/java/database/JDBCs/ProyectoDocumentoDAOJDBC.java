@@ -11,4 +11,9 @@ public class ProyectoDocumentoDAOJDBC implements ProyectoDocumentoDAO {
     public void registrarDocumentos(int idProyecto, List<Documento> documentos) {
 
     }
+
+    @Override
+    public List<Documento> findAllBy(int idProyecto) {
+        return List.of();
+    }
 }

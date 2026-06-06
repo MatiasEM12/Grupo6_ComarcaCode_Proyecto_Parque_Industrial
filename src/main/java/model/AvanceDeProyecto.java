@@ -32,7 +32,6 @@ public class AvanceDeProyecto {
     public AvanceDeProyecto(ProyectoProductivo proyectoProductivo, String descripcion, EstadoProyecto estado) {
         this.proyectoProductivo = proyectoProductivo;
         this.fechaCreacion = LocalDate.now();
-        this.documentos = documentos;
         this.descripcion = descripcion;
         this.estado = estado;
 
@@ -44,7 +43,10 @@ public class AvanceDeProyecto {
     }
 
     public void cargarDocumentos(List<Documento> documentos) {
-        this.avanceDocumentoDAO.registrarDocumentos(this.documentos, this.id);
+        for(Documento documento : documentos){
+            this.avanceDocumentoDAO.vincular(this.id,documento.id());
+        }
+        this.documentos.addAll(documentos);
         proyectoProductivo.cargarDocumentos(documentos);
     }
 
@@ -58,5 +60,24 @@ public class AvanceDeProyecto {
 
 
     public void cargate() {
+    }
+    public int id() {
+        return id;
+    }
+
+    public ProyectoProductivo proyectoProductivo() {
+        return proyectoProductivo;
+    }
+
+    public LocalDate fechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String descripcion() {
+        return descripcion;
+    }
+
+    public EstadoProyecto estado() {
+        return estado;
     }
 }

@@ -112,7 +112,7 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
             );
         }
     }
-    public static Documento mapearDocumento(ResultSet rs)
+    public static Documento  mapearDocumento(ResultSet rs)
             throws SQLException {
 
         return new Documento(

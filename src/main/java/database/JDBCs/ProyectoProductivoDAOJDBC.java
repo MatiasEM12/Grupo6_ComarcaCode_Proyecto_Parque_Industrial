@@ -22,11 +22,9 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
                         "estado, cuit_empresa, id_lote" +
                         ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn =
-                     ConnectionManager.getConnection();
+        try (Connection conn = ConnectionManager.getConnection();
 
-             PreparedStatement st =
-                     conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setString(1, proyectoProductivo.nombre());
 
@@ -42,15 +40,9 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
             st.setBoolean(7, proyectoProductivo.enEjecucion());
 
-            st.setString(
-                    8,
-                    proyectoProductivo.empresa().cuit()
-            );
+            st.setString(8, proyectoProductivo.empresa().cuit());
 
-            st.setInt(
-                    9,
-                    proyectoProductivo.lote().id()
-            );
+            st.setInt(9, proyectoProductivo.lote().id());
 
             int fila = st.executeUpdate();
 
@@ -91,11 +83,9 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
                         "WHERE p.idProyecto = ?";
 
-        try (Connection conn =
-                     ConnectionManager.getConnection();
+        try (Connection conn = ConnectionManager.getConnection();
 
-             PreparedStatement st =
-                     conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setInt(1, idProyecto);
 
@@ -136,14 +126,11 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
                         "LEFT JOIN lotes l " +
                         "ON p.id_lote = l.id";
 
-        List<ProyectoProductivo> proyectos =
-                new ArrayList<>();
+        List<ProyectoProductivo> proyectos = new ArrayList<>();
 
-        try (Connection conn =
-                     ConnectionManager.getConnection();
+        try (Connection conn = ConnectionManager.getConnection();
 
-             PreparedStatement st =
-                     conn.prepareStatement(SQL);
+             PreparedStatement st = conn.prepareStatement(SQL);
 
              ResultSet rs = st.executeQuery()) {
 
@@ -159,11 +146,9 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
     }
 
     @Override
-    public List<ProyectoProductivo> findByEmpresa(
-            String cuitEmpresa) {
+    public List<ProyectoProductivo> findByEmpresa(String cuitEmpresa) {
 
-        final String SQL =
-                "SELECT p.*, " +
+        final String SQL = "SELECT p.*, " +
 
                         "e.cuit, e.razonSocial, " +
                         "e.contacto, e.contactoRepresentante, " +
@@ -185,14 +170,11 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
                         "WHERE p.cuit_empresa = ?";
 
-        List<ProyectoProductivo> proyectos =
-                new ArrayList<>();
+        List<ProyectoProductivo> proyectos = new ArrayList<>();
 
-        try (Connection conn =
-                     ConnectionManager.getConnection();
+        try (Connection conn = ConnectionManager.getConnection();
 
-             PreparedStatement st =
-                     conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setString(1, cuitEmpresa);
 
@@ -210,20 +192,15 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
     }
 
     @Override
-    public void actualizarEstado(
-            int idProyecto,
-            boolean estado) {
+    public void actualizarEstado(int idProyecto, boolean estado) {
 
-        final String SQL =
-                "UPDATE ProyectoProductivo " +
+        final String SQL = "UPDATE ProyectoProductivo " +
                         "SET estado = ? " +
                         "WHERE idProyecto = ?";
 
-        try (Connection conn =
-                     ConnectionManager.getConnection();
+        try (Connection conn = ConnectionManager.getConnection();
 
-             PreparedStatement st =
-                     conn.prepareStatement(SQL)) {
+             PreparedStatement st = conn.prepareStatement(SQL)) {
 
             st.setBoolean(1, estado);
 
@@ -244,7 +221,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
     public void actualizarEstadoProyecto(int idProyecto, EstadoProyecto estado) {
 
         final String SQL = "UPDATE ProyectoProductivo " +
-                        "SET estadoProyecto = ? " +
+                        "SET estado = ? " +
                         "WHERE idProyecto = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
@@ -266,8 +243,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
         }
     }
 
-    private ProyectoProductivo mapearProyecto(ResultSet rs)
-            throws SQLException {
+    private ProyectoProductivo mapearProyecto(ResultSet rs) throws SQLException {
 
         Empresa empresa = null;
 
@@ -306,9 +282,10 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
                 rs.getString("necesidades"),
                 rs.getInt("empleabilidad"),
                 rs.getString("materiaPrima"),
-                rs.getBoolean("estado"),
+                rs.getString("estado"),
                 empresa,
-                lote
+                lote,new ProyectoDocumentoDAOJDBC().findAllBy(rs.getInt("idProyecto")),
+                new AvanceDeProyectoDAOJDBC().findAllBy(rs.getInt("idProyecto"))
         );
     }
 }
