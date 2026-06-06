@@ -180,7 +180,10 @@ public class ProyectoProductivo {
     }
 
     public void cargarDocumentos(List<Documento> documentos) {
-        this.proyectoDocumentoDAO.registrarDocumentos(this.idProyecto, documentos);
+
+        for (Documento documento : documentos) {
+            this.proyectoDocumentoDAO.registrarDocumentos(this.idProyecto, documento.id());
+        }
 
     }
 }
