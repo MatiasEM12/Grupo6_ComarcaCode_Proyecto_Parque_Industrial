@@ -32,7 +32,7 @@ public class ProyectoProductivo {
     public ProyectoProductivo(int idProyecto, String nombre, String descripcion,
                               double superficie, String necesidades,
                               int empleabilidad, String materiaPrima,
-                              String estado, Empresa empresa,Lote lote, List<Documento> documentos, List<AvanceDeProyecto> avanceDeProyectos) {
+                              String estado, Empresa empresa,Lote lote, List<Documento> documentos) {
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -44,7 +44,6 @@ public class ProyectoProductivo {
         this.empresa = empresa;
         this.lote=lote;
         this.documentos = documentos;
-        this.avanceDeProyectos = avanceDeProyectos;
 
     }
     public ProyectoProductivo(String nombre,
@@ -185,5 +184,13 @@ public class ProyectoProductivo {
             this.proyectoDocumentoDAO.registrarDocumentos(this.idProyecto, documento.id());
         }
 
+    }
+
+    public List<Documento> documentos() {
+        return proyectoDocumentoDAO.findAllBy(this.idProyecto);
+    }
+
+    public List<AvanceDeProyecto> avances() {
+        return avanceDeProyectoDAO.findAllBy(this.idProyecto);
     }
 }

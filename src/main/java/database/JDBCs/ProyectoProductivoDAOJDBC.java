@@ -284,8 +284,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
                 rs.getString("materiaPrima"),
                 rs.getString("estado"),
                 empresa,
-                lote,new ProyectoDocumentoDAOJDBC().findAllBy(rs.getInt("idProyecto")),
-                new AvanceDeProyectoDAOJDBC().findAllBy(rs.getInt("idProyecto"))
+                lote,new ProyectoDocumentoDAOJDBC().findAllBy(rs.getInt("idProyecto"))
         );
     }
 }

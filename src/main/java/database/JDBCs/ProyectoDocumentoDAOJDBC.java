@@ -16,7 +16,7 @@ import static database.JDBCs.DocumentoDAOJDBC.mapearDocumento;
 public class ProyectoDocumentoDAOJDBC implements ProyectoDocumentoDAO {
     @Override
     public void registrarDocumentos(int idProyecto, int idDocumento) {
-        final String SQL = "INSERT INTO PrpyectpDocumento " + "(idProyecto,idDocumento) " +
+        final String SQL = "INSERT INTO ProyectoDocumento " + "(idProyecto,idDocumento) " +
                 "VALUES (?,?)";
 
         try(Connection conn = ConnectionManager.getConnection();
