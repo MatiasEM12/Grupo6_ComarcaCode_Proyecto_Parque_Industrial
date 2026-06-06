@@ -93,10 +93,10 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(sql)) {
 
-            st.setString(1, adm.getGmail());
-            st.setString(2, adm.getContrasena());
-            st.setString(3, adm.getNombre());
-            st.setString(4, adm.getDni());
+            st.setString(1, adm.usuario().getGmail());
+            st.setString(2, adm.usuario().contrasena());
+            st.setString(3, adm.nombre());
+            st.setString(4, adm.dni());
 
             int fila = st.executeUpdate();
 
