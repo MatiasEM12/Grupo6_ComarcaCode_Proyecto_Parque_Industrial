@@ -4,7 +4,6 @@ package database.JDBCs;
 import database.ConnectionManager;
 import database.DAOs.AvanceDeProyectoDAO;
 import database.DAOs.AvanceDocumentoDAO;
-import database.DAOs.DocumentoDAO;
 import model.*;
 
 import java.sql.*;
@@ -37,6 +36,32 @@ public class AvanceDeProyectoDAOJDBC implements AvanceDeProyectoDAO {
         } catch (Exception e) {
 
             throw new RuntimeException("Error al registrar avance", e);
+        }
+    }
+
+    @Override
+    public void actualizarEstado(int idAvance, EstadoProyecto estado) {
+
+        final String SQL = "UPDATE AvanceProyecto " +
+                        "SET estado = ? " +
+                        "WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, estado.name());
+
+            st.setInt(2, idAvance);
+
+            int filas = st.executeUpdate();
+
+            if (filas <= 0) {
+                throw new RuntimeException("No se encontró el avance con id " + idAvance);
+            }
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("Error al actualizar estado del avance", e);
         }
     }
 

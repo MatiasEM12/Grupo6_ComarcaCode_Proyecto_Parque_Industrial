@@ -34,11 +34,7 @@ public class AvanceDeProyecto {
         this.fechaCreacion = LocalDate.now();
         this.descripcion = descripcion;
         this.estado = estado;
-
-        this.avanceDeProyectoDAO.create(this);
-
         proyectoProductivo.cambiarEstado(estado);
-
 
     }
 

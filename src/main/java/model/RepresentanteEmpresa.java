@@ -72,7 +72,7 @@ public class RepresentanteEmpresa {
 // -  o empresa tiene como atributo el proyecto en desarrollo? this.empresa.proyectoEnDesarrollo()
 
     //entonces seria this.proyecto.cargarAvance(avance)
-    public void cargarAvance(AvanceDeProyecto avance){
+    public void cargarAvance(AvanceDeProyecto avance, ProyectoProductivo proyecto){
         validarAvance(avance);
         avance.cargate();
     }

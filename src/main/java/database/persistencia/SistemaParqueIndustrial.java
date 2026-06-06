@@ -49,4 +49,6 @@ public interface SistemaParqueIndustrial {
     Documento obtenerDocumento(int idDocumento);
 
     ProyectoProductivo obtenerProyecto(int idProyecto);
+
+    void cargarAvanceProyecto(Usuario user, AvanceDeProyecto avance, int idProyecto);
 }

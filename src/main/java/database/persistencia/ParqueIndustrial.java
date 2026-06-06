@@ -10,12 +10,6 @@ import model.DTO.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import database.ConnectionManager;
-
 
 
 public class ParqueIndustrial implements SistemaParqueIndustrial {
@@ -231,9 +225,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public void agregarDocumentoSolicitud(int idSolicitud, Documento d) {
 
-        System.out.println("Solicitud = " + idSolicitud);
-        System.out.println("Documento ID = " + d.id());
-        System.out.println("Ruta = " + d.rutaArchivo());
+
         SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find(idSolicitud);
         SolicitudDocumentoDAO solicitudDocumentoDAO = new SolicitudDocumentoDAOJDBC();
         solicitudDocumentoDAO.vincular(idSolicitud, d.id());
@@ -331,20 +323,25 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public void actualizarDatosDeUsuario(UsuarioDTO usuarioDTO){
         usuarioDAO.update(new Usuario(usuarioDTO.getUserName(), usuarioDTO.contrasena(),
                 new Rol(usuarioDTO.getRol().nombre()),usuarioDTO.gmail()));
-        }
-
-    public void cargarAvanceProyecto( Usuario user, AvanceDeProyectoDTO avance,ProyectoProductivoDTO proyecto){
-        /*
-         * RepresentanteEmpresa representante= obtenerRepresentantePorUsuario(user);
-         *
-         * representante.cargarAvance(toAvance(avance), toProyecto(proyecto))
-         *                             pasar avanseDTO a avanceProyecto
-         * */
-        //en estas cosas de dto no se si convertirlo a clase en el caso de Proyecto
-        //o hacer proyectoDTO.id  y que representante dentro suyo lo recupere con un proyectoDAO.find(id)
     }
 
+    @Override
+    public void cargarAvanceProyecto(Usuario user, AvanceDeProyecto avance, int idProyecto) {
 
+        RepresentanteEmpresa representante = representanteDAO.findByUserName(user.UserName());
+
+        ProyectoProductivo proyecto = proyectoProductivoDAO.find(idProyecto);
+
+        if(proyecto.empresa().cuit().equals(representante.cuitEmpresa())) {
+            proyecto.cargarAvance(avance);
+        }
+    }
+
+    public void cargarDocumentosEnAvance(int idAvance, List<Documento> documentos) {
+        AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
+        AvanceDeProyecto avance = avanceDeProyectoDAO.find(idAvance);
+        avance.cargarDocumentos(documentos);
+    }
 
 
 

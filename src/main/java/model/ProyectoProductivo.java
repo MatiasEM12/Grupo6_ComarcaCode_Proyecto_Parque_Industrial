@@ -193,4 +193,8 @@ public class ProyectoProductivo {
     public List<AvanceDeProyecto> avances() {
         return avanceDeProyectoDAO.findAllBy(this.idProyecto);
     }
+
+    public void cargarAvance(AvanceDeProyecto avance) {
+        this.avanceDeProyectoDAO.create(avance);
+    }
 }
