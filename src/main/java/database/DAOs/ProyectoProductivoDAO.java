@@ -1,5 +1,6 @@
 package database.DAOs;
 
+import model.EstadoProyecto;
 import model.ProyectoProductivo;
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ProyectoProductivoDAO {
     List<ProyectoProductivo> findByEmpresa(String cuitEmpresa);
 
     void actualizarEstado(int idProyecto, boolean estado);
+
+    void actualizarEstadoProyecto(int idProyecto, EstadoProyecto estado);
 }

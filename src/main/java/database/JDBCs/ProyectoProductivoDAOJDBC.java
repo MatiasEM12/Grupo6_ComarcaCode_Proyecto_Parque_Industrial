@@ -9,8 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProyectoProductivoDAOJDBC
-        implements ProyectoProductivoDAO {
+public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
     @Override
     public void registrarProyectoProductivo(
@@ -62,10 +61,7 @@ public class ProyectoProductivoDAOJDBC
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error al registrar proyecto productivo",
-                    e
-            );
+            throw new RuntimeException("Error al registrar proyecto productivo", e);
         }
     }
 
@@ -112,10 +108,7 @@ public class ProyectoProductivoDAOJDBC
             return null;
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error al obtener proyecto productivo",
-                    e
-            );
+            throw new RuntimeException("Error al obtener proyecto productivo", e);
         }
     }
 
@@ -161,10 +154,7 @@ public class ProyectoProductivoDAOJDBC
             return proyectos;
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error al obtener proyectos productivos",
-                    e
-            );
+            throw new RuntimeException("Error al obtener proyectos productivos", e);
         }
     }
 
@@ -215,10 +205,7 @@ public class ProyectoProductivoDAOJDBC
             return proyectos;
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error al obtener proyectos por empresa",
-                    e
-            );
+            throw new RuntimeException("Error al obtener proyectos por empresa", e);
         }
     }
 
@@ -245,16 +232,37 @@ public class ProyectoProductivoDAOJDBC
             int fila = st.executeUpdate();
 
             if (fila <= 0) {
-                throw new RuntimeException(
-                        "No se encontró el proyecto"
-                );
+                throw new RuntimeException("No se encontró el proyecto");
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Error al actualizar estado",
-                    e
-            );
+            throw new RuntimeException("Error al actualizar estado", e);
+        }
+    }
+
+    @Override
+    public void actualizarEstadoProyecto(int idProyecto, EstadoProyecto estado) {
+
+        final String SQL = "UPDATE ProyectoProductivo " +
+                        "SET estadoProyecto = ? " +
+                        "WHERE idProyecto = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, estado.name());
+
+            st.setInt(2, idProyecto);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró el proyecto");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar estado del proyecto", e);
         }
     }
 

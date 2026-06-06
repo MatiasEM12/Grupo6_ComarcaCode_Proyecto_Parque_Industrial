@@ -1,7 +1,11 @@
 package model;
 
+import database.DAOs.ProyectoDocumentoDAO;
 import database.DAOs.ProyectoProductivoDAO;
+import database.JDBCs.ProyectoDocumentoDAOJDBC;
 import database.JDBCs.ProyectoProductivoDAOJDBC;
+
+import java.util.List;
 
 public class ProyectoProductivo {
     private int idProyecto;
@@ -14,8 +18,9 @@ public class ProyectoProductivo {
     private boolean enEjecucion;
     private Empresa empresa;
     private Lote lote;
-
-    private ProyectoProductivoDAOJDBC proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
+    private EstadoProyecto estado;
+    private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
+    private ProyectoDocumentoDAO proyectoDocumentoDAO = new ProyectoDocumentoDAOJDBC();
     public ProyectoProductivo(int idProyecto, String nombre, String descripcion,
                               double superficie, String necesidades,
                               int empleabilidad, String materiaPrima,
@@ -49,6 +54,7 @@ public class ProyectoProductivo {
         this.empresa = empresa;
         this.lote = lote;
         this.enEjecucion = false;
+        this.estado = EstadoProyecto.SIN_INICIAR;
 
         proyectoProductivoDAO.registrarProyectoProductivo(this);
     }
@@ -132,5 +138,39 @@ public class ProyectoProductivo {
 
     public int idLote() {
         return lote.id();
+    }
+
+    public void cambiarEstado(EstadoProyecto estado) {
+
+        if (estado == EstadoProyecto.EN_EJECUCION) {
+            this.estadoEnEjecucion();
+        }
+        if (estado == EstadoProyecto.FINALIZADO) {
+            this.estadoFinalizado();
+        }
+        if (estado == EstadoProyecto.SUSPENDIDO) {
+            this.estadoSuspendido();
+        }
+    }
+
+    private void estadoSuspendido() {
+        this.estado = EstadoProyecto.SUSPENDIDO;
+        this.proyectoProductivoDAO.actualizarEstadoProyecto(this.idProyecto, this.estado);
+    }
+
+    private void estadoFinalizado() {
+        this.estado = EstadoProyecto.FINALIZADO;
+        this.proyectoProductivoDAO.actualizarEstadoProyecto(this.idProyecto, this.estado);
+    }
+
+    private void estadoEnEjecucion() {
+        this.estado = EstadoProyecto.EN_EJECUCION;
+        this.proyectoProductivoDAO.actualizarEstadoProyecto(this.idProyecto, this.estado);
+
+    }
+
+    public void cargarDocumentos(List<Documento> documentos) {
+        this.proyectoDocumentoDAO.registrarDocumentos(this.idProyecto, documentos);
+
     }
 }
