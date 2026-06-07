@@ -60,4 +60,6 @@ public interface SistemaParqueIndustrial {
     void cargarDocumentosEnAvance(int idAvance, List<Documento> documentos);
 
     AvanceDeProyecto obtenerAvance(int idAvance);
+
+    void agregarEvaluacionTecnica(int idProyecto, EvaluacionTecnica evaluacion);
 }

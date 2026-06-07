@@ -15,4 +15,12 @@ public class EvaluacionTecnica extends Reporte {
         this.resultado = resultado;
         this.observaciones = observaciones;
     }
+
+    public String resultado() {
+        return resultado;
+    }
+
+    public String observaciones() {
+        return observaciones;
+    }
 }

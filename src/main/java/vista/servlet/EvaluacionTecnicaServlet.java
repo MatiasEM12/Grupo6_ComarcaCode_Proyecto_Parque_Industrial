@@ -2,23 +2,40 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
+import model.ProyectoProductivo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/evaluacionTecnica")
 public class EvaluacionTecnicaServlet extends HttpServlet {
 
+    private SistemaParqueIndustrial sistema;
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void init() {
+        this.sistema = new ParqueIndustrial();
+    }
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        request.setAttribute("proyectos", sistema.obtenerProyectosProductivos());
+        String idProyectoParam = request.getParameter("idProyecto");
+
+        if (idProyectoParam == null || idProyectoParam.isEmpty()) {
+            response.sendRedirect("proyectosEnEjecucion");
+            return;
+        }
+
+        int idProyecto = Integer.parseInt(idProyectoParam);
+
+        ProyectoProductivo proyecto = sistema.obtenerProyectoProductivo(idProyecto);
+
+        request.setAttribute("proyecto", proyecto);
+        request.setAttribute("idProyecto", idProyecto);
 
         request.getRequestDispatcher("/evaluacionTecnica.jsp").forward(request, response);
     }

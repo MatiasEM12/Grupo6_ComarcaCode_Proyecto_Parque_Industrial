@@ -72,4 +72,8 @@ public class Reporte {
                 documentos.size()
         );
     }
+
+    public String descripcion() {
+        return descripcion;
+    }
 }

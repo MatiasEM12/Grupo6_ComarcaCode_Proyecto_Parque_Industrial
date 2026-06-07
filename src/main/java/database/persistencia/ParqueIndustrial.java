@@ -23,6 +23,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
     private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     private ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
+    private EvaluacionTecnicaDAO evaluacionTecnicaDAO;
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -345,6 +346,8 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
        lote.superficie(), lote.estado(), lote.infraestructura());
     }
 
-
-
+    @Override
+    public void agregarEvaluacionTecnica(int idProyecto, EvaluacionTecnica evaluacion) {
+        evaluacionTecnicaDAO.create(idProyecto, evaluacion);
+    }
 }

@@ -115,16 +115,6 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/evaluacionTecnica"
-           class="card">
-
-            <div class="card__content">
-                <h2>Evaluaciones Tecnicas</h2>
-                <p>Generar reporte sobre el proyecto productivo del parque.</p>
-            </div>
-
-        </a>
-
         <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
