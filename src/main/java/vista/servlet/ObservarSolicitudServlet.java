@@ -28,7 +28,13 @@ public class ObservarSolicitudServlet extends HttpServlet {
         int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
         String descripcion = request.getParameter("descripcion");
 
-        sistema.observarSolicitud(idSolicitud, descripcion);
+        Usuario usuarioLogueado = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+
+        sistema.observarSolicitud(
+                idSolicitud,
+                descripcion,
+                usuarioLogueado.UserName()
+        );
 
         response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }
