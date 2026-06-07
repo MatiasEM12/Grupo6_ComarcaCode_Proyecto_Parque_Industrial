@@ -71,33 +71,7 @@ public class ProyectoProductivo {
 
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public double getSuperficie() {
-        return superficie;
-    }
-
-    public String getNecesidades() {
-        return necesidades;
-    }
-
-    public int getEmpleabilidad() {
-        return empleabilidad;
-    }
-
-    public String getMateriaPrima() {
-        return materiaPrima;
-    }
-
-    public boolean isEnEjecucion() {
-        return enEjecucion;
-    }
 
     public boolean estaEnEjecucion(){
         if (!enEjecucion){
@@ -194,7 +168,10 @@ public class ProyectoProductivo {
         return avanceDeProyectoDAO.findAllBy(this.idProyecto);
     }
 
-    public void cargarAvance(AvanceDeProyecto avance) {
-        this.avanceDeProyectoDAO.create(avance);
+    public int cargarAvance(AvanceDeProyecto avance) {
+        return this.avanceDeProyectoDAO.create(avance);
+    }
+    public String estado() {
+        return estado.name();
     }
 }

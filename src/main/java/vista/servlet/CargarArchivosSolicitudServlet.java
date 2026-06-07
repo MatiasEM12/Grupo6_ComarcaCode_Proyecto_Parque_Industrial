@@ -21,6 +21,7 @@ import java.util.List;
 @MultipartConfig
 public class CargarArchivosSolicitudServlet extends HttpServlet {
 
+    private  SistemaParqueIndustrial sistema = new ParqueIndustrial();
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
@@ -35,7 +36,7 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
         System.out.println("idSolicitud = [" + id + "]");
 
         int idSolicitud = Integer.parseInt(id);
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
 
         List<Documento> documentos = new ArrayList<>();
 
@@ -87,7 +88,7 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
 
         filePart.write(fullPath);
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
 
         sistema.cargarDocumento(
                 tipo,

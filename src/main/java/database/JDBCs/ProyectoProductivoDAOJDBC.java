@@ -38,7 +38,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
 
             st.setString(6, proyectoProductivo.materiaPrima());
 
-            st.setBoolean(7, proyectoProductivo.enEjecucion());
+            st.setString(7, proyectoProductivo.estado());
 
             st.setString(8, proyectoProductivo.empresa().cuit());
 

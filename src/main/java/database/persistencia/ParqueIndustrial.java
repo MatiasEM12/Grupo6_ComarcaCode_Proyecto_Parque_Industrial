@@ -326,17 +326,20 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     }
 
     @Override
-    public void cargarAvanceProyecto(Usuario user, AvanceDeProyecto avance, int idProyecto) {
+    public int cargarAvanceProyecto(Usuario user, AvanceDeProyecto avance, int idProyecto) {
 
         RepresentanteEmpresa representante = representanteDAO.findByUserName(user.UserName());
 
         ProyectoProductivo proyecto = proyectoProductivoDAO.find(idProyecto);
 
-        if(proyecto.empresa().cuit().equals(representante.cuitEmpresa())) {
-            proyecto.cargarAvance(avance);
+        if(!proyecto.empresa().cuit().equals(representante.cuitEmpresa())) {
+
+            throw new RuntimeException("El proyecto no pertenece al usuario");
         }
+        return  proyecto.cargarAvance(avance);
     }
 
+    @Override
     public void cargarDocumentosEnAvance(int idAvance, List<Documento> documentos) {
         AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
         AvanceDeProyecto avance = avanceDeProyectoDAO.find(idAvance);

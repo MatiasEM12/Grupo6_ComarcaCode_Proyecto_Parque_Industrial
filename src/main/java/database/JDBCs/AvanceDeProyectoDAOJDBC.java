@@ -13,15 +13,14 @@ import java.util.List;
 public class AvanceDeProyectoDAOJDBC implements AvanceDeProyectoDAO {
 
     @Override
-    public void create(AvanceDeProyecto avance) {
+    public int create(AvanceDeProyecto avance) {
 
-        final String SQL =
-                "INSERT INTO AvanceProyecto " +
+        final String SQL = "INSERT INTO AvanceProyecto " +
                         "(idProyecto, fechaCreacion, descripcion, estado) " +
                         "VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement st = conn.prepareStatement(SQL)) {
+        try(Connection conn = ConnectionManager.getConnection();
+            PreparedStatement st = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
 
             st.setInt(1, avance.proyectoProductivo().idProyecto());
 
@@ -33,7 +32,15 @@ public class AvanceDeProyectoDAOJDBC implements AvanceDeProyectoDAO {
 
             st.executeUpdate();
 
-        } catch (Exception e) {
+            ResultSet rs = st.getGeneratedKeys();
+
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+
+            throw new RuntimeException("No se pudo obtener el id del avance");
+
+        } catch(Exception e) {
 
             throw new RuntimeException("Error al registrar avance", e);
         }

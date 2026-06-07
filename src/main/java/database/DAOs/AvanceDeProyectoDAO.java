@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AvanceDeProyectoDAO {
 
-    public void create(AvanceDeProyecto avanceDeProyecto);
+    public int create(AvanceDeProyecto avanceDeProyecto);
 
     void actualizarEstado(int idAvance, EstadoProyecto estado);
 

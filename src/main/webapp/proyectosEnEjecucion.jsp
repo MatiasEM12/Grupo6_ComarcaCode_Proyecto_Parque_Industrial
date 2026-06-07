@@ -141,21 +141,21 @@
 
         <article class="proyecto__card">
             <div class="card__header">
-                <h2><%= proyecto.getNombre() %></h2>
+                <h2><%= proyecto.nombre() %></h2>
 
                 <span class="estado estado--activo">
-                    En ejecución
+                    <%= proyecto.estado() %>
                 </span>
             </div>
 
             <div class="card__body">
-                <p><%= proyecto.getDescripcion() %></p>
+                <p><%= proyecto.descripcion() %></p>
 
                 <div class="info">
-                    <p><strong>Superficie:</strong> <%= proyecto.getSuperficie() %> m²</p>
-                    <p><strong>Empleabilidad:</strong> <%= proyecto.getEmpleabilidad() %> empleados</p>
-                    <p><strong>Materia Prima:</strong> <%= proyecto.getMateriaPrima() %></p>
-                    <p><strong>Necesidades:</strong> <%= proyecto.getNecesidades() %></p>
+                    <p><strong>Superficie:</strong> <%= proyecto.superficie() %> m²</p>
+                    <p><strong>Empleabilidad:</strong> <%= proyecto.empleabilidad() %> empleados</p>
+                    <p><strong>Materia Prima:</strong> <%= proyecto.materiaPrima() %></p>
+
                 </div>
             </div>
         </article>
