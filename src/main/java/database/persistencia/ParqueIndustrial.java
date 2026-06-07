@@ -22,6 +22,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
     private AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
     private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
+    private ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -125,28 +126,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
 
     //creo que esto es para hacer las observaciones acia el proyecto
     @Override
-    public void observarSolicitud(int idSolicitud, String descripcion) {
-       /* if (descripcion == null || descripcion.isBlank()) {
-            throw new RuntimeException("La observación no puede estar vacía");
-        }
+    public void observarSolicitud(int idSolicitud, String descripcion, String dniAdmin) {
+       ObservacionDTO observacion = new ObservacionDTO(idSolicitud, descripcion, dniAdmin);
+       observacionesDAO.crear(observacion);
+    }
 
-        final String SQL = "UPDATE SolicitudRadicacion " +
-                "SET estadoSolicitud = 'OBSERVADA', fechaActualizacion = CURRENT_DATE, observacion = ? " +
-                "WHERE id = ?";
-
-        try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement st = conn.prepareStatement(SQL)) {
-
-            st.setString(1, descripcion);
-            st.setInt(2, idSolicitud);
-
-            if (st.executeUpdate() <= 0) {
-                throw new RuntimeException("No se encontró la solicitud a observar");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error al observar la solicitud", e);
-        }*/
+    @Override
+    public List<ObservacionDTO> obstenerObservacionesSolicitud(int idSolicitud) {
+        return observacionesDAO.buscarPorSolicitud(idSolicitud);
     }
 
     private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {

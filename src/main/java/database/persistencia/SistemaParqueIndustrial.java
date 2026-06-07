@@ -3,6 +3,7 @@ package database.persistencia;
 import model.*;
 import model.DTO.EmpresaDTO;
 import model.DTO.LoteDTO;
+import model.DTO.ObservacionDTO;
 import model.DTO.SolicitudRadicacionDTO;
 
 import java.util.List;
@@ -19,7 +20,11 @@ public interface SistemaParqueIndustrial {
     void aprobarSolicitudFinal(int idSolicitud, int idLote);
     void aprobarSolicitudPrimeraInstancia(int idSolicitud);
     void rechazarSolicitud(int idSolicitud);
-    void observarSolicitud(int idSolicitud, String descripcion);
+
+    //observaciones
+    void observarSolicitud(int idSolicitud, String descripcion, String dniAdmin);
+    List<ObservacionDTO> obstenerObservacionesSolicitud(int idSolicitud);
+
     List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);
     ProyectoProductivo obtenerProyectoProductivo(int idProyecto);
     List<ProyectoProductivo> obtenerProyectosProductivos();
