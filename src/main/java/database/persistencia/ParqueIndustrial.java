@@ -20,6 +20,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
     private LoteDAO loteDAO = new LoteDAOJDBC();
     private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
+    private AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
     private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
@@ -346,6 +347,10 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         avance.cargarDocumentos(documentos);
     }
 
+    @Override
+    public AvanceDeProyecto obtenerAvance(int idAvance) {
+        return avanceDeProyectoDAO.find(idAvance);
+    }
 
 
     private LoteDTO toLote(Lote lote){

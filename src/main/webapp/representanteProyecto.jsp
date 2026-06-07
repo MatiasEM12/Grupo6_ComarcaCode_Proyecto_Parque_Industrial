@@ -188,9 +188,7 @@
 
                 <input type="text"
                        name="materiaPrima"
-                       value="<%= proyecto.materiaPrima() %>">
-
-            </div>
+                       value="
 
             <div class="form__group">
 
@@ -319,7 +317,9 @@
                 <div class="form__group">
 
                     <label>Estado del Proyecto</label>
+<%= proyecto.materiaPrima() %>">
 
+            </div>
                     <select name="estado"
                             required>
 

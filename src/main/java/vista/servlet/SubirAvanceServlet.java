@@ -82,8 +82,9 @@ public class SubirAvanceServlet extends HttpServlet {
 
             String nombreFinal = java.util.UUID.randomUUID() + "_" + nombreOriginal;
 
-            String rutaCompleta = UPLOAD_DIR + File.separator + nombreFinal;
+            String rutaCompleta = UPLOAD_DIR  + nombreFinal;
 
+            System.out.println(rutaCompleta);
             archivo.write(rutaCompleta);
 
             Documento documento = new Documento(
@@ -93,7 +94,8 @@ public class SubirAvanceServlet extends HttpServlet {
                     archivo.getSize()
             );
 
-            documentos.add(documento);
+
+            documentos.add(sistema.obtenerDocumentoPorRuta(rutaCompleta));
         }
 
         sistema.cargarDocumentosEnAvance(idAvance, documentos);
