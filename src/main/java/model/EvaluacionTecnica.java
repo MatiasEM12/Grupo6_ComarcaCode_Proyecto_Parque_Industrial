@@ -2,8 +2,8 @@ package model;
 
 public class EvaluacionTecnica extends Reporte {
 
-    private String resultado;
-    private String observaciones;
+    private final String resultado;
+    private final String observaciones;
 
     public EvaluacionTecnica(String descripcion,
                              Usuario generadoPor,

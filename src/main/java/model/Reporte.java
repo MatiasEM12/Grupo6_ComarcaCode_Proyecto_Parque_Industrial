@@ -13,7 +13,6 @@ public class Reporte {
     private final List<Documento> documentos;
 
     public Reporte(TipoReporte tipo, String descripcion, Usuario generadoPor) {
-        this.id = id;
         validarTipo(tipo);
         validarDescripcion(descripcion);
         validarUsuario(generadoPor);

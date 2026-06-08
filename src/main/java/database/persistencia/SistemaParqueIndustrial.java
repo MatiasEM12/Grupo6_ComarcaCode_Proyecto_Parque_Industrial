@@ -10,7 +10,6 @@ public interface SistemaParqueIndustrial {
     List<Usuario> obtenerUsuarios();
     Usuario obtenerUsuarioPorUsername(String username);
     void agregarSolicitud(SolicitudRadicacionDTO solicitud);
-    List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario);
     List<SolicitudRadicacion> obtenerSolicitudes();
 
     List<Lote> obtenerLotesDisponibles();
@@ -20,7 +19,6 @@ public interface SistemaParqueIndustrial {
 
     //observaciones
     void observarSolicitud(int idSolicitud, String descripcion, String dniAdmin);
-    List<ObservacionDTO> obstenerObservacionesSolicitud(int idSolicitud);
 
     List<SolicitudRadicacion> obtenerSolicitudesDe(String userName);
     ProyectoProductivo obtenerProyectoProductivo(int idProyecto);
@@ -34,7 +32,6 @@ public interface SistemaParqueIndustrial {
 
     AdministradorDelParque obtenerAdm(String s);
 
-    void actualizarEmpresa(EmpresaDTO empresa);
 
     List<ProyectoProductivo> obtenerProyectosProductivosDe(String s);
 

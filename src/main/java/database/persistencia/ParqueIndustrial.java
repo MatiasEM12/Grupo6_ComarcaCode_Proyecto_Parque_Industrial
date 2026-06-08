@@ -14,16 +14,16 @@ import java.util.List;
 
 public class ParqueIndustrial implements SistemaParqueIndustrial {
 
-    private UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
-    private RepresentanteEmpresaDAO representanteDAO= new RepresentanteEmpresaDAOJDBC();
-    private SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
-    private ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
-    private LoteDAO loteDAO = new LoteDAOJDBC();
-    private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
-    private AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
-    private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
-    private ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
-    private EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
+    private final UsuarioDAO usuarioDAO= new UsuarioDAOJDBC();
+    private final RepresentanteEmpresaDAO representanteDAO= new RepresentanteEmpresaDAOJDBC();
+    private final SolicitudRadicacionDAO solicitudRadicacionDAO = new SolicitudRadicacionDAOJDBC();
+    private final ProyectoProductivoDAO proyectoProductivoDAO = new ProyectoProductivoDAOJDBC();
+    private final LoteDAO loteDAO = new LoteDAOJDBC();
+    private final AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
+    private final AvanceDeProyectoDAO avanceDeProyectoDAO = new AvanceDeProyectoDAOJDBC();
+    private final DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
+    private final ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
+    private final EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -53,13 +53,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 );
     }
 
-    @Override
-    public List<SolicitudRadicacion> obtenerSolicitudesDe(Usuario usuario) {
-        List<SolicitudRadicacion> solicitudes = new ArrayList<>(obtenerSolicitudes());
-        RepresentanteEmpresa representanteEmpresa= representanteDAO.find(usuario.UserName());
-
-        return solicitudes.stream().filter(s -> s.representante().dni().equals(representanteEmpresa.dni())).toList();
-    }
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudesDe(String userName) {
 
@@ -132,12 +125,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
        observacionesDAO.crear(observacion);
     }
 
-    @Override
-    public List<ObservacionDTO> obstenerObservacionesSolicitud(int idSolicitud) {
-        return observacionesDAO.buscarPorSolicitud(idSolicitud);
-    }
-
-    private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {
+    //private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {
       /*  try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(sql)) {
 
@@ -150,7 +138,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         } catch (SQLException e) {
             throw new RuntimeException(mensajeError, e);
         }*/
-    }
+   // }
     @Override
     public ProyectoProductivo obtenerProyectoProductivo(int idProyecto) {
         return proyectoProductivoDAO.find(idProyecto);
@@ -185,11 +173,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return administradorDelParqueDAO.obtenerAdministradorPorUsername(s);
     }
 
-    @Override
-    public void actualizarEmpresa(EmpresaDTO empresa) {
-        EmpresaDAO empresaDAO = new EmpresaDAOJDBC();
-        empresaDAO.actualizar(empresa);
-    }
 
     @Override
     public List<ProyectoProductivo> obtenerProyectosProductivosDe(String s) {
