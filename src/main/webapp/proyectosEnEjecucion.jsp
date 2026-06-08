@@ -154,10 +154,19 @@
 
                         <% if(usuario.nombreRol().equals("organismo_publico")) { %>
 
-                            <a class="btn__evaluacion"
-                               href="<%= request.getContextPath() %>/evaluacionTecnica?idProyecto=<%= proyecto.idProyecto() %>">
-                                Realizar evaluación técnica
-                            </a>
+                            <div class="acciones__proyecto">
+
+                                <a class="btn__evaluacion"
+                                   href="<%= request.getContextPath() %>/evaluacionTecnica?idProyecto=<%= proyecto.idProyecto() %>">
+                                    Realizar evaluación técnica
+                                </a>
+
+                                <a class="btn__evaluacion btn__secundario"
+                                   href="<%= request.getContextPath() %>/evaluacionesTecnicas?idProyecto=<%= proyecto.idProyecto() %>">
+                                    Ver evaluaciones técnicas
+                                </a>
+
+                            </div>
 
                         <% } %>
 

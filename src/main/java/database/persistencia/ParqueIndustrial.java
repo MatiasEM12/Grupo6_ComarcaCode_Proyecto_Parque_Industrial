@@ -350,4 +350,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public void agregarEvaluacionTecnica(int idProyecto, EvaluacionTecnica evaluacion) {
         evaluacionTecnicaDAO.create(idProyecto, evaluacion);
     }
+
+    @Override
+    public List<EvaluacionTecnicaDTO> obtenerEvaluacionesTecnicasPorProyecto(int idProyecto) {
+        return evaluacionTecnicaDAO.findByProyecto(idProyecto);
+    }
+
+    @Override
+    public EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion) {
+        return evaluacionTecnicaDAO.findById(idEvaluacion);
+    }
 }

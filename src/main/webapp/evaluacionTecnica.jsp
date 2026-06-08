@@ -71,6 +71,12 @@
                 </a>
             </li>
 
+            <li class="nav__item">
+                <a href="<%= request.getContextPath() %>/evaluacionesTecnicas" class="nav__link">
+                    Evaluaciones realizadas
+                </a>
+            </li>
+
         </ul>
 
     </div>
@@ -147,9 +153,18 @@
                 <textarea name="observaciones"
                           placeholder="Ingrese observaciones si corresponde..."></textarea>
 
-                <button type="submit" class="btn__form">
-                    Guardar Evaluación
-                </button>
+                <div class="form__acciones">
+
+                    <button type="submit" class="btn__form">
+                        Guardar Evaluación
+                    </button>
+
+                    <a href="<%= request.getContextPath() %>/evaluacionesTecnicas"
+                       class="btn__secundario">
+                        Ver evaluaciones realizadas
+                    </a>
+
+                </div>
 
             </form>
 

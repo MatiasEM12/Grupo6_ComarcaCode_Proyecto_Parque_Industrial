@@ -1,10 +1,7 @@
 package database.persistencia;
 
 import model.*;
-import model.DTO.EmpresaDTO;
-import model.DTO.LoteDTO;
-import model.DTO.ObservacionDTO;
-import model.DTO.SolicitudRadicacionDTO;
+import model.DTO.*;
 
 import java.util.List;
 
@@ -62,4 +59,7 @@ public interface SistemaParqueIndustrial {
     AvanceDeProyecto obtenerAvance(int idAvance);
 
     void agregarEvaluacionTecnica(int idProyecto, EvaluacionTecnica evaluacion);
+    List<EvaluacionTecnicaDTO> obtenerEvaluacionesTecnicasPorProyecto(int idProyecto);
+
+    EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion);
 }

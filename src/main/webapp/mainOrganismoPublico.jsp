@@ -73,20 +73,23 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/perfil" class="nav__link">
+                <a href="${pageContext.request.contextPath}/perfil"
+                   class="nav__link">
                     Perfil
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/evaluacionTecnica" class="nav__link">
-                    Evaluaciones Técnicas
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
+                   class="nav__link">
+                    Proyectos
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/reporte.jsp" class="nav__link">
-                    Reportes
+                <a href="${pageContext.request.contextPath}/evaluacionesTecnicas"
+                   class="nav__link">
+                    Evaluaciones Realizadas
                 </a>
             </li>
 
@@ -118,16 +121,14 @@
         <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
-                <h2>Proyectos en ejecución</h2>
-                <p>Consultar información sobre los proyectos productivos del parque.</p>
-            </div>
-        </a>
 
-        <a href="${pageContext.request.contextPath}/reporte.jsp"
-           class="card">
-            <div class="card__content">
-                <h2>Reportes</h2>
-                <p>Consultar reportes sobre actividad industrial y desarrollo productivo.</p>
+                <h2>Proyectos en ejecución</h2>
+
+                <p>
+                    Consultar proyectos productivos y registrar
+                    evaluaciones técnicas.
+                </p>
+
             </div>
         </a>
 
