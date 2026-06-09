@@ -264,7 +264,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
                     rs.getString("razonSocial"),
                     rs.getString("contacto"),
                     rs.getString("contactoRepresentante"),
-                    rs.getBoolean("radicada")
+                    rs.getBoolean("radicada"),false
             );
         }
 

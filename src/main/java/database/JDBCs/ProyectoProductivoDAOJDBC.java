@@ -256,7 +256,7 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
                     rs.getString("razonSocial"),
                     rs.getString("contacto"),
                     rs.getString("contactoRepresentante"),
-                    rs.getBoolean("radicada")
+                    rs.getBoolean("radicada"),false
             );
         }
 

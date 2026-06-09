@@ -4,7 +4,7 @@ import database.DAOs.ProyectoProductivoDAO;
 import database.JDBCs.ProyectoProductivoDAOJDBC;
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
-import main.Sistema;
+
 import model.ProyectoProductivo;
 
 import javax.servlet.ServletException;
