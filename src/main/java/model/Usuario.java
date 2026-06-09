@@ -21,6 +21,8 @@ public class Usuario {
         this.rol = rol;
         this.gmail = gmail;
 
+        usuarioDAO.registrar(this);
+
 
     }
     public Usuario(int codigo, String userName, String contrasena, Rol rol, String gmail){

@@ -45,7 +45,7 @@ public class RegistroServlet extends HttpServlet {
             switch (rol) {
 
 
-                case "ADMIN":
+                case "administrador":
 
                     String dniAdmin = request.getParameter("dni");
                     String nombreAdmin = request.getParameter("nombre");
@@ -59,7 +59,7 @@ public class RegistroServlet extends HttpServlet {
                     break;
 
 
-                case "ORGANISMO":
+                case "organismo_publico":
 
                     int saf = Integer.parseInt(request.getParameter("saf"));
                     String nombreOrg = request.getParameter("nombreOrganismo");
@@ -78,7 +78,7 @@ public class RegistroServlet extends HttpServlet {
 
                     break;
 
-                case "REPRESENTANTE":
+                case "representante":
 
                     String dniRep = request.getParameter("dni");
 

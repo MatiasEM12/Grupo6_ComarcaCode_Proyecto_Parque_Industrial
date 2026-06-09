@@ -14,7 +14,7 @@ import database.DAOs.EmpresaDAO;
 public class EmpresaDAOJDBC implements EmpresaDAO{
 
     @Override
-    //le quitaria o agregaria rubro a la clase empresa porque no existe
+
     public void registrarEmpresa(Empresa empresa) {
         final String SQL = "INSERT INTO Empresa(cuit, razonSocial, rubro, contacto, " +
                 "contactoRepresentante, esRadicada) VALUES (?, ?, ?, ?, ?, ?)";

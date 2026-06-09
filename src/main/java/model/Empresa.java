@@ -36,6 +36,8 @@ public class Empresa {
         this.contacto = contacto;
         this.contactoRepresentante = contactoRepresentante;
         this.radicada = radicada;
+
+
     }
     public Empresa(String cuit, String razonSocial,
                    String contacto, String contactoRepresentante,
@@ -51,6 +53,7 @@ public class Empresa {
         this.contacto = contacto;
         this.contactoRepresentante = contactoRepresentante;
         this.radicada = radicada;
+        empresaDAO.registrarEmpresa(this);
     }
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 

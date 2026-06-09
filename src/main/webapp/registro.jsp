@@ -74,9 +74,9 @@
 
         <select name="rol" id="rol" onchange="mostrarCampos()" required>
             <option value="">-- Seleccione rol --</option>
-            <option value="ADMIN">Administrador</option>
-            <option value="ORGANISMO">Organismo Público</option>
-            <option value="REPRESENTANTE">Representante Empresa</option>
+            <option value="administrador">Administrador</option>
+            <option value="organismo_publico">Organismo Público</option>
+            <option value="representante">Representante Empresa</option>
         </select>
 
         <div id="extraCampos"></div>
@@ -106,7 +106,7 @@
 
         div.innerHTML = "";
 
-        if (rol === "ADMIN") {
+        if (rol === "administrador") {
 
             div.innerHTML = `
                 <h3>Datos Administrador</h3>
@@ -115,7 +115,7 @@
             `;
         }
 
-        else if (rol === "ORGANISMO") {
+        else if (rol === "organismo_publico") {
 
             div.innerHTML = `
                 <h3>Datos Organismo</h3>
@@ -125,7 +125,7 @@
             `;
         }
 
-        else if (rol === "REPRESENTANTE") {
+        else if (rol === "representante") {
 
             div.innerHTML = `
                 <h3>Datos Representante</h3>
