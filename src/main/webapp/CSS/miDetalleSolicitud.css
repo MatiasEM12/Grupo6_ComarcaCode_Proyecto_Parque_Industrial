@@ -352,7 +352,7 @@ main{
     color: white;
 }
 
-.btn__actualizarDatosPrincipalesr:hover{
+.btn__actualizarDatosPrincipales:hover{
     background-color: rgb(8,155,8);
 
     transform: translateY(-2px);
@@ -364,7 +364,7 @@ main{
     color: white;
 }
 
-.btn__cargarArchivor:hover{
+.btn__cargarArchivo:hover{
     background-color: #b52a37;
 
     transform: translateY(-2px);
@@ -384,35 +384,75 @@ main{
 
 
 /* =========================
-   OBSERVACIONES
+   TABLA OBSERVACIONES
 ========================= */
 
-.observacion__form{
-    padding: 0 30px 30px 30px;
+.tabla-observaciones{
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: white;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
 }
 
-.observacion__form form{
-    display: flex;
+.tabla-observaciones thead{
+    background: linear-gradient(
+        135deg,
+        rgb(11,122,11),
+        rgb(20,160,20)
+    );
 
-    flex-direction: column;
-
-    gap: 15px;
+    color: white;
 }
 
-.observacion__form textarea{
-    min-height: 140px;
+.tabla-observaciones th,
+.tabla-observaciones td{
+    padding: 14px;
 
-    resize: vertical;
+    text-align: left;
 
-    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
 
-    border-radius: 12px;
+.tabla-observaciones tbody tr:hover{
+    background-color: rgba(11,122,11,0.08);
+}
 
-    border: 1px solid #ccc;
+.detalle-observacion summary{
+    cursor: pointer;
 
-    font-size: 15px;
+    color: rgb(11,122,11);
 
-    font-family: sans-serif;
+    font-weight: bold;
+
+    user-select: none;
+}
+
+.detalle-observacion summary:hover{
+    text-decoration: underline;
+}
+
+.contenido-observacion{
+    margin-top: 10px;
+
+    padding: 12px;
+
+    background-color: #f8f8f8;
+
+    border-left: 4px solid rgb(11,122,11);
+
+    border-radius: 8px;
+
+    line-height: 1.6;
+
+    white-space: pre-wrap;
 }
 
 /* =========================
@@ -453,6 +493,159 @@ footer{
     margin-bottom: 10px;
 }
 
+.acciones__container h3{
+    margin: 10px 0;
+
+    color: rgb(11,122,11);
+
+    font-size: 1.4rem;
+
+    border-bottom: 2px solid rgb(11,122,11);
+
+    padding-bottom: 8px;
+}
+
+/* FORMULARIO DE ARCHIVOS */
+
+.acciones__container form[enctype="multipart/form-data"]{
+    background-color: #f8f8f8;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    border: 1px solid #ddd;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.acciones__container form[enctype="multipart/form-data"] > div{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.acciones__container label{
+    font-weight: bold;
+
+    color: rgb(11,122,11);
+}
+
+.acciones__container input[type="file"]{
+    padding: 10px;
+
+    background-color: white;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.acciones__container input[type="file"]:hover{
+    border-color: rgb(11,122,11);
+}
+
+/* BOTON GUARDAR DOCUMENTOS */
+
+.acciones__container form[enctype="multipart/form-data"] button{
+    align-self: flex-start;
+
+    background-color: rgb(11,122,11);
+
+    color: white;
+}
+
+.acciones__container form[enctype="multipart/form-data"] button:hover{
+    background-color: rgb(8,155,8);
+
+    transform: translateY(-2px);
+}
+
+/* =========================
+   TABLA DOCUMENTOS
+========================= */
+
+.tabla-documentos{
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: white;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    box-shadow:
+            0 3px 10px rgba(0,0,0,.08);
+}
+
+.tabla-documentos thead{
+    background: linear-gradient(
+            135deg,
+            rgb(11,122,11),
+            rgb(20,160,20)
+    );
+
+    color: white;
+}
+
+.tabla-documentos th,
+.tabla-documentos td{
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.tabla-documentos tbody tr{
+    transition: .2s;
+}
+
+.tabla-documentos tbody tr:hover{
+    background-color: rgba(11,122,11,0.08);
+}
+
+.tabla-documentos td{
+    color: #333;
+}
+
+/* LINK DESCARGAR */
+
+.tabla-documentos a{
+    text-decoration: none;
+
+    background-color: #007bff;
+
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    display: inline-block;
+
+    transition: .25s;
+}
+
+.tabla-documentos a:hover{
+    background-color: rgb(11,122,11);
+
+    transform: translateY(-2px);
+}
 /* =========================
    RESPONSIVE
 ========================= */

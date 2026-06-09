@@ -1,6 +1,8 @@
 package model;
 
+import database.DAOs.ObservacionesDAO;
 import database.DAOs.SolicitudRadicacionDAO;
+import database.JDBCs.ObservacionesDAOJDBC;
 import database.JDBCs.SolicitudRadicacionDAOJDBC;
 
 import java.time.LocalDate;
@@ -268,6 +270,10 @@ public class SolicitudRadicacion {
 
     }
 
+    public List<Observacion> obtenerObservaciones(){
+        ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
+        return  observacionesDAO.buscarPorSolicitud(id);
+    }
 
     public void aprobarPrimeraInstancia() {
 

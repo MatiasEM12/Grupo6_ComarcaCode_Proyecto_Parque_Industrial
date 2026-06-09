@@ -140,7 +140,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
                         "re.DNI AS representante_dni, " +
 
-                        "u.userName, u.contrasena, u.gmail, " +
+                        "u.codigo,u.userName, u.contrasena, u.gmail, " +
 
                         "r.codigo AS rol_codigo, " +
                         "r.nombre AS rol_nombre, " +
@@ -197,7 +197,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
 
                         "re.DNI AS representante_dni, " +
 
-                        "u.userName, u.contrasena, u.gmail, " +
+                        "u.codigo,u.userName, u.contrasena, u.gmail, " +
 
                         "r.codigo AS rol_codigo, " +
                         "r.nombre AS rol_nombre, " +
@@ -247,6 +247,7 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
         );
 
         Usuario usuario = new Usuario(
+                rs.getInt("codigo"),
                 rs.getString("userName"),
                 rs.getString("contrasena"),
                 rol,

@@ -289,7 +289,7 @@
                                 <tr>
                                     <th>Tipo</th>
                                     <th>Nombre</th>
-                                    <th>Archivo</th>
+
                                     <th>Descargar</th>
                                 </tr>
                             </thead>
@@ -308,9 +308,7 @@
                                         <%= documento.nombreArchivo() %>
                                     </td>
 
-                                    <td>
-                                        <%= documento.rutaArchivo() %>
-                                    </td>
+
 
                                     <td>
 
@@ -404,6 +402,34 @@
                 </div>
 
             </div>
+
+        </div>
+
+        <div class="observacion__form">
+
+            <h3>Agregar observación</h3>
+
+            <form action="${pageContext.request.contextPath}/crearObservacionSolicitud"
+                  method="post">
+
+                <input type="hidden"
+                       name="idSolicitud"
+                       value="<%= solicitud.id() %>">
+
+                <textarea
+                        name="observacion"
+                        placeholder="Ingrese una observación para el representante..."
+                        required>
+                </textarea>
+
+                <button type="submit"
+                        class="btn__observar">
+
+                    Enviar observación
+
+                </button>
+
+            </form>
 
         </div>
 

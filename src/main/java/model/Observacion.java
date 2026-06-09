@@ -1,28 +1,62 @@
 package model;
 
-import java.time.LocalDate;
+
+
+import database.DAOs.ObservacionesDAO;
+import database.JDBCs.ObservacionesDAOJDBC;
+
+import java.time.LocalDateTime;
 
 public class Observacion {
 
     private int id;
-    private String descripcion;
-    private LocalDate fecha;
-    private Documento documentoRespuesta;
+    private int idSolicitud;
+    private String observacion;
+    private LocalDateTime fechaCreacion;
+    private String dniAdministrador;
+    private ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
+    public Observacion(int idSolicitud, String observacion, String dniAdministrador) {
 
-    public Observacion(String descripcion) {
-        if (descripcion == null || descripcion.isBlank()) {
-            throw new RuntimeException("La descripción es obligatoria");
+        if (observacion == null || observacion.isBlank()) {
+            throw new RuntimeException(
+                    "La observación es obligatoria"
+            );
         }
 
-        this.descripcion = descripcion;
-        this.fecha = LocalDate.now();
+        this.idSolicitud = idSolicitud;
+        this.observacion = observacion;
+        this.dniAdministrador = dniAdministrador;
+        this.fechaCreacion = LocalDateTime.now();
     }
 
-    public void agregarRespuesta(Documento documento) {
-        if (documento == null) {
-            throw new RuntimeException("Debe adjuntarse un documento de respuesta");
-        }
+    public Observacion(int id, int idSolicitud, String observacion, LocalDateTime fechaCreacion, String dniAdministrador) {
 
-        this.documentoRespuesta = documento;
+        this.id = id;
+        this.idSolicitud = idSolicitud;
+        this.observacion = observacion;
+        this.fechaCreacion = fechaCreacion;
+        this.dniAdministrador = dniAdministrador;
+        observacionesDAO.crear(this);
+    }
+
+    public int id() {
+        return id;
+    }
+
+    public int idSolicitud() {
+        return idSolicitud;
+    }
+
+    public String observacion() {
+        return observacion;
+    }
+
+    public LocalDateTime fechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String dniAdministrador() {
+        return dniAdministrador;
     }
 }
+

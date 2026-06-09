@@ -67,4 +67,6 @@ public interface SistemaParqueIndustrial {
     void registrarOrganismoPrublico(String username, String password, String gmail, int saf, String nombreOrg, TipoOrganismo tipoOrganismo);
 
     void registrarRepresentanteEmpresa(String cuit, String razonSocial, String contacto, String contactoRep, boolean b, String username, String password, Rol representante, String gmail, String dniRep, boolean b1);
+
+    void crearObservacionSolicitud(int idSolicitud, String observacion, Usuario usuario);
 }

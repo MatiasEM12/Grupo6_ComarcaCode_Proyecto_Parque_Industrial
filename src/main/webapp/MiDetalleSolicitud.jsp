@@ -3,6 +3,7 @@
 <%@ page import="model.SolicitudRadicacion" %>
 <%@ page import="model.EstadoSolicitud" %>
 <%@ page import="model.Documento" %>
+<%@ page import="model.Observacion" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -319,7 +320,7 @@
                                           <tr>
                                               <th>Tipo</th>
                                               <th>Nombre</th>
-                                              <th>Archivo</th>
+
                                               <th>Descargar</th>
                                           </tr>
                                       </thead>
@@ -334,7 +335,7 @@
 
                                               <td><%= documento.nombreArchivo() %></td>
 
-                                              <td><%= documento.rutaArchivo() %></td>
+
 
                                               <td>
 
@@ -373,6 +374,61 @@
                      </div>
 
                  </div>
+                 <% if(!solicitud.obtenerObservaciones().isEmpty()) { %>
+
+                     <h3>Observaciones Administrativas</h3>
+
+                     <table class="tabla-observaciones">
+
+                         <thead>
+                             <tr>
+                                 <th>Fecha</th>
+                                 <th>Administrador</th>
+                                 <th>Observación</th>
+                             </tr>
+                         </thead>
+
+                         <tbody>
+
+                         <% for(Observacion observacion : solicitud.obtenerObservaciones()) { %>
+
+                             <tr>
+
+                                 <td>
+                                     <%= observacion.fecha() %>
+                                 </td>
+
+                                 <td>
+                                     <%= observacion.dniAdministrador() %>
+                                 </td>
+
+                                 <td>
+
+                                     <details class="detalle-observacion">
+
+                                         <summary>
+                                             Ver observación
+                                         </summary>
+
+                                         <div class="contenido-observacion">
+
+                                             <%= observacion.descripcion() %>
+
+                                         </div>
+
+                                     </details>
+
+                                 </td>
+
+                             </tr>
+
+                         <% } %>
+
+                         </tbody>
+
+                     </table>
+
+                 <% } %>
 
       </div>
 </main>

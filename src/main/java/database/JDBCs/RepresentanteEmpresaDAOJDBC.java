@@ -110,7 +110,7 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
         final String SQL =
                 "SELECT " +
                         "re.DNI, " +
-                        "u.userName, u.contrasena, u.gmail, " +
+                        "u.codigo, u.userName, u.contrasena, u.gmail, " +
                         "r.codigo AS rol_codigo, r.nombre AS rol_nombre, " +
                         "e.cuit, e.razonSocial, e.contacto, e.contactoRepresentante, e.radicada " +
                         "FROM RepresentanteEmpresa re " +
@@ -191,6 +191,7 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
         );
 
         Usuario usuario = new Usuario(
+                rs.getInt("codigo"),
                 rs.getString("userName"),
                 rs.getString("contrasena"),
                 rol,

@@ -120,10 +120,10 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");*/
     }
 
-    //creo que esto es para hacer las observaciones acia el proyecto
+
     @Override
     public void observarSolicitud(int idSolicitud, String descripcion, String dniAdmin) {
-       ObservacionDTO observacion = new ObservacionDTO(idSolicitud, descripcion, dniAdmin);
+       Observacion observacion = new Observacion(idSolicitud, descripcion, dniAdmin);
        observacionesDAO.crear(observacion);
     }
 
@@ -398,5 +398,11 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 true
         );
 
+    }
+
+    @Override
+    public void crearObservacionSolicitud(int idSolicitud, String observacion, Usuario usuario) {
+        AdministradorDelParque administradorDelParque = administradorDelParqueDAO.obtenerAdministradorPorUsername(usuario.UserName());
+        Observacion obs = new Observacion(idSolicitud,observacion, administradorDelParque.dni());
     }
 }

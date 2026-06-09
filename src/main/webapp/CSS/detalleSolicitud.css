@@ -397,7 +397,29 @@ main{
 ========================= */
 
 .observacion__form{
-    padding: 0 30px 30px 30px;
+    margin: 30px;
+
+    padding: 25px;
+
+    background-color: #f8f8f8;
+
+    border-radius: 15px;
+
+    border: 1px solid #ddd;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.observacion__form h3{
+    margin: 0 0 20px 0;
+
+    color: rgb(11,122,11);
+
+    font-size: 1.4rem;
+
+    border-bottom: 2px solid rgb(11,122,11);
+
+    padding-bottom: 10px;
 }
 
 .observacion__form form{
@@ -409,21 +431,60 @@ main{
 }
 
 .observacion__form textarea{
-    min-height: 140px;
+    min-height: 180px;
 
     resize: vertical;
 
     padding: 15px;
 
-    border-radius: 12px;
-
     border: 1px solid #ccc;
+
+    border-radius: 12px;
 
     font-size: 15px;
 
     font-family: sans-serif;
+
+    background-color: white;
+
+    transition: .25s;
 }
 
+.observacion__form textarea:focus{
+    outline: none;
+
+    border-color: rgb(11,122,11);
+
+    box-shadow: 0 0 0 3px rgba(11,122,11,.15);
+}
+
+.observacion__form button{
+    align-self: flex-start;
+
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    background-color: #007bff;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.observacion__form button:hover{
+    background-color: #005fd1;
+
+    transform: translateY(-2px);
+}
 /* =========================
    FOOTER
 ========================= */
@@ -461,7 +522,104 @@ footer{
 
     margin-bottom: 10px;
 }
+/* =========================
+   DOCUMENTOS
+========================= */
 
+.documentos__container{
+    padding: 30px;
+
+    border-top: 1px solid #ddd;
+}
+
+.documentos__container h3{
+    margin: 0 0 20px 0;
+
+    color: rgb(11,122,11);
+
+    font-size: 1.4rem;
+
+    border-bottom: 2px solid rgb(11,122,11);
+
+    padding-bottom: 8px;
+}
+
+/* =========================
+   TABLA DOCUMENTOS
+========================= */
+
+.tabla__documentos{
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+
+.tabla__documentos thead{
+    background: linear-gradient(
+        135deg,
+        rgb(11,122,11),
+        rgb(20,160,20)
+    );
+
+    color: white;
+}
+
+.tabla__documentos th,
+.tabla__documentos td{
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.tabla__documentos tbody tr{
+    transition: .2s;
+}
+
+.tabla__documentos tbody tr:hover{
+    background-color: rgba(11,122,11,0.08);
+}
+
+.tabla__documentos td{
+    color: #333;
+}
+
+/* BOTON DESCARGAR */
+
+.tabla__documentos a{
+    text-decoration: none;
+
+    background-color: #007bff;
+
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    display: inline-block;
+
+    transition: .25s;
+}
+
+.tabla__documentos a:hover{
+    background-color: rgb(11,122,11);
+
+    transform: translateY(-2px);
+}
 /* =========================
    RESPONSIVE
 ========================= */
@@ -504,4 +662,6 @@ footer{
 
         justify-content: center;
     }
+
+
 }

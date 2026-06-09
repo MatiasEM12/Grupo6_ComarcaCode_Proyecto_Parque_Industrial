@@ -16,23 +16,11 @@ public record ObservacionDTO(
                 dniAdministrador);
     }
 
-    public int id(){
-        return id;
-    }
-
-    public int idSolicitud(){
-        return idSolicitud;
-    }
-
-    public String observaciones(){
-        return observacion;
-    }
-
-    public LocalDateTime fechaCreacion(){
-        return fechaCreacion;
-    }
-
-    public String dniAdministrador(){
-        return dniAdministrador;
+    public ObservacionDTO(Integer id,int idSolicitud, String observacion, String dniAdministrador) {
+        this(id,
+                idSolicitud,
+                observacion,
+                LocalDateTime.now(),
+                dniAdministrador);
     }
 }

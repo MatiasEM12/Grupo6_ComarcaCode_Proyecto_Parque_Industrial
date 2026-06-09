@@ -6,6 +6,7 @@ import database.ConnectionManager;
 import database.DAOs.LoteDAO;
 import model.DTO.LoteDTO;
 import model.Lote;
+import model.Observacion;
 import model.Ubicacion;
 
 import java.sql.*;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class ObservacionesDAOJDBC implements ObservacionesDAO {
     @Override
-    public void crear(ObservacionDTO observacion) {
+    public void crear(Observacion observacion) {
 
         final String SQL =
                 "INSERT INTO ObservacionSolicitud " +
@@ -52,8 +53,8 @@ public class ObservacionesDAOJDBC implements ObservacionesDAO {
     }
 
     @Override
-    public List<ObservacionDTO> buscarPorSolicitud(int idSolicitud) {
-        List<ObservacionDTO> observaciones = new ArrayList<>();
+    public List<Observacion> buscarPorSolicitud(int idSolicitud) {
+        List<Observacion> observaciones = new ArrayList<>();
 
         final String SQL = "SELECT * FROM ObservacionSolicitud WHERE id_solicitud = ? ORDER BY fecha_creacion DESC";
 
@@ -62,7 +63,7 @@ public class ObservacionesDAOJDBC implements ObservacionesDAO {
             st.setInt(1, idSolicitud);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                observaciones.add(new ObservacionDTO(
+                observaciones.add(new Observacion(
                                 rs.getInt("id"),
                                 rs.getInt("id_solicitud"),
                                 rs.getString("observacion"),
