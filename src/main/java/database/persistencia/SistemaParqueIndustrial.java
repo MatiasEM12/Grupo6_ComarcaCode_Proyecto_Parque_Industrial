@@ -59,4 +59,12 @@ public interface SistemaParqueIndustrial {
     List<EvaluacionTecnicaDTO> obtenerEvaluacionesTecnicasPorProyecto(int idProyecto);
 
     EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion);
+
+    Usuario login(String username, String password);
+
+    void registrarAdmin(String username, String password, Rol admin, String gmail, String dniAdmin, String nombreAdmin);
+
+    void registrarOrganismoPrublico(String username, String password, String gmail, int saf, String nombreOrg, TipoOrganismo tipoOrganismo);
+
+    void registrarRepresentanteEmpresa(String cuit, String razonSocial, String contacto, String contactoRep, boolean b, String username, String password, Rol representante, String gmail, String dniRep, boolean b1);
 }

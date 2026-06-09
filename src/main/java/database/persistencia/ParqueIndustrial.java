@@ -24,6 +24,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private final DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     private final ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
     private final EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
+    private final UsuarioDAO userDAO = new UsuarioDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -342,5 +343,59 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion) {
         return evaluacionTecnicaDAO.findById(idEvaluacion);
+    }
+
+    @Override
+    public Usuario login(String username, String password) {
+        UsuarioDAO dao = new UsuarioDAOJDBC();
+
+        Usuario usuario = obtenerUsuarioPorUsername( username);
+
+        if (usuario == null) return null;
+
+        if (!usuario.contrasena().equals(password)) return null;
+
+        return usuario;
+    }
+
+    @Override
+    public void registrarAdmin(String username, String password, Rol admin, String gmail, String dniAdmin, String nombreAdmin) {
+
+        var administrador = new AdministradorDelParque(username,password,admin, gmail, dniAdmin, nombreAdmin);
+    }
+
+    @Override
+    public void registrarOrganismoPrublico(String username, String password, String gmail, int saf, String nombreOrg, TipoOrganismo tipoOrganismo) {
+
+        var orgPublico = new OrganismoPublico(username, password, gmail, saf,nombreOrg ,tipoOrganismo );
+    }
+
+    @Override
+    public void registrarRepresentanteEmpresa(String cuit, String razonSocial, String contacto, String contactoRep, boolean b, String username, String password, Rol representante, String gmail, String dniRep, boolean b1) {
+
+        Empresa empresa = new Empresa(
+                cuit,
+                razonSocial,
+                contacto,
+                contactoRep,
+                false
+        );
+
+
+        Usuario usuario = new Usuario(
+                username,
+                password,
+                new Rol("representante", 2),
+                gmail
+        );
+
+
+        RepresentanteEmpresa representanteEmpresa = new RepresentanteEmpresa(
+                dniRep,
+                empresa,
+                usuario,
+                true
+        );
+
     }
 }

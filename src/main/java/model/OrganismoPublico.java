@@ -12,12 +12,12 @@ public class OrganismoPublico extends Usuario {
 
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
-                            int SAF, String nombre, TipoOrganismo tipoOrganismo,Sistema sistema) {
+                            int SAF, String nombre, TipoOrganismo tipoOrganismo) {
         super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
         this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
-        this.sistema=sistema;
+
     }/*
     public String consultarProyectoProductivo(ProyectoProductivo proyecto) {
         return """
