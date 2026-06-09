@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import database.DAOs.DocumentoDAO;
-import database.DAOs.ReporteDAO;
-import database.JDBCs.DocumentoDAOJDBC;
-import database.JDBCs.ReporteDAOJDBC;
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
 import model.Documento;
@@ -93,10 +89,10 @@ public class CrearReporteServlet extends HttpServlet {
                 sistema.cargarDocumentoPorReporte(documento, idReporte);
             }
 
-            response.sendRedirect(request.getContextPath() + "/perfiles"); //modificar para redirigir a la pagina que se desee
+            response.sendRedirect(request.getContextPath() + "/reporte"); //modificar para redirigir a la pagina que se desee
 
         } catch (IllegalArgumentException e) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
+            response.sendRedirect(request.getContextPath() + "/reporte");
         }
     }
 

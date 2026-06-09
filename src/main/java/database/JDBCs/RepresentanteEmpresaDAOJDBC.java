@@ -3,7 +3,6 @@ package database.JDBCs;
 import database.ConnectionManager;
 import database.DAOs.RepresentanteEmpresaDAO;
 import model.*;
-import model.DTO.AdministradorDelParqueDTO;
 import model.DTO.RepresentanteEmpresaDTO;
 
 import java.sql.*;

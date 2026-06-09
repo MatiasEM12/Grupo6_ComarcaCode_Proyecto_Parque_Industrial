@@ -3,16 +3,9 @@ package database.JDBCs;
 import database.DAOs.ObservacionesDAO;
 import model.DTO.ObservacionDTO;
 import database.ConnectionManager;
-import database.DAOs.LoteDAO;
-import model.DTO.LoteDTO;
-import model.Lote;
-import model.Ubicacion;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
-
 import java.util.List;
 
 public class ObservacionesDAOJDBC implements ObservacionesDAO {

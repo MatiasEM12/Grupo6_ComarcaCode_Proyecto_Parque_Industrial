@@ -6,7 +6,6 @@ import model.AdministradorDelParque;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import database.DAOs.AdministradorDelParqueDAO;
 import model.DTO.AdministradorDelParqueDTO;

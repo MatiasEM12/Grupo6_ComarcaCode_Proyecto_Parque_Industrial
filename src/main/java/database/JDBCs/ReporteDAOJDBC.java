@@ -15,13 +15,13 @@ import model.TipoReporte;
 import model.Usuario;
 import model.DTO.ReporteDTO;
 
-public class ReporteDAOJDBC implements ReporteDAO{
+public class ReporteDAOJDBC implements ReporteDAO {
 
     @Override
     public int generarReporte(ReporteDTO reporte) {
         
-        final String sql = "INSERT INTO Reporte (tipo, descripcion, fecha, userName, cantidadDocumentosAdjuntos)" + 
-                  "VALUES (?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO Reporte (tipo, descripcion, fecha, userName)" + 
+                  "VALUES (?, ?, ?, ?)";
         
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(sql)) {
@@ -29,8 +29,6 @@ public class ReporteDAOJDBC implements ReporteDAO{
             st.setString(1, reporte.tipo().name());
             st.setString(2, reporte.descripcion());
             st.setDate(3, Date.valueOf(reporte.fecha()));
-            st.setString(4, reporte.usuario().UserName());
-            st.setInt(5, reporte.cantidadDocumentosAdjuntos());
 
             st.executeUpdate();
             

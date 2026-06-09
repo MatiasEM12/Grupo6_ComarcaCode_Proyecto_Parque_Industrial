@@ -2,7 +2,6 @@ package database.JDBCs;
 
 import database.ConnectionManager;
 import database.DAOs.ProyectoDocumentoDAO;
-import database.DAOs.ProyectoProductivoDAO;
 import model.Documento;
 
 import java.sql.Connection;
