@@ -17,7 +17,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 
     public void registrarEmpresa(Empresa empresa) {
         final String SQL = "INSERT INTO Empresa(cuit, razonSocial, contacto, " +
-                "contactoRepresentante, esRadicada) VALUES (?, ?, ?, ?, ?)";
+                "contactoRepresentante, radicada) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, empresa.cuit());
@@ -37,7 +37,7 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
     @Override
     public void actualizar(EmpresaDTO empresa) {
         final String SQL = "UPDATE Empresa SET razonSocial = ?, contacto = ?, " +
-                        "contactoRepresentante = ?, esRadicada = ? WHERE cuit = ?";
+                        "contactoRepresentante = ?, radicada = ? WHERE cuit = ?";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
