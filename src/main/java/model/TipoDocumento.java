@@ -12,5 +12,5 @@ public enum TipoDocumento {
 
     REQUERIMIENTOS_INFRAESTRUCTURA,
 
-    OTRO
+    OTRO, PDF
 }

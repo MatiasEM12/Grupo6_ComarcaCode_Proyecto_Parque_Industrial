@@ -24,6 +24,8 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private final DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     private final ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
     private final EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
+    private final ReporteDAO reporteDAO = new ReporteDAOJDBC();
+
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -342,5 +344,15 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion) {
         return evaluacionTecnicaDAO.findById(idEvaluacion);
+    }
+
+    @Override
+    public int generarReporte(ReporteDTO reporte) {
+        return reporteDAO.generarReporte(reporte);
+    }
+
+    @Override
+    public void cargarDocumentoPorReporte(Documento documento, int idReporte) {
+        documentoDAO.create(documento, idReporte);
     }
 }

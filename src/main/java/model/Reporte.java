@@ -41,10 +41,12 @@ public class Reporte {
             throw new RuntimeException("El tipo de reporte es obligatorio");
         }
     }
+
     public boolean tieneDocumentacionValida() {
         return !documentos.isEmpty()
                 && documentos.stream().allMatch(Documento::esValido);
     }
+
     public void adjuntarDocumento(Documento documento) {
         if (documento == null) {
             throw new RuntimeException("El documento no puede ser nulo");
@@ -52,6 +54,7 @@ public class Reporte {
 
         documentos.add(documento);
     }
+
     public String generarReporte() {
         return """
                 REPORTE DEL PARQUE INDUSTRIAL
@@ -72,7 +75,34 @@ public class Reporte {
         );
     }
 
+    public void setId(int id) {
+        if (id <= 0) {
+            throw new RuntimeException("El ID del reporte debe ser un número positivo");
+        }
+        this.id = id;
+    }
+
+    public int Id() {
+        return id;
+    }
+
+    public TipoReporte Tipo() {
+        return tipo;
+    }
+
     public String descripcion() {
         return descripcion;
+    }
+
+    public LocalDate fecha() {
+        return fecha;
+    }
+
+    public Usuario usuario() {
+        return usuario;
+    }
+
+    public List<Documento> documentos() {
+        return new ArrayList<>(documentos);
     }
 }

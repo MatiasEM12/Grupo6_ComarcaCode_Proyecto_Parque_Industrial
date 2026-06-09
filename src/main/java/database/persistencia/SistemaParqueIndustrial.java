@@ -59,4 +59,8 @@ public interface SistemaParqueIndustrial {
     List<EvaluacionTecnicaDTO> obtenerEvaluacionesTecnicasPorProyecto(int idProyecto);
 
     EvaluacionTecnicaDTO obtenerEvaluacionTecnica(int idEvaluacion);
+
+    int generarReporte(ReporteDTO reporte);
+
+    void cargarDocumentoPorReporte(Documento documento, int idReporte);
 }

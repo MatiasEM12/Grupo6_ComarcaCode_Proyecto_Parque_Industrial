@@ -110,8 +110,12 @@ public class GeneradorBD {
             CREATE TABLE IF NOT EXISTS documentos (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 tipo VARCHAR(100),
+                nombreArchivo VARCHAR(255) NOT NULL,
+                rutaArchivo VARCHAR(500) NOT NULL,
                 tamanio DOUBLE,
-                url VARCHAR(100)
+                fechaCarga DATE NOT NULL
+                idReporte INT,
+                FOREIGN KEY (idReporte) REFERENCES reportes(id)
             );
 
             CREATE TABLE IF NOT EXISTS observaciones (

@@ -9,14 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DocumentoDAOJDBC implements DocumentoDAO{
     @Override
-    public void create(Documento documento) {
+    public void create(Documento documento, int idReporte) {
 
-        final String SQL = "INSERT INTO Documento " + "(tipo,nombreArchivo,rutaArchivo,tamanio,fechaCarga) " +
-                "VALUES (?,?,?,?,?)";
+        final String SQL = "INSERT INTO Documento " + "(tipo,nombreArchivo,rutaArchivo,tamanio,fechaCarga,idReporte) " +
+                "VALUES (?,?,?,?,?,?)";
 
         try(Connection conn = ConnectionManager.getConnection();
             PreparedStatement st = conn.prepareStatement(SQL)) {
@@ -31,14 +32,13 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
 
             st.setDate(5, java.sql.Date.valueOf(documento.fechaCarga()));
 
+            st.setInt(6, idReporte);
+
             st.executeUpdate();
 
         } catch(Exception e) {
 
-            throw new RuntimeException(
-                    "Error al registrar documento",
-                    e
-            );
+            throw new RuntimeException("Error al registrar documento", e);
         }
     }
     @Override
@@ -62,16 +62,36 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
 
         } catch (Exception e) {
 
-            throw new RuntimeException(
-                    "Error al buscar documento por ruta",
-                    e
-            );
+            throw new RuntimeException("Error al buscar documento por ruta", e);
         }
     }
 
     @Override
     public List<Documento> findAll() {
         return null;
+    }
+
+    @Override
+    public List<Documento> findByReporteId(int reporteId) {
+        List<Documento> documentos = new ArrayList<>();
+        
+        final String sql = "SELECT * FROM documento WHERE idReporte = ?";
+        
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+
+                st.setInt(1, reporteId);
+
+                try(ResultSet rs = st.executeQuery()) {
+                    while (rs.next()) {
+                        documentos.add(mapearDocumento(rs));
+                    }
+                }
+
+        }catch (SQLException e) {
+            throw new RuntimeException("Error al buscar documentos por reporte", e);
+        }
+        return documentos;
     }
 
     @Override

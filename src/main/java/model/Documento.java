@@ -14,7 +14,6 @@ public class Documento {
     private long tamanioBytes;
     private LocalDate fechaCarga;
 
-    private DocumentoDAO documentoDAO = new DocumentoDAOJDBC();
     public Documento(
             TipoDocumento tipo,
             String nombreArchivo,
@@ -33,7 +32,6 @@ public class Documento {
         this.rutaArchivo = rutaArchivo;
         this.tamanioBytes = tamanioBytes;
         this.fechaCarga= LocalDate.now();
-        documentoDAO.create(this);
     }
     public Documento(
             int id,
