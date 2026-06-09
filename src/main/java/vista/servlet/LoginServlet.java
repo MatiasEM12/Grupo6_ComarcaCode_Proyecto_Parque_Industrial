@@ -13,7 +13,12 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -35,16 +40,16 @@ public class LoginServlet extends HttpServlet {
 
         switch (usuario.rol().nombre()) {
 
-            case "AdministradorDelParque":
-                response.sendRedirect(request.getContextPath() + "/admin/home.jsp");
+            case "administrador":
+                response.sendRedirect(request.getContextPath() +  "/mainAdm.jsp");
                 break;
 
-            case "Organismo-Publico":
-                response.sendRedirect(request.getContextPath() + "/organismo/home.jsp");
+            case "organismo_publico":
+                response.sendRedirect(request.getContextPath() + "/mainOrganismoPublico.jsp");
                 break;
 
-            case "Representante":
-                response.sendRedirect(request.getContextPath() + "/representante/home.jsp");
+            case "representante":
+                response.sendRedirect(request.getContextPath() + "/mainRepresentante.jsp");
                 break;
 
             default:
