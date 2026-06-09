@@ -25,6 +25,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private final ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
     private final EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
     private final UsuarioDAO userDAO = new UsuarioDAOJDBC();
+    private final RolDAO rolDAO = new RolDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -361,13 +362,13 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public void registrarAdmin(String username, String password, Rol admin, String gmail, String dniAdmin, String nombreAdmin) {
 
-        var administrador = new AdministradorDelParque(username,password,admin, gmail, dniAdmin, nombreAdmin);
+        var administrador = new AdministradorDelParque(username,password,rolDAO.find(1), gmail, dniAdmin, nombreAdmin);
     }
 
     @Override
     public void registrarOrganismoPrublico(String username, String password, String gmail, int saf, String nombreOrg, TipoOrganismo tipoOrganismo) {
 
-        var orgPublico = new OrganismoPublico(username, password, gmail, saf,nombreOrg ,tipoOrganismo );
+        var orgPublico = new OrganismoPublico(username, password, gmail, saf,nombreOrg ,tipoOrganismo,rolDAO.find(3) );
     }
 
     @Override
@@ -378,14 +379,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 razonSocial,
                 contacto,
                 contactoRep,
-                false
+                false,true
         );
 
 
         Usuario usuario = new Usuario(
                 username,
                 password,
-                new Rol("representante", 2),
+                rolDAO.find(2),
                 gmail
         );
 

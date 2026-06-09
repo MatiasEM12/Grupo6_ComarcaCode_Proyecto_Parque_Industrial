@@ -1,5 +1,7 @@
 package model;
 
+import database.DAOs.RolDAO;
+import database.JDBCs.RolDAOJDBC;
 import main.Sistema;
 
 import java.util.List;
@@ -9,11 +11,12 @@ public class OrganismoPublico extends Usuario {
     private String nombre;
     private TipoOrganismo tipoOrganismo;
     private Sistema sistema;
-
     private List<EvaluacionTecnica> evaluacionTecnicas;
     public OrganismoPublico(String username, String contraseña, String gmail,
-                            int SAF, String nombre, TipoOrganismo tipoOrganismo) {
-        super(username, contraseña, new Rol("Organismo-Publico",2), gmail);
+                            int SAF, String nombre, TipoOrganismo tipoOrganismo,Rol rol) {
+
+        super(username, contraseña, rol, gmail);
+
         this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;

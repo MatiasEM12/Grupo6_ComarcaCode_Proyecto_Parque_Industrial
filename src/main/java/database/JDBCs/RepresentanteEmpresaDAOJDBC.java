@@ -206,15 +206,19 @@ public class RepresentanteEmpresaDAOJDBC implements RepresentanteEmpresaDAO {
                     rs.getString("razonSocial"),
                     rs.getString("contacto"),
                     rs.getString("contactoRepresentante"),
-                    rs.getBoolean("radicada")
+                    rs.getBoolean("radicada"),false
             );
         }
 
-        return new RepresentanteEmpresa(
+        RepresentanteEmpresa representanteEmpresa = new RepresentanteEmpresa(
                 rs.getString("DNI"),
                 empresa,
                 usuario
         );
+
+        empresa.agregarRepresentante(representanteEmpresa);
+
+        return representanteEmpresa;
     }
 
     @Override

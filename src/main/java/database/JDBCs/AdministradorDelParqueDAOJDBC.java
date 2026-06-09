@@ -15,7 +15,7 @@ import model.Rol;
 public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
     @Override
     public void registrarAdministrador(AdministradorDelParque administradorDelParque) {
-        final String SQL = "INSERT INTO AdministradorParque(DNI, nombre, userName) VALUES (?, ?, ?)";
+        final String SQL = "INSERT INTO administradordelparque(DNI, nombre, userName) VALUES (?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, administradorDelParque.dni());
@@ -37,8 +37,8 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
                 "SELECT u.userName, u.contrasena, u.gmail, " +
                         "r.codigo, r.nombre AS rolNombre, " +
                         "a.dni, a.nombre " +
-                        "FROM AdministradorDelParque a " +
-                        "INNER JOIN usuario u ON a.userName = u.userName " +
+                        "FROM administradordelparque a " +
+                        "INNER JOIN usuario u ON a userName = u.userName " +
                         "INNER JOIN roles r ON u.rol = r.codigo " +
                         "WHERE u.userName = ?";
 
@@ -87,7 +87,7 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
     @Override
     public void actualizarDatosAdministrador(AdministradorDelParqueDTO adm) {
 
-        String sql = "UPDATE usuario u JOIN AdministradorDelParque a ON u.userName = a.userName " +
+        String sql = "UPDATE usuario u JOIN administradordelparque a ON u.userName = a.userName " +
                 "SET u.gmail = ?, u.contrasena = ?, a.nombre = ? WHERE a.dni = ? ";
 
         try (Connection conn = ConnectionManager.getConnection();

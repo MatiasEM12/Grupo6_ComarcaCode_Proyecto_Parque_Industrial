@@ -41,7 +41,7 @@ public class Empresa {
     }
     public Empresa(String cuit, String razonSocial,
                    String contacto, String contactoRepresentante,
-                   Boolean radicada) {
+                   Boolean radicada,Boolean persistir) {
 
         validarObligatorio(cuit, "El CUIT es obligatorio");
         validarObligatorio(razonSocial, "La razón social es obligatoria");
@@ -53,7 +53,9 @@ public class Empresa {
         this.contacto = contacto;
         this.contactoRepresentante = contactoRepresentante;
         this.radicada = radicada;
-        empresaDAO.registrarEmpresa(this);
+        if(persistir) {
+            empresaDAO.registrarEmpresa(this);
+        }
     }
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 
