@@ -1,0 +1,253 @@
+html{ scroll-behavior: smooth; }
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(245, 236, 226);
+    color: #000;
+}
+
+body, div, header, nav, ul, h1, h2, p, img, span, a, section, table, th, td{
+    box-sizing: border-box;
+}
+
+.header{
+    min-height: 300px;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    position: relative;
+}
+
+.header__overlay{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(124, 124, 124, 0.541);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+h1{
+    margin: 0;
+    font-size: 3.4rem;
+    text-wrap: balance;
+}
+
+.header__item--container p{ text-wrap: pretty; }
+
+.nav{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 20px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 25px #0006;
+    z-index: 100;
+}
+
+.nav__ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.nav__right{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav__link{
+    color: rgb(11, 122, 11);
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 10px;
+    transition: background-color .24s, border-radius .2s, outline .2s, outline-offset .2s;
+}
+
+.nav__link:hover{
+    background-color: rgba(43, 255, 0, 0.2);
+    border-radius: 20px;
+    outline: 2px solid rgba(0, 255, 0, 0.719);
+    outline-offset: -7px;
+}
+
+.Link--Cerrar{
+    background-color: rgb(8, 155, 8);
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 24px;
+}
+
+.Link--Cerrar:hover{
+    background-color: rgb(69, 204, 6);
+    outline: none;
+}
+
+.nav__logo{ width: 80px; }
+
+main{
+    padding: 40px 20px;
+    min-height: 60vh;
+    background-color: rgb(244, 252, 246);
+    box-shadow: 0 0 15px 10px #0006;
+}
+
+.reporte__header,
+.metricas__container,
+.detalle__container,
+.tabla__container,
+.sin__datos{
+    max-width: 1200px;
+    margin: 0 auto 30px;
+}
+
+.reporte__header{
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.reporte__header h2{ margin: 0 0 8px; color: rgb(11, 122, 11); }
+.reporte__header p{ margin: 0; color: #333; }
+
+.btn__descargar{
+    background-color: rgb(11, 122, 11);
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.btn__descargar:hover{ background-color: rgb(17, 160, 17); }
+
+.metricas__container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.metrica__card{
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.metrica__card span{
+    display: block;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.metrica__card strong{
+    font-size: 2.3rem;
+    color: rgb(11, 122, 11);
+}
+
+.detalle__container,
+.tabla__container,
+.sin__datos{
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.detalle__container h2,
+.tabla__container h2,
+.sin__datos h2{
+    margin-top: 0;
+    color: rgb(11, 122, 11);
+}
+
+.detalle__grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px 25px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th{
+    background-color: rgb(11, 122, 11);
+    color: white;
+}
+
+footer{
+    width: 100%;
+    background-color: #222;
+    display: flex;
+    box-shadow: 0 0 15px 5px #0006;
+}
+
+.div__footer--container{
+    margin: auto;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    text-wrap: pretty;
+    color: white;
+    font-size: 16px;
+}
+
+.div__footer--container p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 700px){
+    h1{ font-size: 2.3rem; }
+
+    .nav{
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav__ul{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav__right{ flex-direction: column; }
+
+    .reporte__header{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tabla__container{ overflow-x: auto; }
+}

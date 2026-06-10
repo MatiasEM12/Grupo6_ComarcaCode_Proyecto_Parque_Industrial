@@ -121,59 +121,58 @@
             <% for(ProyectoProductivo proyecto : proyectos) { %>
 
                 <div class="proyecto__card">
-                    <a href="<%= request.getContextPath() %>/detalleProyecto?idProyecto=<%= proyecto.idProyecto() %>"
-                    <div class="proyecto__content">
 
-                        <h2>
-                            <%= proyecto.nombre() %>
-                        </h2>
+                    <a class="proyecto__link"
+                       href="<%= request.getContextPath() %>/detalleProyecto?idProyecto=<%= proyecto.idProyecto() %>">
 
-                        <p>
-                            <strong>Descripción:</strong>
-                            <%= proyecto.descripcion() %>
-                        </p>
+                        <div class="proyecto__content">
 
-                        <p>
-                            <strong>Superficie:</strong>
-                            <%= proyecto.superficie() %> m²
-                        </p>
+                            <h2><%= proyecto.nombre() %></h2>
 
-                        <p>
-                            <strong>Empleabilidad:</strong>
-                            <%= proyecto.empleabilidad() %> empleados
-                        </p>
+                            <p>
+                                <strong>Descripción:</strong>
+                                <%= proyecto.descripcion() %>
+                            </p>
 
-                        <p>
-                            <strong>Materia prima:</strong>
-                            <%= proyecto.materiaPrima() %>
-                        </p>
+                            <p>
+                                <strong>Superficie:</strong>
+                                <%= proyecto.superficie() %> m²
+                            </p>
 
-                        <span class="proyecto__state estado__ejecucion">
-                            <%= proyecto.estado() %>
-                        </span>
-                        </a>
-                        <% if(usuario.nombreRol().equals("organismo_publico")) { %>
+                            <p>
+                                <strong>Empleabilidad:</strong>
+                                <%= proyecto.empleabilidad() %> empleados
+                            </p>
 
-                            <div class="acciones__proyecto">
+                            <p>
+                                <strong>Materia prima:</strong>
+                                <%= proyecto.materiaPrima() %>
+                            </p>
 
-                                <a class="btn__evaluacion"
-                                   href="<%= request.getContextPath() %>/evaluacionTecnica?idProyecto=<%= proyecto.idProyecto() %>">
-                                    Realizar evaluación técnica
-                                </a>
+                            <span class="proyecto__state estado__ejecucion">
+                                <%= proyecto.estado() %>
+                            </span>
 
-                                <a class="btn__evaluacion btn__secundario"
-                                   href="<%= request.getContextPath() %>/evaluacionesTecnicas?idProyecto=<%= proyecto.idProyecto() %>">
-                                    Ver evaluaciones técnicas
-                                </a>
+                        </div>
 
-                            </div>
+                    </a>
 
-                        <% } %>
+                    <% if(usuario.nombreRol().equals("organismo_publico")) { %>
 
-                    </div>
+                        <div class="acciones__proyecto">
 
+                            <a class="btn__evaluacion"
+                               href="<%= request.getContextPath() %>/evaluacionTecnica?idProyecto=<%= proyecto.idProyecto() %>">
+                                Realizar evaluación técnica
+                            </a>
+
+                            <a class="btn__evaluacion btn__secundario"
+                               href="<%= request.getContextPath() %>/evaluacionesTecnicas?idProyecto=<%= proyecto.idProyecto() %>">
+                                Ver evaluaciones técnicas
+                            </a>
+                        </div>
+                    <% } %>
                 </div>
-
             <% } %>
 
         <% } else { %>

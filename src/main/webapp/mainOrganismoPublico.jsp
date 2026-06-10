@@ -87,6 +87,13 @@
             </li>
 
             <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/informacionParque"
+                   class="nav__link">
+                    Información del parque
+                </a>
+            </li>
+
+            <li class="nav__item">
                 <a href="${pageContext.request.contextPath}/evaluacionesTecnicas"
                    class="nav__link">
                     Evaluaciones Realizadas
@@ -127,6 +134,20 @@
                 <p>
                     Consultar proyectos productivos y registrar
                     evaluaciones técnicas.
+                </p>
+
+            </div>
+        </a>
+
+        <a href="${pageContext.request.contextPath}/informacionParque"
+           class="card">
+            <div class="card__content">
+
+                <h2>Información del parque</h2>
+
+                <p>
+                    Consultar el reporte completo del desarrollo productivo,
+                    actividad industrial y proyectos en ejecución.
                 </p>
 
             </div>

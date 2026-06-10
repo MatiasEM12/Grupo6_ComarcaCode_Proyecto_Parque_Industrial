@@ -345,4 +345,13 @@ footer{
     .nav__right{
         flex-direction: column;
     }
+   .proyecto__link{
+       text-decoration: none;
+       color: inherit;
+       display: block;
+   }
+
+   .acciones__proyecto{
+       padding: 0 25px 25px;
+   }
 }
