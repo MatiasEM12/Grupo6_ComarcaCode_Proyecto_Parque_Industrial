@@ -12,5 +12,7 @@ public enum TipoDocumento {
 
     REQUERIMIENTOS_INFRAESTRUCTURA,
 
+    REPORTE,
+
     OTRO
 }

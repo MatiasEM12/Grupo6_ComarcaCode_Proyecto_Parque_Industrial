@@ -97,7 +97,7 @@
                 </a>
             </li>
              <li class="nav__item">
-                <a href="#" class="nav__link">
+                <a href="<%= request.getContextPath() %>/reportes" class="nav__link">
                     Reportes
                 </a>
              </li>
@@ -157,12 +157,12 @@
                </div>
           </a>
 
-          <a href="#" class="card">
-               <div class="card__content">
-                    <h2>Reportes<h2>
-                    <p>Estadisticas del parque y reportes.</p>
-               </div>
-          </a>
+         <a href="${pageContext.request.contextPath}/reportes" class="card">
+             <div class="card__content">
+                 <h2>Reportes</h2>
+                 <p>Estadísticas del parque y reportes.</p>
+             </div>
+         </a>
     </div>
 
 </main>

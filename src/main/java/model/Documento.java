@@ -121,6 +121,10 @@ public class Documento {
     public int id() {
         return id;
     }
+    public void asignarId(int id) {
+        validarId(id);
+        this.id = id;
+    }
 
     public TipoDocumento tipo() {
         return tipo;

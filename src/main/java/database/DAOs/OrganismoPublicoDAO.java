@@ -1,7 +1,7 @@
 package database.DAOs;
 
-import model.DTO.OrganismoPublicoDTO;
 import model.OrganismoPublico;
+import model.DTO.OrganismoPublicoDTO;
 
 public interface OrganismoPublicoDAO {
     void registrarOrganismoPublico(OrganismoPublico organismoPublico);

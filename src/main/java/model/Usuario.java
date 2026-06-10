@@ -104,4 +104,8 @@ public class Usuario {
     public String nombreRol() {
         return rol.toString();
     }
+
+    public int id() {
+        return codigo;
+    }
 }

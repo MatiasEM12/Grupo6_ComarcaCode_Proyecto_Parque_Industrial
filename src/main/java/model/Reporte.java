@@ -75,6 +75,28 @@ public class Reporte {
     public String descripcion() {
         return descripcion;
     }
+    public int id() {
+        return id;
+    }
 
+    public TipoReporte tipo() {
+        return tipo;
+    }
+
+    public LocalDate fecha() {
+        return fecha;
+    }
+
+    public Usuario usuario() {
+        return usuario;
+    }
+
+    public List<Documento> documentos() {
+        return documentos;
+    }
+
+    public void asignarId(int id) {
+        this.id = id;
+    }
 
 }

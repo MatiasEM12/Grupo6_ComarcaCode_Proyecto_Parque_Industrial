@@ -1,5 +1,7 @@
 package vista.servlet;
 
+import database.DAOs.ReporteDAO;
+import database.JDBCs.ReporteDAOJDBC;
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
 import model.DTO.ReporteParqueDTO;
@@ -14,7 +16,7 @@ import java.io.IOException;
 public class InformacionParqueServlet extends HttpServlet {
 
     private SistemaParqueIndustrial sistema;
-
+    private ReporteDAO reporteDAO = new ReporteDAOJDBC();
     @Override
     public void init() {
         this.sistema = new ParqueIndustrial();
@@ -39,7 +41,7 @@ public class InformacionParqueServlet extends HttpServlet {
 
         ReporteParqueDTO reporte = sistema.generarReporteParque();
         request.setAttribute("reporte", reporte);
-
+        request.setAttribute("reportesAdmin", reporteDAO.findAll());
         request.getRequestDispatcher("/informacionParque.jsp")
                 .forward(request, response);
     }
