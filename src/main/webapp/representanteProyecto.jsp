@@ -188,7 +188,7 @@
 
                 <input type="text"
                        name="materiaPrima"
-                       value="
+                       value="<%= proyecto.materiaPrima() %>"
 
             <div class="form__group">
 
@@ -231,7 +231,48 @@
             </div>
 
         </form>
+        <div class="avances__container">
+        <h3>Documentos cargados</h3>
 
+                <table class="tabla-documentos">
+
+                                              <thead>
+                                                  <tr>
+                                                      <th>Tipo</th>
+                                                      <th>Nombre</th>
+
+                                                      <th>Descargar</th>
+                                                  </tr>
+                                              </thead>
+
+                                              <tbody>
+
+                                              <% for (Documento documento : proyecto.documentos()) { %>
+
+                                                  <tr>
+
+                                                      <td><%= documento.tipo() %></td>
+
+                                                      <td><%= documento.nombreArchivo() %></td>
+
+
+
+                                                      <td>
+
+                                                          <a href="${pageContext.request.contextPath}/descargarDocumento?id=<%= documento.id() %>">
+                                                              Descargar
+                                                          </a>
+
+                                                      </td>
+
+                                                  </tr>
+
+                                              <% } %>
+
+                                              </tbody>
+
+                </table>
+        </div>
         <!-- AVANCES -->
         <div class="avances__container">
 
@@ -317,7 +358,7 @@
                 <div class="form__group">
 
                     <label>Estado del Proyecto</label>
-<%= proyecto.materiaPrima() %>">
+
 
             </div>
                     <select name="estado"

@@ -121,7 +121,7 @@
             <% for(ProyectoProductivo proyecto : proyectos) { %>
 
                 <div class="proyecto__card">
-
+                    <a href="<%= request.getContextPath() %>/detalleProyecto?idProyecto=<%= proyecto.idProyecto() %>"
                     <div class="proyecto__content">
 
                         <h2>
@@ -151,7 +151,7 @@
                         <span class="proyecto__state estado__ejecucion">
                             <%= proyecto.estado() %>
                         </span>
-
+                        </a>
                         <% if(usuario.nombreRol().equals("organismo_publico")) { %>
 
                             <div class="acciones__proyecto">
