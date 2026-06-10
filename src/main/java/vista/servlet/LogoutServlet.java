@@ -18,6 +18,6 @@ public class LogoutServlet
 
         session.invalidate();
 
-        response.sendRedirect(request.getContextPath() + "/perfiles");
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 }

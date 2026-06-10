@@ -14,7 +14,7 @@
 
     <title>Seleccionar Perfil</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/perfiles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/registro.css">
 
 </head>
 
@@ -121,7 +121,12 @@
                 <h3>Datos Organismo</h3>
                 <input name="saf" placeholder="SAF" required>
                 <input name="nombreOrganismo" placeholder="Nombre" required>
-                <input name="tipoOrganismo" placeholder="Tipo" required>
+                <select name="tipoOrganismo" required>
+                    <option value="">-- Tipo de organismo --</option>
+                    <option value="MUNICIPAL">Municipal</option>
+                    <option value="PROVINCIAL">Provincial</option>
+                    <option value="NACIONAL">Nacional</option>
+                </select>
             `;
         }
 

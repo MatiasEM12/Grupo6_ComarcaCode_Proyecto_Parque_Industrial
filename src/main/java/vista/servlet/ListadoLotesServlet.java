@@ -39,11 +39,7 @@ public class ListadoLotesServlet  extends HttpServlet {
             return;
         }
         SistemaParqueIndustrial sistema = new ParqueIndustrial();
-        /*Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
 
-         */
 
 
 

@@ -74,4 +74,6 @@ public interface SistemaParqueIndustrial {
     ReporteParqueDTO generarReporteParque();
 
     ProyectoProductivo buscarProyectoPorId(int idProyecto);
+
+    void actualizarDocumento(int idDocumento, String fileName, String s, long size);
 }
