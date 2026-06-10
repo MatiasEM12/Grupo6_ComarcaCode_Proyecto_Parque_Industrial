@@ -17,20 +17,27 @@ public class AprobarSolicitudFinalServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            if (!esAdministrador(request)) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (!esAdministrador(request)) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+            int idLote = Integer.parseInt(request.getParameter("idLote"));
+
+            sistema.aprobarSolicitudFinal(idSolicitud, idLote);
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            request.getSession().setAttribute("error" ,e.getMessage());
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
         }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        int idLote = Integer.parseInt(request.getParameter("idLote"));
-
-        sistema.aprobarSolicitudFinal(idSolicitud, idLote);
-
-        response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }
 
     private boolean esAdministrador(HttpServletRequest request) {

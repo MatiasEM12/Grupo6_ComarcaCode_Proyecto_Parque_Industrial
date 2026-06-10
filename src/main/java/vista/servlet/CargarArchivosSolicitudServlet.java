@@ -23,44 +23,53 @@ public class CargarArchivosSolicitudServlet extends HttpServlet {
 
     private  SistemaParqueIndustrial sistema = new ParqueIndustrial();
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
-
-        request.setCharacterEncoding("UTF-8");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
-        String id = request.getParameter("idSolicitud");
-
-        System.out.println("idSolicitud = [" + id + "]");
-
-        int idSolicitud = Integer.parseInt(id);
+        try {
+            request.setCharacterEncoding("UTF-8");
 
 
-        List<Documento> documentos = new ArrayList<>();
+            String id = request.getParameter("idSolicitud");
 
-        documentos.add(armarDocumento(request, "PLANO_IMPLANTACION", TipoDocumento.PLANO_IMPLANTACION));
+            System.out.println("idSolicitud = [" + id + "]");
 
-        documentos.add(armarDocumento(request, "IMPACTO_AMBIENTAL", TipoDocumento.IMPACTO_AMBIENTAL));
+            int idSolicitud = Integer.parseInt(id);
 
-        documentos.add(armarDocumento(request, "ESTUDIO_MERCADO", TipoDocumento.ESTUDIO_MERCADO));
 
-        documentos.add(armarDocumento(request, "MEMORIA_DESCRIPTIVA", TipoDocumento.MEMORIA_DESCRIPTIVA));
+            List<Documento> documentos = new ArrayList<>();
 
-        documentos.add(armarDocumento(request, "REQUERIMIENTOS_INFRAESTRUCTURA", TipoDocumento.REQUERIMIENTOS_INFRAESTRUCTURA));
+            documentos.add(armarDocumento(request, "PLANO_IMPLANTACION", TipoDocumento.PLANO_IMPLANTACION));
 
-        for (Documento d : documentos) {
-            if (d != null) {
-                sistema.agregarDocumentoSolicitud(idSolicitud, d);
+            documentos.add(armarDocumento(request, "IMPACTO_AMBIENTAL", TipoDocumento.IMPACTO_AMBIENTAL));
+
+            documentos.add(armarDocumento(request, "ESTUDIO_MERCADO", TipoDocumento.ESTUDIO_MERCADO));
+
+            documentos.add(armarDocumento(request, "MEMORIA_DESCRIPTIVA", TipoDocumento.MEMORIA_DESCRIPTIVA));
+
+            documentos.add(armarDocumento(request, "REQUERIMIENTOS_INFRAESTRUCTURA", TipoDocumento.REQUERIMIENTOS_INFRAESTRUCTURA));
+
+            for (Documento d : documentos) {
+                if (d != null) {
+                    sistema.agregarDocumentoSolicitud(idSolicitud, d);
+                }
             }
-        }
 
-        response.sendRedirect(
-                request.getContextPath()
-                        + "/miSolicitudDetalle?id="
-                        + idSolicitud
-        );
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/miSolicitudDetalle?id="
+                            + idSolicitud
+            );
+        }catch (Exception e) {
+
+            e.printStackTrace();
+
+            request.getSession().setAttribute("error", e.getMessage());
+
+            String id = request.getParameter("idSolicitud");
+
+            response.sendRedirect(request.getContextPath() + "/miSolicitudDetalle?id=" + id);
+        }
     }
 
     private Documento armarDocumento(HttpServletRequest request, String inputName, TipoDocumento tipo) throws IOException, ServletException {

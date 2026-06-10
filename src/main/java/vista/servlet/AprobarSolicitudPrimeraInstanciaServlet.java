@@ -13,46 +13,55 @@ public class AprobarSolicitudPrimeraInstanciaServlet extends HttpServlet {
 
     @Override
     public void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, java.io.IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        try {
 
-        HttpSession session = request.getSession(false);
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
 
-        // VALIDAR SESIÓN
-        if (session == null) {
+            HttpSession session = request.getSession(false);
 
-            response.sendRedirect(request.getContextPath() + "/perfiles");
+            // VALIDAR SESIÓN
+            if (session == null) {
 
-            return;
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            Usuario usuario =
+                    (Usuario) session.getAttribute("usuarioLogueado");
+
+            // VALIDAR USUARIO
+            if (usuario == null) {
+
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            // VALIDAR ROL ADMIN
+            if (!usuario.nombreRol().equals("administrador")) {
+
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+
+
+            sistema.aprobarSolicitudPrimeraInstancia(idSolicitud);
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            request.getSession().setAttribute("error", e.getMessage());
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
         }
-
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
-
-        // VALIDAR USUARIO
-        if (usuario == null) {
-
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-
-            return;
-        }
-
-        // VALIDAR ROL ADMIN
-        if (!usuario.nombreRol().equals("administrador")) {
-
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-
-            return;
-        }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-
-
-        sistema.aprobarSolicitudPrimeraInstancia(idSolicitud);
-
-        response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }
 }
 

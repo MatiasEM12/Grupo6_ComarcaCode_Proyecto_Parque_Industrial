@@ -17,20 +17,28 @@ public class DetalleSolicitudServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        SolicitudRadicacion solicitud = sistema.obtenerSolicitudes().stream()
-                .filter(s -> s.id() == id)
-                .findFirst()
-                .orElse(null);
+            SolicitudRadicacion solicitud = sistema.obtenerSolicitudes().stream()
+                    .filter(s -> s.id() == id)
+                    .findFirst()
+                    .orElse(null);
 
-        List<Lote> lotes = sistema.obtenerLotesDisponibles();
+            List<Lote> lotes = sistema.obtenerLotesDisponibles();
 
-        request.setAttribute("solicitud", solicitud);
-        request.setAttribute("lotes", lotes);
+            request.setAttribute("solicitud", solicitud);
+            request.setAttribute("lotes", lotes);
 
-        request.getRequestDispatcher("/detalleSolicitud.jsp").forward(request, response);
+            request.getRequestDispatcher("/detalleSolicitud.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.getSession().setAttribute("error", e.getMessage()
+            );
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
+        }
     }
 }

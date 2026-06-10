@@ -18,42 +18,42 @@ public class CrearLoteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        HttpSession session = request.getSession(false);
-
-        // VALIDAR SESIÓN
-        if (session == null) {
-
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-
-            return;
-        }
-
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
-
-        // VALIDAR USUARIO
-        if (usuario == null) {
-
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-
-            return;
-        }
-
-        // VALIDAR ROL ADMIN
-        if (!usuario.nombreRol().equals("administrador")) {
-
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-
-            return;
-        }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
         try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+
+            HttpSession session = request.getSession(false);
+
+            // VALIDAR SESIÓN
+            if (session == null) {
+
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            Usuario usuario =
+                    (Usuario) session.getAttribute("usuarioLogueado");
+
+            // VALIDAR USUARIO
+            if (usuario == null) {
+
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            // VALIDAR ROL ADMIN
+            if (!usuario.nombreRol().equals("administrador")) {
+
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+
+                return;
+            }
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+
 
             long latitud = Long.parseLong(request.getParameter("latitud"));
 

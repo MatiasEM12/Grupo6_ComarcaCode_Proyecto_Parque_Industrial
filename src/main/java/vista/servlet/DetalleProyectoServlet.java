@@ -45,7 +45,11 @@ public class DetalleProyectoServlet extends HttpServlet {
 
         } catch (Exception e) {
 
-            throw new ServletException("Error al mostrar proyecto", e);
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/proyectosEnEjecucion")
+                    .forward(request, response);
         }
     }
+
 }

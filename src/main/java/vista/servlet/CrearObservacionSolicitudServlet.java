@@ -15,17 +15,17 @@ public class CrearObservacionSolicitudServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        HttpSession session = request.getSession(false);
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-
         try {
+            HttpSession session = request.getSession(false);
+
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+            if (usuario == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+
 
             int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
 
@@ -39,10 +39,14 @@ public class CrearObservacionSolicitudServlet extends HttpServlet {
 
         } catch (Exception e) {
 
-            throw new ServletException(
-                    "Error al crear observación",
-                    e
-            );
+            e.printStackTrace();
+
+            request.getSession().setAttribute("error", e.getMessage());
+
+            String id = request.getParameter("idSolicitud");
+
+            response.sendRedirect(request.getContextPath() + "/solicitudDetalle?id=?id=" + id);
+
         }
     }
 }

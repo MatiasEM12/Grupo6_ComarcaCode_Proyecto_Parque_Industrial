@@ -13,32 +13,38 @@ import java.io.IOException;
 public class DetalleAvanceServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 
-        String idParam = request.getParameter("idAvance");
+        try {
+            String idParam = request.getParameter("idAvance");
 
-        if (idParam == null || idParam.isBlank()) {
+            if (idParam == null || idParam.isBlank()) {
+                response.sendRedirect(request.getContextPath() + "/misProyectos");
+                return;
+            }
+
+            int idAvance = Integer.parseInt(idParam);
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            AvanceDeProyecto avance = sistema.obtenerAvance(idAvance);
+
+            if (avance == null) {
+                response.sendRedirect(request.getContextPath() + "/misProyectos");
+                return;
+            }
+
+            request.setAttribute("avance", avance);
+
+            request.getRequestDispatcher(
+                    "/RepresentanteAvanceProyecto.jsp"
+            ).forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            request.getSession().setAttribute("error", "Error al mostrar avance: " + e.getMessage());
+
             response.sendRedirect(request.getContextPath() + "/misProyectos");
-            return;
         }
-
-        int idAvance = Integer.parseInt(idParam);
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        AvanceDeProyecto avance = sistema.obtenerAvance(idAvance);
-
-        if (avance == null) {
-            response.sendRedirect(request.getContextPath() + "/misProyectos");
-            return;
-        }
-
-        request.setAttribute("avance", avance);
-
-        request.getRequestDispatcher(
-                "/RepresentanteAvanceProyecto.jsp"
-        ).forward(request, response);
     }
 }
