@@ -112,8 +112,8 @@
              alt="Logo"
              class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
+        <a href="<%= request.getContextPath() %>/logout" class="nav__link Link--Cerrar">
+
             Cerrar Sesión
         </a>
 
