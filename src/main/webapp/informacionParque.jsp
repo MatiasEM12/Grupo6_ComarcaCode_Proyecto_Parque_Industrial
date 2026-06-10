@@ -2,11 +2,14 @@
 <%@ page import="model.Usuario" %>
 <%@ page import="model.ProyectoProductivo" %>
 <%@ page import="model.DTO.ReporteParqueDTO" %>
+<%@ page import="model.Reporte" %>
+<%@ page import="model.Documento" %>
+<%@ page import="java.util.List" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
     ReporteParqueDTO reporte = (ReporteParqueDTO) request.getAttribute("reporte");
-
+    List<Reporte> reportesAdmin = (List<Reporte>) request.getAttribute("reportesAdmin");
     if (usuario == null) {
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
@@ -153,7 +156,52 @@
             <p>Intente nuevamente más tarde.</p>
         </section>
     <% } %>
+    <section class="tabla__container">
+        <h2>Reportes cargados por administración</h2>
 
+        <% if (reportesAdmin != null && !reportesAdmin.isEmpty()) { %>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                        <th>Generado por</th>
+                        <th>Documentos</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <% for (Reporte rep : reportesAdmin) { %>
+                    <tr>
+                        <td><%= rep.tipo() %></td>
+                        <td><%= rep.descripcion() %></td>
+                        <td><%= rep.fecha() %></td>
+                        <td><%= rep.usuario().UserName() %></td>
+                        <td>
+                            <% if (rep.documentos() != null && !rep.documentos().isEmpty()) { %>
+                                <% for (Documento doc : rep.documentos()) { %>
+                                    <a class="btn__descargar"
+                                       href="<%= request.getContextPath() %>/descargarDocumento?id=<%= doc.id() %>">
+                                        Descargar
+                                    </a>
+                                <% } %>
+                            <% } else { %>
+                                Sin documento
+                            <% } %>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+        <% } else { %>
+
+            <p>No hay reportes administrativos cargados.</p>
+
+        <% } %>
+    </section>
 </main>
 
 <footer>

@@ -15,30 +15,31 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
     @Override
     public void create(Documento documento) {
 
-        final String SQL = "INSERT INTO Documento " + "(tipo,nombreArchivo,rutaArchivo,tamanio,fechaCarga) " +
-                "VALUES (?,?,?,?,?)";
+        final String SQL = """
+            INSERT INTO documento
+            (tipo, nombreArchivo, rutaArchivo, tamanio, fechaCarga)
+            VALUES (?, ?, ?, ?, ?)
+            """;
 
         try(Connection conn = ConnectionManager.getConnection();
-            PreparedStatement st = conn.prepareStatement(SQL)) {
+            PreparedStatement st = conn.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             st.setString(1, documento.tipo().name());
-
             st.setString(2, documento.nombreArchivo());
-
             st.setString(3, documento.rutaArchivo());
-
             st.setLong(4, documento.tamanioBytes());
-
             st.setDate(5, java.sql.Date.valueOf(documento.fechaCarga()));
 
             st.executeUpdate();
 
-        } catch(Exception e) {
+            ResultSet rs = st.getGeneratedKeys();
 
-            throw new RuntimeException(
-                    "Error al registrar documento",
-                    e
-            );
+            if (rs.next()) {
+                documento.asignarId(rs.getInt(1));
+            }
+
+        } catch(Exception e) {
+            throw new RuntimeException("Error al registrar documento", e);
         }
     }
     @Override
