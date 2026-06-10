@@ -399,6 +399,7 @@
                                  </td>
 
 
+
                                  <td>
 
                                      <details class="detalle-observacion">
