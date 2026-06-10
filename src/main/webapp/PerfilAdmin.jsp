@@ -219,12 +219,26 @@
 
 </main>
 
-    </main>
+
     <footer>
             <div class="div__footer--container">
                 <p>Parque Industrial</p>
                  Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
             </div>
         </footer>
+
+        <%
+            String error = (String) request.getAttribute("error");
+
+            if (error != null) {
+        %>
+
+        <script>
+            alert("<%= error %>");
+        </script>
+
+        <%
+            }
+        %>
 </body>
 </html>

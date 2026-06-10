@@ -212,7 +212,19 @@
 
 </footer>
 
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 
 </body>
 </html>

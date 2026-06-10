@@ -604,8 +604,7 @@ function agregarDocumento() {
 
 function eliminarDocumento(boton) {
 
-    const documentos =
-        document.querySelectorAll(".documentoItem");
+    const documentos = document.querySelectorAll(".documentoItem");
 
     if (documentos.length === 1) {
 
@@ -618,5 +617,19 @@ function eliminarDocumento(boton) {
 }
 
 </script>
+
+<%
+    String error = (String) request.getAttribute("error");
+
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>
