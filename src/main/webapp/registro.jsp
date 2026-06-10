@@ -14,7 +14,7 @@
 
     <title>Seleccionar Perfil</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/perfiles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/registro.css">
 
 </head>
 
