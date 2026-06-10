@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.AvanceDeProyecto" %>
 <%@ page import="model.Documento" %>
+<%@ page import="model.DTO.EvaluacionTecnicaDTO" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -17,15 +18,15 @@
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
-
     String paginaInicio = usuario.nombreRol().equals("administrador")
             ? "/mainAdm.jsp"
+            : "/mainOrganismoPublico.jsp";
 
 
     ProyectoProductivo proyecto =(ProyectoProductivo) request.getAttribute("proyecto");
 
 
-    List<AvanceProyecto> avances =proyecto.avances();
+    List<AvanceDeProyecto> avances =proyecto.avances();
 
 %>
 
@@ -37,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos en Ejecución</title>
 
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/proyectosEnEjecucion.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/miDetalleProyecto.css">
 </head>
 
 <body>
@@ -123,150 +124,318 @@
 
 <main class="main">
 
-    <section class="proyecto-container">
+    <div class="project__container">
 
-        <h2>Datos del Proyecto</h2>
+        <h2>Proyecto Productivo</h2>
 
-        <div class="datos-proyecto">
+        <div class="project__form">
 
-            <div class="dato">
-                <span class="titulo">Nombre:</span>
-                <span><%= proyecto.getNombre() %></span>
+            <div class="form__group">
+                <label>Nombre del Proyecto</label>
+                <input type="text"
+                       value="<%= proyecto.nombre() %>"
+                       readonly>
             </div>
 
-            <div class="dato">
-                <span class="titulo">Descripción:</span>
-                <span><%= proyecto.getDescripcion() %></span>
+            <div class="form__group">
+                <label>Descripción</label>
+                <textarea readonly><%= proyecto.descripcion() %></textarea>
             </div>
 
-            <div class="dato">
-                <span class="titulo">Estado:</span>
-                <span><%= proyecto.getEstado() %></span>
+            <div class="form__group">
+                <label>Superficie</label>
+                <input type="text"
+                       value="<%= proyecto.superficie() %>"
+                       readonly>
             </div>
 
-            <div class="dato">
-                <span class="titulo">Inversión:</span>
-                <span>$ <%= proyecto.getMontoInversion() %></span>
+            <div class="form__group">
+                <label>Necesidades</label>
+                <input type="text"
+                       value="<%= proyecto.necesidades() %>"
+                       readonly>
             </div>
 
-            <div class="dato">
-                <span class="titulo">Empresa:</span>
-                <span><%= proyecto.getEmpresa().getRazonSocial() %></span>
+            <div class="form__group">
+                <label>Empleabilidad</label>
+                <input type="text"
+                       value="<%= proyecto.empleabilidad() %>"
+                       readonly>
+            </div>
+
+            <div class="form__group">
+                <label>Materia Prima</label>
+                <input type="text"
+                       value="<%= proyecto.materiaPrima() %>"
+                       readonly>
+            </div>
+
+            <div class="form__group">
+                <label>Estado</label>
+                <input type="text"
+                       value="<%= proyecto.estado() %>"
+                       readonly>
+            </div>
+
+            <div class="form__group">
+                <label>Empresa</label>
+                <input type="text"
+                       value="<%= proyecto.empresa().razonSocial() %>"
+                       readonly>
+            </div>
+
+            <div class="form__group">
+                <label>Lote Asignado</label>
+                <input type="text"
+                       value="Lote Nº <%= proyecto.idLote() %>"
+                       readonly>
+            </div>
+
+            <div class="buttons__container">
+
+                <a href="${pageContext.request.contextPath}/loteProyecto?idProyecto=<%= proyecto.idProyecto() %>"
+                   class="btn btn__secondary">
+
+                    Ver Lote
+
+                </a>
+
             </div>
 
         </div>
 
-    </section>
+    </div><div class="project__container">
 
-    <section class="avances-container">
+              <h2>Proyecto Productivo</h2>
 
-        <h2>Avances del Proyecto</h2>
+              <div class="project__form">
 
-        <table class="tabla-avances">
+                  <div class="form__group">
+                      <label>Nombre del Proyecto</label>
+                      <input type="text"
+                             value="<%= proyecto.nombre() %>"
+                             readonly>
+                  </div>
 
-            <thead>
-                <tr>
-                       <th>Fecha</th>
-                       <th>Descripción</th>
-                       <th>Estado</th>
-                       <th>Detalle</th>
+                  <div class="form__group">
+                      <label>Descripción</label>
+                      <textarea readonly><%= proyecto.descripcion() %></textarea>
+                  </div>
 
-                </tr>
-            </thead>
+                  <div class="form__group">
+                      <label>Superficie</label>
+                      <input type="text"
+                             value="<%= proyecto.superficie() %>"
+                             readonly>
+                  </div>
 
-            <tbody>
+                  <div class="form__group">
+                      <label>Necesidades</label>
+                      <input type="text"
+                             value="<%= proyecto.necesidades() %>"
+                             readonly>
+                  </div>
 
-            <% if(avances != null && !avances.isEmpty()) { %>
+                  <div class="form__group">
+                      <label>Empleabilidad</label>
+                      <input type="text"
+                             value="<%= proyecto.empleabilidad() %>"
+                             readonly>
+                  </div>
 
-                <% for(AvanceProyecto avance : avances) { %>
+                  <div class="form__group">
+                      <label>Materia Prima</label>
+                      <input type="text"
+                             value="<%= proyecto.materiaPrima() %>"
+                             readonly>
+                  </div>
 
-                    <tr>
-                         <td>
-                            <%= avance.fechaCreacion() %>
-                         </td>
+                  <div class="form__group">
+                      <label>Estado</label>
+                      <input type="text"
+                             value="<%= proyecto.estado() %>"
+                             readonly>
+                  </div>
 
-                         <td>
-                            <%= avance.descripcion() %>
-                         </td>
+                  <div class="form__group">
+                      <label>Empresa</label>
+                      <input type="text"
+                             value="<%= proyecto.empresa().razonSocial() %>"
+                             readonly>
+                  </div>
 
-                         <td>
-                            <%= avance.estado() %>
-                         </td>
+                  <div class="form__group">
+                      <label>Lote Asignado</label>
+                      <input type="text"
+                             value="Lote Nº <%= proyecto.idLote() %>"
+                             readonly>
+                  </div>
 
-                         <td>
+                  <div class="buttons__container">
 
-                            <a href="${pageContext.request.contextPath}/detalleAvance?idAvance=<%= avance.id() %>"class="btn__detalle">
+                      <a href="${pageContext.request.contextPath}/loteProyecto?idProyecto=<%= proyecto.idProyecto() %>"
+                         class="btn btn__secondary">
 
-                                Ver
+                          Ver Lote
 
-                            </a>
+                      </a>
 
-                         </td>
+                  </div>
 
-                    </tr>
+              </div>
 
-                <% } %>
+          </div>
 
-            <% } else { %>
+   <div class="avances__container">
+          <h3>Documentos cargados</h3>
 
-                <tr>
-                    <td colspan="4">
-                        No existen avances registrados.
-                    </td>
-                </tr>
+                  <table class="tabla-documentos">
 
-            <% } %>
+                      <thead>
+                          <tr>
+                              <th>Tipo</th>
+                              <th>Nombre</th>
+                              <th>Descargar</th>
+                          </tr>
+                      </thead>
 
-            </tbody>
+                      <tbody>
 
-        </table>
+                                                <% for (Documento documento : proyecto.documentos()) { %>
 
-    </section>
+                                                    <tr>
 
-    <section class="documentos-container">
-        <h3>Documentos cargados</h3>
+                                                        <td><%= documento.tipo() %></td>
 
-        <table class="tabla-documentos">
-
-                                      <thead>
-                                          <tr>
-                                              <th>Tipo</th>
-                                              <th>Nombre</th>
-
-                                              <th>Descargar</th>
-                                          </tr>
-                                      </thead>
-
-                                      <tbody>
-
-                                      <% for (Documento documento : proyecto.documentos()) { %>
-
-                                          <tr>
-
-                                              <td><%= documento.tipo() %></td>
-
-                                              <td><%= documento.nombreArchivo() %></td>
-
-
-
-                                              <td>
-
-                                                  <a href="${pageContext.request.contextPath}/descargarDocumento?id=<%= documento.id() %>">
-                                                      Descargar
-                                                  </a>
-
-                                              </td>
-
-                                          </tr>
-
-                                      <% } %>
-
-                                      </tbody>
-
-        </table>
+                                                        <td><%= documento.nombreArchivo() %></td>
 
 
-    </section>
+
+                                                        <td>
+
+                                                            <a href="${pageContext.request.contextPath}/descargarDocumento?id=<%= documento.id() %>">
+                                                                Descargar
+                                                            </a>
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                <% } %>
+
+                      </tbody>
+
+                  </table>
+          </div>
+
+          <div class="avances__container">
+              <h3>Evaluaciones Técnicas</h3>
+
+              <table class="tabla-documentos">
+
+                  <thead>
+                      <tr>
+                          <th>Fecha</th>
+                          <th>Resultado</th>
+                          <th>Descripción</th>
+                          <th>Observaciones</th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+
+                  <%
+                      if (proyecto.evaluaciones() != null &&
+                          !proyecto.evaluaciones().isEmpty()) {
+
+                          for (EvaluacionTecnicaDTO evaluacion : proyecto.evaluaciones()) {
+                  %>
+
+                      <tr>
+                          <td><%= evaluacion.fecha() %></td>
+                          <td><%= evaluacion.resultado() %></td>
+                          <td><%= evaluacion.descripcion() %></td>
+                          <td><%= evaluacion.observaciones() %></td>
+                      </tr>
+
+                  <%
+                          }
+                      } else {
+                  %>
+
+                      <tr>
+                          <td colspan="4">
+                              No existen evaluaciones técnicas registradas.
+                          </td>
+                      </tr>
+
+                  <%
+                      }
+                  %>
+
+                  </tbody>
+              </table>
+          </div>
+          <!-- AVANCES -->
+          <div class="avances__container">
+
+              <h3>Listado de Avances</h3>
+
+              <table class="tabla__avances">
+
+                  <thead>
+
+                      <tr>
+                          <th>Fecha</th>
+                          <th>Descripción</th>
+                          <th>Estado</th>
+                          <th>Detalle</th>
+                      </tr>
+
+                  </thead>
+
+                  <tbody>
+
+                  <%
+                      for(AvanceDeProyecto avance : proyecto.avances()){
+                  %>
+
+                      <tr>
+
+                          <td>
+                              <%= avance.fechaCreacion() %>
+                          </td>
+
+                          <td>
+                              <%= avance.descripcion() %>
+                          </td>
+
+                          <td>
+                              <%= avance.estado() %>
+                          </td>
+
+                          <td>
+
+                              <a href="${pageContext.request.contextPath}/detalleAvance?idAvance=<%= avance.id() %>"
+                                 class="btn__detalle">
+
+                                  Ver
+
+                              </a>
+
+                          </td>
+
+                      </tr>
+
+                  <%
+                      }
+                  %>
+
+                  </tbody>
+
+              </table>
+
+          </div>
 
 </main>
 

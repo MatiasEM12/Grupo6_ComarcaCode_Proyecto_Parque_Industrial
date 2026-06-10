@@ -72,4 +72,6 @@ public interface SistemaParqueIndustrial {
 
     void crearObservacionSolicitud(int idSolicitud, String observacion, Usuario usuario);
     ReporteParqueDTO generarReporteParque();
+
+    ProyectoProductivo buscarProyectoPorId(int idProyecto);
 }

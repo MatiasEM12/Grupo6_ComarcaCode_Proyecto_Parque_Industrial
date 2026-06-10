@@ -469,4 +469,9 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 proyectos
         );
     }
+
+    @Override
+    public ProyectoProductivo buscarProyectoPorId(int idProyecto) {
+        return proyectoProductivoDAO.find(idProyecto);
+    }
 }
