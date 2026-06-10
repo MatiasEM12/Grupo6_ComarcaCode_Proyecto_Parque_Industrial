@@ -14,6 +14,8 @@ public interface DocumentoDAO {
 
     void update(Documento documento);
 
+    void actualizarDocumento(int idDocumento, String nombre, String ruta, long tamanio);
+
     void remove(int id);
 
     Documento findPorRuta(String ruta);

@@ -77,7 +77,7 @@ public class CrearLoteServlet extends HttpServlet {
 
         catch (RuntimeException e) {
 
-            request.setAttribute("error", e.getMessage());
+            request.setAttribute("error" , e.getMessage());
 
             request.getRequestDispatcher("/listadoLotes.jsp").forward(request, response);
         }

@@ -80,6 +80,29 @@ public class DocumentoDAOJDBC implements DocumentoDAO{
     }
 
     @Override
+    public void actualizarDocumento(int idDocumento, String nombre, String ruta, long tamanio) {
+
+        String SQL = "UPDATE documento SET nombreArchivo=?, rutaArchivo=?, tamanio=? WHERE id=?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, nombre);
+            st.setString(2, ruta);
+            st.setLong(3, tamanio);
+            st.setInt(4, idDocumento);
+
+            int filas = st.executeUpdate();
+
+            if (filas == 0) {
+                throw new RuntimeException("No se pudo actualizar el documento");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error actualizando documento", e);
+        }
+    }
+    @Override
     public void remove(int id) {
 
     }

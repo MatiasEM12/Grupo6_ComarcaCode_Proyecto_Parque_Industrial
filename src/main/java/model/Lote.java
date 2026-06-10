@@ -17,6 +17,7 @@ public class Lote {
         this.estado = estado;
         this.infraestructura = infraestructura;
         loteDAO.create(this);
+        System.out.println("lote agregado");
     }
     public Lote(int id, Ubicacion ubicacion, double superficie,
                 String estado, String infraestructura) {

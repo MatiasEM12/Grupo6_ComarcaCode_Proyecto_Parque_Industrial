@@ -35,7 +35,7 @@ public class LoteDAOJDBC implements LoteDAO {
             if (fila <= 0) {
                 throw new RuntimeException("Error al registrar lote");
             }
-
+            System.out.println("lote agregado");
         } catch (Exception e) {
             throw new RuntimeException("Error al registrar lote", e);
         }

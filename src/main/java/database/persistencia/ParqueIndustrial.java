@@ -474,4 +474,9 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public ProyectoProductivo buscarProyectoPorId(int idProyecto) {
         return proyectoProductivoDAO.find(idProyecto);
     }
+
+    @Override
+    public void actualizarDocumento(int idDocumento, String fileName, String s, long size) {
+        documentoDAO.actualizarDocumento(idDocumento,fileName,s,size);
+    }
 }

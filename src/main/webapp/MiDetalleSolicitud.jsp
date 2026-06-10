@@ -241,25 +241,13 @@
                              <%= solicitud.coworking() %>
                          </p>
 
-                         <p><strong>Archivo PDF:</strong>
-                             <%= solicitud.nombreArchivoPDF() %>
-                         </p>
 
                      </div>
 
                      <div class="acciones__container">
 
 
-                           <form action="${pageContext.request.contextPath}/actualizarDatosPrincipales" method="post">
 
-                               <input type="hidden"
-                                  name="idSolicitud"
-                                  value="<%= solicitud.id() %>">
-
-                                   <button type="submit" class="btn__actualizarDatosPrincipales">
-                                        Actualizar Datos Principales
-                                   </button>
-                           </form>
                           <% if (solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_PRIMER_INSTANCIA
                                       || solicitud.estadoSolicitud() == EstadoSolicitud.APROBADA_FINAL) { %>
 
@@ -320,8 +308,8 @@
                                           <tr>
                                               <th>Tipo</th>
                                               <th>Nombre</th>
-
                                               <th>Descargar</th>
+                                              <th>Acción</th>
                                           </tr>
                                       </thead>
 
@@ -344,7 +332,22 @@
                                                   </a>
 
                                               </td>
+                                              <td>
+                                                  <form action="${pageContext.request.contextPath}/editarDocumentoSolicitud"
+                                                        method="post"
+                                                        enctype="multipart/form-data">
 
+                                                      <input type="hidden" name="idDocumento" value="<%= documento.id() %>">
+                                                      <input type="hidden" name="idSolicitud" value="<%= solicitud.id() %>">
+
+                                                      <input type="file" name="archivo" required>
+
+                                                      <button type="submit" class="btn__editar">
+                                                          Editar
+                                                      </button>
+
+                                                  </form>
+                                              </td>
                                           </tr>
 
                                       <% } %>
@@ -356,19 +359,7 @@
                               <% } %>
 
                           <% } %>
-                            <form action="${pageContext.request.contextPath}/proyectoDeSolicitud" method="post">
 
-                                 <input type="hidden"
-                                        name="idSolicitud"
-                                        value="<%= solicitud.id() %>">
-
-
-                                 <button type="submit" class="btn__verProyecto">
-                                     ver Proyectos asociado
-
-                                 </button>
-
-                            </form>
 
 
                      </div>
