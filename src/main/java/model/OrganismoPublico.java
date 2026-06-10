@@ -1,7 +1,7 @@
 package model;
 
-import database.DAOs.RolDAO;
-import database.JDBCs.RolDAOJDBC;
+import database.DAOs.OrganismoPublicoDAO;
+import database.JDBCs.OrganismoPublicoDAOJDBC;
 
 
 import java.util.List;
@@ -12,6 +12,7 @@ public class OrganismoPublico extends Usuario {
     private TipoOrganismo tipoOrganismo;
 
     private List<EvaluacionTecnica> evaluacionTecnicas;
+    private OrganismoPublicoDAO organismoPublicoDAO = new OrganismoPublicoDAOJDBC();
     public OrganismoPublico(String username, String contraseña, String gmail,
                             int SAF, String nombre, TipoOrganismo tipoOrganismo,Rol rol) {
 
@@ -20,8 +21,37 @@ public class OrganismoPublico extends Usuario {
         this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
+        organismoPublicoDAO.registrarOrganismoPublico(this);
 
-    }/*
+    }
+
+    public OrganismoPublico(String username, String contraseña, String gmail,
+                            int SAF, String nombre, TipoOrganismo tipoOrganismo,
+                            Rol rol, int codigoUsuario) {
+
+        super(codigoUsuario, username, contraseña, rol, gmail);
+        this.SAF = SAF;
+        this.nombre = nombre;
+        this.tipoOrganismo = tipoOrganismo;
+    }
+
+    public int saf() {
+        return SAF;
+    }
+
+    public String nombre() {
+        return nombre;
+    }
+
+    public TipoOrganismo tipoOrganismo() {
+        return tipoOrganismo;
+    }
+
+    public String usuario() {
+        return UserName();
+    }
+
+    /*
     public String consultarProyectoProductivo(ProyectoProductivo proyecto) {
         return """
                 INFORMACIÓN DEL PROYECTO PRODUCTIVO

@@ -405,4 +405,59 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         AdministradorDelParque administradorDelParque = administradorDelParqueDAO.obtenerAdministradorPorUsername(usuario.UserName());
         Observacion obs = new Observacion(idSolicitud,observacion, administradorDelParque.dni());
     }
+    @Override
+    public ReporteParqueDTO generarReporteParque() {
+
+        List<ProyectoProductivo> proyectos = proyectoProductivoDAO.findAll();
+        List<Lote> lotes = loteDAO.findAll();
+        List<EvaluacionTecnicaDTO> evaluaciones = evaluacionTecnicaDAO.findAll();
+
+        int proyectosEnEjecucion = (int) proyectos.stream()
+                .filter(p -> "EN_EJECUCION".equalsIgnoreCase(p.estado()))
+                .count();
+
+        int proyectosFinalizados = (int) proyectos.stream()
+                .filter(p -> "FINALIZADO".equalsIgnoreCase(p.estado()))
+                .count();
+
+        int proyectosSuspendidos = (int) proyectos.stream()
+                .filter(p -> "SUSPENDIDO".equalsIgnoreCase(p.estado()))
+                .count();
+
+        int proyectosSinIniciar = (int) proyectos.stream()
+                .filter(p -> "SIN_INICIAR".equalsIgnoreCase(p.estado()))
+                .count();
+
+        int lotesDisponibles = (int) lotes.stream()
+                .filter(l -> "DISPONIBLE".equalsIgnoreCase(l.estado()))
+                .count();
+
+        int lotesOcupados = (int) lotes.stream()
+                .filter(l -> "OCUPADO".equalsIgnoreCase(l.estado()))
+                .count();
+
+        int empleabilidadTotal = proyectos.stream()
+                .mapToInt(ProyectoProductivo::empleabilidad)
+                .sum();
+
+        double superficieTotalProyectos = proyectos.stream()
+                .mapToDouble(ProyectoProductivo::superficie)
+                .sum();
+
+        return new ReporteParqueDTO(
+                java.time.LocalDateTime.now(),
+                proyectos.size(),
+                proyectosEnEjecucion,
+                proyectosFinalizados,
+                proyectosSuspendidos,
+                proyectosSinIniciar,
+                lotes.size(),
+                lotesDisponibles,
+                lotesOcupados,
+                evaluaciones.size(),
+                empleabilidadTotal,
+                superficieTotalProyectos,
+                proyectos
+        );
+    }
 }
