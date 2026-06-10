@@ -35,7 +35,7 @@ public class CrearObservacionSolicitudServlet extends HttpServlet {
 
             sistema.crearObservacionSolicitud(idSolicitud, observacion, usuario);
 
-            response.sendRedirect(request.getContextPath() + "/detalleSolicitud?id=" + idSolicitud);
+            response.sendRedirect(request.getContextPath() + "/solicitudDetalle?id=" + idSolicitud);
 
         } catch (Exception e) {
 

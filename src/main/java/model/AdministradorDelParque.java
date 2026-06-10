@@ -6,6 +6,7 @@ import database.JDBCs.AdministradorDelParqueDAOJDBC;
 import java.util.List;
 
 public class AdministradorDelParque extends Usuario{
+
     private String dni;
     private String nombre;
     private List<Lote> loteList;
@@ -17,6 +18,14 @@ public class AdministradorDelParque extends Usuario{
         this.dni = dni;
         this.nombre = nombre;
         administradorDelParqueDAO.registrarAdministrador(this);
+    }
+
+    public AdministradorDelParque(String userName, String contrasena, Rol rol, String gmail, String dni, String nombre, int codigoUsuario) {
+        super(codigoUsuario,userName, contrasena, rol, gmail);
+        this.dni = dni;
+        this.nombre = nombre;
+
+
     }
 
     public void asignarLotes(Empresa empresa){

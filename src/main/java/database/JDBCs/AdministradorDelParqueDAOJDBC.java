@@ -34,11 +34,12 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
     public AdministradorDelParque obtenerAdministradorPorUsername(String username) {
 
         final String SQL =
-                "SELECT u.userName, u.contrasena, u.gmail, " +
-                        "r.codigo, r.nombre AS rolNombre, " +
+                "SELECT u.codigo AS codigoUsuario, " +
+                        "u.userName, u.contrasena, u.gmail, " +
+                        "r.codigo AS codigoRol, r.nombre AS rolNombre, " +
                         "a.dni, a.nombre " +
                         "FROM administradordelparque a " +
-                        "INNER JOIN usuario u ON a userName = u.userName " +
+                        "INNER JOIN usuario u ON a.userName = u.userName " +
                         "INNER JOIN roles r ON u.rol = r.codigo " +
                         "WHERE u.userName = ?";
 
@@ -47,39 +48,41 @@ public class AdministradorDelParqueDAOJDBC implements AdministradorDelParqueDAO{
 
             st.setString(1, username);
 
-            ResultSet rs = st.executeQuery();
+            try (ResultSet rs = st.executeQuery()) {
 
-            if (rs.next()) {
+                if (rs.next()) {
 
-                String userName = rs.getString("userName");
-                String contrasena = rs.getString("contrasena");
-                String gmail = rs.getString("gmail");
+                    String userName = rs.getString("userName");
+                    String contrasena = rs.getString("contrasena");
+                    String gmail = rs.getString("gmail");
 
-                int codigoRol = rs.getInt("codigo");
-                String nombreRol = rs.getString("rolNombre");
+                    String dni = rs.getString("dni");
+                    String nombre = rs.getString("nombre");
 
-                Rol rol = new Rol( nombreRol,codigoRol);
+                    int codigoUsuario = rs.getInt("codigoUsuario");
 
-                String dni = rs.getString("dni");
-                String nombre = rs.getString("nombre");
+                    Rol rol = new Rol(
+                            rs.getString("rolNombre"),
+                            rs.getInt("codigoRol")
+                    );
 
-                return new AdministradorDelParque(
-                        userName,
-                        contrasena,
-                        rol,
-                        gmail,
-                        dni,
-                        nombre
-                );
+                    return new AdministradorDelParque(
+                            userName,
+                            contrasena,
+                            rol,
+                            gmail,
+                            dni,
+                            nombre,
+                            codigoUsuario
+                    );
+                }
+
+                return null;
             }
 
-            return null;
-
         } catch (Exception e) {
-
             throw new RuntimeException(
-                    "Error al obtener administrador por username",
-                    e
+                    "Error al obtener administrador por username", e
             );
         }
     }

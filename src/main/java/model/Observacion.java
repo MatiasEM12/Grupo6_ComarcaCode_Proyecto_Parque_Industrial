@@ -27,6 +27,7 @@ public class Observacion {
         this.observacion = observacion;
         this.dniAdministrador = dniAdministrador;
         this.fechaCreacion = LocalDateTime.now();
+        observacionesDAO.crear(this);
     }
 
     public Observacion(int id, int idSolicitud, String observacion, LocalDateTime fechaCreacion, String dniAdministrador) {
@@ -36,7 +37,7 @@ public class Observacion {
         this.observacion = observacion;
         this.fechaCreacion = fechaCreacion;
         this.dniAdministrador = dniAdministrador;
-        observacionesDAO.crear(this);
+
     }
 
     public int id() {

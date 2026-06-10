@@ -383,7 +383,7 @@
                          <thead>
                              <tr>
                                  <th>Fecha</th>
-                                 <th>Administrador</th>
+
                                  <th>Observación</th>
                              </tr>
                          </thead>
@@ -395,12 +395,9 @@
                              <tr>
 
                                  <td>
-                                     <%= observacion.fecha() %>
+                                     <%= observacion.fechaCreacion() %>
                                  </td>
 
-                                 <td>
-                                     <%= observacion.dniAdministrador() %>
-                                 </td>
 
                                  <td>
 
@@ -412,7 +409,7 @@
 
                                          <div class="contenido-observacion">
 
-                                             <%= observacion.descripcion() %>
+                                             <%= observacion.observacion() %>
 
                                          </div>
 

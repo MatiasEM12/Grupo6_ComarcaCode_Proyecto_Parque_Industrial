@@ -21,7 +21,7 @@ public class ObservacionesDAOJDBC implements ObservacionesDAO {
     public void crear(Observacion observacion) {
 
         final String SQL =
-                "INSERT INTO ObservacionSolicitud " +
+                "INSERT INTO observacionsolicitud " +
                         "(id_solicitud, dni_administrador, observacion, fecha_creacion) " +
                         "VALUES (?, ?, ?, ?)";
 
@@ -56,7 +56,7 @@ public class ObservacionesDAOJDBC implements ObservacionesDAO {
     public List<Observacion> buscarPorSolicitud(int idSolicitud) {
         List<Observacion> observaciones = new ArrayList<>();
 
-        final String SQL = "SELECT * FROM ObservacionSolicitud WHERE id_solicitud = ? ORDER BY fecha_creacion DESC";
+        final String SQL = "SELECT * FROM observacionsolicitud WHERE id_solicitud = ? ORDER BY fecha_creacion DESC";
 
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
