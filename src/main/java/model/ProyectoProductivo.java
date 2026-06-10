@@ -1,11 +1,14 @@
 package model;
 
 import database.DAOs.AvanceDeProyectoDAO;
+import database.DAOs.EvaluacionTecnicaDAO;
 import database.DAOs.ProyectoDocumentoDAO;
 import database.DAOs.ProyectoProductivoDAO;
 import database.JDBCs.AvanceDeProyectoDAOJDBC;
+import database.JDBCs.EvaluacionTecnicaDAOJDBC;
 import database.JDBCs.ProyectoDocumentoDAOJDBC;
 import database.JDBCs.ProyectoProductivoDAOJDBC;
+import model.DTO.EvaluacionTecnicaDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,7 +166,10 @@ public class ProyectoProductivo {
     public List<Documento> documentos() {
         return proyectoDocumentoDAO.findAllBy(this.idProyecto);
     }
-
+    public List<EvaluacionTecnicaDTO> evaluaciones() {
+        EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
+        return evaluacionTecnicaDAO.findByProyecto(idProyecto);
+    }
     public List<AvanceDeProyecto> avances() {
         return avanceDeProyectoDAO.findAllBy(this.idProyecto);
     }

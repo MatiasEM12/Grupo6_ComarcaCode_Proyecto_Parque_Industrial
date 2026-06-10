@@ -16,6 +16,7 @@ public class EvaluacionTecnica extends Reporte {
         this.observaciones = observaciones;
     }
 
+
     public String resultado() {
         return resultado;
     }

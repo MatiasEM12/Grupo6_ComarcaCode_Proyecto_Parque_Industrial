@@ -28,7 +28,9 @@ public interface SistemaParqueIndustrial {
     Lote obtenerLote(int id);
 
     void actualizarLote(Lote lote);
-    void agregarLote(Lote lote);
+
+
+    void agregarLote(Ubicacion ubicacion, double superficie, String estado, String infraestructura);
 
     AdministradorDelParque obtenerAdm(String s);
 

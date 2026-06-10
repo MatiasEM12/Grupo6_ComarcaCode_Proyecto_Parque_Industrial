@@ -449,7 +449,11 @@ public class SolicitudRadicacion {
         this.estadoSolicitud = EstadoSolicitud.APROBADA_FINAL;
         this.fechaActualizacion = LocalDate.now();
         solicitudRadicacionDAO.update(this);
-        proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), " ",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
+        proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), "",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
         lote.Ocupado();
+    }
+
+    public void setProyectoProductivo(ProyectoProductivo proyecto) {
+       this.proyectoProductivo = proyecto;
     }
 }

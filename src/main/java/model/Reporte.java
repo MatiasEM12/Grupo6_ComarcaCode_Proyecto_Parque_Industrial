@@ -75,4 +75,6 @@ public class Reporte {
     public String descripcion() {
         return descripcion;
     }
+
+
 }

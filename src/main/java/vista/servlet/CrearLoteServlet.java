@@ -67,9 +67,9 @@ public class CrearLoteServlet extends HttpServlet {
 
             Ubicacion ubicacion = new Ubicacion(latitud, longitud, altitud);
 
-            Lote lote = new Lote(0, ubicacion, superficie, "DISPONIBLE", infraestructura);
 
-            sistema.agregarLote(lote);
+
+           sistema.agregarLote( ubicacion, superficie, "DISPONIBLE", infraestructura);
 
             response.sendRedirect(request.getContextPath() + "/listadoLotes");
 

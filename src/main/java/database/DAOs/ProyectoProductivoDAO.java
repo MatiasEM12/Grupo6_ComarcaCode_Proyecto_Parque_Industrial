@@ -17,4 +17,6 @@ public interface ProyectoProductivoDAO {
     void actualizarEstado(int idProyecto, boolean estado);
 
     void actualizarEstadoProyecto(int idProyecto, EstadoProyecto estado);
+
+    ProyectoProductivo findByNombre(String nombre);
 }

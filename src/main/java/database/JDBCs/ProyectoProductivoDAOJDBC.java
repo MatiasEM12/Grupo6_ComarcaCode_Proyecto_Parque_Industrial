@@ -243,6 +243,51 @@ public class ProyectoProductivoDAOJDBC implements ProyectoProductivoDAO {
         }
     }
 
+    @Override
+    public ProyectoProductivo findByNombre(String nombre) {
+
+        final String SQL =
+                "SELECT p.*, " +
+
+                        "e.cuit, e.razonSocial, " +
+                        "e.contacto, e.contactoRepresentante, " +
+                        "e.radicada, " +
+
+                        "l.id AS lote_id, " +
+                        "l.latitud, l.longitud, l.altitud, " +
+                        "l.superficie AS lote_superficie, " +
+                        "l.estado AS lote_estado, " +
+                        "l.infraestructura " +
+
+                        "FROM ProyectoProductivo p " +
+
+                        "LEFT JOIN Empresa e " +
+                        "ON p.cuit_empresa = e.cuit " +
+
+                        "LEFT JOIN lotes l " +
+                        "ON p.id_lote = l.id " +
+
+                        "WHERE p.nombre = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, nombre);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return mapearProyecto(rs);
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Error al buscar proyecto por nombre", e);
+        }
+    }
+
     private ProyectoProductivo mapearProyecto(ResultSet rs) throws SQLException {
 
         Empresa empresa = null;

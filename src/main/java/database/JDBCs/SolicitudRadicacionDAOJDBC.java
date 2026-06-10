@@ -338,7 +338,19 @@ public class SolicitudRadicacionDAOJDBC implements SolicitudRadicacionDAO {
         );
 
         solicitud.setDocumentos(new SolicitudDocumentoDAOJDBC().documentosDe(solicitud.id()));
+        String nombreProyecto = rs.getString("nombreProyecto");
+
+        if(nombreProyecto != null && !nombreProyecto.isBlank()){
+
+            ProyectoProductivo proyecto = new ProyectoProductivoDAOJDBC().findByNombre(nombreProyecto);
+
+            if(proyecto != null){
+                solicitud.setProyectoProductivo(proyecto);
+            }
+        }
+
         return solicitud;
+
     }
 
     @Override

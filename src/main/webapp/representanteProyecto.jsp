@@ -4,6 +4,7 @@
 <%@ page import="model.Lote" %>
 <%@ page import="model.AvanceDeProyecto" %>
 <%@ page import="model.Documento" %>
+<%@ page import="model.DTO.EvaluacionTecnicaDTO" %>
 
 <%
     ProyectoProductivo proyecto = (ProyectoProductivo) request.getAttribute("proyecto");
@@ -236,16 +237,15 @@
 
                 <table class="tabla-documentos">
 
-                                              <thead>
-                                                  <tr>
-                                                      <th>Tipo</th>
-                                                      <th>Nombre</th>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Nombre</th>
+                            <th>Descargar</th>
+                        </tr>
+                    </thead>
 
-                                                      <th>Descargar</th>
-                                                  </tr>
-                                              </thead>
-
-                                              <tbody>
+                    <tbody>
 
                                               <% for (Documento documento : proyecto.documentos()) { %>
 
@@ -269,9 +269,58 @@
 
                                               <% } %>
 
-                                              </tbody>
+                    </tbody>
 
                 </table>
+        </div>
+
+        <div class="avances__container">
+            <h3>Evaluaciones Técnicas</h3>
+
+            <table class="tabla-documentos">
+
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Resultado</th>
+                        <th>Descripción</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                <%
+                    if (proyecto.evaluaciones() != null &&
+                        !proyecto.evaluaciones().isEmpty()) {
+
+                        for (EvaluacionTecnicaDTO evaluacion : proyecto.evaluaciones()) {
+                %>
+
+                    <tr>
+                        <td><%= evaluacion.fecha() %></td>
+                        <td><%= evaluacion.resultado() %></td>
+                        <td><%= evaluacion.descripcion() %></td>
+                        <td><%= evaluacion.observaciones() %></td>
+                    </tr>
+
+                <%
+                        }
+                    } else {
+                %>
+
+                    <tr>
+                        <td colspan="4">
+                            No existen evaluaciones técnicas registradas.
+                        </td>
+                    </tr>
+
+                <%
+                    }
+                %>
+
+                </tbody>
+            </table>
         </div>
         <!-- AVANCES -->
         <div class="avances__container">

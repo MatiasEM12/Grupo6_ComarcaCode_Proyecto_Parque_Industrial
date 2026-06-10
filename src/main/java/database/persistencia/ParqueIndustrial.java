@@ -90,6 +90,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         Lote lote = loteDAO.find(idLote);
 
         solicitudRadicacion.aprobarFinal(lote);
+        cargarDocumentosEnProyecto(idSolicitud);
 
     }
 
@@ -97,6 +98,14 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public void aprobarSolicitudPrimeraInstancia(int idSolicitud) {
         SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find( idSolicitud);
         solicitudRadicacion.aprobarPrimeraInstancia();
+
+
+    }
+
+    private void cargarDocumentosEnProyecto(int idSolicitud){
+        SolicitudRadicacion solicitudRadicacion = solicitudRadicacionDAO.find( idSolicitud);
+        ProyectoProductivo proyectoProductivo = solicitudRadicacion.proyecto();
+        proyectoProductivo.cargarDocumentos(solicitudRadicacion.documentos());
     }
 
     public void asignarLote( int idLote,int idProyecto){
@@ -166,8 +175,8 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         loteDAO.update(lote);
     }
     @Override
-    public void agregarLote(Lote lote) {
-        loteDAO.create(lote);
+    public void agregarLote(Ubicacion ubicacion, double superficie, String estado, String infraestructura) {
+        Lote lote = new Lote( ubicacion, superficie, estado, infraestructura);
     }
 
     @Override
