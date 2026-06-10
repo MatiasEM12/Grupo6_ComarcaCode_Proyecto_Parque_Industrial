@@ -107,9 +107,8 @@
              alt="Logo"
              class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
-
+       <a href="${pageContext.request.contextPath}/logout"
+                class="nav__link Link--Cerrar">
             Cerrar Sesión
 
         </a>
@@ -163,15 +162,6 @@
 
             </div>
 
-            <div class="form__group">
-
-                <label>Necesidades</label>
-
-                <input type="text"
-                       name="necesidades"
-                       value="<%= proyecto.necesidades() %>">
-
-            </div>
 
             <div class="form__group">
 

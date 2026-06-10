@@ -104,7 +104,7 @@ h1{
     background-color: rgb(8, 155, 8);
     color: #fff;
     border-radius: 20px;
-    padding: 8px 24px;
+    padding: 8px 10px;
     margin-left: 900px;
 }
 .nav__link:hover{
@@ -323,4 +323,6 @@ footer{
     .Link--login {
         margin-left: 0;
     }
+
+
 }

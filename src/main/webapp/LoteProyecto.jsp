@@ -31,7 +31,7 @@
 
     <title>Mis Lote_Proyecto</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/LoteProyecto.css">
 </head>
 
 <body>

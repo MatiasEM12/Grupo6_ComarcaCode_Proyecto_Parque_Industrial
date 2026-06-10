@@ -19,7 +19,7 @@
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyecto.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteAvanceProyecto.css">
 
 </head>
 
@@ -140,10 +140,25 @@
                 <%= avance.estado() %>
             </p>
 
-            <p>
+            <div class="avance__descripcion">
+
                 <strong>Descripción:</strong>
-                <%= avance.descripcion() %>
-            </p>
+
+                <details class="detalle-observacion">
+
+                    <summary>
+                        Ver descripción
+                    </summary>
+
+                    <div class="contenido-observacion">
+
+                        <%= avance.descripcion() %>
+
+                    </div>
+
+                </details>
+
+            </div>
 
         </div>
 
@@ -160,7 +175,6 @@
             <tr>
                 <th>Tipo</th>
                 <th>Nombre</th>
-                <th>Archivo</th>
                 <th>Descargar</th>
             </tr>
 
@@ -176,9 +190,7 @@
 
                 <td><%= documento.nombreArchivo() %></td>
 
-                <td>
-                    <%= documento.rutaArchivo() %>
-                </td>
+
 
                 <td>
 

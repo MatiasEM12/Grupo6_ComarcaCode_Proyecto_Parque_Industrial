@@ -38,7 +38,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos en Ejecución</title>
 
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/miDetalleProyecto.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/CSS/representanteProyecto.css">
 </head>
 
 <body>
@@ -118,7 +118,7 @@
 
 </nav>
 
-<main>
+
 
 
 
@@ -204,88 +204,7 @@
 
         </div>
 
-    </div><div class="project__container">
-
-              <h2>Proyecto Productivo</h2>
-
-              <div class="project__form">
-
-                  <div class="form__group">
-                      <label>Nombre del Proyecto</label>
-                      <input type="text"
-                             value="<%= proyecto.nombre() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Descripción</label>
-                      <textarea readonly><%= proyecto.descripcion() %></textarea>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Superficie</label>
-                      <input type="text"
-                             value="<%= proyecto.superficie() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Necesidades</label>
-                      <input type="text"
-                             value="<%= proyecto.necesidades() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Empleabilidad</label>
-                      <input type="text"
-                             value="<%= proyecto.empleabilidad() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Materia Prima</label>
-                      <input type="text"
-                             value="<%= proyecto.materiaPrima() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Estado</label>
-                      <input type="text"
-                             value="<%= proyecto.estado() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Empresa</label>
-                      <input type="text"
-                             value="<%= proyecto.empresa().razonSocial() %>"
-                             readonly>
-                  </div>
-
-                  <div class="form__group">
-                      <label>Lote Asignado</label>
-                      <input type="text"
-                             value="Lote Nº <%= proyecto.idLote() %>"
-                             readonly>
-                  </div>
-
-                  <div class="buttons__container">
-
-                      <a href="${pageContext.request.contextPath}/loteProyecto?idProyecto=<%= proyecto.idProyecto() %>"
-                         class="btn btn__secondary">
-
-                          Ver Lote
-
-                      </a>
-
-                  </div>
-
-              </div>
-
-          </div>
-
+   </div>
    <div class="avances__container">
           <h3>Documentos cargados</h3>
 
@@ -416,7 +335,7 @@
 
                           <td>
 
-                              <a href="${pageContext.request.contextPath}/detalleAvance?idAvance=<%= avance.id() %>"
+                              <a href="${pageContext.request.contextPath}/detalleAvanceAdm?idAvance=<%= avance.id() %>"
                                  class="btn__detalle">
 
                                   Ver
@@ -437,7 +356,6 @@
 
           </div>
 
-</main>
 
 </main>
 
