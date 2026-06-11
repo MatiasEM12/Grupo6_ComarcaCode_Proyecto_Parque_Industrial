@@ -149,12 +149,6 @@
                        readonly>
             </div>
 
-            <div class="form__group">
-                <label>Necesidades</label>
-                <input type="text"
-                       value="<%= proyecto.necesidades() %>"
-                       readonly>
-            </div>
 
             <div class="form__group">
                 <label>Empleabilidad</label>
@@ -180,7 +174,7 @@
             <div class="form__group">
                 <label>Empresa</label>
                 <input type="text"
-                       value="<%= proyecto.empresa().razonSocial() %>"
+                       value="<%= proyecto.empresa().nombre) %>"
                        readonly>
             </div>
 
