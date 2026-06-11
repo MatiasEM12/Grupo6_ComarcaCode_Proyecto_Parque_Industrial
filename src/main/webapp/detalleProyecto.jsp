@@ -171,12 +171,6 @@
                        readonly>
             </div>
 
-            <div class="form__group">
-                <label>Empresa</label>
-                <input type="text"
-                       value="<%= proyecto.empresa().nombre) %>"
-                       readonly>
-            </div>
 
             <div class="form__group">
                 <label>Lote Asignado</label>

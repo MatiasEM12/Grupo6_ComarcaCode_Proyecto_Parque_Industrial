@@ -29,7 +29,7 @@ public class DetalleProyectoServlet extends HttpServlet {
 
             ParqueIndustrial sistema = new ParqueIndustrial();
 
-            ProyectoProductivo proyecto = sistema.buscarProyectoPorId(idProyecto);
+            ProyectoProductivo proyecto = sistema.obtenerProyectoPorId(idProyecto);
 
             if (proyecto == null) {
 
@@ -40,8 +40,7 @@ public class DetalleProyectoServlet extends HttpServlet {
 
             request.setAttribute("proyecto", proyecto);
 
-            request.getRequestDispatcher("/detalleProyecto.jsp"
-            ).forward(request, response);
+            request.getRequestDispatcher("/detalleProyecto.jsp").forward(request, response);
 
         } catch (Exception e) {
 
