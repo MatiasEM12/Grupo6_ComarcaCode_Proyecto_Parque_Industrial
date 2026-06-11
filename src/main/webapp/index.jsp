@@ -33,12 +33,10 @@
                 <li class="nav__item"><a href="#quienes-somos" class="nav__link">Quienes Somos</a></li>
                 <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
                 <li class="nav__item"><a href="${pageContext.request.contextPath}//login" class="nav__link Link--login">Log In</a></li>
-                <li class="nav__item"><a href="${pageContext.request.contextPath}//registro" class="nav__link Link--login" >Registrarse</a></li>
+                <li class="nav__item"><a href="${pageContext.request.contextPath}//registro" class="nav__link Link--registro" >Registrarse</a></li>
             </ul>
         </div>
-        <div class="nav__logo--container">
-            <img src="logo.png" alt="" class="nav__logo">
-        </div>
+
     </nav>
     <main>
     <section id="inicio" class="main__section main__section--inicio">

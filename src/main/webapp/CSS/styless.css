@@ -105,7 +105,8 @@ h1{
     color: #fff;
     border-radius: 20px;
     padding: 8px 10px;
-    margin-left: 900px;
+    margin-left: 800px;
+    margin-right: 40px;
 }
 .nav__link:hover{
     background-color: rgba(43, 255, 0, 0.2);
@@ -119,6 +120,20 @@ h1{
     background-color: rgb(69, 204, 6);
     outline: none;
 }
+
+.Link--registro{
+    background-color: rgb(8, 155, 8);
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 10px;
+}
+.Link--registro:hover{
+
+    background-color: rgb(69, 204, 6);
+    outline: none;
+}
+
+
 .nav__logo{
     width: 80px;
 }

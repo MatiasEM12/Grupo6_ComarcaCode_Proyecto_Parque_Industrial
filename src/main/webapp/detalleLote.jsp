@@ -27,7 +27,7 @@
     <meta charset="UTF-8">
     <title>Detalle Lote</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/listadoLotes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/detalleLote.css">
 </head>
 
 <body>
