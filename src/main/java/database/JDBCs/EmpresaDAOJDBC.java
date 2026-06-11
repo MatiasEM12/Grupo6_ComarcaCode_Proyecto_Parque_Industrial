@@ -58,4 +58,31 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
             throw new RuntimeException("Error al actualizar empresa", e);
         }
     }
+    @Override
+    public void actualizarContacto(String cuit, String contacto, String contactoRepresentante) {
+
+        final String SQL = """
+            UPDATE empresa
+            SET contacto = ?,
+                contactoRepresentante = ?
+            WHERE cuit = ?
+            """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, contacto);
+            st.setString(2, contactoRepresentante);
+            st.setString(3, cuit);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró la empresa");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar contacto de empresa", e);
+        }
+    }
 }

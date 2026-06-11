@@ -114,5 +114,54 @@ public class OrganismoPublicoDAOJDBC implements OrganismoPublicoDAO {
             throw new RuntimeException("No se pudieron actualizar los datos del organismo público", e);
         }
     }
+    @Override
+    public OrganismoPublico findByUserName(String userName) {
+        String sql = """
+            SELECT o.saf,
+                   o.nombre,
+                   o.tipoOrganismo,
+                   u.codigo,
+                   u.userName,
+                   u.contrasena,
+                   u.gmail,
+                   r.codigo AS codigo_rol,
+                   r.nombre AS nombre_rol
+            FROM organismopublico o
+            INNER JOIN usuario u ON o.userName = u.userName
+            INNER JOIN roles r ON u.rol = r.codigo
+            WHERE o.userName = ?
+            """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, userName);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Rol rol = new Rol(
+                        rs.getString("nombre_rol"),
+                        rs.getInt("codigo_rol")
+                );
+
+                return new OrganismoPublico(
+                        rs.getString("userName"),
+                        rs.getString("contrasena"),
+                        rs.getString("gmail"),
+                        rs.getInt("saf"),
+                        rs.getString("nombre"),
+                        TipoOrganismo.valueOf(rs.getString("tipoOrganismo")),
+                        rol,
+                        rs.getInt("codigo")
+                );
+            }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar organismo público por username", e);
+        }
+    }
 }
 

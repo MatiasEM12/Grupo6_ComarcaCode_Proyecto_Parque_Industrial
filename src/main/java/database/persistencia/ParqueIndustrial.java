@@ -26,6 +26,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     private final EvaluacionTecnicaDAO evaluacionTecnicaDAO = new EvaluacionTecnicaDAOJDBC();
     private final UsuarioDAO userDAO = new UsuarioDAOJDBC();
     private final RolDAO rolDAO = new RolDAOJDBC();
+    private final OrganismoPublicoDAO organismoPublicoDAO = new OrganismoPublicoDAOJDBC();
     @Override
     public List<Usuario> obtenerUsuarios() {
         return usuarioDAO.findAll();
@@ -478,5 +479,24 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public void actualizarDocumento(int idDocumento, String fileName, String s, long size) {
         documentoDAO.actualizarDocumento(idDocumento,fileName,s,size);
+    }
+    @Override
+    public RepresentanteEmpresa obtenerRepresentante(String userName) {
+        return representanteDAO.findByUserName(userName);
+    }
+
+    @Override
+    public Empresa obtenerEmpresaRepresentante(String userName) {
+        RepresentanteEmpresa representante = representanteDAO.findByUserName(userName);
+
+        if (representante == null) {
+            return null;
+        }
+
+        return representante.empresa;
+    }
+    @Override
+    public OrganismoPublico obtenerOrganismo(String userName) {
+        return organismoPublicoDAO.findByUserName(userName);
     }
 }

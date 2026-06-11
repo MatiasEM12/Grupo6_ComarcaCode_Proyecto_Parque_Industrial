@@ -215,7 +215,12 @@ footer{
     background-color: rgb(8,155,8);
     transform: translateY(-2px);
 }
-
+button.btn__actualizar{
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: sans-serif;
+}
 .perfil__container{
     max-width: 1200px;
     margin: auto;

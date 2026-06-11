@@ -76,4 +76,9 @@ public interface SistemaParqueIndustrial {
     ProyectoProductivo buscarProyectoPorId(int idProyecto);
 
     void actualizarDocumento(int idDocumento, String fileName, String s, long size);
+
+    RepresentanteEmpresa obtenerRepresentante(String userName);
+
+    Empresa obtenerEmpresaRepresentante(String userName);
+    OrganismoPublico obtenerOrganismo(String userName);
 }

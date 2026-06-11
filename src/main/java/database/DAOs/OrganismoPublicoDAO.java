@@ -9,4 +9,5 @@ public interface OrganismoPublicoDAO {
     OrganismoPublico obtenerOrganismoPorUsername(String username);
 
     void actualizarDatosOrganismo(OrganismoPublicoDTO organismoPublicoDTO);
+    OrganismoPublico findByUserName(String userName);
 }

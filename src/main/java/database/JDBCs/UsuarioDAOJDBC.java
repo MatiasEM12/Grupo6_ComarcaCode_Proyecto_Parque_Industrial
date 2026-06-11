@@ -131,4 +131,32 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     public Boolean existe(String userName) {
         return null;
     }
+
+    @Override
+    public void actualizarCredenciales(int codigo, String gmail, String contrasena) {
+
+        final String SQL = """
+            UPDATE usuario
+            SET gmail = ?,
+                contrasena = ?
+            WHERE codigo = ?
+            """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, gmail);
+            st.setString(2, contrasena);
+            st.setInt(3, codigo);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró el usuario");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar datos de usuario", e);
+        }
+    }
 }

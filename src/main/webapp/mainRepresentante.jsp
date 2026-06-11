@@ -69,7 +69,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/perfil" class="nav__link">
+                <a href="${pageContext.request.contextPath}/perfilRepresentante" class="nav__link">
                     Perfil
                 </a>
             </li>
