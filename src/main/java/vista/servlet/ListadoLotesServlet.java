@@ -20,38 +20,40 @@ import java.util.List;
 public class ListadoLotesServlet  extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            HttpSession session = request.getSession(false);
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession(false);
+            if (session == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+
+            if (usuario == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+
+            List<Lote> lotes = sistema.ObtenerLotes();
+
+
+            request.setAttribute("lotes", lotes);
+
+
+            request.getRequestDispatcher("/listadoLotes.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/listadoLotes.jsp")
+                    .forward(request, response);
         }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-
-
-        if (usuario == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-
-
-
-        List<Lote> lotes= sistema.ObtenerLotes();
-
-
-        request.setAttribute("lotes",lotes);
-
-        /*
-         * Redirecciona al JSP
-         */
-        request.getRequestDispatcher("/listadoLotes.jsp").forward(request, response);
     }
 
 }

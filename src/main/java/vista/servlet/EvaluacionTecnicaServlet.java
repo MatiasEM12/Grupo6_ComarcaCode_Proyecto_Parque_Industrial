@@ -22,21 +22,28 @@ public class EvaluacionTecnicaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            String idProyectoParam = request.getParameter("idProyecto");
 
-        String idProyectoParam = request.getParameter("idProyecto");
+            if (idProyectoParam == null || idProyectoParam.isEmpty()) {
+                response.sendRedirect("proyectosEnEjecucion");
+                return;
+            }
 
-        if (idProyectoParam == null || idProyectoParam.isEmpty()) {
-            response.sendRedirect("proyectosEnEjecucion");
-            return;
+            int idProyecto = Integer.parseInt(idProyectoParam);
+
+            ProyectoProductivo proyecto = sistema.obtenerProyectoProductivo(idProyecto);
+
+            request.setAttribute("proyecto", proyecto);
+            request.setAttribute("idProyecto", idProyecto);
+
+            request.getRequestDispatcher("/evaluacionTecnica.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/proyectosEnEjecucion")
+                    .forward(request, response);
         }
-
-        int idProyecto = Integer.parseInt(idProyectoParam);
-
-        ProyectoProductivo proyecto = sistema.obtenerProyectoProductivo(idProyecto);
-
-        request.setAttribute("proyecto", proyecto);
-        request.setAttribute("idProyecto", idProyecto);
-
-        request.getRequestDispatcher("/evaluacionTecnica.jsp").forward(request, response);
     }
 }

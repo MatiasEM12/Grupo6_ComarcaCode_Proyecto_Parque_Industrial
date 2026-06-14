@@ -17,18 +17,25 @@ public class MiSolicitudDetalleServlet  extends HttpServlet{
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            int id = Integer.parseInt(request.getParameter("id"));
 
-        int id = Integer.parseInt(request.getParameter("id"));
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        SolicitudRadicacion solicitud = sistema.obtenerSolicitudes().stream()
-                .filter(s -> s.id() == id)
-                .findFirst()
-                .orElse(null);
+            SolicitudRadicacion solicitud = sistema.obtenerSolicitudes().stream()
+                    .filter(s -> s.id() == id)
+                    .findFirst()
+                    .orElse(null);
 
 
-        request.setAttribute("solicitud", solicitud);
-        request.getRequestDispatcher("/MiDetalleSolicitud.jsp").forward(request, response);
+            request.setAttribute("solicitud", solicitud);
+            request.getRequestDispatcher("/MiDetalleSolicitud.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/misSolicitudes")
+                    .forward(request, response);
+        }
     }
 }

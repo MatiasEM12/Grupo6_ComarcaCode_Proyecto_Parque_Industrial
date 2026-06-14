@@ -23,30 +23,37 @@ public class GuardarEvaluacionTecnicaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try{
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+            if (usuario == null || !usuario.nombreRol().equals("organismo_publico")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (usuario == null || !usuario.nombreRol().equals("organismo_publico")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
+            String descripcion = request.getParameter("descripcion");
+            String resultado = request.getParameter("resultado");
+            String observaciones = request.getParameter("observaciones");
+
+            EvaluacionTecnica evaluacion = new EvaluacionTecnica(
+                    descripcion,
+                    usuario,
+                    resultado,
+                    observaciones
+            );
+
+
+            sistema.agregarEvaluacionTecnica(idProyecto, evaluacion);
+
+            response.sendRedirect(request.getContextPath()
+                    + "/evaluacionTecnica?idProyecto=" + idProyecto);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/proyectosEnEjecucion")
+                    .forward(request, response);
         }
-
-        int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
-        String descripcion = request.getParameter("descripcion");
-        String resultado = request.getParameter("resultado");
-        String observaciones = request.getParameter("observaciones");
-
-        EvaluacionTecnica evaluacion = new EvaluacionTecnica(
-                descripcion,
-                usuario,
-                resultado,
-                observaciones
-        );
-
-        // Este método todavía hay que tenerlo en SistemaParqueIndustrial y ParqueIndustrial
-        sistema.agregarEvaluacionTecnica(idProyecto, evaluacion);
-
-        response.sendRedirect(request.getContextPath()
-                + "/evaluacionTecnica?idProyecto=" + idProyecto);
     }
 }

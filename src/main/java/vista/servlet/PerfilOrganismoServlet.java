@@ -18,28 +18,36 @@ public class PerfilOrganismoServlet extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+        try {
+            HttpSession session = request.getSession(false);
 
-        if(session == null || session.getAttribute("usuarioLogueado") == null){
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
+            if (session == null || session.getAttribute("usuarioLogueado") == null) {
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+                return;
+            }
+
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+            if (!usuario.nombreRol().equals("organismo_publico")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            OrganismoPublico organismo = sistema.obtenerOrganismo(usuario.UserName());
+
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("organismo", organismo);
+
+            request.getRequestDispatcher("/perfilOrganismo.jsp")
+                    .forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/perfilOrganismo.jsp")
+                    .forward(request, response);
         }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (!usuario.nombreRol().equals("organismo_publico")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        OrganismoPublico organismo = sistema.obtenerOrganismo(usuario.UserName());
-
-        request.setAttribute("usuario", usuario);
-        request.setAttribute("organismo", organismo);
-
-        request.getRequestDispatcher("/perfilOrganismo.jsp")
-                .forward(request, response);
     }
 }

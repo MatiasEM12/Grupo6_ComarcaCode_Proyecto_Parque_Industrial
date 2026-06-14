@@ -21,14 +21,21 @@ public class RepresentanteProyectoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            int idProyecto = Integer.parseInt(request.getParameter("id"));
 
-        int idProyecto = Integer.parseInt(request.getParameter("id"));
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            ProyectoProductivo proyecto = sistema.obtenerProyectoPorId(idProyecto);
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-        ProyectoProductivo proyecto = sistema.obtenerProyectoPorId(idProyecto);
+            request.setAttribute("proyecto", proyecto);
 
-        request.setAttribute("proyecto", proyecto);
+            request.getRequestDispatcher("/representanteProyecto.jsp").forward(request, response);
+        }catch (Exception e) {
 
-        request.getRequestDispatcher("/representanteProyecto.jsp").forward(request, response);
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/representanteProyecto.jsp")
+                    .forward(request, response);
+        }
     }
 }

@@ -21,29 +21,37 @@ public class SolicitudesAdminServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+        try {
+            HttpSession session = request.getSession(false);
 
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            if (session == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+            if (usuario == null || !usuario.nombreRol().equals("administrador")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudes();
+
+            request.setAttribute("solicitudes", solicitudes);
+            List<Lote> lotes = sistema.obtenerLotesDisponibles();
+
+            request.setAttribute("lotes", lotes);
+
+            request.getRequestDispatcher("/solicitudesAdmin.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/solicitudesAdmin.jsp")
+                    .forward(request, response);
         }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null || !usuario.nombreRol().equals("administrador")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudes();
-
-        request.setAttribute("solicitudes", solicitudes);
-        List<Lote> lotes = sistema.obtenerLotesDisponibles();
-
-        request.setAttribute("lotes", lotes);
-
-        request.getRequestDispatcher("/solicitudesAdmin.jsp").forward(request, response);
     }
 }

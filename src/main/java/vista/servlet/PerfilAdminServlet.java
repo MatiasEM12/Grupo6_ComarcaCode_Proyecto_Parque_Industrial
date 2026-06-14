@@ -19,24 +19,31 @@ public class PerfilAdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            HttpSession session = request.getSession(false);
 
-        HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("usuarioLogueado") == null) {
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+                return;
+            }
 
-        if (session == null || session.getAttribute("usuarioLogueado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
-        }
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            request.setAttribute("usuario", usuario);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-        request.setAttribute("usuario", usuario);
-
-        // Si es admin, se separa  delegarlo a sistema
+            // Si es admin, se separa  delegarlo a sistema
 
             AdministradorDelParque admin = sistema.obtenerAdm(usuario.UserName());
             request.setAttribute("admin", admin);
 
 
-        request.getRequestDispatcher("/PerfilAdmin.jsp").forward(request, response);
+            request.getRequestDispatcher("/PerfilAdmin.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/PerfilAdmin.jsp")
+                    .forward(request, response);
+        }
     }
 }

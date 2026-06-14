@@ -19,46 +19,53 @@ import java.io.IOException;
 public class EditarDocumentoSolicitudServlet extends HttpServlet {
 
     private SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
+    int idSolicitud;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            request.setCharacterEncoding("UTF-8");
 
-        request.setCharacterEncoding("UTF-8");
+            idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+            int idDocumento = Integer.parseInt(request.getParameter("idDocumento"));
 
-        int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        int idDocumento = Integer.parseInt(request.getParameter("idDocumento"));
+            Part filePart = request.getPart("archivo");
 
-        Part filePart = request.getPart("archivo");
+            if (filePart == null || filePart.getSize() == 0) {
+                throw new RuntimeException("Archivo vacío");
+            }
 
-        if (filePart == null || filePart.getSize() == 0) {
-            throw new RuntimeException("Archivo vacío");
+            String fileName = filePart.getSubmittedFileName();
+            String uniqueId = java.util.UUID.randomUUID().toString();
+            String name = uniqueId + "_" + fileName;
+
+            String basePath = System.getProperty("user.dir");
+            String uploadDir = basePath + "/uploads";
+
+            File dir = new File(uploadDir);
+            if (!dir.exists()) dir.mkdirs();
+
+            String fullPath = uploadDir + File.separator + name;
+
+            filePart.write(fullPath);
+
+
+            sistema.actualizarDocumento(
+                    idDocumento,
+                    fileName,
+                    "uploads/" + name,
+                    filePart.getSize()
+            );
+
+            response.sendRedirect(
+                    request.getContextPath() + "/miSolicitudDetalle?id=" + idSolicitud
+            );
+        } catch (Exception e) {
+
+                request.setAttribute("error", e.getMessage());
+                request.setAttribute("idSolicitud", idSolicitud);
+
+                request.getRequestDispatcher("/miSolicitudDetalle").forward(request, response);
         }
-
-        String fileName = filePart.getSubmittedFileName();
-        String uniqueId = java.util.UUID.randomUUID().toString();
-        String name = uniqueId + "_" + fileName;
-
-        String basePath = System.getProperty("user.dir");
-        String uploadDir = basePath + "/uploads";
-
-        File dir = new File(uploadDir);
-        if (!dir.exists()) dir.mkdirs();
-
-        String fullPath = uploadDir + File.separator + name;
-
-        filePart.write(fullPath);
-
-
-        sistema.actualizarDocumento(
-                idDocumento,
-                fileName,
-                "uploads/" + name,
-                filePart.getSize()
-        );
-
-        response.sendRedirect(
-                request.getContextPath() + "/miSolicitudDetalle?id=" + idSolicitud
-        );
     }
 }

@@ -17,39 +17,46 @@ public class EditarLoteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+        try{
+            request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(false);
 
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            if (session == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+            if (usuario == null || !usuario.nombreRol().equals("administrador")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            long latitud = Long.parseLong(request.getParameter("latitud"));
+            long longitud = Long.parseLong(request.getParameter("longitud"));
+            long altitud = Long.parseLong(request.getParameter("altitud"));
+            double superficie = Double.parseDouble(request.getParameter("superficie"));
+            String estado = request.getParameter("estado");
+            String infraestructura = request.getParameter("infraestructura");
+
+            Ubicacion ubicacion = new Ubicacion(latitud, longitud, altitud);
+
+            Lote lote = new Lote(id, ubicacion, superficie, estado, infraestructura);
+
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            sistema.actualizarLote(lote);
+
+            response.sendRedirect(request.getContextPath() + "/detalleLote?id=" + id
+            );
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/detalleLote?id=" + request.getParameter("id")).forward(request, response);
         }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null || !usuario.nombreRol().equals("administrador")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-
-        int id = Integer.parseInt(request.getParameter("id"));
-        long latitud = Long.parseLong(request.getParameter("latitud"));
-        long longitud = Long.parseLong(request.getParameter("longitud"));
-        long altitud = Long.parseLong(request.getParameter("altitud"));
-        double superficie = Double.parseDouble(request.getParameter("superficie"));
-        String estado = request.getParameter("estado");
-        String infraestructura = request.getParameter("infraestructura");
-
-        Ubicacion ubicacion = new Ubicacion(latitud, longitud, altitud);
-
-        Lote lote = new Lote(id, ubicacion, superficie, estado, infraestructura);
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        sistema.actualizarLote(lote);
-
-        response.sendRedirect(request.getContextPath() + "/detalleLote?id=" + id
-        );
     }
 }

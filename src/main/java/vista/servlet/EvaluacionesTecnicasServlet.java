@@ -25,22 +25,29 @@ public class EvaluacionesTecnicasServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+        try {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
-        if (usuario == null || !usuario.nombreRol().equals("organismo_publico")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            if (usuario == null || !usuario.nombreRol().equals("organismo_publico")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
+
+            List<EvaluacionTecnicaDTO> evaluaciones =
+                    sistema.obtenerEvaluacionesTecnicasPorProyecto(idProyecto);
+
+            request.setAttribute("evaluaciones", evaluaciones);
+            request.setAttribute("idProyecto", idProyecto);
+
+            request.getRequestDispatcher("/evaluacionesTecnicas.jsp")
+                    .forward(request, response);
+        }catch (Exception e){
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/proyectosEnEjecucion")
+                    .forward(request, response);
         }
-
-        int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
-
-        List<EvaluacionTecnicaDTO> evaluaciones =
-                sistema.obtenerEvaluacionesTecnicasPorProyecto(idProyecto);
-
-        request.setAttribute("evaluaciones", evaluaciones);
-        request.setAttribute("idProyecto", idProyecto);
-
-        request.getRequestDispatcher("/evaluacionesTecnicas.jsp")
-                .forward(request, response);
     }
 }

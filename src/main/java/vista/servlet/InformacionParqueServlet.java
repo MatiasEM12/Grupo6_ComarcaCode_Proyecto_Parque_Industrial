@@ -25,24 +25,31 @@ public class InformacionParqueServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+            if (usuario == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (usuario == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            if (!usuario.nombreRol().equals("organismo_publico")
+                    && !usuario.nombreRol().equals("administrador")) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+
+            ReporteParqueDTO reporte = sistema.generarReporteParque();
+            request.setAttribute("reporte", reporte);
+            request.setAttribute("reportesAdmin", reporteDAO.findAll());
+            request.getRequestDispatcher("/informacionParque.jsp")
+                    .forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/informacionParque.jsp")
+                    .forward(request, response);
         }
-
-        if (!usuario.nombreRol().equals("organismo_publico")
-                && !usuario.nombreRol().equals("administrador")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-
-        ReporteParqueDTO reporte = sistema.generarReporteParque();
-        request.setAttribute("reporte", reporte);
-        request.setAttribute("reportesAdmin", reporteDAO.findAll());
-        request.getRequestDispatcher("/informacionParque.jsp")
-                .forward(request, response);
     }
 }

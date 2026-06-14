@@ -13,11 +13,18 @@ public class ProyectosEnEjecucionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            request.setAttribute("proyectos", sistema.obtenerProyectosProductivos());
 
-        request.setAttribute("proyectos", sistema.obtenerProyectosProductivos());
+            request.getRequestDispatcher("/proyectosEnEjecucion.jsp").forward(request, response);
+        }catch (Exception e) {
 
-        request.getRequestDispatcher("/proyectosEnEjecucion.jsp").forward(request, response);
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/proyectosEnEjecucion.jsp")
+                    .forward(request, response);
+        }
     }
 }

@@ -17,35 +17,37 @@ public class MisProyectosServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            HttpSession session = request.getSession(false);
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession(false);
+            if (session == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+
+            if (usuario == null) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+
+            List<ProyectoProductivo> proyectos = sistema.obtenerProyectosProductivosDe(usuario.UserName());
+
+            request.setAttribute("proyectos", proyectos);
+
+            request.getRequestDispatcher("/representanteProyectos.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/representanteProyectos.jsp")
+                    .forward(request, response);
         }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-
-
-
-        if (usuario == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
-        }
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-
-
-        List<ProyectoProductivo> proyectos= sistema.obtenerProyectosProductivosDe(usuario.UserName());
-
-        request.setAttribute("proyectos", proyectos);
-
-        /*
-         * Redirecciona al JSP
-         */
-        request.getRequestDispatcher("/representanteProyectos.jsp").forward(request, response);
     }
 }

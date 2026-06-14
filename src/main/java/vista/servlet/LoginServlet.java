@@ -21,39 +21,46 @@ public class LoginServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        try {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            Usuario usuario = sistema.login(username, password);
 
-        Usuario usuario = sistema.login(username, password);
+            if (usuario == null) {
+                request.setAttribute("error", "Credenciales inválidas");
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
 
-        if (usuario == null) {
-            request.setAttribute("error", "Credenciales inválidas");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-            return;
-        }
-
-        request.getSession().setAttribute("usuarioLogueado", usuario);
+            request.getSession().setAttribute("usuarioLogueado", usuario);
 
 
-        switch (usuario.rol().nombre()) {
+            switch (usuario.rol().nombre()) {
 
-            case "administrador":
-                response.sendRedirect(request.getContextPath() +  "/mainAdm.jsp");
-                break;
+                case "administrador":
+                    response.sendRedirect(request.getContextPath() + "/mainAdm.jsp");
+                    break;
 
-            case "organismo_publico":
-                response.sendRedirect(request.getContextPath() + "/mainOrganismoPublico.jsp");
-                break;
+                case "organismo_publico":
+                    response.sendRedirect(request.getContextPath() + "/mainOrganismoPublico.jsp");
+                    break;
 
-            case "representante":
-                response.sendRedirect(request.getContextPath() + "/mainRepresentante.jsp");
-                break;
+                case "representante":
+                    response.sendRedirect(request.getContextPath() + "/mainRepresentante.jsp");
+                    break;
 
-            default:
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                default:
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+            }
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
         }
     }
 }

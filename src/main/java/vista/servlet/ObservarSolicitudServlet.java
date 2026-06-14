@@ -17,26 +17,33 @@ public class ObservarSolicitudServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            if (!esAdministrador(request)) {
+                response.sendRedirect(request.getContextPath() + "/perfiles");
+                return;
+            }
 
-        if (!esAdministrador(request)) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
-            return;
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+            int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+            String descripcion = request.getParameter("descripcion");
+
+            Usuario usuarioLogueado = (Usuario) request.getSession().getAttribute("usuarioLogueado");
+
+            sistema.observarSolicitud(
+                    idSolicitud,
+                    descripcion,
+                    usuarioLogueado.UserName()
+            );
+
+            response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
+        } catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/solicitudesAdmin")
+                    .forward(request, response);
         }
-
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
-
-        int idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
-        String descripcion = request.getParameter("descripcion");
-
-        Usuario usuarioLogueado = (Usuario) request.getSession().getAttribute("usuarioLogueado");
-
-        sistema.observarSolicitud(
-                idSolicitud,
-                descripcion,
-                usuarioLogueado.UserName()
-        );
-
-        response.sendRedirect(request.getContextPath() + "/solicitudesAdmin");
     }
 
     private boolean esAdministrador(HttpServletRequest request) {
