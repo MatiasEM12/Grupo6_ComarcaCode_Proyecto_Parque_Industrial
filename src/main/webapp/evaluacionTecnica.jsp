@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="<%= request.getContextPath() %>/evaluacionesTecnicas" class="nav__link">
+                <a href="<%= request.getContextPath() %>/evaluacionesTecnicas?idProyecto=<%= proyecto.idProyecto() %>" class="nav__link">
                     Evaluaciones realizadas
                 </a>
             </li>
@@ -159,9 +159,9 @@
                         Guardar Evaluación
                     </button>
 
-                    <a href="<%= request.getContextPath() %>/evaluacionesTecnicas"
-                       class="btn__secundario">
-                        Ver evaluaciones realizadas
+                    <a class="btn__form"
+                           href="<%= request.getContextPath() %>/evaluacionesTecnicas?idProyecto=<%= proyecto.idProyecto() %>">
+                           Ver evaluaciones técnicas
                     </a>
 
                 </div>
