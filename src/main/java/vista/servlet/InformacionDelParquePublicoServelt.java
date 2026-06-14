@@ -9,11 +9,14 @@ import model.Usuario;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/informacionParque")
-public class InformacionParqueServlet extends HttpServlet {
+
+@WebServlet("/informacionParquePublico")
+public class  InformacionDelParquePublicoServelt extends HttpServlet {
 
     private SistemaParqueIndustrial sistema;
     private ReporteDAO reporteDAO = new ReporteDAOJDBC();
@@ -33,7 +36,7 @@ public class InformacionParqueServlet extends HttpServlet {
                 return;
             }
 
-            if ( !usuario.nombreRol().equals("administrador")) {
+            if (!usuario.nombreRol().equals("organismo_publico") ){
                 response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
@@ -41,13 +44,13 @@ public class InformacionParqueServlet extends HttpServlet {
             ReporteParqueDTO reporte = sistema.generarReporteParque();
             request.setAttribute("reporte", reporte);
             request.setAttribute("reportesAdmin", reporteDAO.findAll());
-            request.getRequestDispatcher("/informacionParque.jsp")
+            request.getRequestDispatcher("/InformacionParqueOrganismoPublico.jsp")
                     .forward(request, response);
         }catch (Exception e) {
 
             request.setAttribute("error", e.getMessage());
 
-            request.getRequestDispatcher("/informacionParque.jsp")
+            request.getRequestDispatcher("/InformacionParqueOrganismoPublico.jsp")
                     .forward(request, response);
         }
     }

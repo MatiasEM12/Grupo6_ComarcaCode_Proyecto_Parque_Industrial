@@ -8,7 +8,7 @@
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(request.getContextPath()+ "/perfiles"
+        response.sendRedirect(request.getContextPath()+ "/login"
         );
 
         return;
@@ -17,7 +17,7 @@
     // SI NO ES REPRESENTANTE
     if(!usuario.nombreRol().equals("organismo_publico")){
 
-        response.sendRedirect( request.getContextPath()+ "/perfiles"
+        response.sendRedirect( request.getContextPath()+ "/login"
         );
 
         return;
@@ -86,7 +86,7 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/informacionParque"
+                <a href="${pageContext.request.contextPath}/informacionParquePublico"
                    class="nav__link">
                     Información del parque
                 </a>
@@ -138,7 +138,7 @@
             </div>
         </a>
 
-        <a href="${pageContext.request.contextPath}/informacionParque"
+        <a href="${pageContext.request.contextPath}/informacionParquePublico"
            class="card">
             <div class="card__content">
 
