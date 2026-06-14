@@ -1,6 +1,6 @@
 package model;
 
-public enum TipoReporte {
+public enum TipoInforme {
     DESARROLLO_PRODUCTIVO,
     NIVEL_ACTIVIDAD_INDUSTRIAL,
     PROYECTOS_EN_EJECUCION,

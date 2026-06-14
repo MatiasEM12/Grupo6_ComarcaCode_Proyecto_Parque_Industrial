@@ -7,14 +7,14 @@
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect( request.getContextPath() + "/perfiles" );
+        response.sendRedirect( request.getContextPath() + "/login" );
         return;
     }
 
     // SI NO ES ADMINISTRADOR
     if(!usuario.nombreRol().equals("administrador")){
 
-        response.sendRedirect( request.getContextPath() + "/perfiles");
+        response.sendRedirect( request.getContextPath() + "/login");
         return;
     }
 %>
@@ -97,8 +97,8 @@
                 </a>
             </li>
              <li class="nav__item">
-                <a href="<%= request.getContextPath() %>/reportes" class="nav__link">
-                    Reportes
+                <a href="<%= request.getContextPath() %>/Informes" class="nav__link">
+                    Informes
                 </a>
              </li>
 
@@ -157,10 +157,10 @@
                </div>
           </a>
 
-         <a href="${pageContext.request.contextPath}/reportes" class="card">
+         <a href="${pageContext.request.contextPath}/Informes" class="card">
              <div class="card__content">
-                 <h2>Reportes</h2>
-                 <p>Estadísticas del parque y reportes.</p>
+                 <h2>Informes</h2>
+                 <p>Informes del parque Industrial.</p>
              </div>
          </a>
     </div>

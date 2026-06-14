@@ -1,18 +1,22 @@
 package model;
 
+import database.DAOs.InformeDAO;
+import database.JDBCs.InformeDAOJDBC;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reporte {
+public class Informe {
     private int id = 0;
-    private final TipoReporte tipo;
+    private final TipoInforme tipo;
     private final String descripcion;
     private final LocalDate fecha;
-    private final Usuario usuario; //Lo cree porque es necesario para saber quien genero el reporte
+    private final Usuario usuario; //Lo cree porque es necesario para saber quien genero el informe
     private final List<Documento> documentos;
+    private InformeDAO informeDAO = new InformeDAOJDBC();
 
-    public Reporte(TipoReporte tipo, String descripcion, Usuario generadoPor) {
+    public Informe(TipoInforme tipo, String descripcion, Usuario generadoPor) {
         validarTipo(tipo);
         validarDescripcion(descripcion);
         validarUsuario(generadoPor);
@@ -26,19 +30,19 @@ public class Reporte {
 
     private static void validarUsuario(Usuario generadoPor) {
         if (generadoPor == null) {
-            throw new RuntimeException("Debe indicarse quién generó el reporte");
+            throw new RuntimeException("Debe indicarse quién generó el informe");
         }
     }
 
     private static void validarDescripcion(String descripcion) {
         if (descripcion == null || descripcion.isBlank()) {
-            throw new RuntimeException("La descripción del reporte es obligatoria");
+            throw new RuntimeException("La descripción del informe es obligatoria");
         }
     }
 
-    private static void validarTipo(TipoReporte tipo) {
+    private static void validarTipo(TipoInforme tipo) {
         if (tipo == null) {
-            throw new RuntimeException("El tipo de reporte es obligatorio");
+            throw new RuntimeException("El tipo de informe es obligatorio");
         }
     }
     public boolean tieneDocumentacionValida() {
@@ -52,25 +56,7 @@ public class Reporte {
 
         documentos.add(documento);
     }
-    public String generarReporte() {
-        return """
-                REPORTE DEL PARQUE INDUSTRIAL
-                -----------------------------
-                ID: %d
-                Tipo: %s
-                Descripción: %s
-                Fecha: %s
-                Generado por: %s
-                Cantidad de documentos adjuntos: %d
-                """.formatted(
-                id,
-                tipo,
-                descripcion,
-                fecha,
-                usuario.UserName(),
-                documentos.size()
-        );
-    }
+
 
     public String descripcion() {
         return descripcion;
@@ -79,7 +65,7 @@ public class Reporte {
         return id;
     }
 
-    public TipoReporte tipo() {
+    public TipoInforme tipo() {
         return tipo;
     }
 
@@ -92,6 +78,14 @@ public class Reporte {
     }
 
     public List<Documento> documentos() {
+
+        if(documentos.isEmpty()){
+            Documento documento =  informeDAO.obtenerDocumento(id);
+            if(documento!=null){
+                return List.of( documento);
+            }
+
+        }
         return documentos;
     }
 

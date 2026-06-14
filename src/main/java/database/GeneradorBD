@@ -120,7 +120,7 @@ public class GeneradorBD {
                 fecha DATE,
             );
 
-            CREATE TABLE IF NOT EXISTS reportes (
+            CREATE TABLE IF NOT EXISTS informes (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 tipo VARCHAR(100),
                 descripcion VARCHAR(MAX),

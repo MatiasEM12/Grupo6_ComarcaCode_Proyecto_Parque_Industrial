@@ -1,11 +1,13 @@
 package vista.servlet;
 
-import database.DAOs.ReporteDAO;
-import database.JDBCs.ReporteDAOJDBC;
+import database.DAOs.InformeDAO;
+import database.JDBCs.InformeDAOJDBC;
+import database.persistencia.ParqueIndustrial;
+import database.persistencia.SistemaParqueIndustrial;
 import model.Documento;
-import model.Reporte;
+import model.Informe;
 import model.TipoDocumento;
-import model.TipoReporte;
+import model.TipoInforme;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -16,11 +18,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-@WebServlet("/reportes")
+@WebServlet("/Informes")
 @MultipartConfig
-public class ReportesServlet extends HttpServlet {
+public class InformesServlet extends HttpServlet {
 
-    private ReporteDAO reporteDAO = new ReporteDAOJDBC();
+    private InformeDAO informeDAO = new InformeDAOJDBC();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,17 +31,17 @@ public class ReportesServlet extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
             if (usuario == null || !usuario.nombreRol().equals("administrador")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
-            request.setAttribute("reportes", reporteDAO.findAll());
-            request.getRequestDispatcher("/reportes.jsp").forward(request, response);
+            request.setAttribute("informes", informeDAO.findAll());
+            request.getRequestDispatcher("/Informes.jsp").forward(request, response);
         }catch (Exception e) {
 
             request.setAttribute("error", e.getMessage());
 
-            request.getRequestDispatcher("/reportes.jsp")
+            request.getRequestDispatcher("/Informes.jsp")
                     .forward(request, response);
         }
     }
@@ -51,7 +53,7 @@ public class ReportesServlet extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
             if (usuario == null || !usuario.nombreRol().equals("administrador")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
@@ -59,11 +61,11 @@ public class ReportesServlet extends HttpServlet {
                 String tipoTexto = request.getParameter("tipo");
                 String descripcion = request.getParameter("descripcion");
 
-                TipoReporte tipo = TipoReporte.valueOf(tipoTexto);
+                TipoInforme tipo = TipoInforme.valueOf(tipoTexto);
 
-                Reporte reporte = new Reporte(tipo, descripcion, usuario);
+                Informe informe = new Informe(tipo, descripcion, usuario);
 
-                reporteDAO.guardar(reporte);
+                informeDAO.guardar(informe);
 
                 Part archivo = request.getPart("documento");
 
@@ -73,41 +75,49 @@ public class ReportesServlet extends HttpServlet {
                             .getFileName()
                             .toString();
 
-                    String carpetaUploads = getServletContext().getRealPath("/uploads");
+
+                    String basePath = System.getProperty("user.dir");
+                    String carpetaUploads = basePath + File.separator + "uploads";
 
                     File carpeta = new File(carpetaUploads);
-
                     if (!carpeta.exists()) {
                         carpeta.mkdirs();
                     }
 
-                    String rutaFinal = carpetaUploads + File.separator + nombreArchivo;
+                    String nombreUnico = java.util.UUID.randomUUID().toString() + "_" + nombreArchivo;
+
+                    String rutaFinal = carpetaUploads + File.separator + nombreUnico;
 
                     archivo.write(rutaFinal);
 
+                    String rutaCompleta = "uploads/" + nombreUnico;
+
                     Documento documento = new Documento(
-                            TipoDocumento.REPORTE,
+                            TipoDocumento.INFORME,
                             nombreArchivo,
-                            "uploads/" + nombreArchivo,
+                            rutaCompleta,
                             archivo.getSize()
                     );
 
-                    reporteDAO.vincularDocumento(reporte.id(), documento.id());
+                    ParqueIndustrial sistema = new ParqueIndustrial();
+                    Documento d = sistema.obtenerDocumentoPorRuta(rutaCompleta);
+
+                    informeDAO.vincularDocumento(informe.id(), d.id());
                 }
 
-                request.setAttribute("mensaje", "Reporte generado correctamente.");
+                request.setAttribute("mensaje", "Informe generado correctamente.");
 
             } catch (Exception e) {
                 request.setAttribute("error", e.getMessage());
             }
 
-            request.setAttribute("reportes", reporteDAO.findAll());
-            request.getRequestDispatcher("/reportes.jsp").forward(request, response);
+            request.setAttribute("informes", informeDAO.findAll());
+            request.getRequestDispatcher("/Informes.jsp").forward(request, response);
         }catch (Exception e) {
 
             request.setAttribute("error", e.getMessage());
 
-            request.getRequestDispatcher("/reportes.jsp")
+            request.getRequestDispatcher("/Informes.jsp")
                     .forward(request, response);
         }
     }

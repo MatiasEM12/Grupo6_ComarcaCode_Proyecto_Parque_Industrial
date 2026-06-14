@@ -1,16 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.Reporte" %>
+<%@ page import="model.Informe" %>
+<%@ page import="model.Documento" %>
 <%@ page import="java.util.List" %>
 
 <%
-    List<Reporte> reportes = (List<Reporte>) request.getAttribute("reportes");
+    List<Informe> informes = (List<Informe>) request.getAttribute("informes");
 %>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Reportes</title>
+    <title>Informes</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/reportes.css">
 </head>
 
@@ -20,8 +21,8 @@
     <div class="header__overlay"></div>
 
     <div class="header__item--container">
-        <h1>Generación de Reportes</h1>
-        <p>Administre y consulte los reportes del Parque Industrial.</p>
+        <h1>Generación de Informes</h1>
+        <p>Administre y consulte los informes del Parque Industrial.</p>
     </div>
 </header>
 
@@ -75,7 +76,7 @@
 
                 <li class="nav__item">
                     <a href="#" class="nav__link">
-                        Reportes
+                        Informes
                     </a>
                 </li>
 
@@ -100,8 +101,8 @@
 
         <div class="reportes__card">
 
-            <h2>Nuevo Reporte</h2>
-            <p>Complete los datos para generar un nuevo reporte.</p>
+            <h2>Nuevo Informe</h2>
+            <p>Complete los datos para generar un nuevo informe.</p>
 
             <% if(request.getAttribute("mensaje") != null) { %>
                 <div class="mensaje__exito">
@@ -115,17 +116,16 @@
                 </div>
             <% } %>
 
-            <form action="${pageContext.request.contextPath}/reportes"
+            <form action="${pageContext.request.contextPath}/Informes"
                   method="post"
                   enctype="multipart/form-data"
                   class="form__reporte">
 
                 <div class="form__campo">
-                    <label>Tipo de reporte</label>
+                    <label>Tipo de informe</label>
                     <select name="tipo" required>
                         <option value="">Seleccione una opción</option>
                         <option value="CONSUMO_ELECTRICO">Consumo eléctrico</option>
-                        <option value="AVANCE_PROYECTOS">Avance de proyectos</option>
                         <option value="INFRAESTRUCTURA">Infraestructura</option>
                         <option value="GENERAL">General</option>
                     </select>
@@ -140,7 +140,7 @@
                     <input type="file" name="documento">
                 </div>
                 <button type="submit" class="btn__generar">
-                    Generar Reporte
+                    Generar Informe
                 </button>
 
             </form>
@@ -151,9 +151,9 @@
 
         <div class="reportes__card">
 
-            <h2>Reportes Generados</h2>
+            <h2>Informes Generados</h2>
 
-            <% if(reportes != null && !reportes.isEmpty()) { %>
+            <% if(informes != null && !informes.isEmpty()) { %>
 
                 <table class="tabla__reportes">
                     <thead>
@@ -162,21 +162,43 @@
                         <th>Descripción</th>
                         <th>Fecha</th>
                         <th>Usuario</th>
+
                     </tr>
                     </thead>
 
                     <tbody>
-                    <% for(Reporte reporte : reportes) { %>
+                    <% for(Informe informe : informes) { %>
                         <tr>
                             <td>
                                 <span class="reporte__tipo">
-                                    <%= reporte.tipo() %>
+                                    <%= informe.tipo() %>
                                 </span>
                             </td>
 
-                            <td><%= reporte.descripcion() %></td>
-                            <td><%= reporte.fecha() %></td>
-                            <td><%= reporte.usuario().UserName() %></td>
+                            <td><%= informe.descripcion() %></td>
+                            <td><%= informe.fecha() %></td>
+                            <td><%= informe.usuario().UserName() %></td>
+
+
+                                <td>
+                                    <%
+                                        if(informe.documentos() != null && !informe.documentos().isEmpty() ){
+                                        Documento doc = informe.documentos().get(0);
+                                    %>
+
+                                        <a class="btn__pdf"
+                                           href="<%= request.getContextPath() %>/descargarDocumento?id=<%= doc.id() %>">
+                                            Descargar
+                                        </a>
+
+                                    <%
+                                        } else {
+                                    %>
+                                        -
+                                    <%
+                                        }
+                                    %>
+                                </td>
                         </tr>
                     <% } %>
                     </tbody>
@@ -185,8 +207,8 @@
             <% } else { %>
 
                 <div class="sin__reportes">
-                    <h2>No hay reportes generados</h2>
-                    <p>Todavía no se cargaron reportes en el sistema.</p>
+                    <h2>No hay informes generados</h2>
+                    <p>Todavía no se cargaron informes en el sistema.</p>
                 </div>
 
             <% } %>

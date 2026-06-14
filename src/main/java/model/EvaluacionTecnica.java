@@ -1,6 +1,6 @@
 package model;
 
-public class EvaluacionTecnica extends Reporte {
+public class EvaluacionTecnica extends Informe {
 
     private final String resultado;
     private final String observaciones;
@@ -10,7 +10,7 @@ public class EvaluacionTecnica extends Reporte {
                              String resultado,
                              String observaciones) {
 
-        super(TipoReporte.EVALUACION_TECNICA, descripcion, generadoPor);
+        super(TipoInforme.EVALUACION_TECNICA, descripcion, generadoPor);
 
         this.resultado = resultado;
         this.observaciones = observaciones;

@@ -1,10 +1,10 @@
 package vista.servlet;
 
-import database.DAOs.ReporteDAO;
-import database.JDBCs.ReporteDAOJDBC;
+import database.DAOs.InformeDAO;
+import database.JDBCs.InformeDAOJDBC;
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
-import model.DTO.ReporteParqueDTO;
+import model.DTO.InformeParqueDTO;
 import model.Usuario;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class  InformacionDelParquePublicoServelt extends HttpServlet {
 
     private SistemaParqueIndustrial sistema;
-    private ReporteDAO reporteDAO = new ReporteDAOJDBC();
+    private InformeDAO informeDAO = new InformeDAOJDBC();
     @Override
     public void init() {
         this.sistema = new ParqueIndustrial();
@@ -41,9 +41,9 @@ public class  InformacionDelParquePublicoServelt extends HttpServlet {
                 return;
             }
 
-            ReporteParqueDTO reporte = sistema.generarReporteParque();
+            InformeParqueDTO reporte = sistema.generarReporteParque();
             request.setAttribute("reporte", reporte);
-            request.setAttribute("reportesAdmin", reporteDAO.findAll());
+            request.setAttribute("reportesAdmin", informeDAO.findAll());
             request.getRequestDispatcher("/InformacionParqueOrganismoPublico.jsp")
                     .forward(request, response);
         }catch (Exception e) {

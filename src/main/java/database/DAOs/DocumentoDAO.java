@@ -19,4 +19,6 @@ public interface DocumentoDAO {
     void remove(int id);
 
     Documento findPorRuta(String ruta);
+
+
 }

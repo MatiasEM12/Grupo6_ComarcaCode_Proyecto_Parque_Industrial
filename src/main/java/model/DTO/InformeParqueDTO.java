@@ -5,7 +5,7 @@ import model.ProyectoProductivo;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record ReporteParqueDTO(
+public record InformeParqueDTO(
         LocalDateTime fechaGeneracion,
         int totalProyectos,
         int proyectosEnEjecucion,

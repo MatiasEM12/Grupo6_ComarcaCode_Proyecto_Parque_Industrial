@@ -109,13 +109,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         proyectoProductivo.cargarDocumentos(solicitudRadicacion.documentos());
     }
 
-    public void asignarLote( int idLote,int idProyecto){
-        //no pude usarlo , las tablas me tiraban error lote con idProyecto y Proyecto con idLote
-        //al estar como "cruzados" no me dejaba crear las tablas asi que Lote no tiene idProyecto
-        //el solicitud.aprobar lote cambia a Ocupado y llama a lote.update
-        loteDAO.registrarProyectoLote(idLote,idProyecto);
-
-    }
 
 
 
@@ -123,11 +116,6 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     public void rechazarSolicitud(int idSolicitud) {
         solicitudRadicacionDAO.estadoSolicitud(idSolicitud, EstadoSolicitud.RECHAZADA);
 
-       /* final String SQL = "UPDATE SolicitudRadicacion " +
-                "SET estadoSolicitud = 'RECHAZADA', fechaActualizacion = CURRENT_DATE " +
-                "WHERE id = ?";
-
-        actualizarEstadoSimple(SQL, idSolicitud, "Error al rechazar la solicitud");*/
     }
 
 
@@ -137,20 +125,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
        observacionesDAO.crear(observacion);
     }
 
-    //private void actualizarEstadoSimple(String sql, int idSolicitud, String mensajeError) {
-      /*  try (Connection conn = ConnectionManager.getConnection();
-             PreparedStatement st = conn.prepareStatement(sql)) {
 
-            st.setInt(1, idSolicitud);
-
-            if (st.executeUpdate() <= 0) {
-                throw new RuntimeException("No se encontró la solicitud");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(mensajeError, e);
-        }*/
-   // }
     @Override
     public ProyectoProductivo obtenerProyectoProductivo(int idProyecto) {
         return proyectoProductivoDAO.find(idProyecto);
@@ -244,66 +219,16 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         return lotes;
     }
 
-    /*
-    public void estadoSolicitud(Usuario user, SolicitudRadicacionDTO solicitud, EstadoSolicitud estado){
-
-        /*
-        admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
-        solicitud = SolicitudRadicacionDAO.find(solicitudDTO.id()/numeroTramite)
-
-        admin.modificarEstadoSolicitud( soliciud,estado)  //acá dentro filtra si es aprobada llama a solicidud.aprobar si es otro es solicitud.Algo
-
-        * */
-    //}
-    //yo lo aria asi
-    public void estadoSolicitud(int idSolicitud, EstadoSolicitud estado){
-        solicitudRadicacionDAO.estadoSolicitud(idSolicitud, estado);
-    }
-
-
-
-/*
-    public void admActualizarDatosPersonales( Usuario user , AdministradorDelParqueDTO adm){
-
-         *  admin = AdminParqueDAO.obtenerUsuarioPorUsername(user.UserName())
-         *  admin.ActualizarDatos(adm)
-         *
-         *
-    }
-
- */
-
     public void admActualizarDatosPersonales(AdministradorDelParqueDTO adm){
         administradorDelParqueDAO.actualizarDatosAdministrador(adm);
     }
 
-/*
-    public void representanteActualizarDatosPersonales( Usuario user , RepresentanteEmpresaDTO representante){
-
-         *  representante = RepresentanteEmpresaDAO.obtenerUsuarioPorUsername(user.UserName())
-         *  representante.ActualizarDatos(representante)
-         *
-         *
-    }
-
- */
 
     public void representanteActualizarDatosPersonales(RepresentanteEmpresaDTO representante){
         representanteDAO.actualizarDatosReprecentante(representante);
     }
 
-/*
-        public void actualizarDatosDeUsuario(Usuario user, UsuarioDTO usuarioDTO){
 
-         *  usuario = UsuarioDAO.obtenerUsuarioPorUsername(user.UserName())
-         *  usuario.ActualizarDatos(usuarioDTO)
-         *
-         * de modificar el username, tambien se debe actualizar la tabla del (adm/representante)
-         *
-         *
-    }
-
- */
     public void actualizarDatosDeUsuario(UsuarioDTO usuarioDTO){
         usuarioDAO.update(new Usuario(usuarioDTO.getUserName(), usuarioDTO.contrasena(),
                 new Rol(usuarioDTO.getRol().nombre()),usuarioDTO.gmail()));
@@ -416,7 +341,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
         Observacion obs = new Observacion(idSolicitud,observacion, administradorDelParque.dni());
     }
     @Override
-    public ReporteParqueDTO generarReporteParque() {
+    public InformeParqueDTO generarReporteParque() {
 
         List<ProyectoProductivo> proyectos = proyectoProductivoDAO.findAll();
         List<Lote> lotes = loteDAO.findAll();
@@ -454,7 +379,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
                 .mapToDouble(ProyectoProductivo::superficie)
                 .sum();
 
-        return new ReporteParqueDTO(
+        return new InformeParqueDTO(
                 java.time.LocalDateTime.now(),
                 proyectos.size(),
                 proyectosEnEjecucion,

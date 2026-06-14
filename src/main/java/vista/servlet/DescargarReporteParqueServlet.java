@@ -2,7 +2,7 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
-import model.DTO.ReporteParqueDTO;
+import model.DTO.InformeParqueDTO;
 import model.ProyectoProductivo;
 import model.Usuario;
 
@@ -41,7 +41,7 @@ public class DescargarReporteParqueServlet extends HttpServlet {
                 return;
             }
 
-            ReporteParqueDTO reporte = sistema.generarReporteParque();
+            InformeParqueDTO reporte = sistema.generarReporteParque();
 
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.setContentType("text/plain;charset=UTF-8");
