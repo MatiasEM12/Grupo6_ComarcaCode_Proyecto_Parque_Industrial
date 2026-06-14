@@ -61,6 +61,8 @@ public class DescargarReporteParquePublicoServlet extends HttpServlet {
                 out.println("---------------");
                 out.println("Total de proyectos: " + reporte.totalProyectos());
                 out.println("Proyectos en ejecución: " + reporte.proyectosEnEjecucion());
+                out.println("Proyectos finalizados: " + reporte.proyectosFinalizados());
+                out.println("Proyectos suspendidos: " + reporte.proyectosSuspendidos());
                 out.println("Lotes ocupados: " + reporte.lotesOcupados());
                 out.println();
 
