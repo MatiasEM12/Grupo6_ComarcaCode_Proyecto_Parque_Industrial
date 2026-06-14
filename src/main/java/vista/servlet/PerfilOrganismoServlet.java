@@ -29,7 +29,7 @@ public class PerfilOrganismoServlet extends HttpServlet {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
             if (!usuario.nombreRol().equals("organismo_publico")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 

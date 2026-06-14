@@ -7,7 +7,7 @@
     OrganismoPublico organismo = (OrganismoPublico) request.getAttribute("organismo");
 
     if(usuario == null || organismo == null){
-        response.sendRedirect(request.getContextPath() + "/perfiles");
+        response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
 %>
@@ -51,16 +51,11 @@
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/informacionParque" class="nav__link">
+                <a href="${pageContext.request.contextPath}/informacionParquePublico" class="nav__link">
                     Información del Parque
                 </a>
             </li>
 
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/evaluacionTecnica" class="nav__link">
-                    Evaluación Técnica
-                </a>
-            </li>
 
         </ul>
     </div>
@@ -119,9 +114,6 @@
                            readonly>
                 </div>
 
-                <button type="submit" class="btn__actualizar">
-                    Guardar datos de usuario
-                </button>
 
             </form>
 

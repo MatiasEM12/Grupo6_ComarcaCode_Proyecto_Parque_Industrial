@@ -53,7 +53,7 @@
                 <a href="<%= request.getContextPath() %>/proyectosEnEjecucion" class="nav__link">Proyectos</a>
             </li>
             <li class="nav__item">
-                <a href="<%= request.getContextPath() %>/informacionParque" class="nav__link">Información del parque</a>
+                <a href="<%= request.getContextPath() %>/informacionParquePublico" class="nav__link">Información del parque</a>
             </li>
         </ul>
     </div>
@@ -90,10 +90,6 @@
                 <strong><%= reporte.proyectosEnEjecucion() %></strong>
             </div>
 
-            <div class="metrica__card">
-                <span>Lotes disponibles</span>
-                <strong><%= reporte.lotesDisponibles() %></strong>
-            </div>
 
             <div class="metrica__card">
                 <span>Lotes ocupados</span>
@@ -107,8 +103,6 @@
             <div class="detalle__grid">
                 <p><strong>Proyectos finalizados:</strong> <%= reporte.proyectosFinalizados() %></p>
                 <p><strong>Proyectos suspendidos:</strong> <%= reporte.proyectosSuspendidos() %></p>
-                <p><strong>Proyectos sin iniciar:</strong> <%= reporte.proyectosSinIniciar() %></p>
-                <p><strong>Total de lotes:</strong> <%= reporte.totalLotes() %></p>
             </div>
         </section>
     <% } else { %>

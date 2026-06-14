@@ -74,7 +74,7 @@
 
             <li class="nav__item">
                 <a href="${pageContext.request.contextPath}/perfilOrganismo" class="nav__link">
-                                    Perfil
+                    Perfil
                 </a>
             </li>
 
@@ -89,13 +89,6 @@
                 <a href="${pageContext.request.contextPath}/informacionParquePublico"
                    class="nav__link">
                     Información del parque
-                </a>
-            </li>
-
-            <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/evaluacionesTecnicas"
-                   class="nav__link">
-                    Evaluaciones Realizadas
                 </a>
             </li>
 

@@ -62,11 +62,6 @@
                 </a>
             </li>
 
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Perfil
-                </a>
-            </li>
 
             <% if(usuario.nombreRol().equals("administrador")) { %>
 
@@ -122,9 +117,18 @@
 
                 <div class="proyecto__card">
 
-                    <a class="proyecto__link"
-                       href="<%= request.getContextPath() %>/detalleProyecto?idProyecto=<%= proyecto.idProyecto() %>">
+                   <% if(usuario.nombreRol().equals("organismo_publico")) { %>
 
+                       <div class="proyecto__content">
+
+                   <% } else { %>
+
+                       <a class="proyecto__link"
+                          href="<%= request.getContextPath() %>/detalleProyecto?idProyecto=<%= proyecto.idProyecto() %>">
+
+                           <div class="proyecto__content">
+
+                   <% } %>
                         <div class="proyecto__content">
 
                             <h2><%= proyecto.nombre() %></h2>
@@ -139,16 +143,19 @@
                                 <%= proyecto.superficie() %> m²
                             </p>
 
-                            <p>
-                                <strong>Empleabilidad:</strong>
-                                <%= proyecto.empleabilidad() %> empleados
-                            </p>
+                             <% if(!usuario.nombreRol().equals("organismo_publico")) { %>
 
-                            <p>
-                                <strong>Materia prima:</strong>
-                                <%= proyecto.materiaPrima() %>
-                            </p>
+                                  <p>
+                                      <strong>Empleabilidad:</strong>
+                                      <%= proyecto.empleabilidad() %> empleados
+                                  </p>
 
+                                  <p>
+                                      <strong>Materia prima:</strong>
+                                      <%= proyecto.materiaPrima() %>
+                                  </p>
+
+                            <% } %>
                             <span class="proyecto__state estado__ejecucion">
                                 <%= proyecto.estado() %>
                             </span>
