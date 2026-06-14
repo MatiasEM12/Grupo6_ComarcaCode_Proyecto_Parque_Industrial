@@ -74,7 +74,7 @@
                 <p>Fecha de generación: <%= reporte.fechaGeneracion() %></p>
             </div>
 
-            <a class="btn__descargar" href="<%= request.getContextPath() %>/descargarReporteParque">
+            <a class="btn__descargar" href="<%= request.getContextPath() %>/descargarReporteParquePublico">
                 Descargar reporte
             </a>
         </section>
