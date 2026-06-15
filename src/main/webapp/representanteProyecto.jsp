@@ -471,24 +471,13 @@
                                    required>
 
                         </div>
-                        <button type="button"  class="btn btn__danger"  onclick="eliminarDocumento(this)">
 
-                             Eliminar Documento
-
-                        </button>
                     </div>
 
                 </div>
 
                 <div class="buttons__container">
 
-                    <button type="button"
-                            class="btn btn__secondary"
-                            onclick="agregarDocumento()">
-
-                        Agregar Documento
-
-                    </button>
 
                     <button type="submit"
                             class="btn">

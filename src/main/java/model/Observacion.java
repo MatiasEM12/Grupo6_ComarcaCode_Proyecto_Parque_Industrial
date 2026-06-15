@@ -17,11 +17,9 @@ public class Observacion {
     private ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
     public Observacion(int idSolicitud, String observacion, String dniAdministrador) {
 
-        if (observacion == null || observacion.isBlank()) {
-            throw new RuntimeException(
-                    "La observación es obligatoria"
-            );
-        }
+        validarobservacion(observacion);
+        validarDniAdmin(dniAdministrador);
+        validarIDSolicitud(idSolicitud);
 
         this.idSolicitud = idSolicitud;
         this.observacion = observacion;
@@ -29,6 +27,7 @@ public class Observacion {
         this.fechaCreacion = LocalDateTime.now();
         observacionesDAO.crear(this);
     }
+
 
     public Observacion(int id, int idSolicitud, String observacion, LocalDateTime fechaCreacion, String dniAdministrador) {
 
@@ -38,6 +37,31 @@ public class Observacion {
         this.fechaCreacion = fechaCreacion;
         this.dniAdministrador = dniAdministrador;
 
+    }
+
+
+    private void validarobservacion(String observacion) {
+        if (observacion == null || observacion.isBlank()) {
+            throw new RuntimeException(
+                    "La observación es obligatoria"
+            );
+        }
+    }
+
+    private void validarDniAdmin(String dniAdministrador){
+        if (dniAdministrador== null ||dniAdministrador.isBlank()) {
+            throw new RuntimeException(
+                    "dniAdministrador es obligatoria"
+            );
+        }
+    }
+
+    private void validarIDSolicitud(int id){
+        if (id <= 0) {
+            throw new RuntimeException(
+                    "id obligatorio"
+            );
+        }
     }
 
     public int id() {

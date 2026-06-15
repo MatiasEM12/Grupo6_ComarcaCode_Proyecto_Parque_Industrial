@@ -11,13 +11,14 @@ public class OrganismoPublico extends Usuario {
     private String nombre;
     private TipoOrganismo tipoOrganismo;
 
-    private List<EvaluacionTecnica> evaluacionTecnicas;
     private OrganismoPublicoDAO organismoPublicoDAO = new OrganismoPublicoDAOJDBC();
     public OrganismoPublico(String username, String contraseña, String gmail,
                             int SAF, String nombre, TipoOrganismo tipoOrganismo,Rol rol) {
 
         super(username, contraseña, rol, gmail);
 
+        validarSAF(SAF);
+        validarTipoOrganismo(tipoOrganismo);
         this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
@@ -33,6 +34,18 @@ public class OrganismoPublico extends Usuario {
         this.SAF = SAF;
         this.nombre = nombre;
         this.tipoOrganismo = tipoOrganismo;
+    }
+
+    private void validarSAF(int saf){
+        if (saf <= 0) {
+            throw new RuntimeException(
+                    "saf obligatorio"
+            );
+        }
+    }
+
+    private void validarTipoOrganismo(TipoOrganismo organismo){
+        if(organismo==null) throw  new NullPointerException("tipoOrganismo no puede ser nulo");
     }
 
     public int saf() {
@@ -51,79 +64,5 @@ public class OrganismoPublico extends Usuario {
         return UserName();
     }
 
-    /*
-    public String consultarProyectoProductivo(ProyectoProductivo proyecto) {
-        return """
-                INFORMACIÓN DEL PROYECTO PRODUCTIVO
-                -----------------------------------
-                Nombre: %s
-                Descripción: %s
-                Superficie: %s
-                Necesidades: %s
-                Empleabilidad: %s
-                Materia prima: %s
-                """.formatted(
-                proyecto.getNombre(),
-                proyecto.getDescripcion(),
-                proyecto.getSuperficie(),
-                proyecto.getNecesidades(),
-                proyecto.getEmpleabilidad(),
-                proyecto.getMateriaPrima()
-        );
-    }
-    public Reporte consultarInformacion(TipoReporte tipoReporte) {
 
-        switch (tipoReporte) {
-
-            case DESARROLLO_PRODUCTIVO -> {
-                var proyectos = sistema.obtenerProyectosEnEjecucion();
-
-                return new Reporte(
-                        tipoReporte,
-                        "Cantidad de proyectos en ejecución: " + proyectos.size(),
-                        this
-                );
-            }
-
-            case NIVEL_ACTIVIDAD_INDUSTRIAL -> {
-                int nivel = sistema.nivelActividadIndustrial();
-
-                return new Reporte(
-                        tipoReporte,
-                        "Nivel de actividad industrial: " + nivel,
-                        this
-                );
-            }
-
-            case PROYECTOS_EN_EJECUCION -> {
-                var proyectos = sistema.obtenerProyectosEnEjecucion();
-
-                return new Reporte(
-                        tipoReporte,
-                        "Proyectos activos: " + proyectos.size(),
-                        this
-                );
-            }
-
-            default -> {
-                return new Reporte(
-                        TipoReporte.GENERAL,
-                        "Información general del parque",
-                        this
-                );
-            }
-        }
-    }
-
-    public Reporte generarReporte(TipoReporte tipoReporte, String descripcion) {
-        return new Reporte(
-                tipoReporte,
-                descripcion,
-                this
-        );
-    }
-
-    public EvaluacionTecnica registrarEvaluacion() {
-        return null;
-    }*/
 }

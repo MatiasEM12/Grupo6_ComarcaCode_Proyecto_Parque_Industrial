@@ -93,7 +93,7 @@ public class Usuario {
         if(!existe(usuario.userName)){
             this.usuarioDAO.registrar(this);
         }else{
-            //throw new RuntimeException("El usuario ya existe");
+            throw new RuntimeException("El usuario ya existe");
         }
     }
 

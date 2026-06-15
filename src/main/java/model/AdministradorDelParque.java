@@ -9,12 +9,14 @@ public class AdministradorDelParque extends Usuario{
 
     private String dni;
     private String nombre;
-    private List<Lote> loteList;
+
     private List<Informe> informes;
     private List<Observacion> observaciones;
     private AdministradorDelParqueDAO administradorDelParqueDAO = new AdministradorDelParqueDAOJDBC();
     public AdministradorDelParque(String userName, String contrasena, Rol rol, String gmail, String dni, String nombre) {
         super(userName, contrasena, rol, gmail);
+        validarDNI(dni);
+        validarNobmre(nombre);
         this.dni = dni;
         this.nombre = nombre;
         administradorDelParqueDAO.registrarAdministrador(this);
@@ -24,29 +26,20 @@ public class AdministradorDelParque extends Usuario{
         super(codigoUsuario,userName, contrasena, rol, gmail);
         this.dni = dni;
         this.nombre = nombre;
-
-
     }
 
-    public void asignarLotes(Empresa empresa){
 
-    }
 
-    public void cambiarEstadoSolicitud(Observacion observacion){
-       /* observacion.agregarRespuesta();
-        observacion.actualizarDocumentacionSolicitud();*/  //???
-    }
-
-    public Informe generarReporte(TipoInforme tipo, String descripcion) {
+    public Informe generarInforme(TipoInforme tipo, String descripcion) {
         Informe informe =new Informe(tipo, descripcion, this);
-        adjuntarReporte(informe);
+        adjuntarInforme(informe);
         return informe;
     }
 
     public boolean revisarDocumentacion(Informe informe){
         return informe.tieneDocumentacionValida();
     }
-    public void adjuntarReporte(Informe informe) {
+    public void adjuntarInforme(Informe informe) {
         if (informe == null) {
             throw new RuntimeException("El documento no puede ser nulo");
         }
@@ -70,5 +63,15 @@ public class AdministradorDelParque extends Usuario{
 
     public String usuario(){
         return UserName();
+    }
+
+    private void validarNobmre(String nombre){
+        if(nombre ==null) throw  new IllegalArgumentException("nombre no puede ser nulo");
+        if(nombre.isEmpty()) throw new IllegalArgumentException("nombre no puede ser vacio");
+    }
+    private void validarDNI(String dni){
+        if(dni ==null) throw  new IllegalArgumentException("DNI no puede ser nulo");
+        if(dni.isEmpty()) throw new IllegalArgumentException("DNI no puede ser vacio");
+        if(dni.length() != 8) throw new IllegalArgumentException("DNI debe tener 8 caracteres");
     }
 }

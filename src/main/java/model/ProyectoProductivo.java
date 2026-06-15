@@ -55,7 +55,17 @@ public class ProyectoProductivo {
                               String necesidades,
                               int empleabilidad,
                               String materiaPrima,
-                              Empresa empresa,Lote lote) {
+                              Empresa empresa,
+                              Lote lote) {
+
+        validarNombre(nombre);
+        validarDescripcion(descripcion);
+        validarSuperficie(superficie);
+
+        validarEmpleabilidad(empleabilidad);
+        validarMateriaPrima(materiaPrima);
+        validarEmpresa(empresa);
+        validarlote(lote);
 
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -70,10 +80,48 @@ public class ProyectoProductivo {
 
         proyectoProductivoDAO.registrarProyectoProductivo(this);
     }
-    public void actualizarEstado(){
 
+    private  void validarlote(Lote lote) {
+        if (lote == null) {
+            throw new IllegalArgumentException("El lote no puede ser nulo");
+        }
     }
 
+    private  void validarEmpresa(Empresa empresa) {
+        if (empresa == null) {
+            throw new IllegalArgumentException("La empresa no puede ser nula");
+        }
+    }
+
+    private  void validarMateriaPrima(String materiaPrima) {
+        if (materiaPrima == null || materiaPrima.trim().isEmpty()) {
+            throw new IllegalArgumentException("La materia prima no puede estar vacía");
+        }
+    }
+
+    private  void validarEmpleabilidad(int empleabilidad) {
+        if (empleabilidad < 0) {
+            throw new IllegalArgumentException("La empleabilidad no puede ser negativa");
+        }
+    }
+
+    private  void validarSuperficie(double superficie) {
+        if (superficie <= 0) {
+            throw new IllegalArgumentException("La superficie debe ser mayor que cero");
+        }
+    }
+
+    private void validarDescripcion(String descripcion) {
+        if (descripcion == null || descripcion.trim().isEmpty()) {
+            throw new IllegalArgumentException("La descripción no puede estar vacía");
+        }
+    }
+
+    private  void validarNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+    }
 
 
     public boolean estaEnEjecucion(){
@@ -126,17 +174,48 @@ public class ProyectoProductivo {
         return lote.id();
     }
 
-    public void cambiarEstado(EstadoProyecto estado) {
+    public void cambiarEstado(EstadoProyecto nuevoEstado) {
 
-        if (estado == EstadoProyecto.EN_EJECUCION) {
-            this.estadoEnEjecucion();
+        switch (nuevoEstado) {
+            case EN_EJECUCION:
+                if (this.estado != EstadoProyecto.SIN_INICIAR) {
+                    throw new IllegalStateException("Solo se puede pasar a EN_EJECUCION desde SIN_INICIAR.");
+                }
+                this.estadoEnEjecucion();
+                break;
+
+            case FINALIZADO:
+                if (this.estado != EstadoProyecto.EN_EJECUCION) {
+                    throw new IllegalStateException("Solo se puede finalizar un proyecto que está EN_EJECUCION.");
+                }
+                if (this.superficie <= 0) {
+                    throw new IllegalStateException("No se puede finalizar el proyecto con superficie inválida.");
+                }
+                this.estadoFinalizado();
+                break;
+
+            case SUSPENDIDO:
+                if (this.estado != EstadoProyecto.EN_EJECUCION) {
+                    throw new IllegalStateException("Solo se puede suspender un proyecto que está EN_EJECUCION.");
+                }
+                this.estadoSuspendido();
+                break;
+
+            case SIN_INICIAR:
+                if (this.estado != EstadoProyecto.SUSPENDIDO) {
+                    throw new IllegalStateException("Solo se puede volver a SIN_INICIAR desde SUSPENDIDO.");
+                }
+                this.estadoSinIniciar();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Estado no válido: " + nuevoEstado);
         }
-        if (estado == EstadoProyecto.FINALIZADO) {
-            this.estadoFinalizado();
-        }
-        if (estado == EstadoProyecto.SUSPENDIDO) {
-            this.estadoSuspendido();
-        }
+    }
+
+    private void estadoSinIniciar() {
+        this.estado = EstadoProyecto.SIN_INICIAR;
+        this.proyectoProductivoDAO.actualizarEstadoProyecto(this.idProyecto, this.estado);
     }
 
     private void estadoSuspendido() {
@@ -156,10 +235,15 @@ public class ProyectoProductivo {
     }
 
     public void cargarDocumentos(List<Documento> documentos) {
-
+        validarDocumentos(documentos);
         for (Documento documento : documentos) {
             this.proyectoDocumentoDAO.registrarDocumentos(this.idProyecto, documento.id());
         }
+
+    }
+    private void validarDocumentos(List<Documento> documentos){
+
+        if(documentos==null) throw new NullPointerException("documentos no puede ser nulo");
 
     }
 
@@ -175,9 +259,16 @@ public class ProyectoProductivo {
     }
 
     public int cargarAvance(AvanceDeProyecto avance) {
+        validarAvance(avance);
         return this.avanceDeProyectoDAO.create(avance);
     }
     public String estado() {
         return estado.name();
     }
+
+    private void validarAvance(AvanceDeProyecto avanceDeProyecto){
+        if(avanceDeProyecto ==null) throw new NullPointerException("avance de proyecto no puede ser nulo");
+    }
+
+
 }

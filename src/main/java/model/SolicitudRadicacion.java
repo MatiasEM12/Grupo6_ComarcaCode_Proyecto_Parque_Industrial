@@ -276,23 +276,32 @@ public class SolicitudRadicacion {
     }
 
     public void aprobarPrimeraInstancia() {
-
-
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE && this.estadoSolicitud != EstadoSolicitud.OBSERVADA) {
+            throw new IllegalStateException("Solo se puede aprobar en primera instancia si la solicitud está pendiente u observada.");
+        }
         this.estadoSolicitud = EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
         this.fechaActualizacion = LocalDate.now();
         solicitudRadicacionDAO.update(this);
-
     }
 
     public void rechazar() {
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE && this.estadoSolicitud != EstadoSolicitud.OBSERVADA) {
+            throw new IllegalStateException("Solo se puede rechazar si la solicitud está pendiente u observada.");
+        }
         this.estadoSolicitud = EstadoSolicitud.RECHAZADA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
     }
 
     public void observar() {
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE) {
+            throw new IllegalStateException("Solo se puede observar si la solicitud está pendiente.");
+        }
         this.estadoSolicitud = EstadoSolicitud.OBSERVADA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
     }
+
     public void agregarDocumento(Documento documento) {
 
         if (estadoSolicitud != EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) {
@@ -445,6 +454,7 @@ public class SolicitudRadicacion {
 
 
     public void aprobarFinal(Lote lote) {
+        if(this.estadoSolicitud!=EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) throw new IllegalArgumentException("Solo puede estar aprogada final y fue aprobada en primera instancia");
         validarSuperficieCon((int)lote.superficie());
         this.estadoSolicitud = EstadoSolicitud.APROBADA_FINAL;
         this.fechaActualizacion = LocalDate.now();
@@ -455,5 +465,9 @@ public class SolicitudRadicacion {
 
     public void setProyectoProductivo(ProyectoProductivo proyecto) {
        this.proyectoProductivo = proyecto;
+    }
+
+    private void validarLote(){
+
     }
 }
