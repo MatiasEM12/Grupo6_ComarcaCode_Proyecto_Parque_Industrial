@@ -160,12 +160,7 @@
                            readonly>
                 </div>
 
-                <a href="${pageContext.request.contextPath}/editarUsuario"
-                   class="btn__actualizar">
 
-                    Actualizar datos de usuario
-
-                </a>
 
             </div>
 
@@ -204,12 +199,7 @@
                            readonly>
                 </div>
 
-                <a href="${pageContext.request.contextPath}/editarDatosPersonales"
-                   class="btn__actualizar">
 
-                    Actualizar datos personales
-
-                </a>
 
             </div>
 

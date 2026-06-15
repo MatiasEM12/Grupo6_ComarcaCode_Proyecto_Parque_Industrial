@@ -360,30 +360,6 @@
 
             </div>
 
-            <!-- SUBIDA DE ARCHIVO PDF -->
-
-            <div class="form__group">
-
-                <h3>Documentación Adjunta</h3>
-
-                <label>Descripción del archivo PDF</label>
-
-                <textarea
-                        name="descripcionArchivo"
-                        placeholder="Describa el contenido del archivo PDF">
-                </textarea>
-
-            </div>
-
-            <div class="form__group">
-
-                <label>Subir archivo PDF</label>
-
-                <input type="file"
-                       name="archivoPDF"
-                       accept=".pdf">
-
-            </div>
 
             <button type="submit" class="btn">
                 Guardar

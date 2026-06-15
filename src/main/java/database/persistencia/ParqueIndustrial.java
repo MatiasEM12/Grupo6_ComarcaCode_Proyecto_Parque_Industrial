@@ -59,8 +59,7 @@ public class ParqueIndustrial implements SistemaParqueIndustrial {
     @Override
     public List<SolicitudRadicacion> obtenerSolicitudesDe(String userName) {
 
-        RepresentanteEmpresa representanteEmpresa =
-                representanteDAO.findByUserName(userName);
+        RepresentanteEmpresa representanteEmpresa = representanteDAO.findByUserName(userName);
 
         if (representanteEmpresa == null) {
             return List.of();

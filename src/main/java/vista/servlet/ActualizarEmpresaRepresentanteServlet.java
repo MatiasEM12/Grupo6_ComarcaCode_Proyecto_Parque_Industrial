@@ -29,7 +29,7 @@ public class ActualizarEmpresaRepresentanteServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (!usuario.nombreRol().equals("representante")) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 

@@ -62,7 +62,7 @@ public class SubirSolicitudServlet extends HttpServlet {
         String coworking = request.getParameter("coworking");
         String descripcionArchivo = request.getParameter("descripcionArchivo");
 
-        Part archivoPDF = request.getPart("archivoPDF");
+        Part archivoPDF = null;
 
         String nombreArchivoPDF = "";
 

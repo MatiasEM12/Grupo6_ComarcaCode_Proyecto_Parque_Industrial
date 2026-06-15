@@ -265,9 +265,7 @@
                         <%= solicitud.coworking() %>
                     </p>
 
-                    <p><strong>Archivo PDF:</strong>
-                        <%= solicitud.nombreArchivoPDF() %>
-                    </p>
+
 
                 </div>
 
@@ -361,16 +359,24 @@
 
                             <input type="hidden" name="idSolicitud" value="<%= solicitud.id() %>">
 
-                            <select name="idLote" required>
-                                <option value="">Seleccionar lote</option>
+                           <select name="idLote" required>
+                               <option value="">Seleccionar lote</option>
+                                <%
+                                    double m2Solicitados = Double.parseDouble(solicitud.m2());
+                                %>
+                               <% for (Lote lote : lotes) { %>
 
-                                <% for (Lote lote : lotes) { %>
-                                    <option value="<%= lote.id() %>">
-                                        Lote <%= lote.id() %> - <%= lote.superficie() %> m²
-                                    </option>
-                                <% } %>
+                                   <% if (lote.superficie() >= m2Solicitados) { %>
 
-                            </select>
+                                       <option value="<%= lote.id() %>">
+                                           Lote <%= lote.id() %> - <%= lote.superficie() %> m²
+                                       </option>
+
+                                   <% } %>
+
+                               <% } %>
+
+                           </select>
 
                             <button type="submit" class="btn__aprobar">
                                 Aprobación final y asignar lote

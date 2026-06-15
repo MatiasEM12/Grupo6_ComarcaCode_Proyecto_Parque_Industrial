@@ -29,6 +29,7 @@ public class ActualizarUsuarioServlet extends HttpServlet {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         try {
+            String username = request.getParameter("username");
             String gmail = request.getParameter("gmail");
             String contrasena = request.getParameter("contrasena");
 

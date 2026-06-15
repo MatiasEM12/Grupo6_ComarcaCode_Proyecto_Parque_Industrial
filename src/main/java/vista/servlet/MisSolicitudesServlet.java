@@ -20,14 +20,14 @@ public class MisSolicitudesServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
 
             if (session == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
             if (usuario == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
@@ -36,9 +36,9 @@ public class MisSolicitudesServlet extends HttpServlet {
             List<SolicitudRadicacion> solicitudes = sistema.obtenerSolicitudesDe(usuario.UserName());
 
             request.setAttribute("solicitudes", solicitudes);
-
+            request.getRequestDispatcher("/misSolicitudes.jsp").forward(request, response);
         }catch (Exception e) {
-
+            e.printStackTrace();
             request.setAttribute("error", e.getMessage());
 
             request.getRequestDispatcher("/misSolicitudes.jsp")
