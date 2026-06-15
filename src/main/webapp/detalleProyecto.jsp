@@ -102,6 +102,12 @@
                 </a>
             </li>
 
+               <li class="nav__item">
+                          <a href="<%= request.getContextPath() %>/Informes" class="nav__link">
+                              Informes
+                          </a>
+               </li>
+
         </ul>
 
     </div>
