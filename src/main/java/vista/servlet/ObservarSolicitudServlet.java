@@ -19,7 +19,7 @@ public class ObservarSolicitudServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             if (!esAdministrador(request)) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 

@@ -21,7 +21,7 @@ public class CrearObservacionSolicitudServlet extends HttpServlet {
             Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
             if (usuario == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 

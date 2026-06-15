@@ -32,8 +32,7 @@ public class DetalleAvanceADMServlet extends HttpServlet {
 
             SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-            AvanceDeProyecto avance =
-                    sistema.obtenerAvance(idAvance);
+            AvanceDeProyecto avance = sistema.obtenerAvance(idAvance);
 
             if (avance == null) {
                 response.sendRedirect(request.getContextPath() + "/proyectosEnEjecucion");

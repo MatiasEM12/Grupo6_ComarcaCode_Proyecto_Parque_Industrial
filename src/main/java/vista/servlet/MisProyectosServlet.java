@@ -23,7 +23,7 @@ public class MisProyectosServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
 
             if (session == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
@@ -31,7 +31,7 @@ public class MisProyectosServlet extends HttpServlet {
 
 
             if (usuario == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
             SistemaParqueIndustrial sistema = new ParqueIndustrial();

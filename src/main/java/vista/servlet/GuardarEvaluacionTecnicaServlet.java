@@ -27,7 +27,7 @@ public class GuardarEvaluacionTecnicaServlet extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
             if (usuario == null || !usuario.nombreRol().equals("organismo_publico")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 

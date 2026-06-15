@@ -31,13 +31,13 @@ public class DescargarReporteParqueServlet extends HttpServlet {
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogueado");
 
             if (usuario == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
             if (!usuario.nombreRol().equals("organismo_publico")
                     && !usuario.nombreRol().equals("administrador")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 

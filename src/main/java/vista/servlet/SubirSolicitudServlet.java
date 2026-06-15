@@ -24,7 +24,7 @@ public class SubirSolicitudServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 

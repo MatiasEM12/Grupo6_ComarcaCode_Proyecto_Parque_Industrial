@@ -22,12 +22,12 @@ public class UsuariosRegistradosServlet extends HttpServlet {
             Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
 
             if (usuarioLogueado == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
             if (!usuarioLogueado.nombreRol().equals("administrador")) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
             SistemaParqueIndustrial sistema = new ParqueIndustrial();

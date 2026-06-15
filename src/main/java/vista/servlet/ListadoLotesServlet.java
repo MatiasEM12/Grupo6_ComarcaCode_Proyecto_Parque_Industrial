@@ -26,7 +26,7 @@ public class ListadoLotesServlet  extends HttpServlet {
             HttpSession session = request.getSession(false);
 
             if (session == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
 
@@ -34,7 +34,7 @@ public class ListadoLotesServlet  extends HttpServlet {
 
 
             if (usuario == null) {
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
             SistemaParqueIndustrial sistema = new ParqueIndustrial();

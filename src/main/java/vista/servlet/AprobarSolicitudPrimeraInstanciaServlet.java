@@ -23,7 +23,7 @@ public class AprobarSolicitudPrimeraInstanciaServlet extends HttpServlet {
             // VALIDAR SESIÓN
             if (session == null) {
 
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
 
                 return;
             }
@@ -34,7 +34,7 @@ public class AprobarSolicitudPrimeraInstanciaServlet extends HttpServlet {
             // VALIDAR USUARIO
             if (usuario == null) {
 
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
 
                 return;
             }
@@ -42,7 +42,7 @@ public class AprobarSolicitudPrimeraInstanciaServlet extends HttpServlet {
             // VALIDAR ROL ADMIN
             if (!usuario.nombreRol().equals("administrador")) {
 
-                response.sendRedirect(request.getContextPath() + "/perfiles");
+                response.sendRedirect(request.getContextPath() + "/login");
 
                 return;
             }

@@ -39,7 +39,7 @@ public class SeleccionarPerfilServlet extends HttpServlet {
 
                 request.setAttribute("error", e.getMessage());
 
-                request.getRequestDispatcher("/perfiles.jsp")
+                request.getRequestDispatcher("/login.jsp")
                         .forward(request, response);
             }
         }
