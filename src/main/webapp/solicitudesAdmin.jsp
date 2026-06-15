@@ -84,17 +84,12 @@
                 </a>
             </li>
 
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Inventario
-                </a>
-            </li>
 
             <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Reportes
-                </a>
-            </li>
+                  <a href="<%= request.getContextPath() %>/Informes" class="nav__link">
+                       Informes
+                  </a>
+           </li>
 
         </ul>
 

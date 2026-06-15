@@ -70,12 +70,6 @@
 
                 <li class="nav__item">
                     <a href="#" class="nav__link">
-                        Inventario
-                    </a>
-                </li>
-
-                <li class="nav__item">
-                    <a href="#" class="nav__link">
                         Informes
                     </a>
                 </li>

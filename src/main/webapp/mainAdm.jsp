@@ -91,11 +91,7 @@
                     Lotes
                  </a>
             </li>
-            <li class="nav__item">
-                <a href="#" class="nav__link">
-                    Inventario
-                </a>
-            </li>
+
              <li class="nav__item">
                 <a href="<%= request.getContextPath() %>/Informes" class="nav__link">
                     Informes
@@ -152,8 +148,8 @@
 
           <a href="#" class="card">
                <div class="card__content">
-                    <h2>Inventario<h2>
-                    <p>Listado de elementos del parque industrial.</p>
+                    <h2>I----------<h2>
+                    <p>---------.</p>
                </div>
           </a>
 

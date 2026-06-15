@@ -65,23 +65,37 @@
 
             <% if(usuario.nombreRol().equals("administrador")) { %>
 
-                <li class="nav__item">
-                    <a href="<%= request.getContextPath() %>/usuariosRegistrados" class="nav__link">
-                        Usuarios
-                    </a>
-                </li>
+                     <li class="nav__item">
+                         <a href="#" class="nav__link">
+                             Perfil
+                         </a>
+                     </li>
 
-                <li class="nav__item">
-                    <a href="<%= request.getContextPath() %>/solicitudesAdmin" class="nav__link">
-                        Solicitudes
-                    </a>
-                </li>
+                     <li class="nav__item">
+                         <a href="${pageContext.request.contextPath}/usuariosRegistrados" class="nav__link">
+                             Usuarios
+                         </a>
+                     </li>
 
-                <li class="nav__item">
-                    <a href="<%= request.getContextPath() %>/listadoLotes" class="nav__link">
-                        Lotes
-                    </a>
-                </li>
+                     <li class="nav__item">
+                         <a href="${pageContext.request.contextPath}/solicitudesAdmin" class="nav__link">
+                             Solicitudes
+                         </a>
+                     </li>
+
+
+                     <li class="nav__item">
+                         <a href="${pageContext.request.contextPath}/listadoLotes" class="nav__link">
+                             Lotes
+                         </a>
+                     </li>
+
+
+                     <li class="nav__item">
+                           <a href="<%= request.getContextPath() %>/Informes" class="nav__link">
+                                Informes
+                           </a>
+                    </li>
 
             <% } %>
 
