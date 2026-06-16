@@ -42,8 +42,8 @@ public class  InformacionDelParquePublicoServelt extends HttpServlet {
             }
 
             InformeParqueDTO reporte = sistema.generarReporteParque();
-            request.setAttribute("reporte", reporte);
-            request.setAttribute("reportesAdmin", informeDAO.findAll());
+            request.setAttribute("informe", reporte);
+            request.setAttribute("informesAdmin", informeDAO.findAll());
             request.getRequestDispatcher("/InformacionParqueOrganismoPublico.jsp")
                     .forward(request, response);
         }catch (Exception e) {

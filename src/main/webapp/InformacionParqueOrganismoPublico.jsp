@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
 <%@ page import="model.ProyectoProductivo" %>
-<%@ page import="model.DTO.ReporteParqueDTO" %>
-<%@ page import="model.Reporte" %>
+<%@ page import="model.DTO.InformeParqueDTO" %>
+<%@ page import="model.Informe" %>
 <%@ page import="model.Documento" %>
 <%@ page import="java.util.List" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-    ReporteParqueDTO reporte = (ReporteParqueDTO) request.getAttribute("reporte");
-    List<Reporte> reportesAdmin = (List<Reporte>) request.getAttribute("reportesAdmin");
+    InformeParqueDTO informeParque = (InformeParqueDTO) request.getAttribute("informe");
+    List<Informe> informeAdmin = (List<Informe>) request.getAttribute("informesAdmin");
     if (usuario == null) {
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
@@ -66,12 +66,12 @@
 
 <main>
 
-    <% if (reporte != null) { %>
+    <% if (informeParque != null) { %>
 
         <section class="reporte__header">
             <div>
                 <h2>Reporte completo del Parque Industrial</h2>
-                <p>Fecha de generación: <%= reporte.fechaGeneracion() %></p>
+                <p>Fecha de generación: <%= informeParque.fechaGeneracion() %></p>
             </div>
 
             <a class="btn__descargar" href="<%= request.getContextPath() %>/descargarReporteParquePublico">
@@ -82,18 +82,18 @@
         <section class="metricas__container">
             <div class="metrica__card">
                 <span>Total proyectos</span>
-                <strong><%= reporte.totalProyectos() %></strong>
+                <strong><%= informeParque.totalProyectos() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>En ejecución</span>
-                <strong><%= reporte.proyectosEnEjecucion() %></strong>
+                <strong><%= informeParque.proyectosEnEjecucion() %></strong>
             </div>
 
 
             <div class="metrica__card">
                 <span>Lotes ocupados</span>
-                <strong><%= reporte.lotesOcupados() %></strong>
+                <strong><%= informeParque.lotesOcupados() %></strong>
             </div>
         </section>
 
@@ -101,8 +101,8 @@
             <h2>Actividad industrial</h2>
 
             <div class="detalle__grid">
-                <p><strong>Proyectos finalizados:</strong> <%= reporte.proyectosFinalizados() %></p>
-                <p><strong>Proyectos suspendidos:</strong> <%= reporte.proyectosSuspendidos() %></p>
+                <p><strong>Proyectos finalizados:</strong> <%= informeParque.proyectosFinalizados() %></p>
+                <p><strong>Proyectos suspendidos:</strong> <%= informeParque.proyectosSuspendidos() %></p>
             </div>
         </section>
     <% } else { %>
