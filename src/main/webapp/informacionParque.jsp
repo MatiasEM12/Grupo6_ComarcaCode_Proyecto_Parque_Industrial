@@ -1,15 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Usuario" %>
 <%@ page import="model.ProyectoProductivo" %>
-<%@ page import="model.DTO.ReporteParqueDTO" %>
-<%@ page import="model.Reporte" %>
+<%@ page import="model.DTO.InformeParqueDTO" %>
+<%@ page import="model.Informe" %>
 <%@ page import="model.Documento" %>
 <%@ page import="java.util.List" %>
 
 <%
     Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
-    ReporteParqueDTO reporte = (ReporteParqueDTO) request.getAttribute("reporte");
-    List<Reporte> reportesAdmin = (List<Reporte>) request.getAttribute("reportesAdmin");
+    InformeParqueDTO informeParque = (InformeParqueDTO) request.getAttribute("informe");
+    List<Informe> informesAdmin = (List<Informe>) request.getAttribute("informeAdmin");
+
     if (usuario == null) {
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
@@ -20,9 +21,7 @@
         return;
     }
 
-    String paginaInicio = usuario.nombreRol().equals("administrador")
-            ? "/mainAdm.jsp"
-            : "/mainOrganismoPublico.jsp";
+    String paginaInicio = "/mainAdm.jsp";
 %>
 
 <!DOCTYPE html>
@@ -49,12 +48,6 @@
             <li class="nav__item">
                 <a href="<%= request.getContextPath() + paginaInicio %>" class="nav__link">Inicio</a>
             </li>
-            <li class="nav__item">
-                <a href="<%= request.getContextPath() %>/proyectosEnEjecucion" class="nav__link">Proyectos</a>
-            </li>
-            <li class="nav__item">
-                <a href="<%= request.getContextPath() %>/informacionParque" class="nav__link">Información del parque</a>
-            </li>
         </ul>
     </div>
 
@@ -66,12 +59,12 @@
 
 <main>
 
-    <% if (reporte != null) { %>
+    <% if (informeParque != null) { %>
 
         <section class="reporte__header">
             <div>
                 <h2>Reporte completo del Parque Industrial</h2>
-                <p>Fecha de generación: <%= reporte.fechaGeneracion() %></p>
+                <p>Fecha de generación: <%= informeParque.fechaGeneracion() %></p>
             </div>
 
             <a class="btn__descargar" href="<%= request.getContextPath() %>/descargarReporteParque">
@@ -82,32 +75,32 @@
         <section class="metricas__container">
             <div class="metrica__card">
                 <span>Total proyectos</span>
-                <strong><%= reporte.totalProyectos() %></strong>
+                <strong><%= informeParque.totalProyectos() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>En ejecución</span>
-                <strong><%= reporte.proyectosEnEjecucion() %></strong>
+                <strong><%= informeParque.proyectosEnEjecucion() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>Lotes disponibles</span>
-                <strong><%= reporte.lotesDisponibles() %></strong>
+                <strong><%= informeParque.lotesDisponibles() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>Lotes ocupados</span>
-                <strong><%= reporte.lotesOcupados() %></strong>
+                <strong><%= informeParque.lotesOcupados() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>Evaluaciones técnicas</span>
-                <strong><%= reporte.totalEvaluacionesTecnicas() %></strong>
+                <strong><%= informeParque.totalEvaluacionesTecnicas() %></strong>
             </div>
 
             <div class="metrica__card">
                 <span>Empleabilidad estimada</span>
-                <strong><%= reporte.empleabilidadTotal() %></strong>
+                <strong><%= informeParque.empleabilidadTotal() %></strong>
             </div>
         </section>
 
@@ -115,11 +108,11 @@
             <h2>Actividad industrial</h2>
 
             <div class="detalle__grid">
-                <p><strong>Proyectos finalizados:</strong> <%= reporte.proyectosFinalizados() %></p>
-                <p><strong>Proyectos suspendidos:</strong> <%= reporte.proyectosSuspendidos() %></p>
-                <p><strong>Proyectos sin iniciar:</strong> <%= reporte.proyectosSinIniciar() %></p>
-                <p><strong>Total de lotes:</strong> <%= reporte.totalLotes() %></p>
-                <p><strong>Superficie total de proyectos:</strong> <%= reporte.superficieTotalProyectos() %> m²</p>
+                <p><strong>Proyectos finalizados:</strong> <%= informeParque.proyectosFinalizados() %></p>
+                <p><strong>Proyectos suspendidos:</strong> <%= informeParque.proyectosSuspendidos() %></p>
+                <p><strong>Proyectos sin iniciar:</strong> <%= informeParque.proyectosSinIniciar() %></p>
+                <p><strong>Total de lotes:</strong> <%= informeParque.totalLotes() %></p>
+                <p><strong>Superficie total de proyectos:</strong> <%= informeParque.superficieTotalProyectos() %> m²</p>
             </div>
         </section>
 
@@ -137,7 +130,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <% for (ProyectoProductivo proyecto : reporte.proyectos()) { %>
+                <% for (ProyectoProductivo proyecto : informeParque.proyectos()) { %>
                     <tr>
                         <td><%= proyecto.nombre() %></td>
                         <td><%= proyecto.estado() %></td>
@@ -157,9 +150,9 @@
         </section>
     <% } %>
     <section class="tabla__container">
-        <h2>Reportes cargados por administración</h2>
+        <h2>Informes cargados por administración</h2>
 
-        <% if (reportesAdmin != null && !reportesAdmin.isEmpty()) { %>
+        <% if (informesAdmin != null && !informesAdmin.isEmpty()) { %>
 
             <table>
                 <thead>
@@ -173,15 +166,15 @@
                 </thead>
 
                 <tbody>
-                <% for (Reporte rep : reportesAdmin) { %>
+                <% for (Informe inf : informesAdmin) { %>
                     <tr>
-                        <td><%= rep.tipo() %></td>
-                        <td><%= rep.descripcion() %></td>
-                        <td><%= rep.fecha() %></td>
-                        <td><%= rep.usuario().UserName() %></td>
+                        <td><%= inf.tipo() %></td>
+                        <td><%= inf.descripcion() %></td>
+                        <td><%= inf.fecha() %></td>
+                        <td><%= inf.usuario().UserName() %></td>
                         <td>
-                            <% if (rep.documentos() != null && !rep.documentos().isEmpty()) { %>
-                                <% for (Documento doc : rep.documentos()) { %>
+                            <% if (inf.documentos() != null && !inf.documentos().isEmpty()) { %>
+                                <% for (Documento doc : inf.documentos()) { %>
                                     <a class="btn__descargar"
                                        href="<%= request.getContextPath() %>/descargarDocumento?id=<%= doc.id() %>">
                                         Descargar

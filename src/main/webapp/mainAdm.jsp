@@ -146,11 +146,11 @@
                </div>
          </a>
 
-          <a href="#" class="card">
-               <div class="card__content">
-                    <h2>I----------<h2>
-                    <p>---------.</p>
-               </div>
+          <a href="${pageContext.request.contextPath}/informacionParque" class="card">
+              <div class="card__content">
+                  <h2>Información del Parque</h2>
+                  <p>Consultar datos generales del Parque Industrial.</p>
+              </div>
           </a>
 
          <a href="${pageContext.request.contextPath}/Informes" class="card">
