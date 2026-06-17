@@ -8,8 +8,7 @@
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(request.getContextPath()+ "/perfiles"
-        );
+        response.sendRedirect(request.getContextPath()+ "/perfiles");
 
         return;
     }
@@ -17,8 +16,7 @@
     // SI NO ES REPRESENTANTE
     if(!usuario.nombreRol().equals("representante")){
 
-        response.sendRedirect( request.getContextPath()+ "/perfiles"
-        );
+        response.sendRedirect( request.getContextPath()+ "/perfiles");
 
         return;
     }
@@ -32,13 +30,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/mainRepresentante.css">
 
 </head>
 
@@ -73,7 +69,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/perfil" class="nav__link">
+                <a href="${pageContext.request.contextPath}/perfilRepresentante" class="nav__link">
                     Perfil
                 </a>
             </li>
@@ -81,6 +77,11 @@
             <li class="nav__item">
                 <a href="${pageContext.request.contextPath}/misProyectos" class="nav__link">
                     Mis Proyectos
+                </a>
+            </li>
+            <li class="nav__item">
+                <a href="${pageContext.request.contextPath}/misSolicitudes" class="nav__link">
+                    Mis Solicitudes
                 </a>
             </li>
 
@@ -96,14 +97,9 @@
 
     <div class="nav__right">
 
-        <img
-            src="${pageContext.request.contextPath}/img/logo.png"
-            alt="Logo"
-            class="nav__logo"
-        >
+        <img src="${pageContext.request.contextPath}/img/logo.png" alt="Logo" class="nav__logo">
 
-        <a href="${pageContext.request.contextPath}/logout"
-           class="nav__link Link--Cerrar">
+        <a href="${pageContext.request.contextPath}/logout" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
 
@@ -115,8 +111,7 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/misProyectos"
-           class="card">
+        <a href="${pageContext.request.contextPath}/misProyectos" class="card">
 
             <div class="card__content">
                 <h2>Mis Proyectos</h2>
@@ -124,15 +119,20 @@
 
         </a>
 
-        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp"
-           class="card">
+        <a href="${pageContext.request.contextPath}/solicitudRadicacion.jsp" class="card">
 
             <div class="card__content">
                 <h2>Enviar Solicitud de Radicación</h2>
             </div>
 
         </a>
+        <a href="${pageContext.request.contextPath}/misSolicitudes" class="card">
 
+            <div class="card__content">
+                <h2>Mis Solicitudes </h2>
+            </div>
+
+        </a>
     </div>
 
 </main>
@@ -142,15 +142,23 @@
     <div class="div__footer--container">
 
         <p>Parque Industrial</p>
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo qui laborum, hic corporis odit porro, adipisci
-        minus harum aut maiores odio. Totam, autem. Obcaecati,
-        molestias ullam voluptas harum vel corporis.
+              Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
 
     </div>
 
 </footer>
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>

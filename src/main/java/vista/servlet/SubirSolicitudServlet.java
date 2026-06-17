@@ -17,36 +17,26 @@ import java.io.IOException;
 public class SubirSolicitudServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession(false);
 
         if (session == null) {
-            response.sendRedirect(request.getContextPath() + "/perfiles");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
         if (usuario == null) {
             response.sendRedirect(request.getContextPath() + "/perfiles");
             return;
         }
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
-        /*Sistema sistema =
-                (Sistema) getServletContext().getAttribute("sistema");
+        SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-         */
-
-        // NUEVO CAMPO
-        String nombreProyecto =
-                request.getParameter("nombreProyecto");
+        String nombreProyecto = request.getParameter("nombreProyecto");
 
         String objeto = request.getParameter("objeto");
         String descripcionServicio = request.getParameter("descripcionServicio");
@@ -72,7 +62,7 @@ public class SubirSolicitudServlet extends HttpServlet {
         String coworking = request.getParameter("coworking");
         String descripcionArchivo = request.getParameter("descripcionArchivo");
 
-        Part archivoPDF = request.getPart("archivoPDF");
+        Part archivoPDF = null;
 
         String nombreArchivoPDF = "";
 
@@ -114,21 +104,13 @@ public class SubirSolicitudServlet extends HttpServlet {
 
             sistema.agregarSolicitud(solicitud);
 
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/misProyectos"
-            );
+            response.sendRedirect(request.getContextPath() + "/misSolicitudes");
 
         }  catch (RuntimeException e) {
 
-            request.setAttribute(
-                    "error",
-                    e.getMessage()
-            );
+            request.setAttribute("error", e.getMessage());
 
-            request.getRequestDispatcher(
-                    "/solicitudRadicacion.jsp"
-            ).forward(request, response);
+            request.getRequestDispatcher("/solicitudRadicacion.jsp").forward(request, response);
         }
     }
 }

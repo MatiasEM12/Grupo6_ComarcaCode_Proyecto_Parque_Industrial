@@ -1,5 +1,7 @@
 package main;
 
+import database.persistencia.ParqueIndustrial;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -12,7 +14,7 @@ public class Main implements ServletContextListener {
 
         try {
 
-            Sistema sistema = new Sistema();
+            ParqueIndustrial sistema = new ParqueIndustrial();
 
             sce.getServletContext().setAttribute(
                     "sistema",

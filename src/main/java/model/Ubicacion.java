@@ -10,6 +10,17 @@ public class Ubicacion {
         this.longitud=longitud;
         this.altitud=altitud;
     }
+    public long latitud() {
+        return latitud;
+    }
+
+    public long longitud() {
+        return longitud;
+    }
+
+    public long altitud() {
+        return altitud;
+    }
 
 
 }

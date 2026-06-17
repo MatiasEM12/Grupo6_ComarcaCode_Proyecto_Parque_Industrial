@@ -16,4 +16,6 @@ public interface UsuarioDAO {
     List<Usuario> findAll();
 
     Boolean existe(String userName);
+
+    void actualizarCredenciales(int codigo, String gmail, String contrasena);
 }

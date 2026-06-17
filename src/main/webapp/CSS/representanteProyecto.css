@@ -289,3 +289,139 @@ main{
 
     border-top: 2px solid #ddd;
 }
+
+/* =========================
+   TABLAS
+========================= */
+
+.avances__container{
+    margin-top: 35px;
+
+    padding: 25px;
+
+    background-color: #fff;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+}
+
+.avances__container h3{
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: rgb(11,122,11);
+
+    text-align: left;
+}
+
+/* DOCUMENTOS Y EVALUACIONES */
+
+.tabla-documentos,
+.tabla__avances{
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color: white;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+}
+
+.tabla-documentos thead,
+.tabla__avances thead{
+    background: linear-gradient(
+        135deg,
+        rgb(11,122,11),
+        rgb(20,160,20)
+    );
+
+    color: white;
+}
+
+.tabla-documentos th,
+.tabla-documentos td,
+.tabla__avances th,
+.tabla__avances td{
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.tabla-documentos tbody tr,
+.tabla__avances tbody tr{
+    transition: .2s;
+}
+
+.tabla-documentos tbody tr:hover,
+.tabla__avances tbody tr:hover{
+    background-color: rgba(11,122,11,.08);
+}
+
+.tabla-documentos td,
+.tabla__avances td{
+    color: #333;
+}
+
+/* LINKS DE TABLAS */
+
+.tabla-documentos a,
+.btn__detalle{
+    text-decoration: none;
+
+    background-color: #007bff;
+
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    display: inline-block;
+
+    transition: .25s;
+}
+
+.tabla-documentos a:hover,
+.btn__detalle:hover{
+    background-color: rgb(11,122,11);
+
+    transform: translateY(-2px);
+}
+
+/* FILA VACÍA */
+
+.tabla-documentos td[colspan]{
+    text-align: center;
+
+    font-style: italic;
+
+    color: #666;
+
+    padding: 20px;
+}
+.avance__container{
+    margin-top: 35px;
+
+    padding: 25px;
+
+    background-color: #fff;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+}

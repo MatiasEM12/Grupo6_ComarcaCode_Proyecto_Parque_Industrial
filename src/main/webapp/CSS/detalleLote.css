@@ -1,0 +1,539 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(245, 236, 226);
+    color: #000000;
+}
+
+body,
+div,
+header,
+nav,
+ul,
+h1,
+h2,
+p,
+img,
+span,
+a{
+    box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    min-height: 300px;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    position: relative;
+}
+
+.header__overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(124, 124, 124, 0.541);
+
+    backdrop-filter: blur(3px);
+
+    z-index: 1;
+}
+
+h1{
+    margin: 0;
+    font-size: 3.6rem;
+    text-wrap: balance;
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 10;
+
+    margin: auto;
+
+    text-align: center;
+
+    max-width: 700px;
+}
+
+.header__item--container p{
+    text-wrap: pretty;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.nav{
+    background-color: #fff;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 6px 20px;
+
+    position: sticky;
+
+    top: 0;
+
+    box-shadow: 0 0 25px #0006;
+
+    z-index: 100;
+}
+
+.nav__ul{
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+
+    gap: 15px;
+}
+
+.nav__ul--container{
+    display: flex;
+}
+
+.nav__right{
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.nav__link{
+    color: rgb(11, 122, 11);
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    padding: 8px 10px;
+
+    transition:
+        background-color .24s,
+        border-radius .2s,
+        outline .2s,
+        outline-offset .2s;
+
+    outline: 0;
+    outline-offset: 0;
+}
+
+.nav__link:hover{
+    background-color: rgba(43, 255, 0, 0.2);
+
+    border-radius: 20px;
+
+    outline: 2px solid rgba(0, 255, 0, 0.719);
+
+    outline-offset: -7px;
+}
+
+.Link--Cerrar{
+    background-color: rgb(8, 155, 8);
+
+    color: #fff;
+
+    border-radius: 20px;
+
+    padding: 8px 24px;
+}
+
+.Link--Cerrar:hover{
+    background-color: rgb(69, 204, 6);
+
+    outline: none;
+}
+
+.nav__logo{
+    width: 80px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    padding: 40px 20px;
+
+    min-height: 60vh;
+
+    background-color: rgb(244, 252, 246);
+
+    box-shadow: 0 0 15px 10px #0006;
+}
+
+/* =========================
+   LOTES GRID
+========================= */
+
+.lotes__container{
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    gap: 30px;
+
+    align-items: stretch;
+}
+
+.lote__card,
+.proyecto__container{
+    flex: 1;
+}
+/* =========================
+   CARD
+========================= */
+
+.lote__card{
+    text-decoration: none;
+
+    color: black;
+
+    background-color: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.lote__card:hover{
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18),
+        0 15px 35px rgba(0,0,0,0.15);
+}
+
+
+.lote__content{
+    padding: 25px;
+}
+
+.lote__content h2{
+    margin-top: 0;
+
+    color: rgb(11, 122, 11);
+
+    margin-bottom: 15px;
+}
+
+.lote__content p{
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+
+    color: #333;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.lote__state{
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.estado__disponible{
+    background-color: #b7f5c0;
+
+    color: #136b22;
+}
+
+.estado__ocupado{
+    background-color: #ffb8b8;
+
+    color: #8a1010;
+}
+
+/* =========================
+   SIN LOTES
+========================= */
+
+.sin__Lotes{
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 15px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.10);
+}
+
+.sin__Lotes h2{
+    color: rgb(11, 122, 11);
+
+    margin-top: 0;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    width: 100%;
+
+    background-color: #222;
+
+    display: flex;
+
+    box-shadow: 0 0 15px 5px #0006;
+}
+
+.div__footer--container{
+    margin: auto;
+
+    padding: 20px;
+
+    max-width: 600px;
+
+    text-align: center;
+
+    text-wrap: pretty;
+
+    color: white;
+
+    font-size: 16px;
+}
+
+.div__footer--container p{
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+
+
+/* =========================
+   CREAR LOTE MINI
+========================= */
+
+.crear__lote--mini{
+
+    max-width: 1200px;
+
+    margin: 0 auto 30px auto;
+
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.10);
+}
+
+.crear__lote--formMini{
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    align-items: center;
+}
+
+.crear__lote--formMini input{
+
+    padding: 10px 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+.crear__lote--formMini button{
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: rgb(11, 122, 11);
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.crear__lote--formMini button:hover{
+
+    background-color: rgb(17, 160, 17);
+}
+.proyecto__container{
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 30px;
+}
+
+.project__content{
+    padding: 25px;
+}
+
+.project__content h2{
+    margin-top: 0;
+
+    color: rgb(11, 122, 11);
+
+    margin-bottom: 15px;
+}
+
+.project__content p{
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+.project__card{
+    text-decoration: none;
+
+    color: black;
+
+    background-color: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+    display: block;
+}
+
+.project__card:hover{
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18),
+        0 15px 35px rgba(0,0,0,0.15);
+}
+
+
+
+.proyecto__container{
+    width: 100%;
+}
+
+.project__card{
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.project__card:hover{
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.18),
+        0 15px 35px rgba(0,0,0,0.15);
+}
+
+.project__content{
+    padding: 25px;
+}
+
+.project__content h2{
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+    color: rgb(11, 122, 11);
+}
+
+.project__link{
+    text-decoration: none;
+
+    color: #222;
+
+    display: block;
+}
+
+.project__link h3{
+    margin-top: 0;
+
+    margin-bottom: 15px;
+
+    color: rgb(63, 26, 148);
+}
+
+.project__link p{
+    line-height: 1.5;
+
+    margin-bottom: 15px;
+}
+
+.sin__proyectos{
+    padding: 20px 0;
+}

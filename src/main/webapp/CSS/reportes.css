@@ -1,0 +1,328 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(245, 236, 226);
+    color: #000;
+}
+
+body, div, header, nav, ul, h1, h2, p, a, form, label, input, textarea, select, button, table {
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.header {
+    min-height: 300px;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    position: relative;
+}
+
+.header__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(124, 124, 124, 0.541);
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+.header__item--container {
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
+    max-width: 700px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3.6rem;
+    text-wrap: balance;
+}
+
+.header__item--container p {
+    text-wrap: pretty;
+}
+
+/* NAV */
+
+.nav {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 20px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 25px #0006;
+    z-index: 100;
+}
+
+.nav__ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.nav__ul--container {
+    display: flex;
+}
+
+.nav__right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav__link {
+    color: rgb(11, 122, 11);
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 10px;
+    transition: background-color .24s, border-radius .2s, outline .2s, outline-offset .2s;
+    outline: 0;
+    outline-offset: 0;
+}
+
+.nav__link:hover {
+    background-color: rgba(43, 255, 0, 0.2);
+    border-radius: 20px;
+    outline: 2px solid rgba(0, 255, 0, 0.719);
+    outline-offset: -7px;
+}
+
+.Link--Cerrar {
+    background-color: rgb(8, 155, 8);
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 24px;
+}
+
+.Link--Cerrar:hover {
+    background-color: rgb(69, 204, 6);
+    outline: none;
+}
+
+.nav__logo {
+    width: 80px;
+}
+
+/* MAIN */
+
+main {
+    padding: 40px 20px;
+    min-height: 60vh;
+    background-color: rgb(244, 252, 246);
+    box-shadow: 0 0 15px 10px #0006;
+}
+
+.reportes__container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.reportes__card {
+    background-color: white;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.10);
+}
+
+.reportes__card h2 {
+    margin-top: 0;
+    color: rgb(11, 122, 11);
+}
+
+/* FORM */
+
+.form__reporte {
+    margin-top: 25px;
+    margin-bottom: 35px;
+    display: grid;
+    gap: 18px;
+}
+
+.form__campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form__campo label {
+    font-weight: bold;
+    color: #222;
+}
+
+.form__campo select,
+.form__campo textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: sans-serif;
+}
+
+.form__campo textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.btn__generar,
+.btn__volver {
+    width: fit-content;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(11, 122, 11);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn__generar:hover,
+.btn__volver:hover {
+    background-color: rgb(17, 160, 17);
+}
+
+/* MENSAJES */
+
+.mensaje__exito,
+.mensaje__error {
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.mensaje__exito {
+    background-color: #b7f5c0;
+    color: #136b22;
+}
+
+.mensaje__error {
+    background-color: #ffb8b8;
+    color: #8a1010;
+}
+
+/* TABLA */
+
+.tabla__reportes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.tabla__reportes th {
+    background-color: rgb(11, 122, 11);
+    color: white;
+    padding: 14px;
+    text-align: left;
+}
+
+.tabla__reportes td {
+    background-color: white;
+    padding: 14px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.tabla__reportes tr:hover td {
+    background-color: rgb(244, 252, 246);
+}
+
+.reporte__tipo {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #b7f5c0;
+    color: #136b22;
+}
+
+.sin__reportes {
+    background-color: white;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+}
+
+.sin__reportes h2 {
+    color: rgb(11, 122, 11);
+}
+
+/* FOOTER */
+
+footer {
+    width: 100%;
+    background-color: #222;
+    display: flex;
+    box-shadow: 0 0 15px 5px #0006;
+}
+
+.div__footer--container {
+    margin: auto;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    text-wrap: pretty;
+    color: white;
+    font-size: 16px;
+}
+
+.div__footer--container p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 700px) {
+    h1 {
+        font-size: 2.3rem;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav__ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav__right {
+        flex-direction: column;
+    }
+
+    .tabla__reportes {
+        font-size: 13px;
+    }
+    .form__campo input[type="file"] {
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        font-size: 15px;
+        font-family: sans-serif;
+    }
+
+}

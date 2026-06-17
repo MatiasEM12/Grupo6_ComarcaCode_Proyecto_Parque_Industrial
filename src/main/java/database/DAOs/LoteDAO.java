@@ -1,13 +1,24 @@
 package database.DAOs;
 
+import model.DTO.LoteDTO;
 import model.Lote;
-import model.RepresentanteEmpresa;
-
 import java.util.List;
 
 public interface LoteDAO {
-    void registrarLote(Lote lote);
-    List<Lote> lotesDisponibles();
-    List<Lote> lotesDelUsuario(RepresentanteEmpresa usuario);
-    List<Lote> lotesManegadosPorElPaque();
+
+    void create(Lote lote);
+
+    Lote find(int id);
+
+    List<Lote> findAll();
+
+    List<LoteDTO> findAllLoteDTO();
+
+    Lote findLoteProyecto(int idProyecto);
+
+    List<Lote> findDisponibles();
+
+    void registrarProyectoLote(int id, int idProyecto);
+    void update(Lote lote);
+    void actualizarEstado(int id, String estado);
 }

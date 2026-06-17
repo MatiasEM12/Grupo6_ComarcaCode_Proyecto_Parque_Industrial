@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="model.SolicitudRadicacion" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-
+<%@ page import="model.ProyectoProductivo" %>
+<%@ page import="model.Lote" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,13 +9,11 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ParqueIndustrialViedma</title>
 
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/representanteProyectos.css">
 
 </head>
 
@@ -63,8 +60,7 @@
 
             <li class="nav__item">
 
-                <a href=""
-                   class="nav__link">
+                <a href="" class="nav__link">
 
                     Perfil
 
@@ -104,9 +100,8 @@
              alt="Logo"
              class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
-
+       <a href="${pageContext.request.contextPath}/logout"
+                class="nav__link Link--Cerrar">
             Cerrar Sesión
 
         </a>
@@ -120,67 +115,64 @@
     <div class="projects__container">
 
         <%
-            List<SolicitudRadicacion> solicitudes =
-                    (List<SolicitudRadicacion>)
-                            request.getAttribute("solicitudes");
+            List<ProyectoProductivo> proyectos = (List<ProyectoProductivo>) request.getAttribute("proyectos");
 
-            if (solicitudes != null && !solicitudes.isEmpty()) {
+            if (proyectos != null && !proyectos.isEmpty()) {
 
-                for (SolicitudRadicacion solicitud : solicitudes) {
-
-                    String claseEstado = "";
-
-                    if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("PENDIENTE")) {
-
-                        claseEstado = "estado__pendiente";
-                    }
-
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("APROBADA")) {
-
-                        claseEstado = "estado__aprobado";
-                    }
-
-                    else if (solicitud.estadoSolicitud()
-                            .toString()
-                            .equals("OBSERVADA")) {
-
-                        claseEstado = "estado__revision";
-                    }
+                for (ProyectoProductivo proyecto : proyectos) {
         %>
 
-        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= solicitud.id() %>"
+        <a href="${pageContext.request.contextPath}/representanteProyecto?id=<%= proyecto.idProyecto() %>"
            class="project__card">
 
             <div class="project__content">
 
                 <h2>
 
-                    <%= solicitud.nombreProyecto() %>
+                    <%= proyecto.nombre() %>
 
                 </h2>
 
                 <p>
 
-                    <%= solicitud.descripcionServicio() %>
+                    <%= proyecto.descripcion() %>
 
                 </p>
 
-                    <p class="project__date">
+                <p class="project__date">
 
-                       Última actualización: <%= solicitud.fechaActualizacion().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) %>
+                    Superficie:
+                    <%= proyecto.superficie() %> m²
 
-                    </p>
+                </p>
 
-                <span class="project__state <%= claseEstado %>">
+                <p class="project__date">
 
-                    <%= solicitud.estadoSolicitud() %>
+                    Estado:
+                    <%= proyecto.enEjecucion()
+                            ? "En ejecución"
+                            : "No comenzo su ejecución" %>
 
-                </span>
+                </p>
 
+                 <% if (proyecto.lote() != null) { %>
+
+                       <form action="${pageContext.request.contextPath}/loteProyecto"
+                                  method="get">
+
+                                <input type="hidden"
+                                       name="idProyecto"
+                                       value="<%= proyecto.idProyecto() %>">
+
+                                <button type="submit" class="btn__verLote">
+
+                                    Ver lote
+
+                                </button>
+
+                       </form>
+
+                  <% } %>
             </div>
 
         </a>
@@ -201,7 +193,7 @@
 
             <p>
 
-                Todavía no enviaste ninguna solicitud de radicación.
+                Todavía no tenés proyectos productivos.
 
             </p>
 
@@ -221,14 +213,23 @@
 
         <p>Parque Industrial</p>
 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo qui laborum, hic corporis odit porro, adipisci
-        minus harum aut maiores odio. Totam, autem. Obcaecati,
-        molestias ullam voluptas harum vel corporis.
+          Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
 
     </div>
 
 </footer>
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>

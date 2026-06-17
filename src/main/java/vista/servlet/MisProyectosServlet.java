@@ -2,6 +2,7 @@ package vista.servlet;
 
 import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
+import model.ProyectoProductivo;
 import model.SolicitudRadicacion;
 import model.Usuario;
 
@@ -15,58 +16,38 @@ import java.util.List;
 public class MisProyectosServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            HttpSession session = request.getSession(false);
 
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession(false);
+            if (session == null) {
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
 
-        if (session == null) {
-            response.sendRedirect(
-                    request.getContextPath() + "/perfiles"
-            );
-            return;
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
+
+
+            if (usuario == null) {
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
+
+
+            List<ProyectoProductivo> proyectos = sistema.obtenerProyectosProductivosDe(usuario.UserName());
+
+            request.setAttribute("proyectos", proyectos);
+
+            request.getRequestDispatcher("/representanteProyectos.jsp").forward(request, response);
+        }catch (Exception e) {
+
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/representanteProyectos.jsp")
+                    .forward(request, response);
         }
-
-        Usuario usuario =
-                (Usuario) session.getAttribute("usuarioLogueado");
-
-        if (usuario == null) {
-            response.sendRedirect(
-                    request.getContextPath() + "/perfiles"
-            );
-            return;
-        }
-        SistemaParqueIndustrial sistema =
-                new ParqueIndustrial();
-        /*Sistema sistema =
-                (Sistema) getServletContext()
-                        .getAttribute("sistema");
-
-         */
-
-        /*
-         * Obtiene solamente las solicitudes
-         * del representante logueado
-         */
-        List<SolicitudRadicacion> solicitudesUsuario =
-                sistema.obtenerSolicitudesDe(usuario);
-
-        /*
-         * Envia las solicitudes al JSP
-         */
-        request.setAttribute(
-                "solicitudes",
-                solicitudesUsuario
-        );
-
-        /*
-         * Redirecciona al JSP
-         */
-        request.getRequestDispatcher(
-                "/representanteProyectos.jsp"
-        ).forward(request, response);
     }
 }

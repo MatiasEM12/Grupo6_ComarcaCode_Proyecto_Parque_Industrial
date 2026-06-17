@@ -9,7 +9,7 @@
         return;
     }
 
-    if (!usuario.rol().equals("organismo_publico")) {
+    if (!usuario.nombreRol().equals("organismo_publico")) {
         response.sendRedirect(request.getContextPath() + "/perfiles");
         return;
     }
@@ -136,11 +136,23 @@
 
         <p>Parque Industrial</p>
 
-        Sistema de gestión del Parque Industrial de Viedma.
+          Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
 
     </div>
 
 </footer>
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>

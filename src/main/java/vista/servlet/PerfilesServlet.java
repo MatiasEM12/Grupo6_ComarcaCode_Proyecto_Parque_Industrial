@@ -16,17 +16,21 @@ import java.util.List;
 public class PerfilesServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-        SistemaParqueIndustrial sistema = new ParqueIndustrial();
+            List<Usuario> usuarios = sistema.obtenerUsuarios();
 
-        List<Usuario> usuarios = sistema.obtenerUsuarios();
+            request.setAttribute("usuarios", usuarios);
 
-        request.setAttribute("usuarios", usuarios);
+            request.getRequestDispatcher("/perfiles.jsp").forward(request, response);
+        }catch (Exception e) {
 
-        request.getRequestDispatcher("/perfiles.jsp")
-                .forward(request, response);
+            request.setAttribute("error", e.getMessage());
+
+            request.getRequestDispatcher("/perfiles.jsp")
+                    .forward(request, response);
+        }
     }
 }

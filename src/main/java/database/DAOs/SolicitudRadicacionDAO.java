@@ -2,6 +2,7 @@ package database.DAOs;
 
 import java.util.List;
 
+import model.EstadoSolicitud;
 import model.SolicitudRadicacion;
 
 public interface SolicitudRadicacionDAO {
@@ -16,6 +17,8 @@ public interface SolicitudRadicacionDAO {
     SolicitudRadicacion find(Integer id);
 
     List<SolicitudRadicacion> findAll();
+
+    void estadoSolicitud(int idSolicitud, EstadoSolicitud estado);
 
     //int obtenerCantidadSolicitudes();
 }

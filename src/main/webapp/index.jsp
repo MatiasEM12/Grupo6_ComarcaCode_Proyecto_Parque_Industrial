@@ -18,7 +18,11 @@
             <h1>PARQUE INDUSTRIAL
                 VIEDMA</h1>
             <P>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex doloremque, fuga sit porro alias praesentium iste tenetur nesciunt facilis suscipit tempora fugit distinctio exercitationem perferendis at vitae provident molestias modi.
+               <P>
+                   Un espacio pensado para impulsar el desarrollo industrial y productivo de la región,
+                   brindando infraestructura, servicios y oportunidades para empresas, emprendedores
+                   e inversores que buscan crecer en la ciudad de Viedma.
+               </P>
             </P>
         </div>
     </header>
@@ -28,12 +32,11 @@
                 <li class="nav__item"><a href="#inicio" class="nav__link">Inicio</a></li>
                 <li class="nav__item"><a href="#quienes-somos" class="nav__link">Quienes Somos</a></li>
                 <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
-                <li class="nav__item"><a href="${pageContext.request.contextPath}/perfiles" class="nav__link Link--login">Log In</a></li>
+                <li class="nav__item"><a href="${pageContext.request.contextPath}//login" class="nav__link Link--login">Log In</a></li>
+                <li class="nav__item"><a href="${pageContext.request.contextPath}//registro" class="nav__link Link--registro" >Registrarse</a></li>
             </ul>
         </div>
-        <div class="nav__logo--container">
-            <img src="logo.png" alt="" class="nav__logo">
-        </div>
+
     </nav>
     <main>
     <section id="inicio" class="main__section main__section--inicio">
@@ -57,9 +60,10 @@
 
                 </div>
                 <div class="text_presentacion">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel at delectus eaque nobis,
-                    molestias distinctio eius, facere repellendus ut, accusantium quae atque! Velit autem nulla,
-                    aspernatur reprehenderit dolores animi non?
+                     El Parque Industrial de Viedma promueve la instalación de nuevas empresas,
+                       fomentando la generación de empleo y el crecimiento económico local.
+                       Nuestro objetivo es ofrecer un entorno organizado, moderno y sustentable
+                       para el desarrollo de actividades industriales y comerciales.
                 </div>
             </div>
         </div>
@@ -87,8 +91,22 @@
     <footer>
         <div class="div__footer--container">
             <p>Parque Industrial</p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo qui laborum, hic corporis odit porro, adipisci minus harum aut maiores odio. Totam, autem. Obcaecati, molestias ullam voluptas harum vel corporis.
+             Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
         </div>
     </footer>
+
+    <%
+        String error = (String) request.getAttribute("error");
+
+        if (error != null) {
+    %>
+
+    <script>
+        alert("<%= error %>");
+    </script>
+
+    <%
+        }
+    %>
 </body>
 </html>

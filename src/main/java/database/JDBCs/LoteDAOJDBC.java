@@ -1,122 +1,256 @@
 package database.JDBCs;
 
-
 import database.ConnectionManager;
+import database.DAOs.LoteDAO;
+import model.DTO.LoteDTO;
 import model.Lote;
-import model.RepresentanteEmpresa;
 import model.Ubicacion;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.DAOs.LoteDAO;
-import model.Usuario;
-
-public class LoteDAOJDBC implements LoteDAO{
+public class LoteDAOJDBC implements LoteDAO {
 
     @Override
-    public void registrarLote(Lote lote) {
-        final String SQL = "INSERT INTO Empresa(ubicacion, superficie, estado, infraestructura, " +
-                "id_proyecto, dni_admin) VALUES (?, ?, ?, ?, ?, ?)";
+    public void create(Lote lote) {
+
+        final String SQL =
+                "INSERT INTO lotes " +
+                        "(latitud, longitud, altitud, superficie, estado, infraestructura) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
+
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
-          /*  Ubicacion ubicacion = lote.ubicacion();
-            //en la base de datos dise que id va se incremental entonces tendriamo que sacar id de lote.
-            //porque sino no van a coicidir o enves de que sea incremental por la base de datos que lo se por la misma clase
-            st.setString(1, "Latitud: " + ubicacion.latitud + ", Longitud: " +
-                    ubicacion.longitud + ", Altitud: " + ubicacion.altitud);
-            st.setDouble(2, lote.superficie());
-            st.setString(3, lote.estado());
-            st.setString(4, lote.infraestructura());
-            st.setInt(5, lote.id());
-            st.setString(6, "444");
+
+            st.setLong(1, lote.ubicacion().latitud());
+            st.setLong(2, lote.ubicacion().longitud());
+            st.setLong(3, lote.ubicacion().altitud());
+            st.setDouble(4, lote.superficie());
+            st.setString(5, lote.estado());
+            st.setString(6, lote.infraestructura());
+
             int fila = st.executeUpdate();
-            if (fila<=0){
-                throw new RuntimeException("Error al registrar usuario");
-            }
 
-           */
-        }catch (Exception e){
-            throw new RuntimeException("Error al registrar usuario", e);
+            if (fila <= 0) {
+                throw new RuntimeException("Error al registrar lote");
+            }
+            System.out.println("lote agregado");
+        } catch (Exception e) {
+            throw new RuntimeException("Error al registrar lote", e);
         }
     }
 
-    public List<Lote> lotesDisponibles(){
-        //recordar modificar ubicacion de la base de estado, cambiarlo por latitud, longitud y
-        // altitud para poder costruir la ubicacion
-        final String SQL = "SELECT * FROM Lote WHERE estado = ?";
-        List <Lote> lotes = new ArrayList<>();
+    @Override
+    public Lote find(int id) {
+
+        final String SQL =
+                "SELECT * FROM lotes WHERE id = ?";
+
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
-            // como el estado del lote es un String le puse disponible
-            st.setString(1, "DISPONIBLE");
+
+            st.setInt(1, id);
+
             ResultSet rs = st.executeQuery();
 
-            while (rs.next()){
-                //por ahora le puse una ubicacion de ejemplo
-                Lote lote = new Lote(new Ubicacion(23,23,23),
-                        rs.getDouble("superficie"),
-                        rs.getString("estado"),
-                        rs.getString("infraestructura"));
-                lotes.add(lote);
+            if (rs.next()) {
+                return mapearLote(rs);
             }
+
+            return null;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al buscar lote", e);
+        }
+    }
+
+    @Override
+    public List<Lote> findAll() {
+
+        final String SQL = "SELECT * FROM lotes";
+
+        List<Lote> lotes = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                lotes.add(mapearLote(rs));
+            }
+
+            return lotes;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener lotes", e);
+        }
+    }
+
+    @Override
+    public List<LoteDTO> findAllLoteDTO() {
+
+        final String SQL = "SELECT * FROM lotes";
+
+        List<LoteDTO> lotes = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                lotes.add(mapearLoteDTO(rs));
+            }
+
+            return lotes;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener lotes", e);
+        }
+    }
+
+    @Override
+    public List<Lote> findDisponibles() {
+
+        final String SQL =
+                "SELECT * FROM lotes WHERE estado = 'DISPONIBLE'";
+
+        List<Lote> lotes = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                lotes.add(mapearLote(rs));
+            }
+
+            return lotes;
+
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener lotes disponibles", e);
         }
-        return lotes;
     }
 
-    public List<Lote> lotesDelUsuario(RepresentanteEmpresa usuario){
-        //recordar modificar ubicacion de la base de estado, cambiarlo por latitud, longitud y
-        // altitud para poder costruir la ubicacion
-        final String SQL = "SELECT * FROM Lote WHERE dni_admin = ?";
-        List <Lote> lotes = new ArrayList<>();
+    public Lote findLoteProyecto(int idProyecto){
+        final String SQL = "SELECT * FROM lotes WHERE id_proyecto = ?";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            st.setString(1, usuario.dni());
+            st.setInt(1, idProyecto);
             ResultSet rs = st.executeQuery();
 
-            while (rs.next()){
-                //por ahora le puse una ubicacion de ejemplo
-                //despues revisar el costructor de Lote por el tema del id para recuperarlo
-                Lote lote = new Lote(new Ubicacion(23,23,23),
-                        rs.getDouble("superficie"),
-                        rs.getString("estado"),
-                        rs.getString("infraestructura"));
-                lotes.add(lote);
+            if (rs.next()) {
+                return mapearLote(rs);
             }
+
+            return null;
+
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener lotes disponibles", e);
         }
-        return lotes;
     }
 
-    //este es para recuperar todos los lotes
-    public List<Lote> lotesManegadosPorElPaque(){
+    @Override
+    public void actualizarEstado(int id, String estado) {
 
-        final String SQL = "SELECT * FROM Lote";
-        List <Lote> lotes = new ArrayList<>();
+        final String SQL =
+                "UPDATE lotes SET estado = ? WHERE id = ?";
+
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
 
-            ResultSet rs = st.executeQuery();
+            st.setString(1, estado);
+            st.setInt(2, id);
 
-            while (rs.next()){
-                Lote lote = new Lote(new Ubicacion(23,23,23),
-                        rs.getDouble("superficie"),
-                        rs.getString("estado"),
-                        rs.getString("infraestructura"));
-                lotes.add(lote);
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró el lote");
             }
+
         } catch (Exception e) {
-            throw new RuntimeException("Error al obtener lotes disponibles" + e);
+            throw new RuntimeException("Error al actualizar lote", e);
         }
-        return lotes;
     }
 
+    private Lote mapearLote(ResultSet rs) throws SQLException {
+
+        Ubicacion ubicacion = new Ubicacion(
+                rs.getLong("latitud"),
+                rs.getLong("longitud"),
+                rs.getLong("altitud")
+        );
+
+        return new Lote(
+                rs.getInt("id"),
+                ubicacion,
+                rs.getDouble("superficie"),
+                rs.getString("estado"),
+                rs.getString("infraestructura")
+        );
+    }
+
+    private LoteDTO mapearLoteDTO(ResultSet rs) throws SQLException {
+        return new LoteDTO(
+                rs.getInt("id"),
+                rs.getLong("latitud"),
+                rs.getLong("longitud"),
+                rs.getLong("altitud"),
+                rs.getDouble("superficie"),
+                rs.getString("estado"),
+                rs.getString("infraestructura")
+        );
+    }
+
+    @Override
+    public void update(Lote lote) {
+
+        final String SQL =
+                "UPDATE lotes SET latitud = ?, longitud = ?, altitud = ?, " +
+                        "superficie = ?, estado = ?, infraestructura = ? " +
+                        "WHERE id = ?";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setLong(1, lote.ubicacion().latitud());
+            st.setLong(2, lote.ubicacion().longitud());
+            st.setLong(3, lote.ubicacion().altitud());
+            st.setDouble(4, lote.superficie());
+            st.setString(5, lote.estado());
+            st.setString(6, lote.infraestructura());
+            st.setInt(7, lote.id());
+
+            if (st.executeUpdate() <= 0) {
+                throw new RuntimeException("No se encontró el lote");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar lote", e);
+        }
+    }
+    @Override
+    public void registrarProyectoLote(int idLote, int idProyecto) {
+
+        final String SQL =
+                "UPDATE lotes SET estado = ?, id_proyecto = ? WHERE id = ? AND estado = 'DISPONIBLE'";
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, "OCUPADO");
+            st.setInt(2, idProyecto);
+            st.setInt(3, idLote);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("EL lote no existe o ya esta ocupado");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al asignar proyecto a lote", e);
+        }
+    }
 }

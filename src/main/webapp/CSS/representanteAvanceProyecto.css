@@ -1,0 +1,203 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    background-color: rgb(245, 236, 226);
+}
+
+body,div,header,nav,ul,h1,h2,p,img,section,form{
+    box-sizing: border-box;
+}
+
+/* HEADER */
+
+.header{
+    min-height: 300px;
+    background-image: url("../img/viedma.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    position: relative;
+}
+
+.header__overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(124,124,124,0.5);
+    backdrop-filter: blur(3px);
+}
+
+.header__item--container{
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
+    max-width: 700px;
+}
+
+h1{
+    margin: 0;
+    font-size: 3.4rem;
+}
+
+/* NAVBAR */
+
+.nav{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 20px;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 0 25px #0006;
+}
+
+.nav__ul{
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+
+.nav__link{
+    color: rgb(11,122,11);
+    text-decoration: none;
+    padding: 8px 12px;
+    transition: .2s;
+}
+
+.nav__link:hover{
+    background-color: rgba(43,255,0,0.2);
+    border-radius: 20px;
+}
+
+.nav__logo{
+    width: 80px;
+}
+
+/* NAV DERECHA */
+
+.nav__right{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.Link--Cerrar{
+    background-color: rgb(11,122,11);
+    color: white;
+    border-radius: 20px;
+    padding: 10px 16px;
+}
+
+.Link--Cerrar:hover{
+     background-color: rgb(20,160,20);
+    color: white;
+}
+
+/* MAIN */
+
+.main{
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* SECCIONES */
+
+.avance,
+.documentos{
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+}
+
+.avance h2,
+.documentos h2{
+    margin-top: 0;
+    color: rgb(11,122,11);
+    border-bottom: 2px solid rgb(11,122,11);
+    padding-bottom: 10px;
+}
+
+/* INFORMACIÓN DEL AVANCE */
+
+.avance__info{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 15px;
+}
+
+.avance__info p{
+    background-color: #f7f7f7;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 0;
+}
+
+.avance__info strong{
+    color: rgb(11,122,11);
+}
+
+/* TABLA */
+
+.tabla-documentos{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-documentos th{
+    background-color: rgb(11,122,11);
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.tabla-documentos td{
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-documentos tr:hover{
+    background-color: #f4f4f4;
+}
+
+/* LINK DESCARGAR */
+
+.tabla-documentos a{
+    text-decoration: none;
+    background-color: rgb(11,122,11);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 15px;
+    transition: .2s;
+}
+
+.tabla-documentos a:hover{
+    background-color: rgb(21,160,21);
+}
+
+
+
+/* FOOTER */
+
+footer{
+    background-color: #222;
+    display: flex;
+    color: white;
+}
+
+.div__footer--container{
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}

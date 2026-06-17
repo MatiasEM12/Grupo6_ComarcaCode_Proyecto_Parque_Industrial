@@ -1,9 +1,18 @@
 package model;
 
 public enum TipoDocumento {
-    PDF,
-    IMAGEN,
-    EXCEL,
-    WORD,
+
+    PLANO_IMPLANTACION,
+
+    MEMORIA_DESCRIPTIVA,
+
+    ESTUDIO_MERCADO,
+
+    IMPACTO_AMBIENTAL,
+
+    REQUERIMIENTOS_INFRAESTRUCTURA,
+
+    REPORTE,INFORME,
+
     OTRO
 }

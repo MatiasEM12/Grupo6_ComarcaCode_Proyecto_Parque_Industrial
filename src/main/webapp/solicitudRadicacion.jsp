@@ -43,8 +43,7 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp"
-                   class="nav__link">
+                <a href="${pageContext.request.contextPath}/mainRepresentante.jsp" class="nav__link">
                     Inicio
                 </a>
             </li>
@@ -71,8 +70,7 @@
              alt="Logo"
              class="nav__logo">
 
-        <a href=""
-           class="nav__link Link--Cerrar">
+        <a href="" class="nav__link Link--Cerrar">
             Cerrar Sesión
         </a>
 
@@ -86,17 +84,13 @@
 
         <h2>Solicitud de Radicación</h2>
 
-        <form action="${pageContext.request.contextPath}/subirSolicitud"
-              method="post"
-              enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/subirSolicitud" method="post" enctype="multipart/form-data">
 
             <div class="form__group">
 
                 <label>Nombre del Proyecto*</label>
 
-                <input type="text"
-                       name="nombreProyecto"
-                       placeholder="Ingrese el nombre del proyecto">
+                <input type="text" name="nombreProyecto" placeholder="Ingrese el nombre del proyecto">
 
             </div>
             <!-- Proyecto -->
@@ -366,30 +360,6 @@
 
             </div>
 
-            <!-- SUBIDA DE ARCHIVO PDF -->
-
-            <div class="form__group">
-
-                <h3>Documentación Adjunta</h3>
-
-                <label>Descripción del archivo PDF</label>
-
-                <textarea
-                        name="descripcionArchivo"
-                        placeholder="Describa el contenido del archivo PDF">
-                </textarea>
-
-            </div>
-
-            <div class="form__group">
-
-                <label>Subir archivo PDF</label>
-
-                <input type="file"
-                       name="archivoPDF"
-                       accept=".pdf">
-
-            </div>
 
             <button type="submit" class="btn">
                 Guardar
@@ -407,11 +377,7 @@
 
         <p>Parque Industrial</p>
 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo qui laborum, hic corporis odit porro, adipisci
-        minus harum aut maiores odio. Totam, autem. Obcaecati,
-        molestias ullam voluptas harum vel corporis.
-
+          Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
     </div>
 
 </footer>

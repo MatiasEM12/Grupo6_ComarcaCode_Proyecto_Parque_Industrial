@@ -93,7 +93,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                     String contrasena = rs.getString("contrasena");
                     int rol = rs.getInt("rol");
                     String gmail = rs.getString("gmail");
-                    return new Usuario(userName, contrasena, Rol.fromCodigo(rol), gmail);
+                    return new Usuario(rs.getInt("codigo"),userName, contrasena, Rol.fromCodigo(rol), gmail);
                 } else {
                     return null; // Usuario no encontrado
                 }
@@ -118,7 +118,7 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
                 String contrasena = rs.getString("contrasena");
                 int rol = rs.getInt("rol");
                 String gmail = rs.getString("gmail");
-                usuarios.add(new Usuario(userName, contrasena, Rol.fromCodigo(rol), gmail));
+                usuarios.add(new Usuario(rs.getInt("codigo"),userName, contrasena, Rol.fromCodigo(rol), gmail));
             }
 
         } catch (SQLException e) {
@@ -130,5 +130,33 @@ public class UsuarioDAOJDBC implements UsuarioDAO {
     @Override
     public Boolean existe(String userName) {
         return null;
+    }
+
+    @Override
+    public void actualizarCredenciales(int codigo, String gmail, String contrasena) {
+
+        final String SQL = """
+            UPDATE usuario
+            SET gmail = ?,
+                contrasena = ?
+            WHERE codigo = ?
+            """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, gmail);
+            st.setString(2, contrasena);
+            st.setInt(3, codigo);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró el usuario");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar datos de usuario", e);
+        }
     }
 }

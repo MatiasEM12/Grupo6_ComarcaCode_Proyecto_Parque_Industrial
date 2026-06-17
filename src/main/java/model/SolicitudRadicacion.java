@@ -1,9 +1,13 @@
 package model;
 
+import database.DAOs.ObservacionesDAO;
 import database.DAOs.SolicitudRadicacionDAO;
+import database.JDBCs.ObservacionesDAOJDBC;
 import database.JDBCs.SolicitudRadicacionDAOJDBC;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolicitudRadicacion {
 
@@ -46,6 +50,7 @@ public class SolicitudRadicacion {
 
     private String descripcionArchivo;
     private String nombreArchivoPDF;
+    private List<Documento> documentos = new ArrayList<>();
 
     public SolicitudRadicacion(
             RepresentanteEmpresa representante,
@@ -120,6 +125,7 @@ public class SolicitudRadicacion {
         validarLongitud(objeto, 255,
                 "El objeto no puede superar los 255 caracteres");
 
+        validarSuperficie(m2, areaTrabajo,areaDeposito ,estacionamiento );
         this.id = contador++;
         this.numeroTramite = "SOL-" + id;
         this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
@@ -154,43 +160,165 @@ public class SolicitudRadicacion {
         this.nombreArchivoPDF = nombreArchivoPDF;
 
         this.representante.NopuedeIngresarSolicitud();
+
+        this.empresa=representante.empresa;
+        this.solicitudRadicacionDAO.create(this);
+
     }
 
-    //Constructor sobrecargado para usar en la base de datos
-    public SolicitudRadicacion(int id, String numeroTramite, String estadoSolicitud, LocalDate fechaCreacion,
-         LocalDate fechaActualizacion, String nombreProyecto, String descripcionServicio,
-        ProyectoProductivo proyecto, Empresa empresa, RepresentanteEmpresa representante) {
-            validarUsuario(representante);
-            validarId(id);
-            this.id = id;
-            this.numeroTramite = numeroTramite;
-            this.estadoSolicitud = transformador(estadoSolicitud);
-            this.fechaCreacion = fechaCreacion;
-            this.fechaActualizacion = fechaActualizacion;
-            this.representante = representante;
-            this.nombreProyecto = nombreProyecto;
-            this.descripcionServicio = descripcionServicio;
-            this.proyectoProductivo = proyecto;
-            this.empresa = empresa;
-         }
+    public SolicitudRadicacion(
+            int id,
+            String numeroTramite,
+            String estadoSolicitud,
+            LocalDate fechaCreacion,
+            LocalDate fechaActualizacion,
+
+            RepresentanteEmpresa representante,
+
+            String objeto,
+            String nombreProyecto,
+            String descripcionServicio,
+
+            String emplazamiento,
+            String personal,
+            String tiempoRadicacion,
+
+            String m2,
+            String areaTrabajo,
+            String areaDeposito,
+            String estacionamiento,
+
+            String planos,
+            String empleabilidad,
+            String materiasPrimas,
+
+            String destinoProduccion,
+            String tension,
+            String potencia,
+
+            String agua,
+            String gas,
+
+            String residuos,
+            String tratamiento,
+
+            String balanza,
+            String comedor,
+            String coworking
+    ) {
+
+        this.id = id;
+
+        this.numeroTramite = numeroTramite;
+
+        this.estadoSolicitud = transformador(estadoSolicitud);
+
+        this.fechaCreacion = fechaCreacion;
+
+        this.fechaActualizacion = fechaActualizacion;
+
+        this.representante = representante;
+
+        this.objeto = objeto;
+
+        this.nombreProyecto = nombreProyecto;
+
+        this.descripcionServicio = descripcionServicio;
+
+        this.emplazamiento = emplazamiento;
+
+        this.personal = personal;
+
+        this.tiempoRadicacion = tiempoRadicacion;
+
+        this.m2 = m2;
+
+        this.areaTrabajo = areaTrabajo;
+
+        this.areaDeposito = areaDeposito;
+
+        this.estacionamiento = estacionamiento;
+
+        this.planos = planos;
+
+        this.empleabilidad = empleabilidad;
+
+        this.materiasPrimas = materiasPrimas;
+
+        this.destinoProduccion = destinoProduccion;
+
+        this.tension = tension;
+
+        this.potencia = potencia;
+
+        this.agua = agua;
+
+        this.gas = gas;
+
+        this.residuos = residuos;
+
+        this.tratamiento = tratamiento;
+
+        this.balanza = balanza;
+
+        this.comedor = comedor;
+
+        this.coworking = coworking;
+
+        this.empresa=representante.empresa;
 
 
+    }
 
-    public void aprobar() {
-        this.estadoSolicitud = EstadoSolicitud.APROBADA;
+    public List<Observacion> obtenerObservaciones(){
+        ObservacionesDAO observacionesDAO = new ObservacionesDAOJDBC();
+        return  observacionesDAO.buscarPorSolicitud(id);
+    }
+
+    public void aprobarPrimeraInstancia() {
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE && this.estadoSolicitud != EstadoSolicitud.OBSERVADA) {
+            throw new IllegalStateException("Solo se puede aprobar en primera instancia si la solicitud está pendiente u observada.");
+        }
+        this.estadoSolicitud = EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
     }
 
     public void rechazar() {
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE && this.estadoSolicitud != EstadoSolicitud.OBSERVADA) {
+            throw new IllegalStateException("Solo se puede rechazar si la solicitud está pendiente u observada.");
+        }
         this.estadoSolicitud = EstadoSolicitud.RECHAZADA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
     }
 
     public void observar() {
+        if (this.estadoSolicitud != EstadoSolicitud.PENDIENTE) {
+            throw new IllegalStateException("Solo se puede observar si la solicitud está pendiente.");
+        }
         this.estadoSolicitud = EstadoSolicitud.OBSERVADA;
         this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
     }
 
+    public void agregarDocumento(Documento documento) {
+
+        if (estadoSolicitud != EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) {
+            throw new RuntimeException(
+                    "Solo se pueden adjuntar documentos en primera instancia aprobada"
+            );
+        }
+
+        documentos.add(documento);
+    }
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+
+    public List<Documento> documentos() {
+        return List.copyOf(documentos);
+    }
     public int id() {
         return id;
     }
@@ -238,7 +366,11 @@ public class SolicitudRadicacion {
 
         switch (estado) {
             case "APROBADA":
-                return EstadoSolicitud.APROBADA;
+                return EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
+            case "APROBADA_PRIMER_INSTANCIA":
+                return EstadoSolicitud.APROBADA_PRIMER_INSTANCIA;
+            case "APROBADA_FINAL":
+                return EstadoSolicitud.APROBADA_FINAL;
             case "RECHAZADA":
                 return EstadoSolicitud.RECHAZADA;
             case "OBSERVADA":
@@ -267,6 +399,18 @@ public class SolicitudRadicacion {
             throw new RuntimeException(mensaje);
         }
     }
+    private void validarSuperficie(String m2, String areaTrabajo,String areaDeposito,String estacionamiento){
+        int superficie= Integer.parseInt(m2);
+        int areaT= Integer.parseInt(areaTrabajo);
+        int areaD = Integer.parseInt(areaDeposito);
+        int est= Integer.parseInt(estacionamiento);
+
+        if( ( areaT+areaD+est)> superficie) throw new IllegalArgumentException("la superfice no alcanza para el area de Trabajo,Deposito y estacionamiento");
+    }
+
+    private void validarSuperficieCon(int superficie){
+        if( Integer.parseInt(this.m2)>superficie) throw  new IllegalArgumentException("Superfice no compatible");
+    }
     private void validarId(int id) {
         if (id <= 0) {
             throw new RuntimeException("ID debe ser un número positivo");
@@ -285,10 +429,45 @@ public class SolicitudRadicacion {
             throw new RuntimeException(mensaje);
         }
     }
+    public String objeto() { return objeto; }
+    public String emplazamiento() { return emplazamiento; }
+    public String personal() { return personal; }
+    public String tiempoRadicacion() { return tiempoRadicacion; }
+    public String m2() { return m2; }
+    public String areaTrabajo() { return areaTrabajo; }
+    public String areaDeposito() { return areaDeposito; }
+    public String estacionamiento() { return estacionamiento; }
+    public String planos() { return planos; }
+    public String empleabilidad() { return empleabilidad; }
+    public String materiasPrimas() { return materiasPrimas; }
+    public String destinoProduccion() { return destinoProduccion; }
+    public String tension() { return tension; }
+    public String potencia() { return potencia; }
+    public String agua() { return agua; }
+    public String gas() { return gas; }
+    public String residuos() { return residuos; }
+    public String tratamiento() { return tratamiento; }
+    public String balanza() { return balanza; }
+    public String comedor() { return comedor; }
+    public String coworking() { return coworking; }
+    public String descripcionArchivo() { return descripcionArchivo; }
 
-    public void cargate() {
-        solicitudRadicacionDAO.create(this);
+
+    public void aprobarFinal(Lote lote) {
+        if(this.estadoSolicitud!=EstadoSolicitud.APROBADA_PRIMER_INSTANCIA) throw new IllegalArgumentException("Solo puede estar aprogada final y fue aprobada en primera instancia");
+        validarSuperficieCon((int)lote.superficie());
+        this.estadoSolicitud = EstadoSolicitud.APROBADA_FINAL;
+        this.fechaActualizacion = LocalDate.now();
+        solicitudRadicacionDAO.update(this);
+        proyectoProductivo = new ProyectoProductivo(this.nombreProyecto, this.descripcionServicio, lote.superficie(), "",Integer.parseInt(this.empleabilidad), this.materiasPrimas, this.empresa, lote);
+        lote.Ocupado();
     }
 
+    public void setProyectoProductivo(ProyectoProductivo proyecto) {
+       this.proyectoProductivo = proyecto;
+    }
 
+    private void validarLote(){
+
+    }
 }

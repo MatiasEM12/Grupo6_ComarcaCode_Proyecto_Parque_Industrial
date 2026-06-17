@@ -4,6 +4,7 @@ import database.DAOs.UsuarioDAO;
 import database.JDBCs.UsuarioDAOJDBC;
 
 public class Usuario {
+    private int codigo;
     private String userName;
     private String contrasena;
     private Rol rol;
@@ -15,6 +16,21 @@ public class Usuario {
         validarContracena(contrasena);
         validarGmail(gmail);
         validarRol(rol);
+        this.userName=userName;
+        this.contrasena = contrasena;
+        this.rol = rol;
+        this.gmail = gmail;
+
+        usuarioDAO.registrar(this);
+
+
+    }
+    public Usuario(int codigo, String userName, String contrasena, Rol rol, String gmail){
+        validarName(userName);
+        validarContracena(contrasena);
+        validarGmail(gmail);
+        validarRol(rol);
+        this.codigo=codigo;
         this.userName=userName;
         this.contrasena = contrasena;
         this.rol = rol;
@@ -59,6 +75,9 @@ public class Usuario {
     public String UserName() {
         return userName;
     }
+    public String gmail() {
+        return gmail;
+    }
 
     public String contrasena() {
         return contrasena;
@@ -68,15 +87,13 @@ public class Usuario {
         return rol;
     }
 
-    public String gmail(){
-        return gmail;
-    }
+
 
     public void autenticar(Usuario usuario){
         if(!existe(usuario.userName)){
             this.usuarioDAO.registrar(this);
         }else{
-            //throw new RuntimeException("El usuario ya existe");
+            throw new RuntimeException("El usuario ya existe");
         }
     }
 
@@ -86,5 +103,9 @@ public class Usuario {
 
     public String nombreRol() {
         return rol.toString();
+    }
+
+    public int id() {
+        return codigo;
     }
 }

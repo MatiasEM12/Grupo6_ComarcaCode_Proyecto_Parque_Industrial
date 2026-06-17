@@ -14,20 +14,17 @@ import database.DAOs.EmpresaDAO;
 public class EmpresaDAOJDBC implements EmpresaDAO{
 
     @Override
-    //le quitaria o agregaria rubro a la clase empresa porque no existe
+
     public void registrarEmpresa(Empresa empresa) {
-        final String SQL = "INSERT INTO Empresa(cuit, razonSocial, rubro, contacto, " +
-                "contactoRepresentante, esRadicada, dni_representante) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        final String SQL = "INSERT INTO Empresa(cuit, razonSocial, contacto, " +
+                "contactoRepresentante, radicada) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = ConnectionManager.getConnection();
              PreparedStatement st = conn.prepareStatement(SQL)) {
             st.setString(1, empresa.cuit());
             st.setString(2, empresa.razonSocial());
-            st.setString(3, "todabia no existe rubro");
-            st.setString(4, empresa.contacto());
-            st.setString(5, empresa.contactoRepresentante());
-            st.setBoolean(6, empresa.esRadicada());
-            //abria que ponerle al usuario dni o que se estienda enves de usuario a reprecentanteEmpresa
-            st.setString(7, empresa.representante().dni());
+            st.setString(3, empresa.contacto());
+            st.setString(4, empresa.contactoRepresentante());
+            st.setBoolean(5, empresa.esRadicada());
             int fila = st.executeUpdate();
             if (fila<=0){
                 throw new RuntimeException("Error al registrar usuario");
@@ -39,6 +36,53 @@ public class EmpresaDAOJDBC implements EmpresaDAO{
 
     @Override
     public void actualizar(EmpresaDTO empresa) {
+        final String SQL = "UPDATE Empresa SET razonSocial = ?, contacto = ?, " +
+                        "contactoRepresentante = ?, radicada = ? WHERE cuit = ?";
 
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+            st.setString(1, empresa.getRazonSocial());
+            st.setString(2, empresa.getContacto());
+            st.setString(3, empresa.getContactoRepresentante());
+            st.setBoolean(4, empresa.getRadicada());
+
+            st.setString(5, empresa.getCuit());
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró la empresa");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar empresa", e);
+        }
+    }
+    @Override
+    public void actualizarContacto(String cuit, String contacto, String contactoRepresentante) {
+
+        final String SQL = """
+            UPDATE empresa
+            SET contacto = ?,
+                contactoRepresentante = ?
+            WHERE cuit = ?
+            """;
+
+        try (Connection conn = ConnectionManager.getConnection();
+             PreparedStatement st = conn.prepareStatement(SQL)) {
+
+            st.setString(1, contacto);
+            st.setString(2, contactoRepresentante);
+            st.setString(3, cuit);
+
+            int fila = st.executeUpdate();
+
+            if (fila <= 0) {
+                throw new RuntimeException("No se encontró la empresa");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al actualizar contacto de empresa", e);
+        }
     }
 }

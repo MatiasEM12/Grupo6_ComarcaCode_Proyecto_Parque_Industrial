@@ -13,14 +13,14 @@ public class Empresa {
     private String contacto;
     private String contactoRepresentante;
     private Boolean radicada;
-    private Lote lote;
+
     private ArrayList<SolicitudRadicacion> solicitudes=new ArrayList<>();;
     private ArrayList<ProyectoProductivo> proyectos=new ArrayList<>();;
     private ArrayList<RepresentanteEmpresa> representantes= new ArrayList<>();
 
     private EmpresaDAO empresaDAO= new EmpresaDAOJDBC();
 
-    public Empresa(String cuit, String razonSocial, String contacto, String contactoRepresentante, Boolean radicada, Lote lote,RepresentanteEmpresa representante) {
+    public Empresa(String cuit, String razonSocial, String contacto, String contactoRepresentante, Boolean radicada,RepresentanteEmpresa representante) {
 
         validarObligatorio(cuit, "El CUIT es obligatorio");
 
@@ -36,9 +36,27 @@ public class Empresa {
         this.contacto = contacto;
         this.contactoRepresentante = contactoRepresentante;
         this.radicada = radicada;
-        this.lote = lote;
-    }
 
+
+    }
+    public Empresa(String cuit, String razonSocial,
+                   String contacto, String contactoRepresentante,
+                   Boolean radicada,Boolean persistir) {
+
+        validarObligatorio(cuit, "El CUIT es obligatorio");
+        validarObligatorio(razonSocial, "La razón social es obligatoria");
+        validarObligatorio(contacto, "El contacto es obligatorio");
+        validarObligatorio(contactoRepresentante, "El contacto del representante es obligatorio");
+
+        this.cuit = cuit;
+        this.razonSocial = razonSocial;
+        this.contacto = contacto;
+        this.contactoRepresentante = contactoRepresentante;
+        this.radicada = radicada;
+        if(persistir) {
+            empresaDAO.registrarEmpresa(this);
+        }
+    }
     public void agregarRepresentante(RepresentanteEmpresa representante) {
 
         if (representante == null) {
@@ -52,16 +70,7 @@ public class Empresa {
         representantes.add(representante);
     }
 
-    public void asignarLote(Lote lote) {
 
-        if (lote == null) {
-            throw new RuntimeException(
-                    "El lote no puede ser nulo"
-            );
-        }
-
-        this.lote = lote;
-    }
 
     public void guardarEmpresa(EmpresaCargar empresa) {
 
@@ -117,10 +126,6 @@ public class Empresa {
 
     public Boolean esRadicada() {
         return radicada;
-    }
-
-    public Lote lote() {
-        return lote;
     }
 
     public RepresentanteEmpresa representante() {

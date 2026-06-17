@@ -8,7 +8,7 @@
     // SI NO HAY SESIÓN
     if(usuario == null){
 
-        response.sendRedirect(request.getContextPath()+ "/perfiles"
+        response.sendRedirect(request.getContextPath()+ "/login"
         );
 
         return;
@@ -17,7 +17,7 @@
     // SI NO ES REPRESENTANTE
     if(!usuario.nombreRol().equals("organismo_publico")){
 
-        response.sendRedirect( request.getContextPath()+ "/perfiles"
+        response.sendRedirect( request.getContextPath()+ "/login"
         );
 
         return;
@@ -73,20 +73,22 @@
         <ul class="nav__ul">
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/perfil" class="nav__link">
+                <a href="${pageContext.request.contextPath}/perfilOrganismo" class="nav__link">
                     Perfil
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp" class="nav__link">
-                    Evaluaciones Técnicas
+                <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
+                   class="nav__link">
+                    Proyectos
                 </a>
             </li>
 
             <li class="nav__item">
-                <a href="${pageContext.request.contextPath}/reporte.jsp" class="nav__link">
-                    Reportes
+                <a href="${pageContext.request.contextPath}/informacionParquePublico"
+                   class="nav__link">
+                    Información del parque
                 </a>
             </li>
 
@@ -115,29 +117,31 @@
 
     <div class="main__container">
 
-        <a href="${pageContext.request.contextPath}/evaluacionTecnica.jsp"
-           class="card">
-
-            <div class="card__content">
-                <h2>Evaluaciones Tecnicas</h2>
-                <p>Generar reporte sobre el proyecto productivo del parque.</p>
-            </div>
-
-        </a>
-
-        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion.jsp"
+        <a href="${pageContext.request.contextPath}/proyectosEnEjecucion"
            class="card">
             <div class="card__content">
+
                 <h2>Proyectos en ejecución</h2>
-                <p>Consultar información sobre los proyectos productivos del parque.</p>
+
+                <p>
+                    Consultar proyectos productivos y registrar
+                    evaluaciones técnicas.
+                </p>
+
             </div>
         </a>
 
-        <a href="${pageContext.request.contextPath}/reporte.jsp"
+        <a href="${pageContext.request.contextPath}/informacionParquePublico"
            class="card">
             <div class="card__content">
-                <h2>Reportes</h2>
-                <p>Consultar reportes sobre actividad industrial y desarrollo productivo.</p>
+
+                <h2>Información del parque</h2>
+
+                <p>
+                    Consultar el reporte completo del desarrollo productivo,
+                    actividad industrial y proyectos en ejecución.
+                </p>
+
             </div>
         </a>
 
@@ -150,15 +154,22 @@
     <div class="div__footer--container">
 
         <p>Parque Industrial</p>
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Explicabo qui laborum, hic corporis odit porro, adipisci
-        minus harum aut maiores odio. Totam, autem. Obcaecati,
-        molestias ullam voluptas harum vel corporis.
-
+         Comprometidos con el crecimiento productivo, la innovación y el desarrollo sostenible de la región. © 2026 Todos los derechos reservados.
     </div>
 
 </footer>
+<%
+    String error = (String) request.getAttribute("error");
 
+    if (error != null) {
+%>
+
+<script>
+    alert("<%= error %>");
+</script>
+
+<%
+    }
+%>
 </body>
 </html>

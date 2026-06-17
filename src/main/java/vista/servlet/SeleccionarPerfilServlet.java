@@ -4,6 +4,7 @@ import database.persistencia.ParqueIndustrial;
 import database.persistencia.SistemaParqueIndustrial;
 import model.Usuario;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,45 +18,40 @@ import java.util.Map;
 public class SeleccionarPerfilServlet extends HttpServlet {
 
         @Override
-        protected void doPost(HttpServletRequest request,
-                              HttpServletResponse response)
-                throws  IOException {
-            SistemaParqueIndustrial sistema =
-                    new ParqueIndustrial();
-          /*  Sistema sistema =
-                    (Sistema) getServletContext()
-                            .getAttribute("sistema");
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-           */
+            try {
+                SistemaParqueIndustrial sistema = new ParqueIndustrial();
 
-            String usuarioUsername =request.getParameter("username");
 
-            Usuario usuario =
-                    sistema.obtenerUsuarioPorUsername(
-                            usuarioUsername
-                    );
+                String usuarioUsername = request.getParameter("username");
 
-            HttpSession session =
-                    request.getSession();
+                Usuario usuario = sistema.obtenerUsuarioPorUsername(usuarioUsername);
 
-            session.setAttribute(
-                    "usuarioLogueado",
-                    usuario
-            );
+                HttpSession session = request.getSession();
 
-            String pagina = paginaSegunRol(usuario.nombreRol());
+                session.setAttribute("usuarioLogueado", usuario);
 
-            response.sendRedirect(request.getContextPath() + pagina);
+                String pagina = paginaSegunRol(usuario.nombreRol());
+
+                response.sendRedirect(request.getContextPath() + pagina);
+            }catch (Exception e) {
+
+                request.setAttribute("error", e.getMessage());
+
+                request.getRequestDispatcher("/login.jsp")
+                        .forward(request, response);
+            }
         }
 
-    private String paginaSegunRol(String rol) {
-        Map<String, String> paginasPorRol = new HashMap<>();
+        private String paginaSegunRol(String rol) {
+            Map<String, String> paginasPorRol = new HashMap<>();
 
-        paginasPorRol.put("representante", "/mainRepresentante.jsp");
-        paginasPorRol.put("organismo_publico", "/mainOrganismoPublico.jsp");
-        paginasPorRol.put("administrador", "/mainAdm.jsp");
+            paginasPorRol.put("representante", "/mainRepresentante.jsp");
+            paginasPorRol.put("organismo_publico", "/mainOrganismoPublico.jsp");
+            paginasPorRol.put("administrador", "/mainAdm.jsp");
 
-        return paginasPorRol.getOrDefault(rol, "/login.jsp");
-    }
+            return paginasPorRol.getOrDefault(rol, "/login.jsp");
+        }
 }
 
